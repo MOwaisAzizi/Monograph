@@ -1,0 +1,422 @@
+[
+  {
+    "translation": {
+      "en": {
+        "title": "Kabul Garden Restaurant",
+        "description": "Authentic Afghan cuisine in the heart of Herat"
+      },
+      "fa": {
+        "title": "رستوران کابل گاردن",
+        "description": "غذای اصیل افغانی در قلب هرات"
+      },
+      "ps": {
+        "title": "Kabul Garden Restaurant",
+        "description": "Authentic Afghan cuisine in the heart of Herat"
+      }
+    },
+    "location": {
+      "coordinates": {
+        "lat": 34.3531,
+        "lng": 62.207
+      },
+      "address": {
+        "en": "Jadah Maiwand, Herat",
+        "fa": "جاده میوند، هرات",
+        "ps": "Jadah Maiwand, Herat"
+      }
+    },
+    "city": "herat",
+    "media": [],
+    "social": {
+      "instagram": "@kabul_garden_restaurant"
+    },
+    "businessType": "restaurant",
+    "phone": [
+      "+93700111001"
+    ],
+    "email": "kabul.garden.restaur@example.com",
+    "status": "confirmed",
+    "rating": 4.4,
+    "ratingsCount": 71,
+    "isFeatured": false,
+    "owner": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Pamir Grill House",
+        "description": "Premium grilled meats and traditional dishes"
+      },
+      "fa": {
+        "title": "خانه گریل پامیر",
+        "description": "گوشت کبابی و غذاهای سنتی"
+      },
+      "ps": {
+        "title": "Pamir Grill House",
+        "description": "Premium grilled meats and traditional dishes"
+      }
+    },
+    "location": {
+      "coordinates": {
+        "lat": 34.354,
+        "lng": 62.201
+      },
+      "address": {
+        "en": "Shahr-e-Naw, Herat",
+        "fa": "شهرنو، هرات",
+        "ps": "Shahr-e-Naw, Herat"
+      }
+    },
+    "city": "herat",
+    "media": [],
+    "social": {
+      "instagram": "@pamir_grill_house"
+    },
+    "businessType": "restaurant",
+    "phone": [
+      "+93700111002"
+    ],
+    "email": "pamir.grill.house@example.com",
+    "status": "confirmed",
+    "rating": 4.1,
+    "ratingsCount": 177,
+    "isFeatured": true,
+    "owner": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Blue Sky Café",
+        "description": "Cozy café with specialty coffee and pastries"
+      },
+      "fa": {
+        "title": "کافه آسمان آبی",
+        "description": "کافه دنجی با قهوه تخصصی و شیرینی"
+      },
+      "ps": {
+        "title": "Blue Sky Café",
+        "description": "Cozy café with specialty coffee and pastries"
+      }
+    },
+    "location": {
+      "coordinates": {
+        "lat": 34.356,
+        "lng": 62.199
+      },
+      "address": {
+        "en": "Taimani St, Herat",
+        "fa": "خیابان تیمانی، هرات",
+        "ps": "Taimani St, Herat"
+      }
+    },
+    "city": "herat",
+    "media": [],
+    "social": {
+      "instagram": "@blue_sky_café"
+    },
+    "businessType": "cafe",
+    "phone": [
+      "+93700222001"
+    ],
+    "email": "blue.sky.café@example.com",
+    "status": "confirmed",
+    "rating": 4.3,
+    "ratingsCount": 55,
+    "isFeatured": true,
+    "owner": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Silk Road Coffee",
+        "description": "Where ancient routes meet modern brews"
+      },
+      "fa": {
+        "title": "قهوه جاده ابریشم",
+        "description": "جایی که مسیرهای قدیمی با قهوه مدرن ملاقات می‌کنند"
+      },
+      "ps": {
+        "title": "Silk Road Coffee",
+        "description": "Where ancient routes meet modern brews"
+      }
+    },
+    "location": {
+      "coordinates": {
+        "lat": 34.3515,
+        "lng": 62.21
+      },
+      "address": {
+        "en": "Darwaza-e-Khosh, Herat",
+        "fa": "دروازه خوش، هرات",
+        "ps": "Darwaza-e-Khosh, Herat"
+      }
+    },
+    "city": "herat",
+    "media": [],
+    "social": {
+      "instagram": "@silk_road_coffee"
+    },
+    "businessType": "cafe",
+    "phone": [
+      "+93700222002"
+    ],
+    "email": "silk.road.coffee@example.com",
+    "status": "confirmed",
+    "rating": 4.1,
+    "ratingsCount": 59,
+    "isFeatured": true,
+    "owner": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Al-Shifa Pharmacy",
+        "description": "Your trusted neighborhood pharmacy"
+      },
+      "fa": {
+        "title": "داروخانه الشفاء",
+        "description": "داروخانه مورد اعتماد محله شما"
+      },
+      "ps": {
+        "title": "Al-Shifa Pharmacy",
+        "description": "Your trusted neighborhood pharmacy"
+      }
+    },
+    "location": {
+      "coordinates": {
+        "lat": 34.349,
+        "lng": 62.205
+      },
+      "address": {
+        "en": "Hospital Road, Herat",
+        "fa": "جاده شفاخانه، هرات",
+        "ps": "Hospital Road, Herat"
+      }
+    },
+    "city": "herat",
+    "media": [],
+    "social": {
+      "instagram": "@al-shifa_pharmacy"
+    },
+    "businessType": "pharmacy",
+    "phone": [
+      "+93700333001"
+    ],
+    "email": "al-shifa.pharmacy@example.com",
+    "status": "confirmed",
+    "rating": 3.6,
+    "ratingsCount": 268,
+    "isFeatured": false,
+    "owner": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Sehat Pharmacy",
+        "description": "Health and wellness products for every need"
+      },
+      "fa": {
+        "title": "داروخانه صحت",
+        "description": "محصولات سلامتی برای هر نیاز"
+      },
+      "ps": {
+        "title": "Sehat Pharmacy",
+        "description": "Health and wellness products for every need"
+      }
+    },
+    "location": {
+      "coordinates": {
+        "lat": 34.3505,
+        "lng": 62.208
+      },
+      "address": {
+        "en": "Bazaar District, Herat",
+        "fa": "ناحیه بازار، هرات",
+        "ps": "Bazaar District, Herat"
+      }
+    },
+    "city": "herat",
+    "media": [],
+    "social": {
+      "instagram": "@sehat_pharmacy"
+    },
+    "businessType": "pharmacy",
+    "phone": [
+      "+93700333002"
+    ],
+    "email": "sehat.pharmacy@example.com",
+    "status": "confirmed",
+    "rating": 5.0,
+    "ratingsCount": 170,
+    "isFeatured": false,
+    "owner": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Grand Herat Hotel",
+        "description": "Luxury stays in the cultural capital of Afghanistan"
+      },
+      "fa": {
+        "title": "هوتل گرند هرات",
+        "description": "اقامت لوکس در پایتخت فرهنگی افغانستان"
+      },
+      "ps": {
+        "title": "Grand Herat Hotel",
+        "description": "Luxury stays in the cultural capital of Afghanistan"
+      }
+    },
+    "location": {
+      "coordinates": {
+        "lat": 34.348,
+        "lng": 62.196
+      },
+      "address": {
+        "en": "Pashtunistan Sq, Herat",
+        "fa": "میدان پشتونستان، هرات",
+        "ps": "Pashtunistan Sq, Herat"
+      }
+    },
+    "city": "herat",
+    "media": [],
+    "social": {
+      "instagram": "@grand_herat_hotel"
+    },
+    "businessType": "hotel",
+    "phone": [
+      "+93700444001"
+    ],
+    "email": "grand.herat.hotel@example.com",
+    "status": "confirmed",
+    "rating": 4.1,
+    "ratingsCount": 119,
+    "isFeatured": false,
+    "owner": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Silk Road Guesthouse",
+        "description": "Comfortable and affordable accommodation in Herat"
+      },
+      "fa": {
+        "title": "مهمانخانه جاده ابریشم",
+        "description": "اقامت راحت و مقرون‌به‌صرفه در هرات"
+      },
+      "ps": {
+        "title": "Silk Road Guesthouse",
+        "description": "Comfortable and affordable accommodation in Herat"
+      }
+    },
+    "location": {
+      "coordinates": {
+        "lat": 34.3555,
+        "lng": 62.203
+      },
+      "address": {
+        "en": "Ziyarat District, Herat",
+        "fa": "ناحیه زیارت، هرات",
+        "ps": "Ziyarat District, Herat"
+      }
+    },
+    "city": "herat",
+    "media": [],
+    "social": {
+      "instagram": "@silk_road_guesthouse"
+    },
+    "businessType": "hotel",
+    "phone": [
+      "+93700444002"
+    ],
+    "email": "silk.road.guesthouse@example.com",
+    "status": "confirmed",
+    "rating": 3.7,
+    "ratingsCount": 84,
+    "isFeatured": false,
+    "owner": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Iron Body Gym",
+        "description": "State-of-the-art fitness equipment and training"
+      },
+      "fa": {
+        "title": "باشگاه آیرون بادی",
+        "description": "تجهیزات پیشرفته تناسب اندام و آموزش"
+      },
+      "ps": {
+        "title": "Iron Body Gym",
+        "description": "State-of-the-art fitness equipment and training"
+      }
+    },
+    "location": {
+      "coordinates": {
+        "lat": 34.357,
+        "lng": 62.197
+      },
+      "address": {
+        "en": "New City, Herat",
+        "fa": "شهر جدید، هرات",
+        "ps": "New City, Herat"
+      }
+    },
+    "city": "herat",
+    "media": [],
+    "social": {
+      "instagram": "@iron_body_gym"
+    },
+    "businessType": "gym",
+    "phone": [
+      "+93700555001"
+    ],
+    "email": "iron.body.gym@example.com",
+    "status": "confirmed",
+    "rating": 4.8,
+    "ratingsCount": 38,
+    "isFeatured": false,
+    "owner": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Fitness Zone",
+        "description": "Your complete health and fitness destination"
+      },
+      "fa": {
+        "title": "فیتنس زون",
+        "description": "مقصد کامل سلامتی و تناسب اندام شما"
+      },
+      "ps": {
+        "title": "Fitness Zone",
+        "description": "Your complete health and fitness destination"
+      }
+    },
+    "location": {
+      "coordinates": {
+        "lat": 34.3488,
+        "lng": 62.212
+      },
+      "address": {
+        "en": "Chaharsad Kota, Herat",
+        "fa": "چهارصدکوته، هرات",
+        "ps": "Chaharsad Kota, Herat"
+      }
+    },
+    "city": "herat",
+    "media": [],
+    "social": {
+      "instagram": "@fitness_zone"
+    },
+    "businessType": "gym",
+    "phone": [
+      "+93700555002"
+    ],
+    "email": "fitness.zone@example.com",
+    "status": "confirmed",
+    "rating": 5.0,
+    "ratingsCount": 220,
+    "isFeatured": true,
+    "owner": null
+  }
+]

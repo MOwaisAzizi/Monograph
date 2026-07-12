@@ -1,0 +1,28 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+
+# Expo / React Native
+.expo/
+dist/
+web-build/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Build outputs
+build/
+android/
+ios/
+
+# Editor / OS
+.vscode/
+.DS_Store
+Thumbs.db
