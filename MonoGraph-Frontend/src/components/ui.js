@@ -4,11 +4,18 @@ import { Ionicons } from '@expo/vector-icons';
 
 export function ScreenShell({ children, scroll = true, contentClassName = '', backgroundClassName = 'bg-[#123534]' }) {
     const content = scroll ? (
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName={contentClassName}>
-            {children}
+        <ScrollView
+            className="flex-1"
+            style={{ flex: 1 }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            nestedScrollEnabled
+            contentContainerStyle={{ flexGrow: 1 }}
+        >
+            <View className={contentClassName}>{children}</View>
         </ScrollView>
     ) : (
-        <View className={contentClassName}>{children}</View>
+        <View className={`flex-1 ${contentClassName}`}>{children}</View>
     );
 
     return <SafeAreaView className={`flex-1 ${backgroundClassName}`}>{content}</SafeAreaView>;

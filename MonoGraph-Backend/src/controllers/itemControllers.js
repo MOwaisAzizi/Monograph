@@ -3,11 +3,11 @@ import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 
 export const createItem = catchAsync(async (req, res, next) => {
-    const item = await Item.create(req.body);
+    const itemDoc = await Item.create(req.body);
 
     res.status(201).json({
         status: "success",
-        data: { item },
+        data: { item: itemDoc },
     });
 });
 
@@ -30,23 +30,23 @@ export const getAllItems = catchAsync(async (req, res, next) => {
 });
 
 export const getItem = catchAsync(async (req, res, next) => {
-    const Item = await Item.findById(req.params.id)
+    const itemDoc = await Item.findById(req.params.id)
         .populate("business", "translation")
         .populate("category", "translation");
 
-    if (!Item) {
-        return next(new AppError("No Item found with that ID", 404));
+    if (!itemDoc) {
+        return next(new AppError("No item found with that ID", 404));
     }
 
     res.status(200).json({
         status: "success",
-        data: { Item },
+        data: { itemDoc },
     });
 });
 
 
 export const updateItem = catchAsync(async (req, res, next) => {
-    const Item = await Item.findByIdAndUpdate(
+    const itemDoc = await item.findByIdAndUpdate(
         req.params.id,
         req.body,
         {
@@ -55,21 +55,21 @@ export const updateItem = catchAsync(async (req, res, next) => {
         }
     );
 
-    if (!Item) {
-        return next(new AppError("No Item found with that ID", 404));
+    if (!itemDoc) {
+        return next(new AppError("No item found with that ID", 404));
     }
 
     res.status(200).json({
         status: "success",
-        data: { Item },
+        data: { itemDoc },
     });
 });
 
 export const deleteItem = catchAsync(async (req, res, next) => {
-    const Item = await Item.findByIdAndDelete(req.params.id);
+    const itemDoc = await item.findByIdAndDelete(req.params.id);
 
-    if (!Item) {
-        return next(new AppError("No Item found with that ID", 404));
+    if (!itemDoc) {
+        return next(new AppError("No item found with that ID", 404));
     }
 
     res.status(204).json({

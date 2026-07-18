@@ -1,5 +1,6 @@
 import { catchAsync } from "../utils/catchAsync.js";
 import Items from "../models/itemModel.js";
+import Business from "../models/businessModel.js";
 
 export const getHomepageData = catchAsync(async (req, res) => {
 
@@ -20,7 +21,8 @@ export const getHomepageData = catchAsync(async (req, res) => {
       Items.find({ isFeatured: true })
         .limit(6).select('media translation createdAt location rating'),
 
-      Bussiness.find()
+      Business
+      .find()
         .sort({ location: 1 })
         .limit(6).select('media translation createdAt location rating')
     ]);

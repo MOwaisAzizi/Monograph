@@ -11,10 +11,16 @@ import categoryRoutes from './routes/categoryRoutes.js';
 import AppError from './utils/appError.js';
 import globalErrorHandler from './middleware/globalErrorHandler.js'
 const app = express();
+import cors from 'cors';
+
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+app.use(cors({
+  origin: 'http://localhost:8081',
+  credentials: true,
+}));
 
 app.use(express.json());
 

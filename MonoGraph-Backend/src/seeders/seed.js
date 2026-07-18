@@ -15,8 +15,8 @@ const DB = 'mongodb://127.0.0.1:27017/fee';
 const dataPath = path.join(__dirname, '../../data/database/');
 
 const fileModelMap = {
-  // 'businesses.json': Business,
-  'items.json': Item,
+  'businesses.json': Business,
+  // 'items.json': Item,
   // 'categories.json': Category,
 };
 

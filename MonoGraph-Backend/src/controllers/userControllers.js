@@ -80,13 +80,13 @@ export const refreshToken = catchAsync(async (req, res, next) => {
 });
 
 export const getUserProfile = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  // const user = await User.findById(req.user.id);
 
-  if (!user) return next(new AppError("User not found", 404));
+  // if (!user) return next(new AppError("User not found", 404));
 
   res.status(200).json({
     status: "success",
-    data: { user },
+    data: { },
   });
 });
 
