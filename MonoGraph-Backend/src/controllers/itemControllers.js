@@ -1,9 +1,26 @@
 import Item from "../models/itemModel.js";
 import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
+import Business from '../models/businessModel.js';
 
 export const createItem = catchAsync(async (req, res, next) => {
-    const itemDoc = await Item.create(req.body);
+    if (!req.body.business) {
+        return next(new AppError("Business is required to create an item", 400));
+    }
+
+    const business = await Business.findById(req.body.business);
+    if (!business) {
+        return next(new AppError("No business found with that ID", 404));
+    }
+
+    if (!business.owner || business.owner.toString() !== req.user._id.toString()) {
+        return next(new AppError("You can only add items to your own business", 403));
+    }
+
+    const itemDoc = await Item.create({
+        ...req.body,
+        owner: req.user._id,
+    });
 
     res.status(201).json({
         status: "success",
@@ -46,7 +63,7 @@ export const getItem = catchAsync(async (req, res, next) => {
 
 
 export const updateItem = catchAsync(async (req, res, next) => {
-    const itemDoc = await item.findByIdAndUpdate(
+    const itemDoc = await Item.findByIdAndUpdate(
         req.params.id,
         req.body,
         {
@@ -66,7 +83,7 @@ export const updateItem = catchAsync(async (req, res, next) => {
 });
 
 export const deleteItem = catchAsync(async (req, res, next) => {
-    const itemDoc = await item.findByIdAndDelete(req.params.id);
+    const itemDoc = await Item.findByIdAndDelete(req.params.id);
 
     if (!itemDoc) {
         return next(new AppError("No item found with that ID", 404));

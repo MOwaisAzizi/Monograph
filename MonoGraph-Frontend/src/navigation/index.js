@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Pressable, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,6 +14,7 @@ import FavoritesScreen from '../screens/FavoritesScreen';
 import ShopDetailScreen from '../screens/ShopDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import AddListingScreen from '../screens/AddListingScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -59,12 +61,44 @@ function MainTabs() {
 
 export default function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="MainTabs" component={MainTabs} />
-      <Stack.Screen name="Product" component={ProductScreen} />
-      <Stack.Screen name="ShopDetail" component={ShopDetailScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="MainTabs"
+        component={MainTabs}
+        options={({ navigation }) => ({
+          title: 'MonoGraph',
+          headerStyle: { backgroundColor: '#eef5f5' },
+          headerTitleStyle: { color: '#203030', fontWeight: '700' },
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('AddListing')}
+              style={{
+                backgroundColor: '#0f6b75',
+                paddingHorizontal: 12,
+                paddingVertical: 6,
+                borderRadius: 999,
+              }}
+            >
+              <Text style={{ color: '#fff', fontWeight: '600', fontSize: 12 }}>
+                Add Shop / Item
+              </Text>
+            </Pressable>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="AddListing"
+        component={AddListingScreen}
+        options={{
+          title: 'Add Business or Item',
+          headerStyle: { backgroundColor: '#eef5f5' },
+          headerTitleStyle: { color: '#203030', fontWeight: '700' },
+        }}
+      />
+      <Stack.Screen name="Product" component={ProductScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="ShopDetail" component={ShopDetailScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

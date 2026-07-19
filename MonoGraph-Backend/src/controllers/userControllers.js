@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
-import { hashPassword, isCorrectPassword } from "../utils/auth.js";
+import { isCorrectPassword } from "../utils/auth.js";
 import { signAccessToken, signRefreshToken, verifyRefreshToken } from "../utils/jwt.js";
 
 const sendTokens = (user) => {
@@ -21,12 +21,10 @@ export const signup = catchAsync(async (req, res, next) => {
   const existingUser = await User.findOne({ email });
   if (existingUser) return next(new AppError("Email already in use", 400));
 
-  const hashedPassword = await hashPassword(password);
-
   const user = await User.create({
     name,
     email,
-    password: hashedPassword,
+    password,
   });
 
   const tokens = sendTokens(user);
@@ -80,13 +78,13 @@ export const refreshToken = catchAsync(async (req, res, next) => {
 });
 
 export const getUserProfile = catchAsync(async (req, res, next) => {
-  // const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user.id);
 
-  // if (!user) return next(new AppError("User not found", 404));
+  if (!user) return next(new AppError("User not found", 404));
 
   res.status(200).json({
     status: "success",
-    data: { },
+    data: { user },
   });
 });
 

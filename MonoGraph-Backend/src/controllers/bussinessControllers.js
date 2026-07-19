@@ -3,7 +3,11 @@ import AppError from "../utils/appError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 
 export const createBusiness = catchAsync(async (req, res, next) => {
-  const business = await Business.create(req.body);
+  const business = await Business.create({
+    ...req.body,
+    owner: req.user._id,
+  });
+
   res.status(201).json({ status: "success", data: { business } });
 });
 
