@@ -23,10 +23,7 @@ export default function HomeScreen({ navigation }) {
         if (!mounted) {
           return;
         }
-        console.log('Home 🥩🍞response:', homeResponse?.data);
-        const payload = homeResponse?.data?.data || {};
-        const businessList = homeResponse?.data?.data?.businesses || [];
-
+console.log('------------------------------')
         setHomeData({
           cheapItems: (payload.cheapItems || []).map(normalizeItem),
           highRatedItems: (payload.highRatedItems || []).map(normalizeItem),
@@ -59,23 +56,6 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ScreenShell  contentClassName="px-5 pb-6 pt-4">
-
-        {/* <View className="flex-row items-start justify-between"> */}
-          {/* <View className="flex-row items-center gap-3">
-            <View className="h-11 w-11 items-center justify-center rounded-2xl bg-[#0f6b75]">
-              <Text className="text-[18px] font-bold text-white">↗</Text>
-            </View>
-            <View>
-              <Text className="font-serif text-[28px] font-bold text-[#eff5f4]">Dokan</Text>
-              <Text className="mt-1 text-[12px] text-[#8fa5a5]">Secondhand marketplace — full screen set</Text>
-            </View>
-          </View> */}
-
-          {/* <View className="flex-row gap-2">
-            <IconCircleButton icon="location-outline" />
-            <IconCircleButton icon="search" onPress={() => navigation.navigate('Search')} />
-          </View>
-        </View> */}
 
         <View className="mt-8 space-y-7">
           {sections.map((section) => (

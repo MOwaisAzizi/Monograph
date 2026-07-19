@@ -7,7 +7,7 @@ import userRoutes from './routes/userRoutes.js';
 import homeRoute from './routes/homeRoutes.js';
 import itemRoutes from './routes/itemRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
-// import searchRoutes from './routes/searchRoutes.js';
+import searchRoutes from './routes/searchRoutes.js';
 import AppError from './utils/appError.js';
 import globalErrorHandler from './middleware/globalErrorHandler.js'
 const app = express();
@@ -29,7 +29,7 @@ app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/home', homeRoute);
 app.use('/api/v1/item', itemRoutes);
 app.use('/api/v1/category', categoryRoutes);
-// app.use('/api/v1/search', searchRoutes);
+app.use('/api/v1/search', searchRoutes);
 
 app.use((req, res, next) => {
   return next(new AppError(`Cannot find ${req.originalUrl} on this server!`, 404));

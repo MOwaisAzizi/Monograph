@@ -21,8 +21,6 @@ function ItemImage({ image, title, compact = false }) {
 }
 
 export function ItemCard({ item, onPress, compact = false }) {
-    console.log(item)
-    console.log(item.price)
     return (
         <Pressable
             onPress={onPress}

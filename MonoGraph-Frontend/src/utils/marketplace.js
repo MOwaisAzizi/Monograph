@@ -44,8 +44,7 @@ export const normalizeItem = (item = {}) => {
     const translation = pickTranslation(item.translation);
     const businessTranslation = pickTranslation(item.business?.translation || item.business?.translation?.en || item.business?.translation);
     const categoryTranslation = pickTranslation(item.category?.translation || item.category?.translation?.en || item.category?.translation);
-console.log('item')
-console.log(item)
+
     return {
         id: item._id || item.id,
         title: translation.title,
