@@ -37,7 +37,7 @@ export default function ShopDetailScreen({ route, navigation }) {
     }, [id]);
 
     return (
-        <ScreenShell scroll={false} contentClassName="flex-1 pb-6">
+        <ScreenShell scroll={true} contentClassName="flex-1 pb-6">
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="px-5 pt-2">
                     <View className="h-56 rounded-[28px] bg-[#d6e3e2]">

@@ -31,7 +31,8 @@ export default function RegisterScreen({ navigation }) {
 
       const user = res?.data?.data?.user;
       const token = res?.data?.accessToken;
-
+console.log('user', user);
+console.log('token', token);
       if (!user || !token) {
         throw new Error('Missing auth payload');
       }
@@ -50,7 +51,7 @@ export default function RegisterScreen({ navigation }) {
   return (
     <ScreenShell contentClassName="px-5 pb-6 pt-4">
       <Text className="text-[20px] font-bold text-[#e9f1f0]">Register</Text>
-      <Text className="mt-1 text-[12px] text-[#99acac]">Create your account to list shops and items.</Text>
+      <Text className="mt-1 text-[12px] text-[#99acac]">Wellcome to Docan.</Text>
 
       <View className="mt-5 gap-3">
         <TextField placeholder="Full name" value={name} onChangeText={setName} />

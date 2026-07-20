@@ -18,7 +18,7 @@ export function ScreenShell({ children, scroll = true, contentClassName = '', ba
         <View className={`flex-1 ${contentClassName}`}>{children}</View>
     );
 
-    return <SafeAreaView className={`flex-1 ${backgroundClassName}`}>{content}</SafeAreaView>;
+    return <ScrollView className={`flex-1 ${backgroundClassName}`}>{content}</ScrollView>;
 }
 
 export function ScreenHeader({ title, subtitle, onBack, rightAction, rightIcon = 'search', align = 'left' }) {

@@ -5,24 +5,39 @@ import api from '../services/api';
 import { normalizeUser } from '../utils/marketplace';
 import { ActionPill, ScreenShell, SectionHeader, StatTile } from '../components/ui';
 import { ItemCard, TextRow } from '../components/cards';
+import { useSelector } from 'react-redux';
+import { logout } from '../store/slices/authSlice';
 
-export default function ProfileScreen() {
+
+export default function ProfileScreen({ navigation }) {
   const [profile, setProfile] = useState(null);
+  // console.log('user', user);
+const { user, token } = useSelector((state) => state.auth);
+  console.log('-----------------')
+  console.log(user)
+  console.log(token)
+
+  const logoutuser = () => {
+    logout();
+    setProfile(null);
+    console.log('Logged out');
+    console.log(user)
+  };
 
   useEffect(() => {
+    if(!token) return;
     api
-      .get('/user/profile')
+      .get('/user/profile',{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => setProfile(normalizeUser(res?.data?.data?.user || {})))
       .catch(() => {
-        setProfile({
-          name: 'Zahra Ahmadi',
-          email: 'zahra.ahmadi@gmail.com',
-          avatar: null,
-          phone: '',
-        });
+        setProfile(null);
       });
-  }, []);
-
+  }, [token]);
+console.log('profile', profile)
   return (
     <ScreenShell contentClassName="px-5 pb-6 pt-4">
       <View className="items-center">
@@ -35,6 +50,11 @@ export default function ProfileScreen() {
         <Text className="mt-1 text-[11px] text-[#91a7a6]">{profile?.email || 'Connected account'}</Text>
         <View className="mt-3">
           <ActionPill label="Edit profile" />
+        </View>
+        <View className="mt-2">
+          {
+            user ? <ActionPill label="Logout" onPress={logoutuser} /> : <ActionPill label="Login" onPress={() => navigation.navigate('Login')} />
+          }
         </View>
       </View>
 
