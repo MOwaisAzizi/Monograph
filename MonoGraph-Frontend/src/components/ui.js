@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, SafeAreaView, ScrollView, Text, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export function ScreenShell({ children, scroll = true, contentClassName = '', backgroundClassName = 'bg-[#123534]' }) {
+export function ScreenShell({ children, scroll = true, contentClassName = ''}) {
     const content = scroll ? (
         <ScrollView
             className="flex-1"
@@ -18,7 +18,7 @@ export function ScreenShell({ children, scroll = true, contentClassName = '', ba
         <View className={`flex-1 ${contentClassName}`}>{children}</View>
     );
 
-    return <ScrollView className={`flex-1 ${backgroundClassName}`}>{content}</ScrollView>;
+    return <ScrollView className={`flex-1`}>{content}</ScrollView>;
 }
 
 export function ScreenHeader({ title, subtitle, onBack, rightAction, rightIcon = 'search', align = 'left' }) {
