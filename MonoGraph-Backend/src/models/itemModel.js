@@ -25,7 +25,6 @@ const itemSchema = new mongoose.Schema(
         media: [mediaSchema],
         city: { type: String, default: "herat" },
         rating: { type: Number, min: 0, max: 5, default: 0 },
-        ratingCount: { type: Number, default: 0 },
         isFeatured: { type: Boolean, default: false },
 
         business: {

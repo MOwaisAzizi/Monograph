@@ -3,7 +3,7 @@ import Items from "../models/itemModel.js";
 import Business from "../models/businessModel.js";
 
 export const getHomepageData = catchAsync(async (req, res) => {
-
+// console.log('🥨🥐🍞🍞🍞')
   const [newItems, cheapItems, highRatedItems, nearestItems, nearestShops] =
     await Promise.all([
       Items.find()
@@ -18,7 +18,7 @@ export const getHomepageData = catchAsync(async (req, res) => {
         .sort({ rating: -1 })
         .limit(6).select('media translation createdAt location rating'),
 
-      Items.find({ isFeatured: true })
+      Items.find().sort({ rating: -1})
         .limit(6).select('media translation createdAt location rating'),
 
       Business
@@ -26,7 +26,8 @@ export const getHomepageData = catchAsync(async (req, res) => {
         .sort({ location: 1 })
         .limit(6).select('media translation createdAt location rating')
     ]);
-
+console.log('🥨🥐🍞🍞🍞')
+// console.log(nearestItems)
   res.status(200).json({
     status: "success",
     data: {

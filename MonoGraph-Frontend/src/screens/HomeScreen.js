@@ -1,28 +1,45 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, SectionList, Text, View } from 'react-native';
 import api from '../services/api';
 import { normalizeBusiness, normalizeItem } from '../utils/marketplace';
 import { IconCircleButton, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
+/**
+ * Turns raw category API objects into the shape the filter row renders.
+ * Picks the label for the given language, falling back to English if
+ * missing — handles both a nested `{ title }` per language (matching the
+ * confirmed multipleFields shape) and a flat string per language, since
+ * Category's `singleField` shape hasn't been confirmed against the schema
+ * yet (see seed.js notes).
+ *
+ * @param {Array} categories - raw array from GET /categories
+ * @param {string} lang - 'en' | 'fa' | 'ps'
+ */
+export function normalizeCategoryFilters(categories = [], lang = 'en') {
+  return categories.map((cat) => {
+    const translation = cat.translation?.[lang] ?? cat.translation?.en ?? {};
+    const label =
+      typeof translation === 'string'
+        ? translation
+        : translation?.en?.title || cat.translation?.en?.title || '';
+console.log(cat)
+    return {
+  key: cat.translation?.en?.title || '',
+  label,
+  icon: cat.icon || 'pricetag',
+};
+  });
+}
 
-// Static category filter list (for now). Swap for backend-driven categories later.
-const CATEGORY_FILTERS = [
-  { key: 'all', label: 'All', icon: 'grid' },
-  { key: 'electronics', label: 'Electronics', icon: 'tv' },
-  { key: 'clothing', label: 'Clothing', icon: 'shirt' },
-  { key: 'furniture', label: 'Furniture', icon: 'armchair' },
-  { key: 'books', label: 'Books', icon: 'book' },
-  { key: 'kitchen', label: 'Kitchen', icon: 'utensils' },
-];
-
-function CategoryFilterRow({ activeKey, onSelect }) {
+function CategoryFilterRow({ categories, activeKey, onSelect }) {
   return (
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerClassName="px-1 gap-5"
     >
-      {CATEGORY_FILTERS.map((cat) => {
+      {categories.map((cat) => {
+        console.log(cat.key)
         const active = cat.key === activeKey;
         return (
           <View key={cat.key} className="items-center">
@@ -83,8 +100,10 @@ function HorizontalShopRow({ data, onPressShop }) {
   );
 }
 
-export default function HomeScreen({ navigation }) {
+
+export default function HomeScreen({ navigation, lang = 'en' }) {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [categories, setCategories] = useState([]);
   const [homeData, setHomeData] = useState({
     newItems: [],
     cheapItems: [],
@@ -102,7 +121,8 @@ export default function HomeScreen({ navigation }) {
         if (!mounted) {
           return;
         }
-
+console.log(homeResponse.data.data);
+console.log(homeResponse.data.data.nearestItems)
         setHomeData({
           cheapItems: (homeResponse.data.data.cheapItems || []).map(normalizeItem),
           highRatedItems: (homeResponse.data.data.highRatedItems || []).map(normalizeItem),
@@ -122,9 +142,34 @@ export default function HomeScreen({ navigation }) {
     };
   }, []);
 
+  useEffect(() => {
+    let mounted = true;
+
+    api
+      .get('/category')
+      .then((res) => {
+        if (!mounted) {
+          return;
+        }
+        const list = normalizeCategoryFilters(res.data.data.categories, lang);
+        // console.log('🌮🌮🌮🥪🥙🥙🥗🧀');
+        // console.log(list);
+        setCategories(list);
+      })
+      .catch(() => {
+        if (mounted) {
+          setCategories([]);
+        }
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, [lang]);
+console.log(categories);
   const sections = useMemo(
     () => [
-      { key: 'Popular', title: 'Popular', actionLabel: 'See all', data: homeData.newItems, type: 'item' },
+      { key: 'New Items', title: 'New Items', actionLabel: 'See all', data: homeData.newItems, type: 'item' },
       { key: 'Highly Rated', title: 'Highly Rated', actionLabel: 'See all', data: homeData.highRatedItems, type: 'item' },
       { key: 'Cheap', title: 'Cheap', actionLabel: 'See all', data: homeData.cheapItems, type: 'item' },
       { key: 'Near You', title: 'Near You', actionLabel: 'See all', data: homeData.nearestItems, type: 'item' },
@@ -132,12 +177,33 @@ export default function HomeScreen({ navigation }) {
     ],
     [homeData],
   );
-
+// console.log(sections);
   return (
     <ScreenShell contentClassName="px-5 pb-6 pt-4">
       {/* Static category filter row - scrolls horizontally */}
       <View className="mt-2">
-        <CategoryFilterRow activeKey={activeCategory} onSelect={setActiveCategory} />
+
+
+<CategoryFilterRow
+  categories={categories}
+  activeKey={activeCategory}
+  onSelect={(categoryKey) => {
+    setActiveCategory(categoryKey);
+
+    const category = categories.find(
+      (cat) => cat.key === categoryKey
+    );
+
+    if (!category) return;
+
+    navigation.navigate('Search', {
+      search: '',
+      category: category.key,
+    });
+
+  }}
+/>
+
       </View>
 
       {/* Vertically scrolling list of sections, each scrolling horizontally */}

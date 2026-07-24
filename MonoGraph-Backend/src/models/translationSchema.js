@@ -1,9 +1,15 @@
 import { Schema } from 'mongoose';
 export const singleField = new Schema(
   {
-    en: { type: String },
-    fa: { type: String },
-    ps: { type: String },
+en: {
+      title: { type: String, required: [true, 'Field title is required'] },
+    },
+    fa: {
+      title: { type: String, required: [true, 'Field title is required'] },
+    },
+    ps: {
+      title: { type: String, required: [true, 'Field title is required'] },
+    },
   },
   { _id: false },
 );

@@ -1,82 +1,137 @@
 [
   {
     "translation": {
-      "en": "Main Dishes",
-      "fa": "غذاهای اصلی",
-      "ps": "Main Dishes"
+      "en": { "title": "Phones & Tablets" },
+      "fa": { "title": "موبایل و تبلت" },
+      "ps": { "title": "موبایل او ټابلېټ" }
     },
-    "business": "6a3240ce6b3faaf498a48abb"
+    "business": "6a3240ce6b3faaf498a48ad0",
+    "icon": "phone-portrait"
   },
   {
     "translation": {
-      "en": "Drinks & Desserts",
-      "fa": "نوشیدنی و دسر",
-      "ps": "Drinks & Desserts"
+      "en": { "title": "Electronics" },
+      "fa": { "title": "لوازم برقی" },
+      "ps": { "title": "بریښنایي توکي" }
     },
-    "business": "6a3240ce6b3faaf498a48abc"
+    "business": "6a3240ce6b3faaf498a48ad1",
+    "icon": "tv"
   },
   {
     "translation": {
-      "en": "Hot Beverages",
-      "fa": "نوشیدنی‌های گرم",
-      "ps": "Hot Beverages"
+      "en": { "title": "Cars" },
+      "fa": { "title": "موتر" },
+      "ps": { "title": "موټر" }
     },
-    "business": "6a3240ce6b3faaf498a48abd"
+    "business": "6a3240ce6b3faaf498a48ad2",
+    "icon": "car-sport"
   },
   {
     "translation": {
-      "en": "Cold Beverages & Snacks",
-      "fa": "نوشیدنی سرد و اسنک",
-      "ps": "Cold Beverages & Snacks"
+      "en": { "title": "Motorbikes" },
+      "fa": { "title": "موتورسیکل" },
+      "ps": { "title": "موټرسایکل" }
     },
-    "business": "6a3240ce6b3faaf498a48abe"
+    "business": "6a3240ce6b3faaf498a48ad3",
+    "icon": "bicycle"
   },
   {
     "translation": {
-      "en": "Medicines",
-      "fa": "داروها",
-      "ps": "Medicines"
+      "en": { "title": "Bicycles" },
+      "fa": { "title": "بایسکل" },
+      "ps": { "title": "بایسکل" }
     },
-    "business": "6a3240ce6b3faaf498a48abf"
+    "business": "6a3240ce6b3faaf498a48ad4",
+    "icon": "bicycle-outline"
   },
   {
     "translation": {
-      "en": "Supplements & Topicals",
-      "fa": "مکمل‌ها و داروی موضعی",
-      "ps": "Supplements & Topicals"
+      "en": { "title": "Furniture" },
+      "fa": { "title": "مبلمان" },
+      "ps": { "title": "فرنیچر" }
     },
-    "business": "6a3240ce6b3faaf498a48ac0"
+    "business": "6a3240ce6b3faaf498a48ad5",
+    "icon": "bed"
   },
   {
     "translation": {
-      "en": "Rooms",
-      "fa": "اتاق‌ها",
-      "ps": "Rooms"
+      "en": { "title": "Clothing" },
+      "fa": { "title": "لباس" },
+      "ps": { "title": "کالي" }
     },
-    "business": "6a3240ce6b3faaf498a48ac1"
+    "business": "6a3240ce6b3faaf498a48ad6",
+    "icon": "shirt"
   },
   {
     "translation": {
-      "en": "Services",
-      "fa": "خدمات",
-      "ps": "Services"
+      "en": { "title": "Toys & Dolls" },
+      "fa": { "title": "اسباب‌بازی و عروسک" },
+      "ps": { "title": "بازیچې او لوبډکۍ" }
     },
-    "business": "6a3240ce6b3faaf498a48ac2"
+    "business": "6a3240ce6b3faaf498a48ad7",
+    "icon": "happy"
   },
   {
     "translation": {
-      "en": "Memberships",
-      "fa": "عضویت‌ها",
-      "ps": "Memberships"
+      "en": { "title": "Books & Stationery" },
+      "fa": { "title": "کتاب و لوازم‌التحریر" },
+      "ps": { "title": "کتابونه او د لیکلو توکي" }
     },
-    "business": "6a3240ce6b3faaf498a48ac3"
+    "business": "6a3240ce6b3faaf498a48ad8",
+    "icon": "book"
   },
   {
     "translation": {
-      "en": "Classes & Add-ons",
-      "fa": "کلاس‌ها و افزودنی‌ها",
-      "ps": "Classes & Add-ons"
+      "en": { "title": "Home & Kitchen" },
+      "fa": { "title": "لوازم خانه و آشپزخانه" },
+      "ps": { "title": "کورني او پخلنځي توکي" }
     },
-    "business": "6a3240ce6b3faaf498a48ac4"
+    "business": "6a3240ce6b3faaf498a48ad9",
+    "icon": "restaurant"
+  },
+  {
+    "translation": {
+      "en": { "title": "Kids & Baby" },
+      "fa": { "title": "کودک و نوزاد" },
+      "ps": { "title": "ماشومان او نوي زوکړي" }
+    },
+    "business": "6a3240ce6b3faaf498a48ada",
+    "icon": "body"
+  },
+  {
+    "translation": {
+      "en": { "title": "Sports & Outdoors" },
+      "fa": { "title": "ورزش و فضای باز" },
+      "ps": { "title": "ورزش او بهرنۍ فعالیتونه" }
+    },
+    "business": "6a3240ce6b3faaf498a48adb",
+    "icon": "football"
+  },
+  {
+    "translation": {
+      "en": { "title": "Watches & Accessories" },
+      "fa": { "title": "ساعت و اکسسوری" },
+      "ps": { "title": "ساعتونه او اکسسوري" }
+    },
+    "business": "6a3240ce6b3faaf498a48adc",
+    "icon": "watch"
+  },
+  {
+    "translation": {
+      "en": { "title": "Tools & Machinery" },
+      "fa": { "title": "ابزار و ماشین‌آلات" },
+      "ps": { "title": "اوزار او ماشینونه" }
+    },
+    "business": "6a3240ce6b3faaf498a48add",
+    "icon": "hammer"
+  },
+  {
+    "translation": {
+      "en": { "title": "Pets & Animals" },
+      "fa": { "title": "حیوانات خانگی" },
+      "ps": { "title": "کورني ژوي" }
+    },
+    "business": "6a3240ce6b3faaf498a48ade",
+    "icon": "paw"
   }
 ]

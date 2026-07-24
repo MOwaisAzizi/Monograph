@@ -3,8 +3,8 @@ import Item from "../models/itemModel.js";
 import { catchAsync } from "../utils/catchAsync.js";
 
 export const search = catchAsync(async (req, res, next) => {
-  const { search } = req.query;
-
+  const { search, category } = req.query;
+console.log(category, search);
   const limit = Number(req.query.limit) || 10;
 
   if (!search || search.trim() === "") {
