@@ -5,7 +5,7 @@ import { verifyAccessToken } from '../utils/jwt.js';
 
 export const protect = catchAsync(async (req, res, next) => {
     const authHeader = req.headers.authorization;
-
+console.log('user authHeader:', authHeader);
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return next(new AppError('You are not logged in. Please log in to continue.', 401));
     }
