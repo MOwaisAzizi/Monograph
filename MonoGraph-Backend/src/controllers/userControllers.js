@@ -76,14 +76,15 @@ export const refreshToken = catchAsync(async (req, res, next) => {
     accessToken,
   });
 });
-
 export const getUserProfile = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
-
-  if (!user) return next(new AppError("User not found", 404));
+  const user = await User.findById(req.user.id)
+    .populate('favoriteItems')
+    .populate('favoriteBusinesses');
+console.log(user)
+  if (!user) return next(new AppError('User not found', 404));
 
   res.status(200).json({
-    status: "success",
+    status: 'success',
     data: { user },
   });
 });
@@ -106,4 +107,39 @@ export const updateProfile = catchAsync(async (req, res, next) => {
     status: "success",
     data: { user },
   });
+});
+
+
+export const toggleFavoriteItemOrBusiness = catchAsync(async (req, res, next) => {
+  const { item, business } = req.body;
+console.log('-------controller')
+  if (!item && !business) {
+    return next(new AppError('Either item or business must be provided', 400));
+  }
+  if (item && business) {
+    return next(new AppError('Only one of item or business can be provided', 400));
+  }
+
+  const favoriteField = item ? 'favoriteItems' : 'favoriteBusinesses';
+  const targetId = item || business;
+
+  const user = await User.findById(req.user.id);
+  if (!user) return next(new AppError('User not found', 404));
+
+  const isAlreadyBookmarked = user[favoriteField].some(
+    id => id.toString() === targetId,
+  );
+
+  if (isAlreadyBookmarked) {
+    user[favoriteField] = user[favoriteField].filter(
+      id => id.toString() !== targetId,
+    );
+    await user.save();
+    return res.status(200).json({ message: 'Removed from favorites!' });
+  }
+
+  user[favoriteField].push(targetId);
+  await user.save();
+
+  return res.status(200).json({ message: 'Added to favorites!' });
 });

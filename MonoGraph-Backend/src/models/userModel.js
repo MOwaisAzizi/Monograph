@@ -29,6 +29,14 @@ const userSchema = new Schema(
       trim: true,
       unique: true,
     },
+    favoriteItems: [{
+      type: Schema.Types.ObjectId,
+      ref: "Item",
+    }],
+    favoriteBusinesses: [{
+  type: Schema.Types.ObjectId,
+  ref: "Business",
+}],
 
     password: {
       type: String,

@@ -5,16 +5,28 @@ import api from '../services/api';
 import { capitalize, normalizeBusiness, normalizeItem } from '../utils/marketplace';
 import { ActionPill, Chip, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard } from '../components/cards';
+import { useSelector } from 'react-redux';
 
 export default function ShopDetailScreen({ route, navigation }) {
     const { id } = route.params;
+    const { token } = useSelector((state) => state.auth);
     const [shop, setShop] = useState(null);
     const [items, setItems] = useState([]);
+    const [isFavorite, setIsFavorite] = useState(false);
+    
+    const toggleFavorite = async (id) => {
+        try {
+            await api.toggleFavorite(null, id, token); 
+            setIsFavorite(!isFavorite);
+        } catch (error) {
+            console.error('Error toggling favorite:', error);
+        }   
+    }
 
     useEffect(() => {
         let mounted = true;
 
-        Promise.all([api.get(`/business/${id}`), api.get(`/item?business=${id}`)])
+        Promise.all([api.baseURL.get(`/business/${id}`), api.baseURL.get(`/item?business=${id}`)])
             .then(([shopResponse, itemsResponse]) => {
                 if (!mounted) {
                     return;
@@ -47,7 +59,9 @@ export default function ShopDetailScreen({ route, navigation }) {
                             </Pressable>
                         </View>
                         <View className="absolute right-4 top-4 h-9 w-9 items-center justify-center rounded-full bg-white/60">
-                            <Ionicons name="heart-outline" size={16} color="#2a3535" />
+                            <Pressable onPress={() => toggleFavorite(id)}>
+                                <Ionicons name={isFavorite ? "heart" : "heart-outline"} size={16} color="#2a3535" />
+                            </Pressable>
                         </View>
                     </View>
 

@@ -21,7 +21,7 @@ export default function LoginScreen({ navigation }) {
     try {
       setLoading(true);
 
-      const res = await api.post('/user/login', {
+      const res = await api.baseURL.post('/user/login', {
         email: email.trim(),
         password,
       });

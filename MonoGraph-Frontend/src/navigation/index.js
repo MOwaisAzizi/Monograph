@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Pressable, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,9 +7,9 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ProductScreen from '../screens/ProductScreen';
-import ShopScreen from '../screens/ShopScreen';
+import ShopScreen from '../screens/TalkScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import FavoritesScreen from '../screens/FavoritesScreen';
+import FavoritesScreen from '../screens/History';
 import ShopDetailScreen from '../screens/ShopDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
@@ -41,8 +40,8 @@ function MainTabs() {
           const icons = {
             Home: focused ? 'home' : 'home-outline',
             Search: focused ? 'search' : 'search-outline',
-            Shops: focused ? 'storefront' : 'storefront-outline',
-            Favorites: focused ? 'heart' : 'heart-outline',
+            Talk: focused ? 'chatbubbles' : 'chatbubbles-outline',
+            History: focused ? 'receipt' : 'receipt-outline',
             Profile: focused ? 'person' : 'person-outline',
           };
 
@@ -51,9 +50,27 @@ function MainTabs() {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Search" component={SearchScreen} />
-      <Tab.Screen name="Shops" component={ShopScreen} />
-      <Tab.Screen name="Favorites" component={FavoritesScreen} />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            // Tapping the Search tab icon just refocuses the existing
+            // screen instance — it does NOT call navigate() with fresh
+            // params, so a category filter set on a previous visit (e.g.
+            // via Home's filter row, which navigates into this same tab)
+            // would otherwise stay applied forever. If there's no active
+            // filter/search already, there's nothing to reset — skip it
+            // to avoid an unnecessary extra render/refetch on every tap.
+            if (route.params?.search || route.params?.category) {
+              e.preventDefault();
+              navigation.navigate('Search', { search: '', category: '' });
+            }
+          },
+        })}
+      />
+      <Tab.Screen name="Talk" component={ShopScreen} />
+      <Tab.Screen name="History" component={FavoritesScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );

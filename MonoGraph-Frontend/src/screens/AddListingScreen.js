@@ -6,7 +6,6 @@ import { ScreenShell, TextField } from '../components/ui';
 
 const DEFAULT_COORDS = [62.1907, 34.3529];
 
-// Mirrors the `businessType` enum in the backend Business model.
 const BUSINESS_TYPES = [
     'restaurant', 'cafe', 'bakery', 'fast_food', 'clothing_store', 'shoe_store',
     'electronics_store', 'mobile_store', 'supermarket', 'pharmacy', 'cosmetics_store',
@@ -353,8 +352,10 @@ export default function AddListingScreen() {
         const loadBusinesses = async () => {
             try {
                 setLoadingBusinesses(true);
-                const response = await api.get('/business', { headers: authHeader });
-                const list = response?.data?.data || response?.data?.businesses || response?.data || [];
+                const response = await api.baseURL.get('/business', { headers: authHeader });
+                console.log('response')
+                console.log(response)
+                const list = response?.data?.data.businesses || [];
                 if (!cancelled) setBusinesses(Array.isArray(list) ? list : []);
             } catch (error) {
                 console.log('Error loading businesses:', error);
@@ -366,8 +367,12 @@ export default function AddListingScreen() {
         const loadCategories = async () => {
             try {
                 setLoadingCategories(true);
-                const response = await api.get('/category', { headers: authHeader });
-                const list = response?.data?.data || response?.data?.categories || response?.data || [];
+                const response = await api.baseURL.get('/category');
+                console.log('Category response:');
+                const list = response?.data.data?.categories ||  [];
+                console.log(list);
+                console.log('Category response:');
+
                 if (!cancelled) setCategories(Array.isArray(list) ? list : []);
             } catch (error) {
                 console.log('Error loading categories:', error);
@@ -435,7 +440,7 @@ export default function AddListingScreen() {
                 return acc;
             }, {});
 
-            await api.post(
+            await api.baseURL.post(
                 '/business',
                 {
                     translation: buildTranslation(
@@ -463,6 +468,8 @@ export default function AddListingScreen() {
             );
 
             resetBusinessForm();
+            navigation.navigate('MainTabs', { screen: 'Home' });
+
             Alert.alert('Success', 'Business added successfully for your account.');
         } catch (error) {
             console.log('Error adding business:', error);
@@ -492,7 +499,7 @@ export default function AddListingScreen() {
         try {
             setSubmitting(true);
 
-            await api.post(
+            await api.baseURL.post(
                 '/item',
                 {
                     translation: buildTranslation(
@@ -531,6 +538,7 @@ export default function AddListingScreen() {
             setItemAttributes([]);
             setItemMediaUrls(['']);
 
+navigation.navigate('MainTabs', { screen: 'Home' });
             Alert.alert('Success', 'Item added successfully for your account.');
         } catch (error) {
             const message =

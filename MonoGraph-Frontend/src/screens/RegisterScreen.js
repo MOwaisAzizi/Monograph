@@ -23,7 +23,7 @@ export default function RegisterScreen({ navigation }) {
     try {
       setLoading(true);
 
-      const res = await api.post('/user/signup', {
+      const res = await api.baseURL.post('/user/signup', {
         name: name.trim(),
         email: email.trim(),
         password,

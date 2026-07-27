@@ -9,6 +9,7 @@ const businessSchema = new Schema(
   {
     translation: { type: multipleFields },
     location: locationSchema,
+    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
     city: { type: String, default: 'herat' },
     workingHours: [workingHoursSchema],
     media: [mediaSchema],

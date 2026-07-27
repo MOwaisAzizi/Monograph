@@ -13,9 +13,9 @@ export const createItem = catchAsync(async (req, res, next) => {
         return next(new AppError("No business found with that ID", 404));
     }
 
-    if (!business.owner || business.owner.toString() !== req.user._id.toString()) {
-        return next(new AppError("You can only add items to your own business", 403));
-    }
+    // if (!business.owner || business.owner.toString() !== req.user._id.toString()) {
+    //     return next(new AppError("You can only add items to your own business", 403));
+    // }
 
     const itemDoc = await Item.create({
         ...req.body,

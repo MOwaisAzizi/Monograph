@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ScrollView, SectionList, Text, View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import api from '../services/api';
 import { normalizeBusiness, normalizeItem } from '../utils/marketplace';
 import { IconCircleButton, ScreenShell, SectionHeader } from '../components/ui';
@@ -11,10 +12,11 @@ import { ItemCard, ShopCard } from '../components/cards';
  * confirmed multipleFields shape) and a flat string per language, since
  * Category's `singleField` shape hasn't been confirmed against the schema
  * yet (see seed.js notes).
- *
+ * 
  * @param {Array} categories - raw array from GET /categories
  * @param {string} lang - 'en' | 'fa' | 'ps'
  */
+
 export function normalizeCategoryFilters(categories = [], lang = 'en') {
   return categories.map((cat) => {
     const translation = cat.translation?.[lang] ?? cat.translation?.en ?? {};
@@ -22,12 +24,12 @@ export function normalizeCategoryFilters(categories = [], lang = 'en') {
       typeof translation === 'string'
         ? translation
         : translation?.en?.title || cat.translation?.en?.title || '';
-console.log(cat)
+
     return {
-  key: cat.translation?.en?.title || '',
-  label,
-  icon: cat.icon || 'pricetag',
-};
+      key: cat._id || cat.id || '',
+      label,
+      icon: cat.icon || 'pricetag',
+    };
   });
 }
 
@@ -39,7 +41,6 @@ function CategoryFilterRow({ categories, activeKey, onSelect }) {
       contentContainerClassName="px-1 gap-5"
     >
       {categories.map((cat) => {
-        console.log(cat.key)
         const active = cat.key === activeKey;
         return (
           <View key={cat.key} className="items-center">
@@ -102,7 +103,7 @@ function HorizontalShopRow({ data, onPressShop }) {
 
 
 export default function HomeScreen({ navigation, lang = 'en' }) {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeCategory, setActiveCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [homeData, setHomeData] = useState({
     newItems: [],
@@ -115,14 +116,12 @@ export default function HomeScreen({ navigation, lang = 'en' }) {
   useEffect(() => {
     let mounted = true;
 
-    api
+    api.baseURL
       .get('/home')
       .then((homeResponse) => {
         if (!mounted) {
           return;
         }
-console.log(homeResponse.data.data);
-console.log(homeResponse.data.data.nearestItems)
         setHomeData({
           cheapItems: (homeResponse.data.data.cheapItems || []).map(normalizeItem),
           highRatedItems: (homeResponse.data.data.highRatedItems || []).map(normalizeItem),
@@ -145,15 +144,13 @@ console.log(homeResponse.data.data.nearestItems)
   useEffect(() => {
     let mounted = true;
 
-    api
+    api.baseURL
       .get('/category')
       .then((res) => {
         if (!mounted) {
           return;
         }
         const list = normalizeCategoryFilters(res.data.data.categories, lang);
-        // console.log('🌮🌮🌮🥪🥙🥙🥗🧀');
-        // console.log(list);
         setCategories(list);
       })
       .catch(() => {
@@ -166,7 +163,17 @@ console.log(homeResponse.data.data.nearestItems)
       mounted = false;
     };
   }, [lang]);
-console.log(categories);
+
+  // Reset the selected category filter every time Home regains focus —
+  // e.g. after the user navigates back from Search — so no chip stays
+  // visually selected once they return here.
+  useFocusEffect(
+    useCallback(() => {
+      console.log('calling use focus effect');
+      setActiveCategory('');
+    }, [])
+  );
+
   const sections = useMemo(
     () => [
       { key: 'New Items', title: 'New Items', actionLabel: 'See all', data: homeData.newItems, type: 'item' },
@@ -177,35 +184,30 @@ console.log(categories);
     ],
     [homeData],
   );
-// console.log(sections);
+
   return (
     <ScreenShell contentClassName="px-5 pb-6 pt-4">
-      {/* Static category filter row - scrolls horizontally */}
       <View className="mt-2">
 
+        <CategoryFilterRow
+          categories={categories}
+          activeKey={activeCategory}
+          onSelect={(categoryKey) => {
+            console.log('categoryKey')
+            console.log(categoryKey)
+            const category = categories.find((cat) => cat.key === categoryKey);
+            if (!category) return;
 
-<CategoryFilterRow
-  categories={categories}
-  activeKey={activeCategory}
-  onSelect={(categoryKey) => {
-    setActiveCategory(categoryKey);
+            setActiveCategory(categoryKey);
 
-    const category = categories.find(
-      (cat) => cat.key === categoryKey
-    );
-
-    if (!category) return;
-
-    navigation.navigate('Search', {
-      search: '',
-      category: category.key,
-    });
-
-  }}
-/>
+            navigation.navigate('Search', {
+              search: '',
+              category: category.key,
+            });
+          }}
+        />
 
       </View>
-
       {/* Vertically scrolling list of sections, each scrolling horizontally */}
       <View className="mt-6 space-y-7">
         {sections.map((section) => (
@@ -213,8 +215,7 @@ console.log(categories);
             <SectionHeader
               title={section.title}
               actionLabel={section.actionLabel}
-              onAction={() => navigation.navigate('Search')}
-            />
+onAction={() => navigation.navigate('Search', { search: '', category: '' })}            />
             {section.data.length ? (
               <View className="mt-2">
                 {section.type === 'item' ? (

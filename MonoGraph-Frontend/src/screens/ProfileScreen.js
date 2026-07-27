@@ -1,43 +1,64 @@
-
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import api from '../services/api';
-import { normalizeUser } from '../utils/marketplace';
+import { normalizeUser, normalizeItem, normalizeBusiness } from '../utils/marketplace';
 import { ActionPill, ScreenShell, SectionHeader, StatTile } from '../components/ui';
-import { ItemCard, TextRow } from '../components/cards';
-import { useSelector } from 'react-redux';
+import { ItemCard, ShopCard, TextRow } from '../components/cards';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/slices/authSlice';
-
 
 export default function ProfileScreen({ navigation }) {
   const [profile, setProfile] = useState(null);
-  // console.log('user', user);
-const { user, token } = useSelector((state) => state.auth);
-  console.log('-----------------')
-  console.log(user)
-  console.log(token)
+  const { user, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const logoutuser = () => {
-    logout();
+    dispatch(logout());
     setProfile(null);
-    console.log('Logged out');
-    console.log(user)
   };
 
   useEffect(() => {
-    if(!token) return;
-    api
-      .get('/user/profile',{
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    if (!token) return;
+
+    let mounted = true;
+
+    api.baseURL
+      .get('/user/profile', {
+        headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => setProfile(normalizeUser(res?.data?.data?.user || {})))
-      .catch(() => {
-        setProfile(null);
+      .then((res) => {
+        if (!mounted) return;
+        const rawUser = res?.data?.data?.user || {};
+        console.log(rawUser)
+        console.log('rawUs🌭🌭🌭er')
+        setProfile({
+          ...normalizeUser(rawUser),
+          favoriteItems: (rawUser.favoriteItems || []).map(normalizeItem),
+          favoriteBusinesses: (rawUser.favoriteBusinesses || []).map(normalizeBusiness),
+        });
+      })
+      .catch((error) => {
+        console.error('Error fetching profile:', error);
+        if (mounted) setProfile(null);
       });
+
+    return () => {
+      mounted = false;
+    };
   }, [token]);
-console.log('profile', profile)
+
+  const handleToggleFavoriteItem = async (itemId) => {
+    try {
+      await api.toggleFavoriteDishs(itemId, null, token);
+      setProfile((current) => ({
+        ...current,
+        favoriteItems: current.favoriteItems.filter((i) => i.id !== itemId),
+      }));
+    } catch (error) {
+      console.error('Error toggling favorite item:', error);
+    }
+  };
+
   return (
     <ScreenShell contentClassName="px-5 pb-6 pt-4">
       <View className="items-center">
@@ -48,13 +69,12 @@ console.log('profile', profile)
         </View>
         <Text className="mt-4 text-[18px] font-bold text-[#eff5f4]">{profile?.name || 'Your profile'}</Text>
         <Text className="mt-1 text-[11px] text-[#91a7a6]">{profile?.email || 'Connected account'}</Text>
-        <View className="mt-3">
-          <ActionPill label="Edit profile" />
-        </View>
         <View className="mt-2">
-          {
-            user ? <ActionPill label="Logout" onPress={logoutuser} /> : <ActionPill label="Login" onPress={() => navigation.navigate('Login')} />
-          }
+          {user ? (
+            <ActionPill label="Logout" onPress={logoutuser} />
+          ) : (
+            <ActionPill label="Login" onPress={() => navigation.navigate('Login')} />
+          )}
         </View>
       </View>
 
@@ -66,29 +86,51 @@ console.log('profile', profile)
 
       <View className="mt-7">
         <SectionHeader title="Favorite Items" actionLabel="See all" />
-        <View className="mt-2">
-          <ItemCard
-            compact
-            item={{
-              id: 'favorite-item',
-              title: 'Saved item',
-              description: 'Backend favorites will populate this slot.',
-              price: '—',
-              rating: '5.0',
-              categoryName: 'Favorite',
-            }}
-          />
-        </View>
+        {profile?.favoriteItems?.length ? (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-2" contentContainerClassName="gap-3">
+            {profile.favoriteItems.map((item) => (
+              <ItemCard
+                key={item.id}
+                item={item}
+                compact
+                onPress={() => navigation.navigate('Product', { id: item.id })}
+                onToggleFavorite={() => handleToggleFavoriteItem(item.id)}
+              />
+            ))}
+          </ScrollView>
+        ) : (
+          <View className="mt-2 rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
+            <Text className="text-[12px] text-[#89a1a1]">No favorite items yet.</Text>
+          </View>
+        )}
       </View>
 
       <View className="mt-5">
         <SectionHeader title="Favorite Shops" />
+        {profile?.favoriteBusinesses?.length ? (
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-2" contentContainerClassName="gap-4">
+            {profile.favoriteBusinesses.map((shop) => (
+              <ShopCard
+                key={shop.id}
+                shop={shop}
+                compact
+                onPress={() => navigation.navigate('ShopDetail', { id: shop.id })}
+              />
+            ))}
+          </ScrollView>
+        ) : (
+          <View className="mt-2 rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
+            <Text className="text-[12px] text-[#89a1a1]">No favorite shops yet.</Text>
+          </View>
+        )}
+      </View>
+
+      <View className="mt-5">
         <View className="rounded-[24px] border border-white/10 bg-white/5 px-4 py-2">
           <TextRow label="Settings" value="" />
           <TextRow label="My listings" value="" />
           <TextRow label="Orders & messages" value="" />
           <TextRow label="Language: EN / عربي / فارسی" value="" />
-          <TextRow label="Log out" value="" />
         </View>
       </View>
     </ScreenShell>

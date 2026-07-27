@@ -6,16 +6,28 @@ import api from '../services/api';
 import { capitalize, normalizeItem } from '../utils/marketplace';
 import { ActionPill, Chip, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
+import { useSelector } from 'react-redux';
 
 export default function ProductScreen({ route, navigation }) {
   const { id } = route.params;
+  const { token } = useSelector((state) => state.auth);
   const [item, setItem] = useState(null);
   const [similarItems, setSimilarItems] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const toggleFavorite = async () => {
+    try {
+      await api.toggleFavorite(id, null, token);
+      setIsFavorite(!isFavorite);
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
+  };
 
   useEffect(() => {
     let mounted = true;
 
-    api
+    api.baseURL
       .get(`/item/${id}`)
       .then(async (response) => {
         if (!mounted) {
@@ -28,7 +40,7 @@ export default function ProductScreen({ route, navigation }) {
 
         if (rawItem?.category?._id || rawItem?.category) {
           const categoryId = rawItem.category._id || rawItem.category;
-          const similarResponse = await api.get(`/item?category=${categoryId}`);
+          const similarResponse = await api.baseURL.get(`/item?category=${categoryId}`);
           const similarList = (similarResponse?.data?.data?.Items || []).map(normalizeItem).filter((entry) => entry.id !== normalized.id);
           if (mounted) {
             setSimilarItems(similarList.slice(0, 4));
@@ -64,8 +76,8 @@ export default function ProductScreen({ route, navigation }) {
               <Pressable onPress={() => navigation.goBack()} className="h-9 w-9 items-center justify-center rounded-full bg-white/60">
                 <Ionicons name="chevron-back" size={16} color="#2a3535" />
               </Pressable>
-              <Pressable className="h-9 w-9 items-center justify-center rounded-full bg-white/60">
-                <Ionicons name="heart-outline" size={16} color="#2a3535" />
+              <Pressable className="h-9 w-9 items-center justify-center rounded-full bg-white/60" onPress={toggleFavorite}>
+                <Ionicons name={isFavorite ? "heart" : "heart-outline"} size={16} color="#2a3535" />
               </Pressable>
             </View>
 

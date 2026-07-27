@@ -4,6 +4,8 @@ import { catchAsync } from '../utils/catchAsync.js';
 import { verifyAccessToken } from '../utils/jwt.js';
 
 export const protect = catchAsync(async (req, res, next) => {
+    console.log('-------middleware')
+
     const authHeader = req.headers.authorization;
 console.log('user authHeader:', authHeader);
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -17,7 +19,6 @@ console.log('user authHeader:', authHeader);
     if (!currentUser) {
         return next(new AppError('The user linked to this token no longer exists.', 401));
     }
-
     req.user = currentUser;
     next();
 });
