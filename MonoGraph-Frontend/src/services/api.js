@@ -25,6 +25,20 @@ class Api {
       throw error;
     }
   }
+
+  async followShop(shopId, token, followingType) {
+  const response = await this.baseURL.post(
+    `/business/follow/${shopId}`,
+    { followingType },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+}
 }
 
 const api = new Api();

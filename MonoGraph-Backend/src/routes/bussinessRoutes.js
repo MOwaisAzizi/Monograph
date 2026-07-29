@@ -4,7 +4,8 @@ import {
   getBusinesses,
   getBusiness,
   updateBusiness,
-  deleteBusiness
+  deleteBusiness,
+  followShop
 } from "../controllers/bussinessControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 
@@ -12,5 +13,6 @@ const router = express.Router();
 router.get("/", getBusinesses);
 router.post("/", protect, createBusiness);
 router.get("/:id", getBusiness).patch("/:id", updateBusiness).delete("/:id", deleteBusiness);
+router.route('/follow/:shopId').post(protect, followShop);
 
 export default router;

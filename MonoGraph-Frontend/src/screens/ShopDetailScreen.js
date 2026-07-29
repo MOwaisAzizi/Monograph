@@ -13,6 +13,7 @@ export default function ShopDetailScreen({ route, navigation }) {
     const [shop, setShop] = useState(null);
     const [items, setItems] = useState([]);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [isFollowing, setIsFollowing] = useState(false);
     
     const toggleFavorite = async (id) => {
         try {
@@ -22,6 +23,15 @@ export default function ShopDetailScreen({ route, navigation }) {
             console.error('Error toggling favorite:', error);
         }   
     }
+
+     const followShop = async (shopId) => {
+        try {
+            setIsFollowing(!isFollowing);
+            await api.followShop(shopId, token, 'business');
+        } catch (error) {
+            console.error('Error following shop:', error);
+        }
+    };
 
     useEffect(() => {
         let mounted = true;
@@ -70,7 +80,7 @@ export default function ShopDetailScreen({ route, navigation }) {
                             <Text className="text-[18px] font-bold text-[#eff5f4]">{shop?.title || 'Shop name'}</Text>
                             <Text className="mt-1 text-[12px] text-[#9ab0b0]">{shop?.location || shop?.address || 'Herat'}</Text>
                         </View>
-                        <ActionPill label="Follow" active />
+                        <ActionPill label={isFollowing ? "Following" : "Follow"} active={isFollowing} onPress={() => followShop(id)}/>
                     </View>
 
                     <View className="mt-3 flex-row flex-wrap gap-2">
