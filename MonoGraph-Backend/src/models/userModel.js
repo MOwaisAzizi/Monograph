@@ -21,6 +21,11 @@ const userSchema = new Schema(
         enum: ['user', 'admin'],
         default: 'user'
     },
+    tokenVersion: {
+      type: Number,
+      default: 0,
+      select: false,
+    },
 
     email: {
       type: String,
@@ -33,9 +38,9 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Item",
     }],
-    favoriteBusinesses: [{
+    favoriteShops: [{
   type: Schema.Types.ObjectId,
-  ref: "Business",
+  ref: "Shop",
 }],
 
     password: {

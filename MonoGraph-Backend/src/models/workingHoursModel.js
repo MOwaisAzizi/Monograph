@@ -1,21 +1,16 @@
 import { Schema } from 'mongoose';
 
-const timeRange = {
-  open: { type: String },
-  close: { type: String },
-};
-
 const workingHoursSchema = new Schema(
   {
     day: {
       type: String,
       required: true,
     },
-    times: {
-      type: [timeRange],
-    },
+    open: { type: String, default: null },
+    close: { type: String, default: null },
+    isClosed: { type: Boolean, default: false },
   },
-  { _id: false },
+  { _id: false, timestamps: true },
 );
 
 export default workingHoursSchema;

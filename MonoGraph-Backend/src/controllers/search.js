@@ -1,4 +1,4 @@
-import Business from "../models/businessModel.js";
+import Shop from "../models/shopModel.js";
 import Item from "../models/itemModel.js";
 import { catchAsync } from "../utils/catchAsync.js";
 
@@ -8,7 +8,7 @@ export const search = catchAsync(async (req, res) => {
   console.log('search:', search, 'category:', category)
   const limit = Number(req.query.limit) || 10;
   const itemQuery = {};
-  const businessQuery = {};
+  const shopQuery = {};
 
   // Search filter
   if (search.trim()) {
@@ -23,7 +23,7 @@ export const search = catchAsync(async (req, res) => {
       { "translation.en.title": regex },
     ];
 
-    businessQuery.$or = [
+    shopQuery.$or = [
       { "translation.fa.title": regex },
       { "translation.ps.title": regex },
       { "translation.en.title": regex },
@@ -33,20 +33,18 @@ export const search = catchAsync(async (req, res) => {
   // Category filter
   if (category.trim()) {
     itemQuery.category = category;
-    businessQuery.category = category; // Only if Business has a category field
+    shopQuery.category = category;
   }
   console.log('-------------------------------------🧈🥞🥞🥞🧇🍳🍳🍳-------------')
-console.log(itemQuery, businessQuery)
-  const [items, businesses] = await Promise.all([
+  const [items, shops] = await Promise.all([
     Item.find(itemQuery).limit(limit),
-    Business.find(businessQuery).limit(limit),
+    Shop.find(shopQuery).limit(limit),
   ]);
-console.log(items.length, businesses.length)
   res.status(200).json({
     status: "success",
     data: {
       items,
-      businesses,
+      shops,
     },
   });
 });

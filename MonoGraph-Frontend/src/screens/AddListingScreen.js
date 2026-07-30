@@ -336,12 +336,12 @@ export default function AddListingScreen() {
     const auth = useSelector((state) => state.auth);
 
     const authHeader = useMemo(() => {
-        if (!auth?.token) return null;
-        return { Authorization: `Bearer ${auth.token}` };
-    }, [auth?.token]);
+        if (!auth?.accessToken) return null;
+        return { Authorization: `Bearer ${auth.accessToken}` };
+    }, [auth?.accessToken]);
 
     // Populate the Business/Category dropdowns on the item form once the
-    // user is logged in. Assumes GET /business returns the current user's
+    // user is logged in. The endpoint returns the current user's shops.
     // own businesses and GET /category returns the full category list —
     // adjust the endpoints/params if yours differ.
     useEffect(() => {
@@ -352,10 +352,10 @@ export default function AddListingScreen() {
         const loadBusinesses = async () => {
             try {
                 setLoadingBusinesses(true);
-                const response = await api.baseURL.get('/business', { headers: authHeader });
+                const response = await api.baseURL.get('/shops?owner=me', { headers: authHeader });
                 console.log('response')
                 console.log(response)
-                const list = response?.data?.data.businesses || [];
+                const list = response?.data?.data.shops || [];
                 if (!cancelled) setBusinesses(Array.isArray(list) ? list : []);
             } catch (error) {
                 console.log('Error loading businesses:', error);
@@ -441,7 +441,7 @@ export default function AddListingScreen() {
             }, {});
 
             await api.baseURL.post(
-                '/business',
+                '/shops',
                 {
                     translation: buildTranslation(
                         businessTitleEn.trim(),
@@ -449,7 +449,7 @@ export default function AddListingScreen() {
                         businessTitlePs.trim(),
                         businessDescription.trim(),
                     ),
-                    businessType,
+                    shopType: businessType,
                     city: city.trim() || 'herat',
                     phone: cleanedPhones,
                     email: email.trim() || undefined,
@@ -509,7 +509,7 @@ export default function AddListingScreen() {
                         itemDescription.trim(),
                     ),
                     price: Number(itemPrice || 0),
-                    business: businessId.trim(),
+                    shop: businessId.trim(),
                     category: categoryId.trim() || undefined,
                     city: itemCity.trim() || 'herat',
                     note: itemNote.trim() || undefined,

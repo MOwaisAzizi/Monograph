@@ -1,5 +1,4 @@
 
-import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
@@ -7,7 +6,7 @@ import { isCorrectPassword } from "../utils/auth.js";
 import { signAccessToken, signRefreshToken, verifyRefreshToken } from "../utils/jwt.js";
 
 const sendTokens = (user) => {
-  const payload = { id: user._id, role: user.role };
+  const payload = { id: user._id, role: user.role, tokenVersion: user.tokenVersion || 0 };
 
   const accessToken = signAccessToken(payload);
   const refreshToken = signRefreshToken(payload);
@@ -42,7 +41,7 @@ export const login = catchAsync(async (req, res, next) => {
   if (!email || !password)
     return next(new AppError("Please provide email and password", 400));
 
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email }).select("+password +tokenVersion");
 
   if (!user || !(await isCorrectPassword(password, user.password))) {
     return next(new AppError("Incorrect email or password", 401));
@@ -66,21 +65,26 @@ export const refreshToken = catchAsync(async (req, res, next) => {
 
   const decoded = verifyRefreshToken(refreshToken);
 
-  const user = await User.findById(decoded.id);
+  const user = await User.findById(decoded.id).select('+tokenVersion');
   if (!user) return next(new AppError("User not found", 404));
+  if (user.tokenVersion !== decoded.tokenVersion) return next(new AppError('Refresh token is no longer valid', 401));
 
-  const accessToken = signAccessToken({ id: user._id, role: user.role });
+  const accessToken = signAccessToken({ id: user._id, role: user.role, tokenVersion: user.tokenVersion });
 
   res.status(200).json({
     status: "success",
     accessToken,
   });
 });
+
+export const logout = catchAsync(async (req, res) => {
+  await User.findByIdAndUpdate(req.user._id, { $inc: { tokenVersion: 1 } });
+  res.status(204).send();
+});
 export const getUserProfile = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id)
     .populate('favoriteItems')
-    .populate('favoriteBusinesses');
-console.log(user)
+    .populate('favoriteShops');
   if (!user) return next(new AppError('User not found', 404));
 
   res.status(200).json({
@@ -110,18 +114,17 @@ export const updateProfile = catchAsync(async (req, res, next) => {
 });
 
 
-export const toggleFavoriteItemOrBusiness = catchAsync(async (req, res, next) => {
-  const { item, business } = req.body;
-console.log('-------controller')
-  if (!item && !business) {
-    return next(new AppError('Either item or business must be provided', 400));
+export const toggleFavoriteItemOrShop = catchAsync(async (req, res, next) => {
+  const { item, shop } = req.body;
+  if (!item && !shop) {
+    return next(new AppError('Either item or shop must be provided', 400));
   }
-  if (item && business) {
-    return next(new AppError('Only one of item or business can be provided', 400));
+  if (item && shop) {
+    return next(new AppError('Only one of item or shop can be provided', 400));
   }
 
-  const favoriteField = item ? 'favoriteItems' : 'favoriteBusinesses';
-  const targetId = item || business;
+  const favoriteField = item ? 'favoriteItems' : 'favoriteShops';
+  const targetId = item || shop;
 
   const user = await User.findById(req.user.id);
   if (!user) return next(new AppError('User not found', 404));

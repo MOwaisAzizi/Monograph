@@ -12,7 +12,7 @@ const followSchema = new Schema(
     },
     followingType: {
       type: String,
-      enum: ['business', 'item'],
+      enum: ['Shop', 'Item'],
       required: true,
     },
     following: {

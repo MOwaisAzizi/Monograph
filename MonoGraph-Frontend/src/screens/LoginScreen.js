@@ -27,13 +27,15 @@ export default function LoginScreen({ navigation }) {
       });
 
       const user = res?.data?.data?.user;
-      const token = res?.data?.accessToken;
+      const accessToken = res?.data?.accessToken;
+      const refreshToken = res?.data?.refreshToken;
 
-      if (!user || !token) {
+      if (!user || !accessToken || !refreshToken) {
         throw new Error('Missing auth payload');
       }
 
-      dispatch(setUser({ user, token }));
+      api.setSession({ accessToken, refreshToken });
+      dispatch(setUser({ user, accessToken, refreshToken }));
       Alert.alert('Success', 'You are now logged in.');
       navigation.navigate('MainTabs');
     } catch (error) {

@@ -9,10 +9,7 @@ const mediaSchema = new Schema({
     },
     default: 'gallery',
   },
-  url: {
-    type: Object,
-    required: true,
-  }
-});
+  url: { type: String, required: true },
+}, { _id: false, timestamps: true });
 
 export default mediaSchema;

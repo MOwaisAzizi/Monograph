@@ -11,7 +11,7 @@ en: {
       title: { type: String, required: [true, 'Field title is required'] },
     },
   },
-  { _id: false },
+  { _id: false, timestamps: true },
 );
 
 export const multipleFields = new Schema(
@@ -29,5 +29,5 @@ export const multipleFields = new Schema(
       description: String,
     },
   },
-  { _id: false },
+  { _id: false, timestamps: true },
 );

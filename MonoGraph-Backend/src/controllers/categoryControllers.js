@@ -9,7 +9,6 @@ export const createCategory = catchAsync(async (req, res) => {
 
 export const getAllCategories = catchAsync(async (req, res) => {
   const filter = {};
-  if (req.query.business) filter.business = req.query.business;
 
   const categories = await Category.find(filter);
   res.status(200).json({

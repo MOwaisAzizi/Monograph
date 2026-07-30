@@ -9,22 +9,26 @@ import { logout } from '../store/slices/authSlice';
 
 export default function ProfileScreen({ navigation }) {
   const [profile, setProfile] = useState(null);
-  const { user, token } = useSelector((state) => state.auth);
+  const { user, accessToken } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const logoutuser = () => {
+  const logoutuser = async () => {
+    try {
+      await api.baseURL.post('/user/logout');
+    } catch {}
+    api.clearSession();
     dispatch(logout());
     setProfile(null);
   };
 
   useEffect(() => {
-    if (!token) return;
+    if (!accessToken) return;
 
     let mounted = true;
 
     api.baseURL
       .get('/user/profile', {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
         if (!mounted) return;
@@ -34,7 +38,7 @@ export default function ProfileScreen({ navigation }) {
         setProfile({
           ...normalizeUser(rawUser),
           favoriteItems: (rawUser.favoriteItems || []).map(normalizeItem),
-          favoriteBusinesses: (rawUser.favoriteBusinesses || []).map(normalizeBusiness),
+          favoriteShops: (rawUser.favoriteShops || []).map(normalizeBusiness),
         });
       })
       .catch((error) => {
@@ -45,11 +49,11 @@ export default function ProfileScreen({ navigation }) {
     return () => {
       mounted = false;
     };
-  }, [token]);
+  }, [accessToken]);
 
   const handleToggleFavoriteItem = async (itemId) => {
     try {
-      await api.toggleFavoriteDishs(itemId, null, token);
+      await api.toggleFavorite(itemId, null);
       setProfile((current) => ({
         ...current,
         favoriteItems: current.favoriteItems.filter((i) => i.id !== itemId),
@@ -107,9 +111,9 @@ export default function ProfileScreen({ navigation }) {
 
       <View className="mt-5">
         <SectionHeader title="Favorite Shops" />
-        {profile?.favoriteBusinesses?.length ? (
+        {profile?.favoriteShops?.length ? (
           <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-2" contentContainerClassName="gap-4">
-            {profile.favoriteBusinesses.map((shop) => (
+            {profile.favoriteShops.map((shop) => (
               <ShopCard
                 key={shop.id}
                 shop={shop}

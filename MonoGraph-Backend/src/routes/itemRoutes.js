@@ -4,6 +4,6 @@ import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 router.route('/').get(getAllItems).post(protect, createItem);
-router.route('/:id').get(getItem).patch(updateItem).delete(deleteItem);
+router.route('/:id').get(getItem).patch(protect, updateItem).delete(protect, deleteItem);
 
 export default router;

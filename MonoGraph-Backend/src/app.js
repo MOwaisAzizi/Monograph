@@ -2,7 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 import morgan from 'morgan';
-import business from './routes/bussinessRoutes.js';
+import shopRoutes from './routes/shopRoutes.js';
+import reviewRoutes from './routes/reviewRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import homeRoute from './routes/homeRoutes.js';
 import itemRoutes from './routes/itemRoutes.js';
@@ -24,7 +25,8 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use('/api/v1/business', business);
+app.use('/api/v1/shops', shopRoutes);
+app.use('/api/v1/reviews', reviewRoutes);
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/home', homeRoute);
 app.use('/api/v1/item', itemRoutes);

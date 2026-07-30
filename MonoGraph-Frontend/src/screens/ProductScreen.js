@@ -6,18 +6,16 @@ import api from '../services/api';
 import { capitalize, normalizeItem } from '../utils/marketplace';
 import { ActionPill, Chip, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
-import { useSelector } from 'react-redux';
 
 export default function ProductScreen({ route, navigation }) {
   const { id } = route.params;
-  const { token } = useSelector((state) => state.auth);
   const [item, setItem] = useState(null);
   const [similarItems, setSimilarItems] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
 
   const toggleFavorite = async () => {
     try {
-      await api.toggleFavorite(id, null, token);
+      await api.toggleFavorite(id, null);
       setIsFavorite(!isFavorite);
     } catch (error) {
       console.error('Error toggling favorite:', error);

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Business from '../models/businessModel.js';
+import Shop from '../models/shopModel.js';
 import Category from '../models/categoryModel.js';
 import Item from '../models/itemModel.js';
 
@@ -7,7 +7,7 @@ import Item from '../models/itemModel.js';
  * SCHEMA NOTES — confirmed / still-assumed shapes:
  *
  * 1. translationSchema.js
- *    - `multipleFields` (used by Business, Item) — CONFIRMED:
+ *    - `multipleFields` (used by Shop, Item) — CONFIRMED:
  *        { en: { title, description? }, fa: {...}, ps: {...} }
  *    - `singleField` (used by Category) — CONFIRMED nested like
  *      multipleFields, just without `description`:
@@ -19,15 +19,12 @@ import Item from '../models/itemModel.js';
  *
  * 3. mediaSchema.js / workingHoursModel.js — still unpopulated (see prior notes).
  *
- * 4. RELATIONSHIP FLIP (this version): `Business.category` is now the
- *    required single reference (was previously `Category.business`).
- *    This means CATEGORIES must be seeded before BUSINESSES.
+ * 4. RELATIONSHIP FLIP (this version): `Shop.category` is now the
+ *    optional single reference. Categories are seeded before shops.
  *
- *    Since a business now points to exactly ONE category, but the old
- *    categoryDefs assign multiple categories to the same businessType
+ *    Since a shop can point to one category, category definitions can share a shop type.
  *    (e.g. mobile_store -> "Phones & Tablets" AND "Phone Accessories"),
- *    each business is assigned the FIRST category listed for its type.
- *    Change `categoryByType` below if you want a different pick per business.
+ *    Each shop is assigned the first category listed for its type.
  */
 
 const HERAT_COORDS = [62.199, 34.348]; // [lng, lat] — CONFIRM against locationSchema
@@ -62,21 +59,21 @@ async function seed() {
   await Promise.all([
     Item.deleteMany({}),
     Category.deleteMany({}),
-    Business.deleteMany({}),
+    Shop.deleteMany({}),
   ]);
 
   // ---------------------------------------------------------------------
-  // 1. CATEGORIES — must exist first now, since Business.category is required
+  // 1. CATEGORIES
   // ---------------------------------------------------------------------
   const categoryDefs = [
-    { translation: sf('Phones & Tablets', 'موبایل و تبلت', 'موبایل او ټابلېټ'), businessType: 'mobile_store', icon: 'phone-portrait' },
-    { translation: sf('Phone Accessories', 'لوازم جانبی موبایل', 'د موبایل تجهیزات'), businessType: 'mobile_store', icon: 'headset' },
-    { translation: sf('Electronics', 'لوازم برقی', 'بریښنایي توکي'), businessType: 'electronics_store', icon: 'tv' },
-    { translation: sf('Cars', 'موتر', 'موټر'), businessType: 'car_dealer', icon: 'car-sport' },
-    { translation: sf('Motorbikes', 'موتورسیکل', 'موټرسایکل'), businessType: 'car_dealer', icon: 'bicycle' },
-    { translation: sf('Furniture', 'مبلمان', 'فرنیچر'), businessType: 'furniture_store', icon: 'bed' },
-    { translation: sf('Books & Stationery', 'کتاب و لوازم‌التحریر', 'کتابونه او د لیکلو توکي'), businessType: 'bookstore', icon: 'book' },
-    { translation: sf('Medicines', 'داروها', 'درملنه'), businessType: 'pharmacy', icon: 'medkit' },
+    { translation: sf('Phones & Tablets', 'موبایل و تبلت', 'موبایل او ټابلېټ'), shopType: 'mobile_store', icon: 'phone-portrait' },
+    { translation: sf('Phone Accessories', 'لوازم جانبی موبایل', 'د موبایل تجهیزات'), shopType: 'mobile_store', icon: 'headset' },
+    { translation: sf('Electronics', 'لوازم برقی', 'بریښنایي توکي'), shopType: 'electronics_store', icon: 'tv' },
+    { translation: sf('Cars', 'موتر', 'موټر'), shopType: 'car_dealer', icon: 'car-sport' },
+    { translation: sf('Motorbikes', 'موتورسیکل', 'موټرسایکل'), shopType: 'car_dealer', icon: 'bicycle' },
+    { translation: sf('Furniture', 'مبلمان', 'فرنیچر'), shopType: 'furniture_store', icon: 'bed' },
+    { translation: sf('Books & Stationery', 'کتاب و لوازم‌التحریر', 'کتابونه او د لیکلو توکي'), shopType: 'bookstore', icon: 'book' },
+    { translation: sf('Medicines', 'داروها', 'درملنه'), shopType: 'pharmacy', icon: 'medkit' },
   ];
 
   const categories = await Category.insertMany(
@@ -91,21 +88,21 @@ async function seed() {
     categories.map((c) => [c.translation.en.title, c]),
   );
 
-  // First category listed per businessType becomes that business's category
+  // First category listed per shop type becomes that shop's category.
   const categoryByType = {};
   categoryDefs.forEach((def) => {
-    if (!categoryByType[def.businessType]) {
-      categoryByType[def.businessType] = categoryByName[def.translation.en.title];
+    if (!categoryByType[def.shopType]) {
+      categoryByType[def.shopType] = categoryByName[def.translation.en.title];
     }
   });
 
   // ---------------------------------------------------------------------
-  // 2. BUSINESSES — now reference their category
+  // 2. SHOPS — reference their category
   // ---------------------------------------------------------------------
-  const businessDefs = [
+  const shopDefs = [
     {
       translation: tf('Herat Mobile Store', 'موبایل فروشی هرات', null, 'Phones and accessories', 'موبایل و لوازم جانبی'),
-      businessType: 'mobile_store',
+      shopType: 'mobile_store',
       city: 'herat',
       location: heratLocation(),
       phone: ['+93700000001'],
@@ -113,7 +110,7 @@ async function seed() {
     },
     {
       translation: tf('Herat Electronics', 'الکترونیک هرات', null, 'Home electronics and appliances', 'لوازم برقی خانگی'),
-      businessType: 'electronics_store',
+      shopType: 'electronics_store',
       city: 'herat',
       location: heratLocation(),
       phone: ['+93700000002'],
@@ -121,7 +118,7 @@ async function seed() {
     },
     {
       translation: tf('Herat Car Dealer', 'نمایشگاه موتر هرات', null, 'New and used vehicles', 'موترهای نو و کارکرده'),
-      businessType: 'car_dealer',
+      shopType: 'car_dealer',
       city: 'herat',
       location: heratLocation(),
       phone: ['+93700000003'],
@@ -129,7 +126,7 @@ async function seed() {
     },
     {
       translation: tf('Herat Furniture House', 'مبلمان هرات', null, 'Home and office furniture', 'مبلمان خانه و اداره'),
-      businessType: 'furniture_store',
+      shopType: 'furniture_store',
       city: 'herat',
       location: heratLocation(),
       phone: ['+93700000004'],
@@ -137,7 +134,7 @@ async function seed() {
     },
     {
       translation: tf('Herat Bookstore', 'کتاب فروشی هرات', null, 'Books and stationery', 'کتاب و لوازم‌التحریر'),
-      businessType: 'bookstore',
+      shopType: 'bookstore',
       city: 'herat',
       location: heratLocation(),
       phone: ['+93700000005'],
@@ -145,7 +142,7 @@ async function seed() {
     },
     {
       translation: tf('Herat Pharmacy', 'دواخانه هرات', null, 'Medicines and health products', 'دوا و توکي روغتیایي'),
-      businessType: 'pharmacy',
+      shopType: 'pharmacy',
       city: 'herat',
       location: heratLocation(),
       phone: ['+93700000006'],
@@ -153,22 +150,22 @@ async function seed() {
     },
   ];
 
-  const businesses = await Business.insertMany(
-    businessDefs.map((b) => ({
-      translation: b.translation,
-      businessType: b.businessType,
-      city: b.city,
-      location: b.location,
-      phone: b.phone,
-      status: b.status,
-      category: categoryByType[b.businessType]._id,
+  const shops = await Shop.insertMany(
+    shopDefs.map((shop) => ({
+      translation: shop.translation,
+      shopType: shop.shopType,
+      city: shop.city,
+      location: shop.location,
+      phone: shop.phone,
+      status: shop.status,
+      category: categoryByType[shop.shopType]._id,
     })),
   );
-  const businessByType = Object.fromEntries(businesses.map((b) => [b.businessType, b]));
-  console.log(`Created ${businesses.length} businesses`);
+  const shopByType = Object.fromEntries(shops.map((shop) => [shop.shopType, shop]));
+  console.log(`Created ${shops.length} shops`);
 
   // ---------------------------------------------------------------------
-  // 3. ITEMS — reference both business and category (unchanged)
+  // 3. ITEMS — reference both shop and category
   // ---------------------------------------------------------------------
   const itemDefs = [
     {
@@ -212,14 +209,14 @@ async function seed() {
   const items = await Item.insertMany(
     itemDefs.map((i) => {
       const category = categoryByName[i.categoryName];
-      const business = businessByType[
-        categoryDefs.find((c) => c.translation.en.title === i.categoryName).businessType
+      const shop = shopByType[
+        categoryDefs.find((c) => c.translation.en.title === i.categoryName).shopType
       ];
       return {
         translation: i.translation,
         price: i.price,
         attributes: i.attributes || [],
-        business: business._id,
+        shop: shop._id,
         category: category._id,
         city: 'herat',
         location: heratLocation(),

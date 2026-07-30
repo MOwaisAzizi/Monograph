@@ -1,0 +1,46 @@
+import Shop from '../models/shopModel.js';
+import Follow from '../models/followModel.js';
+import AppError from '../utils/AppError.js';
+import { catchAsync } from '../utils/catchAsync.js';
+
+export const createShop = catchAsync(async (req, res) => {
+  const shop = await Shop.create({ ...req.body, owner: req.user._id });
+  res.status(201).json({ status: 'success', data: { shop } });
+});
+
+export const getShops = catchAsync(async (req, res) => {
+  const filter = req.query.owner === 'me' ? { owner: req.user._id } : {};
+  const shops = await Shop.find(filter);
+  res.status(200).json({ status: 'success', results: shops.length, data: { shops } });
+});
+
+export const getShop = catchAsync(async (req, res, next) => {
+  const shop = await Shop.findById(req.params.id);
+  if (!shop) return next(new AppError('No shop found with that ID', 404));
+  res.status(200).json({ status: 'success', data: { shop } });
+});
+
+export const updateShop = catchAsync(async (req, res, next) => {
+  const shop = await Shop.findOneAndUpdate({ _id: req.params.id, owner: req.user._id }, req.body, { new: true, runValidators: true });
+  if (!shop) return next(new AppError('Shop not found or you do not own it', 404));
+  res.status(200).json({ status: 'success', data: { shop } });
+});
+
+export const deleteShop = catchAsync(async (req, res, next) => {
+  const shop = await Shop.findOneAndDelete({ _id: req.params.id, owner: req.user._id });
+  if (!shop) return next(new AppError('Shop not found or you do not own it', 404));
+  res.status(204).json({ status: 'success', data: null });
+});
+
+export const toggleFollowShop = catchAsync(async (req, res, next) => {
+  const shop = await Shop.findById(req.params.shopId);
+  if (!shop) return next(new AppError('Shop not found', 404));
+  const filter = { user: req.user._id, following: shop._id, followingType: 'Shop' };
+  const existingFollow = await Follow.findOne(filter);
+  if (existingFollow) {
+    await existingFollow.deleteOne();
+    return res.status(200).json({ status: 'success', data: { following: false } });
+  }
+  await Follow.create(filter);
+  res.status(201).json({ status: 'success', data: { following: true } });
+});

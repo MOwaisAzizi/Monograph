@@ -1,6 +1,6 @@
 import { catchAsync } from "../utils/catchAsync.js";
 import Items from "../models/itemModel.js";
-import Business from "../models/businessModel.js";
+import Shop from "../models/shopModel.js";
 
 export const getHomepageData = catchAsync(async (req, res) => {
 // console.log('🥨🥐🍞🍞🍞')
@@ -21,7 +21,7 @@ export const getHomepageData = catchAsync(async (req, res) => {
       Items.find().sort({ rating: -1})
         .limit(6).select('media translation createdAt location rating'),
 
-      Business
+      Shop
       .find()
         .sort({ location: 1 })
         .limit(6).select('media translation createdAt location rating')

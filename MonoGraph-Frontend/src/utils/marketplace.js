@@ -42,7 +42,7 @@ export const pickImageUri = (media = []) => {
 
 export const normalizeItem = (item = {}) => {
     const translation = pickTranslation(item.translation);
-    const businessTranslation = pickTranslation(item.business?.translation || item.business?.translation?.en || item.business?.translation);
+    const shopTranslation = pickTranslation(item.shop?.translation || item.shop?.translation?.en || item.shop?.translation);
     const categoryTranslation = pickTranslation(item.category?.translation || item.category?.translation?.en || item.category?.translation);
 
     return {
@@ -54,7 +54,7 @@ export const normalizeItem = (item = {}) => {
         ratingCount: item.ratingCount || 0,
         image: pickImageUri(item.media),
         city: item.city || item.location?.address?.en || 'Herat',
-        businessName: businessTranslation.title || item.business?.translation?.title || item.business?.name || 'Shop name',
+        businessName: shopTranslation.title || item.shop?.translation?.title || item.shop?.name || 'Shop name',
         categoryName: categoryTranslation.title || item.category?.translation?.title || 'Category',
         locationText: item.location?.address?.en || item.location?.address?.fa || item.city || 'Herat',
     };
@@ -74,6 +74,11 @@ export const normalizeBusiness = (business = {}) => {
         city: business.city || 'Herat',
         address: business.location?.address?.en || business.location?.address?.fa || 'Herat',
     };
+};
+
+export const normalizeShop = (shop = {}) => {
+    const normalized = normalizeBusiness(shop);
+    return { ...normalized, shopType: shop.shopType || normalized.businessType };
 };
 
 export const normalizeUser = (user = {}) => ({

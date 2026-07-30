@@ -56,7 +56,7 @@ export default function SearchScreen({ navigation, route }) {
       const data = response?.data?.data;
 
       setItems((data?.items || []).map(normalizeItem));
-      setShops((data?.businesses || []).map(normalizeBusiness));
+      setShops((data?.shops || []).map(normalizeBusiness));
 
     } catch (error) {
 

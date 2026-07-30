@@ -27,9 +27,9 @@ const itemSchema = new mongoose.Schema(
         rating: { type: Number, min: 0, max: 5, default: 0 },
         isFeatured: { type: Boolean, default: false },
 
-        business: {
+        shop: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Business",
+            ref: "Shop",
         },
         category: {
             type: mongoose.Schema.Types.ObjectId,

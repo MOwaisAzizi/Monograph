@@ -30,14 +30,14 @@ export default function RegisterScreen({ navigation }) {
       });
 
       const user = res?.data?.data?.user;
-      const token = res?.data?.accessToken;
-console.log('user', user);
-console.log('token', token);
-      if (!user || !token) {
+      const accessToken = res?.data?.accessToken;
+      const refreshToken = res?.data?.refreshToken;
+      if (!user || !accessToken || !refreshToken) {
         throw new Error('Missing auth payload');
       }
 
-      dispatch(setUser({ user, token }));
+      api.setSession({ accessToken, refreshToken });
+      dispatch(setUser({ user, accessToken, refreshToken }));
       Alert.alert('Success', 'Account created and logged in.');
       navigation.navigate('MainTabs');
     } catch (error) {

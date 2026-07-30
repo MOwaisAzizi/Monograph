@@ -4,10 +4,7 @@ import { catchAsync } from '../utils/catchAsync.js';
 import { verifyAccessToken } from '../utils/jwt.js';
 
 export const protect = catchAsync(async (req, res, next) => {
-    console.log('-------middleware')
-
     const authHeader = req.headers.authorization;
-console.log('user authHeader:', authHeader);
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return next(new AppError('You are not logged in. Please log in to continue.', 401));
     }
@@ -15,9 +12,12 @@ console.log('user authHeader:', authHeader);
     const token = authHeader.split(' ')[1];
     const decoded = verifyAccessToken(token);
 
-    const currentUser = await User.findById(decoded.id);
+    const currentUser = await User.findById(decoded.id).select('+tokenVersion');
     if (!currentUser) {
         return next(new AppError('The user linked to this token no longer exists.', 401));
+    }
+    if (currentUser.tokenVersion !== decoded.tokenVersion) {
+        return next(new AppError('This session has expired. Please log in again.', 401));
     }
     req.user = currentUser;
     next();
