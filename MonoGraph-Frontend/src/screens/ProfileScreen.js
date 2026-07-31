@@ -33,8 +33,8 @@ export default function ProfileScreen({ navigation }) {
       .then((res) => {
         if (!mounted) return;
         const rawUser = res?.data?.data?.user || {};
-        console.log(rawUser)
-        console.log('rawUs🌭🌭🌭er')
+        console.log(rawUser);
+        console.log('rawUs🌭🌭🌭er');
         setProfile({
           ...normalizeUser(rawUser),
           favoriteItems: (rawUser.favoriteItems || []).map(normalizeItem),
@@ -71,8 +71,12 @@ export default function ProfileScreen({ navigation }) {
             {profile?.name?.slice(0, 1)?.toUpperCase() || 'U'}
           </Text>
         </View>
-        <Text className="mt-4 text-[18px] font-bold text-[#eff5f4]">{profile?.name || 'Your profile'}</Text>
-        <Text className="mt-1 text-[11px] text-[#91a7a6]">{profile?.email || 'Connected account'}</Text>
+        <Text className="mt-4 text-[18px] font-bold text-[#eff5f4]">
+          {profile?.name || 'Your profile'}
+        </Text>
+        <Text className="mt-1 text-[11px] text-[#91a7a6]">
+          {profile?.email || 'Connected account'}
+        </Text>
         <View className="mt-2">
           {user ? (
             <ActionPill label="Logout" onPress={logoutuser} />
@@ -91,7 +95,12 @@ export default function ProfileScreen({ navigation }) {
       <View className="mt-7">
         <SectionHeader title="Favorite Items" actionLabel="See all" />
         {profile?.favoriteItems?.length ? (
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-2" contentContainerClassName="gap-3">
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            className="mt-2"
+            contentContainerClassName="gap-3"
+          >
             {profile.favoriteItems.map((item) => (
               <ItemCard
                 key={item.id}
@@ -112,7 +121,12 @@ export default function ProfileScreen({ navigation }) {
       <View className="mt-5">
         <SectionHeader title="Favorite Shops" />
         {profile?.favoriteShops?.length ? (
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-2" contentContainerClassName="gap-4">
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            className="mt-2"
+            contentContainerClassName="gap-4"
+          >
             {profile.favoriteShops.map((shop) => (
               <ShopCard
                 key={shop.id}

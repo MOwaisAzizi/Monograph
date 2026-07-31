@@ -12,7 +12,7 @@ import { ItemCard, ShopCard } from '../components/cards';
  * confirmed multipleFields shape) and a flat string per language, since
  * Category's `singleField` shape hasn't been confirmed against the schema
  * yet (see seed.js notes).
- * 
+ *
  * @param {Array} categories - raw array from GET /categories
  * @param {string} lang - 'en' | 'fa' | 'ps'
  */
@@ -44,11 +44,7 @@ function CategoryFilterRow({ categories, activeKey, onSelect }) {
         const active = cat.key === activeKey;
         return (
           <View key={cat.key} className="items-center">
-            <IconCircleButton
-              icon={cat.icon}
-              active={active}
-              onPress={() => onSelect(cat.key)}
-            />
+            <IconCircleButton icon={cat.icon} active={active} onPress={() => onSelect(cat.key)} />
             <Text
               className={`mt-1.5 text-[11px] ${
                 active ? 'text-[#0f3d3e] font-semibold' : 'text-[#7c9291]'
@@ -100,7 +96,6 @@ function HorizontalShopRow({ data, onPressShop }) {
     </ScrollView>
   );
 }
-
 
 export default function HomeScreen({ navigation, lang = 'en' }) {
   const [activeCategory, setActiveCategory] = useState('');
@@ -171,16 +166,46 @@ export default function HomeScreen({ navigation, lang = 'en' }) {
     useCallback(() => {
       console.log('calling use focus effect');
       setActiveCategory('');
-    }, [])
+    }, []),
   );
 
   const sections = useMemo(
     () => [
-      { key: 'New Items', title: 'New Items', actionLabel: 'See all', data: homeData.newItems, type: 'item' },
-      { key: 'Highly Rated', title: 'Highly Rated', actionLabel: 'See all', data: homeData.highRatedItems, type: 'item' },
-      { key: 'Cheap', title: 'Cheap', actionLabel: 'See all', data: homeData.cheapItems, type: 'item' },
-      { key: 'Near You', title: 'Near You', actionLabel: 'See all', data: homeData.nearestItems, type: 'item' },
-      { key: 'Shops', title: 'Shops', actionLabel: 'See all', data: homeData.nearestShops, type: 'shop' },
+      {
+        key: 'New Items',
+        title: 'New Items',
+        actionLabel: 'See all',
+        data: homeData.newItems,
+        type: 'item',
+      },
+      {
+        key: 'Highly Rated',
+        title: 'Highly Rated',
+        actionLabel: 'See all',
+        data: homeData.highRatedItems,
+        type: 'item',
+      },
+      {
+        key: 'Cheap',
+        title: 'Cheap',
+        actionLabel: 'See all',
+        data: homeData.cheapItems,
+        type: 'item',
+      },
+      {
+        key: 'Near You',
+        title: 'Near You',
+        actionLabel: 'See all',
+        data: homeData.nearestItems,
+        type: 'item',
+      },
+      {
+        key: 'Shops',
+        title: 'Shops',
+        actionLabel: 'See all',
+        data: homeData.nearestShops,
+        type: 'shop',
+      },
     ],
     [homeData],
   );
@@ -188,13 +213,12 @@ export default function HomeScreen({ navigation, lang = 'en' }) {
   return (
     <ScreenShell contentClassName="px-5 pb-6 pt-4">
       <View className="mt-2">
-
         <CategoryFilterRow
           categories={categories}
           activeKey={activeCategory}
           onSelect={(categoryKey) => {
-            console.log('categoryKey')
-            console.log(categoryKey)
+            console.log('categoryKey');
+            console.log(categoryKey);
             const category = categories.find((cat) => cat.key === categoryKey);
             if (!category) return;
 
@@ -206,7 +230,6 @@ export default function HomeScreen({ navigation, lang = 'en' }) {
             });
           }}
         />
-
       </View>
       {/* Vertically scrolling list of sections, each scrolling horizontally */}
       <View className="mt-6 space-y-7">
@@ -215,7 +238,8 @@ export default function HomeScreen({ navigation, lang = 'en' }) {
             <SectionHeader
               title={section.title}
               actionLabel={section.actionLabel}
-onAction={() => navigation.navigate('Search', { search: '', category: '' })}            />
+              onAction={() => navigation.navigate('Search', { search: '', category: '' })}
+            />
             {section.data.length ? (
               <View className="mt-2">
                 {section.type === 'item' ? (

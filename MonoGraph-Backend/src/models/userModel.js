@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import mediaSchema from "./mediaSchema.js";
 import locationSchema from "./locationSchema.js";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
@@ -12,14 +12,14 @@ const userSchema = new Schema(
       trim: true,
     },
     lastName: {
-        type: String,
-        trim: true,
+      type: String,
+      trim: true,
     },
     phone: [String],
     role: {
-        type: String,
-        enum: ['user', 'admin'],
-        default: 'user'
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
     },
     tokenVersion: {
       type: Number,
@@ -34,14 +34,18 @@ const userSchema = new Schema(
       trim: true,
       unique: true,
     },
-    favoriteItems: [{
-      type: Schema.Types.ObjectId,
-      ref: "Item",
-    }],
-    favoriteShops: [{
-  type: Schema.Types.ObjectId,
-  ref: "Shop",
-}],
+    favoriteItems: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Item",
+      },
+    ],
+    favoriteShops: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Shop",
+      },
+    ],
 
     password: {
       type: String,
@@ -53,7 +57,7 @@ const userSchema = new Schema(
     media: mediaSchema,
     location: locationSchema,
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 userSchema.pre("save", async function (next) {

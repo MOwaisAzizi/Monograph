@@ -3,9 +3,11 @@ import Item from "../models/itemModel.js";
 import { catchAsync } from "../utils/catchAsync.js";
 
 export const search = catchAsync(async (req, res) => {
-  console.log('-------------------------------------🧈🥞🥞🥞🧇🍳🍳🍳-------------')
+  console.log(
+    "-------------------------------------🧈🥞🥞🥞🧇🍳🍳🍳-------------",
+  );
   const { search = "", category = "" } = req.query;
-  console.log('search:', search, 'category:', category)
+  console.log("search:", search, "category:", category);
   const limit = Number(req.query.limit) || 10;
   const itemQuery = {};
   const shopQuery = {};
@@ -35,7 +37,9 @@ export const search = catchAsync(async (req, res) => {
     itemQuery.category = category;
     shopQuery.category = category;
   }
-  console.log('-------------------------------------🧈🥞🥞🥞🧇🍳🍳🍳-------------')
+  console.log(
+    "-------------------------------------🧈🥞🥞🥞🧇🍳🍳🍳-------------",
+  );
   const [items, shops] = await Promise.all([
     Item.find(itemQuery).limit(limit),
     Shop.find(shopQuery).limit(limit),

@@ -28,7 +28,6 @@ export const getCategory = catchAsync(async (req, res, next) => {
   res.status(204).json({ status: "success", data: category });
 });
 
-
 export const updateCategory = catchAsync(async (req, res, next) => {
   const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
     new: true,

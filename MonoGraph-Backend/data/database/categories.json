@@ -5,7 +5,7 @@
       "fa": { "title": "موبایل و تبلت" },
       "ps": { "title": "موبایل او ټابلېټ" }
     },
-    "business": "6a3240ce6b3faaf498a48ad0",
+    "shop": "6a3240ce6b3faaf498a48ad0",
     "icon": "phone-portrait"
   },
   {
@@ -14,7 +14,7 @@
       "fa": { "title": "لوازم برقی" },
       "ps": { "title": "بریښنایي توکي" }
     },
-    "business": "6a3240ce6b3faaf498a48ad1",
+    "shop": "6a3240ce6b3faaf498a48ad1",
     "icon": "tv"
   },
   {
@@ -23,7 +23,7 @@
       "fa": { "title": "موتر" },
       "ps": { "title": "موټر" }
     },
-    "business": "6a3240ce6b3faaf498a48ad2",
+    "shop": "6a3240ce6b3faaf498a48ad2",
     "icon": "car-sport"
   },
   {
@@ -32,7 +32,7 @@
       "fa": { "title": "موتورسیکل" },
       "ps": { "title": "موټرسایکل" }
     },
-    "business": "6a3240ce6b3faaf498a48ad3",
+    "shop": "6a3240ce6b3faaf498a48ad3",
     "icon": "bicycle"
   },
   {
@@ -41,7 +41,7 @@
       "fa": { "title": "بایسکل" },
       "ps": { "title": "بایسکل" }
     },
-    "business": "6a3240ce6b3faaf498a48ad4",
+    "shop": "6a3240ce6b3faaf498a48ad4",
     "icon": "bicycle-outline"
   },
   {
@@ -50,7 +50,7 @@
       "fa": { "title": "مبلمان" },
       "ps": { "title": "فرنیچر" }
     },
-    "business": "6a3240ce6b3faaf498a48ad5",
+    "shop": "6a3240ce6b3faaf498a48ad5",
     "icon": "bed"
   },
   {
@@ -59,7 +59,7 @@
       "fa": { "title": "لباس" },
       "ps": { "title": "کالي" }
     },
-    "business": "6a3240ce6b3faaf498a48ad6",
+    "shop": "6a3240ce6b3faaf498a48ad6",
     "icon": "shirt"
   },
   {
@@ -68,7 +68,7 @@
       "fa": { "title": "اسباب‌بازی و عروسک" },
       "ps": { "title": "بازیچې او لوبډکۍ" }
     },
-    "business": "6a3240ce6b3faaf498a48ad7",
+    "shop": "6a3240ce6b3faaf498a48ad7",
     "icon": "happy"
   },
   {
@@ -77,7 +77,7 @@
       "fa": { "title": "کتاب و لوازم‌التحریر" },
       "ps": { "title": "کتابونه او د لیکلو توکي" }
     },
-    "business": "6a3240ce6b3faaf498a48ad8",
+    "shop": "6a3240ce6b3faaf498a48ad8",
     "icon": "book"
   },
   {
@@ -86,7 +86,7 @@
       "fa": { "title": "لوازم خانه و آشپزخانه" },
       "ps": { "title": "کورني او پخلنځي توکي" }
     },
-    "business": "6a3240ce6b3faaf498a48ad9",
+    "shop": "6a3240ce6b3faaf498a48ad9",
     "icon": "restaurant"
   },
   {
@@ -95,7 +95,7 @@
       "fa": { "title": "کودک و نوزاد" },
       "ps": { "title": "ماشومان او نوي زوکړي" }
     },
-    "business": "6a3240ce6b3faaf498a48ada",
+    "shop": "6a3240ce6b3faaf498a48ada",
     "icon": "body"
   },
   {
@@ -104,7 +104,7 @@
       "fa": { "title": "ورزش و فضای باز" },
       "ps": { "title": "ورزش او بهرنۍ فعالیتونه" }
     },
-    "business": "6a3240ce6b3faaf498a48adb",
+    "shop": "6a3240ce6b3faaf498a48adb",
     "icon": "football"
   },
   {
@@ -113,7 +113,7 @@
       "fa": { "title": "ساعت و اکسسوری" },
       "ps": { "title": "ساعتونه او اکسسوري" }
     },
-    "business": "6a3240ce6b3faaf498a48adc",
+    "shop": "6a3240ce6b3faaf498a48adc",
     "icon": "watch"
   },
   {
@@ -122,7 +122,7 @@
       "fa": { "title": "ابزار و ماشین‌آلات" },
       "ps": { "title": "اوزار او ماشینونه" }
     },
-    "business": "6a3240ce6b3faaf498a48add",
+    "shop": "6a3240ce6b3faaf498a48add",
     "icon": "hammer"
   },
   {
@@ -131,7 +131,7 @@
       "fa": { "title": "حیوانات خانگی" },
       "ps": { "title": "کورني ژوي" }
     },
-    "business": "6a3240ce6b3faaf498a48ade",
+    "shop": "6a3240ce6b3faaf498a48ade",
     "icon": "paw"
   }
 ]

@@ -1,5 +1,5 @@
-import { Schema } from 'mongoose';
-import { singleField } from './translationSchema.js';
+import { Schema } from "mongoose";
+import { singleField } from "./translationSchema.js";
 
 const locationSchema = new Schema(
   {
@@ -7,8 +7,8 @@ const locationSchema = new Schema(
     geoPosition: {
       type: {
         type: String,
-        enum: ['Point'],
-        default: 'Point',
+        enum: ["Point"],
+        default: "Point",
       },
       coordinates: {
         type: [Number],
@@ -19,6 +19,6 @@ const locationSchema = new Schema(
   { _id: false, timestamps: true },
 );
 
-locationSchema.index({ coordinates: '2dsphere' });
+locationSchema.index({ coordinates: "2dsphere" });
 
 export default locationSchema;

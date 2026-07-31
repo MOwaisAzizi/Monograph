@@ -1,23 +1,23 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
 
     reviewType: {
       type: String,
-      enum: ['Shop', 'Item'],
+      enum: ["Shop", "Item"],
       required: true,
     },
 
     target: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      refPath: 'reviewType',
+      refPath: "reviewType",
     },
 
     rating: {
@@ -35,9 +35,8 @@ const reviewSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
-
 
 // prevent duplicate reviews
 reviewSchema.index(
@@ -48,8 +47,7 @@ reviewSchema.index(
   },
   {
     unique: true,
-  }
+  },
 );
 
-
-export default mongoose.model('Review', reviewSchema);
+export default mongoose.model("Review", reviewSchema);

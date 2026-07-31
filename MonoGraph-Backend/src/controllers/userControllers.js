@@ -1,12 +1,19 @@
-
 import User from "../models/userModel.js";
 import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 import { isCorrectPassword } from "../utils/auth.js";
-import { signAccessToken, signRefreshToken, verifyRefreshToken } from "../utils/jwt.js";
+import {
+  signAccessToken,
+  signRefreshToken,
+  verifyRefreshToken,
+} from "../utils/jwt.js";
 
 const sendTokens = (user) => {
-  const payload = { id: user._id, role: user.role, tokenVersion: user.tokenVersion || 0 };
+  const payload = {
+    id: user._id,
+    role: user.role,
+    tokenVersion: user.tokenVersion || 0,
+  };
 
   const accessToken = signAccessToken(payload);
   const refreshToken = signRefreshToken(payload);
@@ -65,11 +72,16 @@ export const refreshToken = catchAsync(async (req, res, next) => {
 
   const decoded = verifyRefreshToken(refreshToken);
 
-  const user = await User.findById(decoded.id).select('+tokenVersion');
+  const user = await User.findById(decoded.id).select("+tokenVersion");
   if (!user) return next(new AppError("User not found", 404));
-  if (user.tokenVersion !== decoded.tokenVersion) return next(new AppError('Refresh token is no longer valid', 401));
+  if (user.tokenVersion !== decoded.tokenVersion)
+    return next(new AppError("Refresh token is no longer valid", 401));
 
-  const accessToken = signAccessToken({ id: user._id, role: user.role, tokenVersion: user.tokenVersion });
+  const accessToken = signAccessToken({
+    id: user._id,
+    role: user.role,
+    tokenVersion: user.tokenVersion,
+  });
 
   res.status(200).json({
     status: "success",
@@ -83,12 +95,12 @@ export const logout = catchAsync(async (req, res) => {
 });
 export const getUserProfile = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id)
-    .populate('favoriteItems')
-    .populate('favoriteShops');
-  if (!user) return next(new AppError('User not found', 404));
+    .populate("favoriteItems")
+    .populate("favoriteShops");
+  if (!user) return next(new AppError("User not found", 404));
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     data: { user },
   });
 });
@@ -113,36 +125,35 @@ export const updateProfile = catchAsync(async (req, res, next) => {
   });
 });
 
-
 export const toggleFavoriteItemOrShop = catchAsync(async (req, res, next) => {
   const { item, shop } = req.body;
   if (!item && !shop) {
-    return next(new AppError('Either item or shop must be provided', 400));
+    return next(new AppError("Either item or shop must be provided", 400));
   }
   if (item && shop) {
-    return next(new AppError('Only one of item or shop can be provided', 400));
+    return next(new AppError("Only one of item or shop can be provided", 400));
   }
 
-  const favoriteField = item ? 'favoriteItems' : 'favoriteShops';
+  const favoriteField = item ? "favoriteItems" : "favoriteShops";
   const targetId = item || shop;
 
   const user = await User.findById(req.user.id);
-  if (!user) return next(new AppError('User not found', 404));
+  if (!user) return next(new AppError("User not found", 404));
 
   const isAlreadyBookmarked = user[favoriteField].some(
-    id => id.toString() === targetId,
+    (id) => id.toString() === targetId,
   );
 
   if (isAlreadyBookmarked) {
     user[favoriteField] = user[favoriteField].filter(
-      id => id.toString() !== targetId,
+      (id) => id.toString() !== targetId,
     );
     await user.save();
-    return res.status(200).json({ message: 'Removed from favorites!' });
+    return res.status(200).json({ message: "Removed from favorites!" });
   }
 
   user[favoriteField].push(targetId);
   await user.save();
 
-  return res.status(200).json({ message: 'Added to favorites!' });
+  return res.status(200).json({ message: "Added to favorites!" });
 });

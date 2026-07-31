@@ -6,10 +6,9 @@ import { Chip, ScreenHeader, ScreenShell } from '../components/ui';
 import { ShopCard } from '../components/cards';
 
 export default function ShopScreen({ navigation }) {
-
   return (
     <ScreenShell contentClassName="pb-6">
-              <Text className="text-[12px] text-[#89a1a1]">Backend shop data will appear here.</Text>
+      <Text className="text-[12px] text-[#89a1a1]">Backend shop data will appear here.</Text>
     </ScreenShell>
   );
 }

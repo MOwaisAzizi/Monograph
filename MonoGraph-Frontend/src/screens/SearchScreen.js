@@ -6,11 +6,7 @@ import { Chip, ScreenShell, ScreenHeader, TextField } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
 
 export default function SearchScreen({ navigation, route }) {
-
-  const {
-    search: initialSearch = '',
-    category: initialCategory = '',
-  } = route.params || {};
+  const { search: initialSearch = '', category: initialCategory = '' } = route.params || {};
 
   const [search, setSearch] = useState(initialSearch);
   const [category, setCategory] = useState(initialCategory);
@@ -36,9 +32,7 @@ export default function SearchScreen({ navigation, route }) {
   }, [search, category]);
 
   const fetchResults = async () => {
-
     try {
-
       setLoading(true);
 
       const params = new URLSearchParams();
@@ -57,20 +51,14 @@ export default function SearchScreen({ navigation, route }) {
 
       setItems((data?.items || []).map(normalizeItem));
       setShops((data?.shops || []).map(normalizeBusiness));
-
     } catch (error) {
-
       console.log('Search error:', error);
 
       setItems([]);
       setShops([]);
-
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
   const results = selectedTab === 'Items' ? items : shops;
@@ -80,34 +68,20 @@ export default function SearchScreen({ navigation, route }) {
 
   return (
     <ScreenShell contentClassName="pb-6">
-
-      <ScreenHeader
-        title="Search"
-        onBack={() => navigation.goBack()}
-      />
+      <ScreenHeader title="Search" onBack={() => navigation.goBack()} />
 
       <View className="px-5">
-
-        <TextField
-          placeholder="Search items or shops..."
-          value={search}
-          onChangeText={setSearch}
-        />
+        <TextField placeholder="Search items or shops..." value={search} onChangeText={setSearch} />
 
         {Boolean(category) && (
           <View className="mt-3">
-            <Text className="text-xs text-[#7c9291]">
-              Category: {category}
-            </Text>
+            <Text className="text-xs text-[#7c9291]">Category: {category}</Text>
           </View>
         )}
 
-        {loading && (
-          <ActivityIndicator className="mt-4" />
-        )}
+        {loading && <ActivityIndicator className="mt-4" />}
 
         <View className="mt-6 flex-row gap-2">
-
           <Chip
             label="Items"
             active={selectedTab === 'Items'}
@@ -119,29 +93,20 @@ export default function SearchScreen({ navigation, route }) {
             active={selectedTab === 'Shops'}
             onPress={() => setSelectedTab('Shops')}
           />
-
         </View>
 
         <View className="mt-5 flex-row flex-wrap justify-between">
-
           {results.map((entry) => (
-            <View
-              key={entry.id}
-              className="w-[48%] mb-3"
-            >
+            <View key={entry.id} className="w-[48%] mb-3">
               {selectedTab === 'Items' ? (
                 <ItemCard
                   item={entry}
-                  onPress={() =>
-                    navigation.navigate('Product', { id: entry.id })
-                  }
+                  onPress={() => navigation.navigate('Product', { id: entry.id })}
                 />
               ) : (
                 <ShopCard
                   shop={entry}
-                  onPress={() =>
-                    navigation.navigate('ShopDetail', { id: entry.id })
-                  }
+                  onPress={() => navigation.navigate('ShopDetail', { id: entry.id })}
                 />
               )}
             </View>
@@ -149,16 +114,11 @@ export default function SearchScreen({ navigation, route }) {
 
           {showEmptyState && (
             <View className="w-full rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
-              <Text className="text-[12px] text-[#89a1a9]">
-                No results found
-              </Text>
+              <Text className="text-[12px] text-[#89a1a9]">No results found</Text>
             </View>
           )}
-
         </View>
-
       </View>
-
     </ScreenShell>
   );
 }

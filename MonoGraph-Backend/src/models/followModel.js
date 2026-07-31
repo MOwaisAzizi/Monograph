@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
@@ -6,30 +6,30 @@ const followSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
       index: true,
     },
     followingType: {
       type: String,
-      enum: ['Shop', 'Item'],
+      enum: ["Shop", "Item"],
       required: true,
     },
     following: {
       type: Schema.Types.ObjectId,
       required: true,
-      refPath: 'followingType',
+      refPath: "followingType",
     },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 followSchema.index(
   { user: 1, followingType: 1, following: 1 },
-  { unique: true }
+  { unique: true },
 );
 
-const Follow = mongoose.model('Follow', followSchema);
+const Follow = mongoose.model("Follow", followSchema);
 export default Follow;

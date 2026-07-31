@@ -2,7 +2,8 @@ import React from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const fallbackImage = 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=900&q=80';
+const fallbackImage =
+  'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=900&q=80';
 
 const CARD_WIDTH = 150;
 
@@ -24,7 +25,11 @@ function FavoriteButton({ active, onPress }) {
       hitSlop={8}
       className="absolute right-2 top-2 h-7 w-7 items-center justify-center rounded-full bg-white/90"
     >
-      <Ionicons name={active ? 'heart' : 'heart-outline'} size={14} color={active ? '#e0555f' : '#4e6667'} />
+      <Ionicons
+        name={active ? 'heart' : 'heart-outline'}
+        size={14}
+        color={active ? '#e0555f' : '#4e6667'}
+      />
     </Pressable>
   );
 }
@@ -33,7 +38,11 @@ export function ItemCard({ item, onPress, onToggleFavorite, style, compact = fal
   const width = style?.width ?? (compact ? 120 : CARD_WIDTH);
 
   return (
-    <Pressable onPress={onPress} style={[{ width }, style]} className="overflow-hidden rounded-[20px] bg-white">
+    <Pressable
+      onPress={onPress}
+      style={[{ width }, style]}
+      className="overflow-hidden rounded-[20px] bg-white"
+    >
       <View className="relative">
         <Image
           source={{ uri: item.image || fallbackImage }}
@@ -108,7 +117,9 @@ export function ShopCard({ shop, onPress, style, compact = false }) {
             <Text className="text-[10px] text-[#7a8f8f]"> · </Text>
           </>
         ) : null}
-        <Text className="text-[10px] text-[#7a8f8f]">{shop.itemsCountText || (shop.itemsCount != null ? `${shop.itemsCount} items` : '')}</Text>
+        <Text className="text-[10px] text-[#7a8f8f]">
+          {shop.itemsCountText || (shop.itemsCount != null ? `${shop.itemsCount} items` : '')}
+        </Text>
       </View>
     </Pressable>
   );

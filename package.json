@@ -1,0 +1,9 @@
+{
+  "name": "mongograph-root",
+  "private": true,
+  "scripts": {
+    "lint:frontend": "npm run lint --prefix MonoGraph-Frontend",
+    "lint:backend": "npm run lint --prefix MonoGraph-Backend",
+    "lint": "npm run lint:backend && npm run lint:frontend"
+  }
+}

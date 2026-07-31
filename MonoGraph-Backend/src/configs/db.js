@@ -1,17 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const databaseConnect = () => {
   mongoose
-    .connect(process.env.MONGO_URL || 'mongodb://localhost:27017/fee', {
+    .connect(process.env.MONGO_URL || "mongodb://localhost:27017/fee", {
       serverSelectionTimeoutMS: 5000,
     })
     .then(() => {
-      console.log('database connected!');
+      console.log("database connected!");
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err.message);
-      console.log('database connection failed, exiting now...');
-      if (process.env.NODE_ENV !== 'development') process.exit(1);
+      console.log("database connection failed, exiting now...");
+      if (process.env.NODE_ENV !== "development") process.exit(1);
     });
 };
 

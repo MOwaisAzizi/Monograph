@@ -6,7 +6,10 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "lint:fix": "eslint . --fix && prettier --write ."
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
@@ -26,5 +29,12 @@
     "react-native-web": "^0.21.2",
     "react-redux": "^9.0.0",
     "tailwindcss": "^3.4.19"
+  },
+  "devDependencies": {
+    "@react-native/eslint-config": "^0.86.2",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
+    "prettier": "^3.9.6"
   }
 }

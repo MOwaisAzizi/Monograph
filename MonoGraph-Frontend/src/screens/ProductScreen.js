@@ -1,4 +1,3 @@
-
 import React, { useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -32,14 +31,17 @@ export default function ProductScreen({ route, navigation }) {
           return;
         }
 
-        const rawItem = response?.data?.data?.Item || response?.data?.data?.item || response?.data?.data || {};
+        const rawItem =
+          response?.data?.data?.Item || response?.data?.data?.item || response?.data?.data || {};
         const normalized = normalizeItem(rawItem);
         setItem(normalized);
 
         if (rawItem?.category?._id || rawItem?.category) {
           const categoryId = rawItem.category._id || rawItem.category;
           const similarResponse = await api.baseURL.get(`/item?category=${categoryId}`);
-          const similarList = (similarResponse?.data?.data?.Items || []).map(normalizeItem).filter((entry) => entry.id !== normalized.id);
+          const similarList = (similarResponse?.data?.data?.Items || [])
+            .map(normalizeItem)
+            .filter((entry) => entry.id !== normalized.id);
           if (mounted) {
             setSimilarItems(similarList.slice(0, 4));
           }
@@ -71,11 +73,17 @@ export default function ProductScreen({ route, navigation }) {
         <View className="px-5 pt-2">
           <View className="h-64 rounded-[28px] bg-[#d6e3e2]">
             <View className="absolute left-4 right-4 top-4 flex-row items-center justify-between">
-              <Pressable onPress={() => navigation.goBack()} className="h-9 w-9 items-center justify-center rounded-full bg-white/60">
+              <Pressable
+                onPress={() => navigation.goBack()}
+                className="h-9 w-9 items-center justify-center rounded-full bg-white/60"
+              >
                 <Ionicons name="chevron-back" size={16} color="#2a3535" />
               </Pressable>
-              <Pressable className="h-9 w-9 items-center justify-center rounded-full bg-white/60" onPress={toggleFavorite}>
-                <Ionicons name={isFavorite ? "heart" : "heart-outline"} size={16} color="#2a3535" />
+              <Pressable
+                className="h-9 w-9 items-center justify-center rounded-full bg-white/60"
+                onPress={toggleFavorite}
+              >
+                <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={16} color="#2a3535" />
               </Pressable>
             </View>
 
@@ -85,7 +93,9 @@ export default function ProductScreen({ route, navigation }) {
           </View>
 
           <View className="mt-5">
-            <Text className="text-[18px] font-bold text-[#eff5f4]">{item?.title || 'Item title'}</Text>
+            <Text className="text-[18px] font-bold text-[#eff5f4]">
+              {item?.title || 'Item title'}
+            </Text>
             <View className="mt-2 flex-row flex-wrap gap-2">
               <Chip label={itemStatus} active />
               <Chip label={item?.categoryName || 'Category'} />
@@ -106,7 +116,9 @@ export default function ProductScreen({ route, navigation }) {
 
             <View className="mt-4">
               <SectionHeader title="Description" />
-              <Text className="text-[12px] leading-5 text-[#b3c2c2]">{item?.description || 'Description will be mapped from backend translation fields.'}</Text>
+              <Text className="text-[12px] leading-5 text-[#b3c2c2]">
+                {item?.description || 'Description will be mapped from backend translation fields.'}
+              </Text>
             </View>
 
             <View className="mt-4 flex-row gap-2">
@@ -124,7 +136,9 @@ export default function ProductScreen({ route, navigation }) {
                 </View>
               ) : (
                 <View className="rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
-                  <Text className="text-[12px] text-[#89a1a1]">Similar items will appear here.</Text>
+                  <Text className="text-[12px] text-[#89a1a1]">
+                    Similar items will appear here.
+                  </Text>
                 </View>
               )}
             </View>

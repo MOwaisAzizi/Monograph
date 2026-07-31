@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -62,7 +61,12 @@ export default function RegisterScreen({ navigation }) {
           autoCapitalize="none"
           keyboardType="email-address"
         />
-        <TextField placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry />
+        <TextField
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
       </View>
 
       <Pressable
@@ -76,7 +80,9 @@ export default function RegisterScreen({ navigation }) {
       </Pressable>
 
       <Pressable onPress={() => navigation.navigate('Login')} className="mt-4">
-        <Text className="text-center text-[12px] text-[#c2d1d0]">Already have an account? Login</Text>
+        <Text className="text-center text-[12px] text-[#c2d1d0]">
+          Already have an account? Login
+        </Text>
       </Pressable>
     </ScreenShell>
   );

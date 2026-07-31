@@ -113,7 +113,11 @@ export default function RootNavigator() {
         }}
       />
       <Stack.Screen name="Product" component={ProductScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="ShopDetail" component={ShopDetailScreen} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="ShopDetail"
+        component={ShopDetailScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
     </Stack.Navigator>

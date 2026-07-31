@@ -30,10 +30,8 @@
     "social": {
       "instagram": "@kabul_garden_restaurant"
     },
-    "businessType": "restaurant",
-    "phone": [
-      "+93700111001"
-    ],
+    "shopType": "restaurant",
+    "phone": ["+93700111001"],
     "email": "kabul.garden.restaur@example.com",
     "status": "confirmed",
     "rating": 4.4,
@@ -72,10 +70,8 @@
     "social": {
       "instagram": "@pamir_grill_house"
     },
-    "businessType": "restaurant",
-    "phone": [
-      "+93700111002"
-    ],
+    "type": "restaurant",
+    "phone": ["+93700111002"],
     "email": "pamir.grill.house@example.com",
     "status": "confirmed",
     "rating": 4.1,
@@ -114,10 +110,8 @@
     "social": {
       "instagram": "@blue_sky_café"
     },
-    "businessType": "cafe",
-    "phone": [
-      "+93700222001"
-    ],
+    "shopType": "cafe",
+    "phone": ["+93700222001"],
     "email": "blue.sky.café@example.com",
     "status": "confirmed",
     "rating": 4.3,
@@ -156,10 +150,8 @@
     "social": {
       "instagram": "@silk_road_coffee"
     },
-    "businessType": "cafe",
-    "phone": [
-      "+93700222002"
-    ],
+    "shopType": "cafe",
+    "phone": ["+93700222002"],
     "email": "silk.road.coffee@example.com",
     "status": "confirmed",
     "rating": 4.1,
@@ -198,10 +190,8 @@
     "social": {
       "instagram": "@al-shifa_pharmacy"
     },
-    "businessType": "pharmacy",
-    "phone": [
-      "+93700333001"
-    ],
+    "shopType": "pharmacy",
+    "phone": ["+93700333001"],
     "email": "al-shifa.pharmacy@example.com",
     "status": "confirmed",
     "rating": 3.6,
@@ -240,10 +230,8 @@
     "social": {
       "instagram": "@sehat_pharmacy"
     },
-    "businessType": "pharmacy",
-    "phone": [
-      "+93700333002"
-    ],
+    "shopType": "pharmacy",
+    "phone": ["+93700333002"],
     "email": "sehat.pharmacy@example.com",
     "status": "confirmed",
     "rating": 5.0,
@@ -282,10 +270,8 @@
     "social": {
       "instagram": "@grand_herat_hotel"
     },
-    "businessType": "hotel",
-    "phone": [
-      "+93700444001"
-    ],
+    "shopType": "hotel",
+    "phone": ["+93700444001"],
     "email": "grand.herat.hotel@example.com",
     "status": "confirmed",
     "rating": 4.1,
@@ -324,10 +310,8 @@
     "social": {
       "instagram": "@silk_road_guesthouse"
     },
-    "businessType": "hotel",
-    "phone": [
-      "+93700444002"
-    ],
+    "shopType": "hotel",
+    "phone": ["+93700444002"],
     "email": "silk.road.guesthouse@example.com",
     "status": "confirmed",
     "rating": 3.7,
@@ -366,10 +350,8 @@
     "social": {
       "instagram": "@iron_body_gym"
     },
-    "businessType": "gym",
-    "phone": [
-      "+93700555001"
-    ],
+    "shopType": "gym",
+    "phone": ["+93700555001"],
     "email": "iron.body.gym@example.com",
     "status": "confirmed",
     "rating": 4.8,
@@ -408,10 +390,8 @@
     "social": {
       "instagram": "@fitness_zone"
     },
-    "businessType": "gym",
-    "phone": [
-      "+93700555002"
-    ],
+    "shopType": "gym",
+    "phone": ["+93700555002"],
     "email": "fitness.zone@example.com",
     "status": "confirmed",
     "rating": 5.0,

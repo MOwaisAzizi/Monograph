@@ -1,4 +1,3 @@
-
 import 'react-native-gesture-handler';
 import './global.css';
 import React, { useEffect } from 'react';
@@ -13,7 +12,10 @@ import { logout, updateTokens } from './src/store/slices/authSlice';
 function AuthBridge() {
   const dispatch = useDispatch();
   useEffect(() => {
-    api.setAuthCallbacks({ onTokensChanged: (tokens) => dispatch(updateTokens(tokens)), onUnauthorized: () => dispatch(logout()) });
+    api.setAuthCallbacks({
+      onTokensChanged: (tokens) => dispatch(updateTokens(tokens)),
+      onUnauthorized: () => dispatch(logout()),
+    });
   }, [dispatch]);
   return null;
 }

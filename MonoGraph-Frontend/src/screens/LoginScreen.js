@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -59,7 +58,12 @@ export default function LoginScreen({ navigation }) {
           autoCapitalize="none"
           keyboardType="email-address"
         />
-        <TextField placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry />
+        <TextField
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
       </View>
 
       <Pressable
@@ -67,7 +71,9 @@ export default function LoginScreen({ navigation }) {
         disabled={loading}
         className={`mt-4 rounded-2xl px-4 py-3 ${loading ? 'bg-[#96afb0]' : 'bg-[#0f6b75]'}`}
       >
-        <Text className="text-center text-[13px] font-semibold text-white">{loading ? 'Logging in...' : 'Login'}</Text>
+        <Text className="text-center text-[13px] font-semibold text-white">
+          {loading ? 'Logging in...' : 'Login'}
+        </Text>
       </Pressable>
 
       <Pressable onPress={() => navigation.navigate('Register')} className="mt-4">
