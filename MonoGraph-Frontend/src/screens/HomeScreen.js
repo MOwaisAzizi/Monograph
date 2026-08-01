@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ScrollView, SectionList, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import api from '../services/api';
-import { normalizeBusiness, normalizeItem } from '../utils/marketplace';
+import { normalizeShop, normalizeItem } from '../utils/marketplace';
 import { IconCircleButton, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
 /**
@@ -23,7 +23,7 @@ export function normalizeCategoryFilters(categories = [], lang = 'en') {
     const label =
       typeof translation === 'string'
         ? translation
-        : translation?.en?.title || cat.translation?.en?.title || '';
+        : translation?.title || '';
 
     return {
       key: cat._id || cat.id || '',
@@ -46,9 +46,8 @@ function CategoryFilterRow({ categories, activeKey, onSelect }) {
           <View key={cat.key} className="items-center">
             <IconCircleButton icon={cat.icon} active={active} onPress={() => onSelect(cat.key)} />
             <Text
-              className={`mt-1.5 text-[11px] ${
-                active ? 'text-[#0f3d3e] font-semibold' : 'text-[#7c9291]'
-              }`}
+              className={`mt-1.5 text-[11px] ${active ? 'text-[#0f3d3e] font-semibold' : 'text-[#7c9291]'
+                }`}
             >
               {cat.label}
             </Text>
@@ -122,7 +121,7 @@ export default function HomeScreen({ navigation, lang = 'en' }) {
           highRatedItems: (homeResponse.data.data.highRatedItems || []).map(normalizeItem),
           newItems: (homeResponse.data.data.newItems || []).map(normalizeItem),
           nearestItems: (homeResponse.data.data.nearestItems || []).map(normalizeItem),
-          nearestShops: (homeResponse.data.data.nearestShops || []).map(normalizeBusiness),
+          nearestShops: (homeResponse.data.data.nearestShops || []).map(normalizeShop),
         });
       })
       .catch(() => {

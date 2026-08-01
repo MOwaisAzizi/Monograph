@@ -45,11 +45,14 @@ export default function ShopDetailScreen({ route, navigation }) {
   console.log(shop);
   useEffect(() => {
     let mounted = true;
-    Promise.all([api.baseURL.get(`/shop/${id}`), api.getShopItems(id), loadReviews()])
+    Promise.all([api.getShopDetails(id), api.getShopItems(id), loadReviews()])
       .then(([shopResponse, itemsResponse]) => {
         console.log(shopResponse.data.data);
         if (!mounted) return;
-        setShop(normalizeShop(shopResponse.data.data || {}));
+        console.log('--------------------')
+        console.log(shopResponse.data)
+        console.log('--------------------')
+        setShop(normalizeShop(shopResponse.data.data?.shop || shopResponse.data.data || {}));
         setItems((itemsResponse.data.data.items || []).map(normalizeItem));
       })
       .catch(() => mounted && Alert.alert('Unable to load shop', 'Please try again.'));
@@ -110,7 +113,7 @@ export default function ShopDetailScreen({ route, navigation }) {
           <View className="mt-5 flex-row items-start justify-between">
             <View>
               <Text className="text-[18px] font-bold text-[#eff5f4]">
-                {shop?.translation.en.title || 'Shop name'}
+                {shop?.translation?.en?.title || 'Shop name'}
               </Text>
               <Text className="mt-1 text-[12px] text-[#9ab0b0]">{shop?.address || 'Herat'}</Text>
             </View>
@@ -127,7 +130,7 @@ export default function ShopDetailScreen({ route, navigation }) {
           <View className="mt-4">
             <SectionHeader title="About" />
             <Text className="text-[12px] leading-5 text-[#b3c2c2]">
-              {shop?.translation.fa.description || 'Shop details and listings.'}
+              {shop?.translation?.en?.description || 'Shop details and listings.'}
             </Text>
           </View>
           <View className="mt-5 flex-row gap-5 border-b border-white/15">

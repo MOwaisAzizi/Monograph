@@ -68,6 +68,9 @@ class Api {
   getShopReviews(shopId) {
     return this.baseURL.get(`/review/shops/${shopId}`);
   }
+  getShopDetails(shopId) {
+    return this.baseURL.get(`/shop/${shopId}`);
+  }
   saveShopReview(shopId, review) {
     return this.baseURL.post(`/review/shops/${shopId}`, review);
   }

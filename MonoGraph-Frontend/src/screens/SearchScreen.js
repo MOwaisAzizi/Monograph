@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
 import api from '../services/api';
-import { normalizeBusiness, normalizeItem } from '../utils/marketplace';
+import { normalizeShop, normalizeItem } from '../utils/marketplace';
 import { Chip, ScreenShell, ScreenHeader, TextField } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
 
@@ -50,7 +50,7 @@ export default function SearchScreen({ navigation, route }) {
       const data = response?.data?.data;
 
       setItems((data?.items || []).map(normalizeItem));
-      setShops((data?.shops || []).map(normalizeBusiness));
+      setShops((data?.shops || []).map(normalizeShop));
     } catch (error) {
       console.log('Search error:', error);
 

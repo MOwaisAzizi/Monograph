@@ -1,25 +1,59 @@
 const DEFAULT_LANGUAGE = 'en';
+const LANGUAGES = ['en', 'fa', 'ps'];
 
-export const pickTranslation = (translation, language = DEFAULT_LANGUAGE) => {
+// Normalizes a raw translation field (object, string, or missing) into a
+// full { en: { title, description }, fa: {...}, ps: {...} } shape, so every
+// consumer can safely read e.g. shop.translation.fa.title.
+export const normalizeTranslation = (translation) => {
+  const empty = () =>
+    LANGUAGES.reduce((acc, lang) => {
+      acc[lang] = { title: '', description: '' };
+      return acc;
+    }, {});
+
   if (!translation) {
-    return { title: '', description: '' };
+    return empty();
   }
 
   if (typeof translation === 'string') {
-    return { title: translation, description: '' };
+    return LANGUAGES.reduce((acc, lang) => {
+      acc[lang] = { title: translation, description: '' };
+      return acc;
+    }, {});
   }
 
+  return LANGUAGES.reduce((acc, lang) => {
+    const candidate = translation[lang];
+
+    if (!candidate) {
+      acc[lang] = { title: '', description: '' };
+    } else if (typeof candidate === 'string') {
+      acc[lang] = { title: candidate, description: '' };
+    } else {
+      acc[lang] = {
+        title: candidate.title || candidate.name || '',
+        description: candidate.description || candidate.note || '',
+      };
+    }
+
+    return acc;
+  }, {});
+};
+
+// Convenience for spots that still just want "the best available title/description"
+// in a given language (e.g. list sorting, search matching) without touching translation.*
+export const pickTranslation = (translation, language = DEFAULT_LANGUAGE) => {
+  const normalized = normalizeTranslation(translation);
   const candidate =
-    translation[language] || translation.en || translation.fa || translation.ps || {};
+    normalized[language]?.title || normalized[language]?.description
+      ? normalized[language]
+      : normalized.en.title || normalized.en.description
+        ? normalized.en
+        : normalized.fa.title || normalized.fa.description
+          ? normalized.fa
+          : normalized.ps;
 
-  if (typeof candidate === 'string') {
-    return { title: candidate, description: '' };
-  }
-
-  return {
-    title: candidate.title || candidate.name || '',
-    description: candidate.description || candidate.note || '',
-  };
+  return candidate;
 };
 
 export const formatPrice = (price) => {
@@ -42,49 +76,35 @@ export const pickImageUri = (media = []) => {
 };
 
 export const normalizeItem = (item = {}) => {
-  const translation = pickTranslation(item.translation);
-  const shopTranslation = pickTranslation(
-    item.shop?.translation || item.shop?.translation?.en || item.shop?.translation,
-  );
-  const categoryTranslation = pickTranslation(
-    item.category?.translation || item.category?.translation?.en || item.category?.translation,
-  );
+  const shopTranslation = normalizeTranslation(item.shop?.translation);
+  const categoryTranslation = normalizeTranslation(item.category?.translation);
 
   return {
     id: item._id || item.id,
-    title: translation.title,
-    description: translation.description,
+    translation: normalizeTranslation(item.translation),
     price: formatPrice(item.price),
     rating: formatRating(item.rating),
     ratingCount: item.ratingCount || 0,
     image: pickImageUri(item.media),
     city: item.city || item.location?.address?.en || 'Herat',
-    businessName:
-      shopTranslation.title || item.shop?.translation?.title || item.shop?.name || 'Shop name',
-    categoryName: categoryTranslation.title || item.category?.translation?.title || 'Category',
+    businessTranslation: shopTranslation,
+    categoryTranslation,
     locationText: item.location?.address?.en || item.location?.address?.fa || item.city || 'Herat',
   };
 };
 
-export const normalizeBusiness = (business = {}) => {
-  const translation = pickTranslation(business.translation);
-
-  return {
-    id: business._id || business.id,
-    title: translation.title,
-    description: translation.description,
-    rating: formatRating(business.rating),
-    ratingCount: business.ratingsCount || business.ratingCount || 0,
-    image: pickImageUri(business.media),
-    businessType: business.businessType || 'shop',
-    city: business.city || 'Herat',
-    address: business.location?.address?.en || business.location?.address?.fa || 'Herat',
-  };
-};
-
 export const normalizeShop = (shop = {}) => {
-  const normalized = normalizeBusiness(shop);
-  return { ...normalized, shopType: shop.shopType || normalized.businessType };
+  return {
+    id: shop._id || shop.id,
+    translation: normalizeTranslation(shop.translation),
+    rating: shop.rating,
+    ratingCount: shop.ratingCount || shop.ratingsCount || 0,
+    image: shop.image || pickImageUri(shop.media),
+    coverImage: shop.coverImage,
+    city: shop.city || 'Herat',
+    shopType: shop.shopType,
+    address: shop.location?.address?.en || shop.location?.address?.fa || shop.city || 'Herat',
+  };
 };
 
 export const normalizeUser = (user = {}) => ({

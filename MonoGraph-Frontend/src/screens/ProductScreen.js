@@ -32,7 +32,11 @@ export default function ProductScreen({ route, navigation }) {
         }
 
         const rawItem =
-          response?.data?.data?.Item || response?.data?.data?.item || response?.data?.data || {};
+          response?.data?.data?.Item ||
+          response?.data?.data?.item ||
+          response?.data?.data?.itemDoc ||
+          response?.data?.data ||
+          {};
         const normalized = normalizeItem(rawItem);
         setItem(normalized);
 
@@ -94,21 +98,20 @@ export default function ProductScreen({ route, navigation }) {
 
           <View className="mt-5">
             <Text className="text-[18px] font-bold text-[#eff5f4]">
-              {item?.title || 'Item title'}
+              {item?.translation?.en?.title || 'Item title'}
             </Text>
             <View className="mt-2 flex-row flex-wrap gap-2">
               <Chip label={itemStatus} active />
-              <Chip label={item?.categoryName || 'Category'} />
+              <Chip label={item?.categoryTranslation?.en?.title || 'Category'} />
             </View>
 
             <View className="mt-4 rounded-[24px] border border-white/10 bg-white/6 px-4 py-4">
               <ShopCard
                 shop={{
-                  id: item?.businessName || 'shop',
-                  title: item?.businessName || 'Shop',
-                  description: item?.locationText || 'Herat',
+                  id: 'shop',
+                  translation: item?.businessTranslation,
                   rating: item?.rating || '4.2',
-                  businessType: item?.categoryName || 'shop',
+                  shopType: item?.categoryTranslation?.en?.title || 'shop',
                 }}
                 compact
               />
@@ -117,7 +120,7 @@ export default function ProductScreen({ route, navigation }) {
             <View className="mt-4">
               <SectionHeader title="Description" />
               <Text className="text-[12px] leading-5 text-[#b3c2c2]">
-                {item?.description || 'Description will be mapped from backend translation fields.'}
+                {item?.translation?.en?.description || 'No description available.'}
               </Text>
             </View>
 

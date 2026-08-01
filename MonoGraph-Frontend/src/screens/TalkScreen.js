@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import api from '../services/api';
-import { normalizeBusiness } from '../utils/marketplace';
+import { normalizeShop } from '../utils/marketplace';
 import { Chip, ScreenHeader, ScreenShell } from '../components/ui';
 import { ShopCard } from '../components/cards';
 

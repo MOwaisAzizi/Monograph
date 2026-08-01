@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import api from '../services/api';
-import { normalizeUser, normalizeItem, normalizeBusiness } from '../utils/marketplace';
+import { normalizeUser, normalizeItem, normalizeShop } from '../utils/marketplace';
 import { ActionPill, ScreenShell, SectionHeader, StatTile } from '../components/ui';
 import { ItemCard, ShopCard, TextRow } from '../components/cards';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ export default function ProfileScreen({ navigation }) {
   const logoutuser = async () => {
     try {
       await api.baseURL.post('/user/logout');
-    } catch {}
+    } catch { }
     api.clearSession();
     dispatch(logout());
     setProfile(null);
@@ -38,7 +38,7 @@ export default function ProfileScreen({ navigation }) {
         setProfile({
           ...normalizeUser(rawUser),
           favoriteItems: (rawUser.favoriteItems || []).map(normalizeItem),
-          favoriteShops: (rawUser.favoriteShops || []).map(normalizeBusiness),
+          favoriteShops: (rawUser.favoriteShops || []).map(normalizeShop),
         });
       })
       .catch((error) => {

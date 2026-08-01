@@ -18,7 +18,11 @@ export const getShops = catchAsync(async (req, res) => {
 });
 
 export const getShop = catchAsync(async (req, res, next) => {
+  console.log('----------------')
+  console.log(req.params.id)
   const shop = await Shop.findById(req.params.id);
+  console.log('------------shop--🥗🥗🥗🧀-----------------');
+  console.log(shop);
   if (!shop) return next(new AppError("No shop found with that ID", 404));
   res.status(200).json({ status: "success", data: { shop } });
 });
@@ -30,8 +34,7 @@ export const getShopItems = catchAsync(async (req, res, next) => {
   const items = await Item.find({ shop: shop._id })
     .populate("shop", "translation")
     .populate("category", "translation");
-  console.log("---------🥙🥙-🥪🥪🥪---------");
-  console.log(items);
+
   res.status(200).json({
     status: "success",
     results: items.length,

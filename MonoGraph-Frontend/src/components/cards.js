@@ -56,7 +56,7 @@ export function ItemCard({ item, onPress, onToggleFavorite, style, compact = fal
 
       <View className="mt-2 px-0.5">
         <Text className="text-[12px] font-semibold text-[#223233]" numberOfLines={1}>
-          {item.title}
+          {item.translation?.en?.title || 'Item'}
         </Text>
 
         <View className="mt-1.5 flex-row items-center gap-1">
@@ -100,13 +100,13 @@ export function ShopCard({ shop, onPress, style, compact = false }) {
           <Image source={{ uri: shop.image }} resizeMode="cover" className="h-full w-full" />
         ) : (
           <Text className="text-[12px] font-bold text-[#5a7172]">
-            {shop.title?.slice(0, 2).toUpperCase() || 'SH'}
+            {shop.translation?.en?.title?.slice(0, 2).toUpperCase() || 'SH'}
           </Text>
         )}
       </View>
 
       <Text className="mt-2 text-[12px] font-semibold text-[#223233]" numberOfLines={1}>
-        {shop.title}
+        {shop.translation?.en?.title || 'Shop'}
       </Text>
 
       <View className="mt-1 flex-row items-center gap-1">
