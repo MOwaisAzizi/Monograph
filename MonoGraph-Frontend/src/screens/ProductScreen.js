@@ -1,12 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
 import api from '../services/api';
-import { capitalize, normalizeItem } from '../utils/marketplace';
+import { normalizeItem } from '../utils/marketplace';
 import { ActionPill, Chip, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
+import { getLocalizedValue, getText } from '../i18n';
 
 export default function ProductScreen({ route, navigation }) {
+  const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const { id } = route.params;
   const [item, setItem] = useState(null);
   const [similarItems, setSimilarItems] = useState([]);
@@ -63,12 +66,12 @@ export default function ProductScreen({ route, navigation }) {
     };
   }, [id]);
 
-  const itemStatus = useMemo(() => {
+  const itemRating = useMemo(() => {
     if (!item) {
       return '—';
     }
 
-    return item.rating >= 4 ? 'GOOD' : 'GOOD';
+    return item.rating;
   }, [item]);
 
   return (
@@ -97,44 +100,46 @@ export default function ProductScreen({ route, navigation }) {
           </View>
 
           <View className="mt-5">
-            <Text className="text-[18px] font-bold text-[#eff5f4]">
-              {item?.translation?.en?.title || 'Item title'}
+            <Text className="text-[18px] font-bold text-[#434d4b]">
+              {getLocalizedValue(item?.translation, currentLanguage) || getText(currentLanguage, 'itemTitleFallback')}
             </Text>
             <View className="mt-2 flex-row flex-wrap gap-2">
-              <Chip label={itemStatus} active />
-              <Chip label={item?.categoryTranslation?.en?.title || 'Category'} />
+              <Chip label={itemRating} active />
+              <Chip label={getLocalizedValue(item?.categoryTranslation, currentLanguage) || getText(currentLanguage, 'categoryFallback')} />
             </View>
 
             <View className="mt-4 rounded-[24px] border border-white/10 bg-white/6 px-4 py-4">
               <ShopCard
                 shop={{
-                  id: 'shop',
-                  translation: item?.businessTranslation,
-                  rating: item?.rating || '4.2',
+                  id: item?.id,
+                  translation: item?.shopTranslation,
+                  rating: item?.rating || '3',
                   shopType: item?.categoryTranslation?.en?.title || 'shop',
                 }}
+                onPress={() => navigation.navigate('ShopDetail', { id: item?.id })}
                 compact
               />
             </View>
 
             <View className="mt-4">
-              <SectionHeader title="Description" />
-              <Text className="text-[12px] leading-5 text-[#b3c2c2]">
-                {item?.translation?.en?.description || 'No description available.'}
+              <SectionHeader title={getText(currentLanguage, 'about')} />
+              <Text className="text-[12px] leading-5 text-[#4c5858]">
+                {getLocalizedValue(item?.translation, currentLanguage, 'description') || getText(currentLanguage, 'noDescription')}
               </Text>
             </View>
 
             <View className="mt-4 flex-row gap-2">
-              <ActionPill label="Chat" />
-              <ActionPill label="Reserve item" active />
+              <ActionPill label={getText(currentLanguage, 'chat')} />
+              <ActionPill label={getText(currentLanguage, 'reserveItem')} active />
             </View>
-
-            <View className="mt-6">
-              <SectionHeader title="Similar items" />
+            <View className="mt-6 ">
+              <SectionHeader title={getText(currentLanguage, 'similarItems')} />
               {similarItems.length ? (
-                <View className="mt-2 space-y-3">
+                <View className="mt-2 flex-row flex-wrap justify-between gap-y-3">
                   {similarItems.map((similarItem) => (
-                    <ItemCard key={similarItem.id} item={similarItem} compact />
+                    <View key={similarItem.id} style={{ width: '48%' }}>
+                      <ItemCard item={similarItem} compact />
+                    </View>
                   ))}
                 </View>
               ) : (

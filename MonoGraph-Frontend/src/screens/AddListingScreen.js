@@ -9,6 +9,9 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
+import { MediaTypeOptions } from 'expo-image-picker';
 import { useSelector } from 'react-redux';
 import api from '../services/api';
 import { ScreenShell, TextField } from '../components/ui';
@@ -109,7 +112,7 @@ function SelectField({
 
       <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
         <Pressable className="flex-1 justify-end bg-black/40" onPress={() => setOpen(false)}>
-          <Pressable className="max-h-[70%] rounded-t-3xl bg-white p-4" onPress={() => {}}>
+          <Pressable className="max-h-[70%] rounded-t-3xl bg-white p-4" onPress={() => { }}>
             {label ? (
               <Text className="mb-2 text-[13px] font-semibold text-[#314243]">{label}</Text>
             ) : null}
@@ -344,6 +347,7 @@ function WorkingHoursEditor({ items, onChange }) {
 }
 
 export default function AddListingScreen() {
+  const navigation = useNavigation();
   const [tab, setTab] = useState('business');
 
   const [businessTitleEn, setBusinessTitleEn] = useState('');
@@ -376,6 +380,10 @@ export default function AddListingScreen() {
   const [loadingCategories, setLoadingCategories] = useState(false);
 
   const [submitting, setSubmitting] = useState(false);
+  const [businessCoverFile, setBusinessCoverFile] = useState(null);
+  const [businessProfileFile, setBusinessProfileFile] = useState(null);
+  const [businessGalleryFiles, setBusinessGalleryFiles] = useState([]);
+  const [itemGalleryFiles, setItemGalleryFiles] = useState([]);
 
   const auth = useSelector((state) => state.auth);
 
@@ -396,7 +404,7 @@ export default function AddListingScreen() {
     const loadBusinesses = async () => {
       try {
         setLoadingBusinesses(true);
-        const response = await api.baseURL.get('/shops?owner=me', { headers: authHeader });
+        const response = await api.baseURL.get('/shop?owner=me', { headers: authHeader });
         console.log('response');
         console.log(response);
         const list = response?.data?.data.shops || [];
@@ -442,6 +450,56 @@ export default function AddListingScreen() {
     return true;
   };
 
+  const appendMultipartValue = (formData, key, value) => {
+    if (value === undefined || value === null || value === '') return;
+
+    if (Array.isArray(value) || typeof value === 'object') {
+      formData.append(key, JSON.stringify(value));
+      return;
+    }
+
+    formData.append(key, value);
+  };
+
+  const pickLocalImage = async (kind) => {
+    const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (!permission.granted) {
+      Alert.alert('Permission needed', 'Please allow access to your photo library.');
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: MediaTypeOptions.Images,
+      quality: 0.9,
+      allowsEditing: kind !== 'gallery',
+      allowsMultipleSelection: kind === 'gallery',
+    });
+
+    if (result.canceled) return;
+
+    const assets = result.assets || [];
+
+    if (kind === 'business-cover') {
+      setBusinessCoverFile(assets[0] || null);
+      return;
+    }
+
+    if (kind === 'business-profile') {
+      setBusinessProfileFile(assets[0] || null);
+      return;
+    }
+
+    if (kind === 'business-gallery') {
+      setBusinessGalleryFiles(assets);
+      return;
+    }
+
+    if (kind === 'item-gallery') {
+      setItemGalleryFiles(assets);
+    }
+  };
+
   const resetBusinessForm = () => {
     setBusinessTitleEn('');
     setBusinessTitleFa('');
@@ -484,32 +542,57 @@ export default function AddListingScreen() {
         return acc;
       }, {});
 
-      await api.baseURL.post(
-        '/shops',
-        {
-          translation: buildTranslation(
-            businessTitleEn.trim(),
-            businessTitleFa.trim(),
-            businessTitlePs.trim(),
-            businessDescription.trim(),
-          ),
-          shopType: businessType,
-          city: city.trim() || 'herat',
-          phone: cleanedPhones,
-          email: email.trim() || undefined,
-          workingHours: cleanedHours,
-          social,
-          // Assumes mediaSchema accepts { url }. Adjust if your schema differs.
-          media: cleanedMedia.map((url) => ({ url })),
-          location: {
-            geoPosition: {
-              type: 'Point',
-              coordinates: DEFAULT_COORDS,
-            },
-          },
+      const payload = new FormData();
+      appendMultipartValue(payload, 'translation', buildTranslation(
+        businessTitleEn.trim(),
+        businessTitleFa.trim(),
+        businessTitlePs.trim(),
+        businessDescription.trim(),
+      ));
+      appendMultipartValue(payload, 'shopType', businessType);
+      appendMultipartValue(payload, 'city', city.trim() || 'herat');
+      appendMultipartValue(payload, 'phone', cleanedPhones);
+      appendMultipartValue(payload, 'email', email.trim() || undefined);
+      appendMultipartValue(payload, 'workingHours', cleanedHours);
+      appendMultipartValue(payload, 'social', social);
+      appendMultipartValue(payload, 'media', cleanedMedia.map((url) => ({ url })));
+      appendMultipartValue(payload, 'location', {
+        geoPosition: {
+          type: 'Point',
+          coordinates: DEFAULT_COORDS,
         },
-        { headers: authHeader },
-      );
+      });
+
+      if (businessCoverFile) {
+        payload.append('cover', {
+          uri: businessCoverFile.uri,
+          name: businessCoverFile.fileName || 'business-cover.jpg',
+          type: businessCoverFile.mimeType || 'image/jpeg',
+        });
+      }
+
+      if (businessProfileFile) {
+        payload.append('profile', {
+          uri: businessProfileFile.uri,
+          name: businessProfileFile.fileName || 'business-profile.jpg',
+          type: businessProfileFile.mimeType || 'image/jpeg',
+        });
+      }
+
+      businessGalleryFiles.forEach((file) => {
+        payload.append('media', {
+          uri: file.uri,
+          name: file.fileName || 'business-gallery.jpg',
+          type: file.mimeType || 'image/jpeg',
+        });
+      });
+
+      await api.baseURL.post('/shop', payload, {
+        headers: {
+          ...authHeader,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       resetBusinessForm();
       navigation.navigate('MainTabs', { screen: 'Home' });
@@ -542,32 +625,46 @@ export default function AddListingScreen() {
     try {
       setSubmitting(true);
 
-      await api.baseURL.post(
-        '/item',
-        {
-          translation: buildTranslation(
-            itemTitleEn.trim(),
-            itemTitleFa.trim(),
-            itemTitlePs.trim(),
-            itemDescription.trim(),
-          ),
-          price: Number(itemPrice || 0),
-          shop: businessId.trim(),
-          category: categoryId.trim() || undefined,
-          city: itemCity.trim() || 'herat',
-          note: itemNote.trim() || undefined,
-          attributes: cleanedAttributes,
-          // Assumes mediaSchema accepts { url }. Adjust if your schema differs.
-          media: cleanedMedia.map((url) => ({ url })),
-          location: {
-            geoPosition: {
-              type: 'Point',
-              coordinates: DEFAULT_COORDS,
-            },
-          },
+      const payload = new FormData();
+      appendMultipartValue(payload, 'translation', buildTranslation(
+        itemTitleEn.trim(),
+        itemTitleFa.trim(),
+        itemTitlePs.trim(),
+        itemDescription.trim(),
+      ));
+      appendMultipartValue(payload, 'price', Number(itemPrice || 0));
+      appendMultipartValue(payload, 'shop', businessId.trim());
+      appendMultipartValue(payload, 'category', categoryId.trim() || undefined);
+      appendMultipartValue(payload, 'city', itemCity.trim() || 'herat');
+      appendMultipartValue(payload, 'note', itemNote.trim() || undefined);
+      appendMultipartValue(payload, 'attributes', cleanedAttributes);
+      appendMultipartValue(payload, 'location', {
+        geoPosition: {
+          type: 'Point',
+          coordinates: DEFAULT_COORDS,
         },
-        { headers: authHeader },
-      );
+      });
+
+      itemGalleryFiles.forEach((file) => {
+        payload.append('media', {
+          uri: file.uri,
+          name: file.fileName || 'item-gallery.jpg',
+          type: file.mimeType || 'image/jpeg',
+        });
+      });
+
+      if (cleanedMedia.length > 0) {
+        cleanedMedia.forEach((url) => {
+          payload.append('legacyMediaUrls', url);
+        });
+      }
+
+      await api.baseURL.post('/item', payload, {
+        headers: {
+          ...authHeader,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       setItemTitleEn('');
       setItemTitleFa('');
@@ -602,9 +699,8 @@ export default function AddListingScreen() {
       <View className="mt-4 flex-row gap-2">
         <Pressable
           onPress={() => setTab('business')}
-          className={`rounded-full border px-4 py-2 ${
-            tab === 'business' ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
-          }`}
+          className={`rounded-full border px-4 py-2 ${tab === 'business' ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
+            }`}
         >
           <Text
             className={`text-[12px] font-semibold ${tab === 'business' ? 'text-white' : 'text-[#314243]'}`}
@@ -615,9 +711,8 @@ export default function AddListingScreen() {
 
         <Pressable
           onPress={() => setTab('item')}
-          className={`rounded-full border px-4 py-2 ${
-            tab === 'item' ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
-          }`}
+          className={`rounded-full border px-4 py-2 ${tab === 'item' ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
+            }`}
         >
           <Text
             className={`text-[12px] font-semibold ${tab === 'item' ? 'text-white' : 'text-[#314243]'}`}
@@ -697,13 +792,35 @@ export default function AddListingScreen() {
           <SectionLabel>Social links</SectionLabel>
           <SocialEditor items={socialLinks} onChange={setSocialLinks} />
 
-          <SectionLabel>Media (image URLs)</SectionLabel>
-          <ListEditor
-            items={mediaUrls}
-            onChange={setMediaUrls}
-            placeholder="Image URL"
-            addLabel="Add image URL"
-          />
+          <SectionLabel>Media</SectionLabel>
+          <View className="gap-2">
+            <Pressable
+              onPress={() => pickLocalImage('business-cover')}
+              className="rounded-2xl border border-[#d7e1e0] bg-white px-4 py-3"
+            >
+              <Text className="text-[12px] font-semibold text-[#0f6b75]">
+                {businessCoverFile ? 'Change cover photo' : 'Select cover photo'}
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={() => pickLocalImage('business-profile')}
+              className="rounded-2xl border border-[#d7e1e0] bg-white px-4 py-3"
+            >
+              <Text className="text-[12px] font-semibold text-[#0f6b75]">
+                {businessProfileFile ? 'Change profile photo' : 'Select profile photo'}
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={() => pickLocalImage('business-gallery')}
+              className="rounded-2xl border border-[#d7e1e0] bg-white px-4 py-3"
+            >
+              <Text className="text-[12px] font-semibold text-[#0f6b75]">
+                {businessGalleryFiles.length > 0
+                  ? `Select gallery photos (${businessGalleryFiles.length})`
+                  : 'Select gallery photos'}
+              </Text>
+            </Pressable>
+          </View>
 
           <SubmitButton label="Submit Business" onPress={submitBusiness} loading={submitting} />
         </View>
@@ -781,13 +898,17 @@ export default function AddListingScreen() {
           <SectionLabel>Attributes</SectionLabel>
           <AttributeEditor items={itemAttributes} onChange={setItemAttributes} />
 
-          <SectionLabel>Media (image URLs)</SectionLabel>
-          <ListEditor
-            items={itemMediaUrls}
-            onChange={setItemMediaUrls}
-            placeholder="Image URL"
-            addLabel="Add image URL"
-          />
+          <SectionLabel>Media</SectionLabel>
+          <Pressable
+            onPress={() => pickLocalImage('item-gallery')}
+            className="rounded-2xl border border-[#d7e1e0] bg-white px-4 py-3"
+          >
+            <Text className="text-[12px] font-semibold text-[#0f6b75]">
+              {itemGalleryFiles.length > 0
+                ? `Select gallery photos (${itemGalleryFiles.length})`
+                : 'Select gallery photos'}
+            </Text>
+          </Pressable>
 
           <SubmitButton label="Submit Item" onPress={submitItem} loading={submitting} />
         </View>

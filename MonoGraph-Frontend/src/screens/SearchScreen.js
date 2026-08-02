@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
+import { useSelector } from 'react-redux';
 import api from '../services/api';
 import { normalizeShop, normalizeItem } from '../utils/marketplace';
 import { Chip, ScreenShell, ScreenHeader, TextField } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
+import { getText } from '../i18n';
 
 export default function SearchScreen({ navigation, route }) {
+  const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const { search: initialSearch = '', category: initialCategory = '' } = route.params || {};
 
   const [search, setSearch] = useState(initialSearch);
@@ -27,11 +30,7 @@ export default function SearchScreen({ navigation, route }) {
     setCategory(route.params?.category ?? '');
   }, [route.params?.search, route.params?.category]);
 
-  useEffect(() => {
-    fetchResults();
-  }, [search, category]);
-
-  const fetchResults = async () => {
+  const fetchResults = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -59,7 +58,11 @@ export default function SearchScreen({ navigation, route }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [category, search]);
+
+  useEffect(() => {
+    fetchResults();
+  }, [fetchResults]);
 
   const results = selectedTab === 'Items' ? items : shops;
 
@@ -68,14 +71,14 @@ export default function SearchScreen({ navigation, route }) {
 
   return (
     <ScreenShell contentClassName="pb-6">
-      <ScreenHeader title="Search" onBack={() => navigation.goBack()} />
+      <ScreenHeader title={getText(currentLanguage, 'search')} onBack={() => navigation.goBack()} />
 
       <View className="px-5">
-        <TextField placeholder="Search items or shops..." value={search} onChangeText={setSearch} />
+        <TextField placeholder={getText(currentLanguage, 'searchPlaceholder')} value={search} onChangeText={setSearch} />
 
         {Boolean(category) && (
           <View className="mt-3">
-            <Text className="text-xs text-[#7c9291]">Category: {category}</Text>
+            <Text className="text-xs text-[#7c9291]">{getText(currentLanguage, 'category')}: {category}</Text>
           </View>
         )}
 
@@ -83,13 +86,13 @@ export default function SearchScreen({ navigation, route }) {
 
         <View className="mt-6 flex-row gap-2">
           <Chip
-            label="Items"
+            label={getText(currentLanguage, 'items')}
             active={selectedTab === 'Items'}
             onPress={() => setSelectedTab('Items')}
           />
 
           <Chip
-            label="Shops"
+            label={getText(currentLanguage, 'shops')}
             active={selectedTab === 'Shops'}
             onPress={() => setSelectedTab('Shops')}
           />
@@ -114,7 +117,7 @@ export default function SearchScreen({ navigation, route }) {
 
           {showEmptyState && (
             <View className="w-full rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
-              <Text className="text-[12px] text-[#89a1a9]">No results found</Text>
+              <Text className="text-[12px] text-[#89a1a9]">{getText(currentLanguage, 'noResults')}</Text>
             </View>
           )}
         </View>

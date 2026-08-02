@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 import morgan from "morgan";
+import path from "path";
 import shopRoutes from "./routes/shopRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -25,6 +26,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use("/images", express.static(path.join(process.cwd(), "data", "images")));
 
 app.use("/api/v1/shop", shopRoutes);
 app.use("/api/v1/review", reviewRoutes);

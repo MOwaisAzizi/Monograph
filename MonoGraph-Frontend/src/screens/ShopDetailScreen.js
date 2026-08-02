@@ -6,6 +6,7 @@ import api from '../services/api';
 import { capitalize, normalizeItem, normalizeShop } from '../utils/marketplace';
 import { ActionPill, Chip, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard } from '../components/cards';
+import { getLocalizedValue, getText } from '../i18n';
 
 const timeAgo = (date) => {
   const days = Math.floor((Date.now() - new Date(date)) / 86400000);
@@ -23,6 +24,7 @@ const Stars = ({ rating, size = 14 }) => (
 );
 
 export default function ShopDetailScreen({ route, navigation }) {
+  const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const { id } = route.params;
   const user = useSelector((state) => state.auth.user);
   const [shop, setShop] = useState(null);
@@ -112,8 +114,8 @@ export default function ShopDetailScreen({ route, navigation }) {
           </View>
           <View className="mt-5 flex-row items-start justify-between">
             <View>
-              <Text className="text-[18px] font-bold text-[#eff5f4]">
-                {shop?.translation?.en?.title || 'Shop name'}
+              <Text className="text-[18px] font-bold text-[#353f3d]">
+                {getLocalizedValue(shop?.translation, currentLanguage) || getText(currentLanguage, 'shopFallback')}
               </Text>
               <Text className="mt-1 text-[12px] text-[#9ab0b0]">{shop?.address || 'Herat'}</Text>
             </View>
@@ -128,9 +130,9 @@ export default function ShopDetailScreen({ route, navigation }) {
             <Chip label={capitalize(shop?.shopType || 'shop')} />
           </View>
           <View className="mt-4">
-            <SectionHeader title="About" />
-            <Text className="text-[12px] leading-5 text-[#b3c2c2]">
-              {shop?.translation?.en?.description || 'Shop details and listings.'}
+            <SectionHeader title={getText(currentLanguage, 'about')} />
+            <Text className="text-[12px] leading-5 text-[#727878]">
+              {getLocalizedValue(shop?.translation, currentLanguage, 'description') || getText(currentLanguage, 'noDescription')}
             </Text>
           </View>
           <View className="mt-5 flex-row gap-5 border-b border-white/15">
@@ -145,14 +147,15 @@ export default function ShopDetailScreen({ route, navigation }) {
             ))}
           </View>
           {tab === 'items' ? (
-            <View className="mt-5 space-y-3">
+            <View className="mt-5 flex-row flex-wrap justify-between gap-y-3">
               {items.map((item) => (
-                <ItemCard
-                  key={item.id}
-                  item={item}
-                  compact
-                  onPress={() => navigation.navigate('Product', { id: item.id })}
-                />
+                <View key={item.id} style={{ width: '48%' }}>
+                  <ItemCard
+                    item={item}
+                    compact
+                    onPress={() => navigation.navigate('Product', { id: item.id })}
+                  />
+                </View>
               ))}
               {!items.length && (
                 <Text className="text-[12px] text-[#89a1a1]">Shop items will appear here.</Text>

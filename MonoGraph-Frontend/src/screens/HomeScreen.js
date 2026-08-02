@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ScrollView, SectionList, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import api from '../services/api';
 import { normalizeShop, normalizeItem } from '../utils/marketplace';
 import { IconCircleButton, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
+import { getText } from '../i18n';
 /**
  * Turns raw category API objects into the shape the filter row renders.
  * Picks the label for the given language, falling back to English if
@@ -96,7 +98,8 @@ function HorizontalShopRow({ data, onPressShop }) {
   );
 }
 
-export default function HomeScreen({ navigation, lang = 'en' }) {
+export default function HomeScreen({ navigation }) {
+  const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const [activeCategory, setActiveCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [homeData, setHomeData] = useState({
@@ -113,9 +116,11 @@ export default function HomeScreen({ navigation, lang = 'en' }) {
     api.baseURL
       .get('/home')
       .then((homeResponse) => {
+        console.log(homeResponse.data.data)
         if (!mounted) {
           return;
         }
+        console.log('homeResponse-----------------------------🍳🥞.data.data');
         setHomeData({
           cheapItems: (homeResponse.data.data.cheapItems || []).map(normalizeItem),
           highRatedItems: (homeResponse.data.data.highRatedItems || []).map(normalizeItem),
@@ -144,7 +149,7 @@ export default function HomeScreen({ navigation, lang = 'en' }) {
         if (!mounted) {
           return;
         }
-        const list = normalizeCategoryFilters(res.data.data.categories, lang);
+        const list = normalizeCategoryFilters(res.data.data.categories, currentLanguage);
         setCategories(list);
       })
       .catch(() => {
@@ -156,7 +161,7 @@ export default function HomeScreen({ navigation, lang = 'en' }) {
     return () => {
       mounted = false;
     };
-  }, [lang]);
+  }, [currentLanguage]);
 
   // Reset the selected category filter every time Home regains focus —
   // e.g. after the user navigates back from Search — so no chip stays
@@ -172,43 +177,45 @@ export default function HomeScreen({ navigation, lang = 'en' }) {
     () => [
       {
         key: 'New Items',
-        title: 'New Items',
-        actionLabel: 'See all',
+        title: getText(currentLanguage, 'newItems'),
+        actionLabel: getText(currentLanguage, 'seeAll'),
         data: homeData.newItems,
         type: 'item',
       },
       {
         key: 'Highly Rated',
-        title: 'Highly Rated',
-        actionLabel: 'See all',
+        title: getText(currentLanguage, 'highlyRated'),
+        actionLabel: getText(currentLanguage, 'seeAll'),
         data: homeData.highRatedItems,
         type: 'item',
       },
       {
         key: 'Cheap',
-        title: 'Cheap',
-        actionLabel: 'See all',
+        title: getText(currentLanguage, 'cheap'),
+        actionLabel: getText(currentLanguage, 'seeAll'),
         data: homeData.cheapItems,
         type: 'item',
       },
       {
         key: 'Near You',
-        title: 'Near You',
-        actionLabel: 'See all',
+        title: getText(currentLanguage, 'nearYou'),
+        actionLabel: getText(currentLanguage, 'seeAll'),
         data: homeData.nearestItems,
         type: 'item',
       },
       {
         key: 'Shops',
-        title: 'Shops',
-        actionLabel: 'See all',
+        title: getText(currentLanguage, 'shopsTitle'),
+        actionLabel: getText(currentLanguage, 'seeAll'),
         data: homeData.nearestShops,
         type: 'shop',
       },
     ],
-    [homeData],
+    [currentLanguage, homeData],
   );
-
+  console.log('---------------------------')
+  console.log(homeData)
+  console.log('---------------------------')
   return (
     <ScreenShell contentClassName="px-5 pb-6 pt-4">
       <View className="mt-2">

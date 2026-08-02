@@ -9,6 +9,7 @@ import {
   toggleFavoriteItemOrShop,
 } from "../controllers/userControllers.js";
 import { protect } from "../middleware/authMiddleware.js";
+import { uploadMediaFiles } from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.post("/logout", protect, logout);
 router
   .route("/profile")
   .get(protect, getUserProfile)
-  .patch(protect, updateProfile);
+  .patch(protect, uploadMediaFiles("user", { profile: 1 }), updateProfile);
 router.route("/toggle-favorite").patch(protect, toggleFavoriteItemOrShop);
 
 export default router;

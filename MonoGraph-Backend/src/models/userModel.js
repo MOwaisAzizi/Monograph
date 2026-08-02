@@ -34,6 +34,11 @@ const userSchema = new Schema(
       trim: true,
       unique: true,
     },
+    preferredLanguage: {
+      type: String,
+      enum: ["en", "fa", "ps"],
+      default: "en",
+    },
     favoriteItems: [
       {
         type: Schema.Types.ObjectId,

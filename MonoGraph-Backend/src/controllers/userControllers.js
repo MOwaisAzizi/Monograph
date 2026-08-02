@@ -112,6 +112,7 @@ export const updateProfile = catchAsync(async (req, res, next) => {
     phone: req.body.phone,
     media: req.body.media,
     location: req.body.location,
+    preferredLanguage: req.body.preferredLanguage,
   };
 
   const user = await User.findByIdAndUpdate(req.user.id, updatedFields, {

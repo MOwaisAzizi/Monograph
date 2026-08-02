@@ -1,6 +1,8 @@
 import React from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
+import { getLocalizedValue } from '../i18n';
 
 const fallbackImage =
   'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=900&q=80';
@@ -36,6 +38,8 @@ function FavoriteButton({ active, onPress }) {
 
 export function ItemCard({ item, onPress, onToggleFavorite, style, compact = false }) {
   const width = style?.width ?? (compact ? 120 : CARD_WIDTH);
+  const language = useSelector((state) => state.language.currentLanguage);
+  const translatedTitle = getLocalizedValue(item?.translation, language);
 
   return (
     <Pressable
@@ -56,7 +60,7 @@ export function ItemCard({ item, onPress, onToggleFavorite, style, compact = fal
 
       <View className="mt-2 px-0.5">
         <Text className="text-[12px] font-semibold text-[#223233]" numberOfLines={1}>
-          {item.translation?.en?.title || 'Item'}
+          {translatedTitle || 'Item'}
         </Text>
 
         <View className="mt-1.5 flex-row items-center gap-1">
@@ -80,6 +84,8 @@ export function ItemCard({ item, onPress, onToggleFavorite, style, compact = fal
 export function ShopCard({ shop, onPress, style, compact = false }) {
   const width = style?.width ?? (compact ? 110 : 130);
   const avatarSize = compact ? 56 : 68;
+  const language = useSelector((state) => state.language.currentLanguage);
+  const translatedTitle = getLocalizedValue(shop?.translation, language);
 
   return (
     <Pressable onPress={onPress} style={[{ width }, style]} className="items-center">
@@ -106,7 +112,7 @@ export function ShopCard({ shop, onPress, style, compact = false }) {
       </View>
 
       <Text className="mt-2 text-[12px] font-semibold text-[#223233]" numberOfLines={1}>
-        {shop.translation?.en?.title || 'Shop'}
+        {translatedTitle || 'Shop'}
       </Text>
 
       <View className="mt-1 flex-row items-center gap-1">

@@ -1,9 +1,6 @@
 const DEFAULT_LANGUAGE = 'en';
 const LANGUAGES = ['en', 'fa', 'ps'];
 
-// Normalizes a raw translation field (object, string, or missing) into a
-// full { en: { title, description }, fa: {...}, ps: {...} } shape, so every
-// consumer can safely read e.g. shop.translation.fa.title.
 export const normalizeTranslation = (translation) => {
   const empty = () =>
     LANGUAGES.reduce((acc, lang) => {
@@ -37,13 +34,14 @@ export const normalizeTranslation = (translation) => {
     }
 
     return acc;
-  }, {});
+  }, empty());
 };
 
 // Convenience for spots that still just want "the best available title/description"
 // in a given language (e.g. list sorting, search matching) without touching translation.*
 export const pickTranslation = (translation, language = DEFAULT_LANGUAGE) => {
   const normalized = normalizeTranslation(translation);
+
   const candidate =
     normalized[language]?.title || normalized[language]?.description
       ? normalized[language]
@@ -67,36 +65,47 @@ export const formatPrice = (price) => {
 export const formatRating = (rating = 0) => Number(rating).toFixed(1);
 
 export const pickImageUri = (media = []) => {
-  if (!Array.isArray(media) || media.length === 0) {
+  if (!media) {
     return null;
   }
 
-  const source = media.find((entry) => entry?.url || entry?.secureUrl || entry?.path) || media[0];
-  return source?.url || source?.secureUrl || source?.path || null;
+  if (Array.isArray(media)) {
+    if (media.length === 0) {
+      return null;
+    }
+
+    const source = media.find((entry) => entry?.url || entry?.secureUrl || entry?.path) || media[0];
+    return source?.url || source?.secureUrl || source?.path || null;
+  }
+
+  return media?.url || media?.secureUrl || media?.path || null;
 };
 
 export const normalizeItem = (item = {}) => {
+  const translation = normalizeTranslation(item.translation);
   const shopTranslation = normalizeTranslation(item.shop?.translation);
   const categoryTranslation = normalizeTranslation(item.category?.translation);
 
   return {
     id: item._id || item.id,
-    translation: normalizeTranslation(item.translation),
+    translation, // translation.en.title / translation.fa.title / translation.ps.title
     price: formatPrice(item.price),
     rating: formatRating(item.rating),
     ratingCount: item.ratingCount || 0,
     image: pickImageUri(item.media),
     city: item.city || item.location?.address?.en || 'Herat',
-    businessTranslation: shopTranslation,
-    categoryTranslation,
+    shopTranslation, // shopTranslation.en.title / .fa.title / .ps.title
+    categoryTranslation, // categoryTranslation.en.title / .fa.title / .ps.title
     locationText: item.location?.address?.en || item.location?.address?.fa || item.city || 'Herat',
   };
 };
 
 export const normalizeShop = (shop = {}) => {
+  const translation = normalizeTranslation(shop.translation);
+
   return {
     id: shop._id || shop.id,
-    translation: normalizeTranslation(shop.translation),
+    translation, // translation.en.title / translation.fa.title / translation.ps.title
     rating: shop.rating,
     ratingCount: shop.ratingCount || shop.ratingsCount || 0,
     image: shop.image || pickImageUri(shop.media),
@@ -113,6 +122,7 @@ export const normalizeUser = (user = {}) => ({
   email: user.email || 'Connected account',
   avatar: pickImageUri(user.media),
   phone: user.phone || '',
+  preferredLanguage: user.preferredLanguage || 'en',
 });
 
 export const capitalize = (value = '') =>

@@ -32,7 +32,7 @@ export const getHomepageData = catchAsync(async (req, res) => {
         .select("media translation createdAt location rating"),
     ]);
   console.log("🥨🥐🍞🍞🍞");
-  // console.log(nearestItems)
+  console.log(nearestItems);
   res.status(200).json({
     status: "success",
     data: {
