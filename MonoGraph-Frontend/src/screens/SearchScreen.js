@@ -15,6 +15,7 @@ export default function SearchScreen({ navigation, route }) {
   const [category, setCategory] = useState(initialCategory);
 
   const [selectedTab, setSelectedTab] = useState('Items');
+  const [sort, setSort] = useState('');
 
   const [items, setItems] = useState([]);
   const [shops, setShops] = useState([]);
@@ -44,6 +45,10 @@ export default function SearchScreen({ navigation, route }) {
         params.append('category', category);
       }
 
+      if (sort) {
+        params.append('sort', sort);
+      }
+
       const response = await api.baseURL.get(`/search?${params.toString()}`);
 
       const data = response?.data?.data;
@@ -58,7 +63,7 @@ export default function SearchScreen({ navigation, route }) {
     } finally {
       setLoading(false);
     }
-  }, [category, search]);
+  }, [category, search, sort]);
 
   useEffect(() => {
     fetchResults();
@@ -76,9 +81,14 @@ export default function SearchScreen({ navigation, route }) {
       <View className="px-5">
         <TextField placeholder={getText(currentLanguage, 'searchPlaceholder')} value={search} onChangeText={setSearch} />
 
+        <View className="mt-3 flex-row gap-2">
+          <Chip label="Price" active={sort === 'price'} onPress={() => setSort((value) => value === 'price' ? '' : 'price')} />
+          <Chip label="Rating" active={sort === 'rating'} onPress={() => setSort((value) => value === 'rating' ? '' : 'rating')} />
+        </View>
+
         {Boolean(category) && (
           <View className="mt-3">
-            <Text className="text-xs text-[#7c9291]">{getText(currentLanguage, 'category')}: {category}</Text>
+            <Text className="text-xs text-[#3f4949]">{getText(currentLanguage, 'category')}: {category}</Text>
           </View>
         )}
 

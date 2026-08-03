@@ -6,7 +6,7 @@ export const search = catchAsync(async (req, res) => {
   console.log(
     "-------------------------------------🧈🥞🥞🥞🧇🍳🍳🍳-------------",
   );
-  const { search = "", category = "" } = req.query;
+  const { search = "", category = "", sort = "" } = req.query;
   console.log("search:", search, "category:", category);
   const limit = Number(req.query.limit) || 10;
   const itemQuery = {};
@@ -40,9 +40,12 @@ export const search = catchAsync(async (req, res) => {
   console.log(
     "-------------------------------------🧈🥞🥞🥞🧇🍳🍳🍳-------------",
   );
+  const itemSort = sort === "price" ? { price: 1 } : sort === "rating" ? { rating: -1 } : {};
+  // Shops have no price field, so a price sort only applies to items.
+  const shopSort = sort === "rating" ? { rating: -1 } : {};
   const [items, shops] = await Promise.all([
-    Item.find(itemQuery).limit(limit),
-    Shop.find(shopQuery).limit(limit),
+    Item.find(itemQuery).sort(itemSort).limit(limit),
+    Shop.find(shopQuery).sort(shopSort).limit(limit),
   ]);
   res.status(200).json({
     status: "success",

@@ -25,7 +25,18 @@ app.use(
   }),
 );
 
-app.use(express.json());
+app.use(express.json({ type: ["application/json", "application/*+json"] }));
+app.use((req, res, next) => {
+  const contentType = req.headers["content-type"] || "";
+
+  if (contentType.includes("application/json") && typeof req.body === "string") {
+    try {
+      req.body = JSON.parse(req.body);
+    } catch {}
+  }
+
+  next();
+});
 app.use("/images", express.static(path.join(process.cwd(), "data", "images")));
 
 app.use("/api/v1/shop", shopRoutes);

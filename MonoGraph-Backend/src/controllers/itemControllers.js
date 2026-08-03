@@ -4,10 +4,10 @@ import { catchAsync } from "../utils/catchAsync.js";
 import Shop from "../models/shopModel.js";
 
 export const createItem = catchAsync(async (req, res, next) => {
-  if (!req.body.shop) {
-    return next(new AppError("Shop is required to create an item", 400));
-  }
-
+  // if (!req.body.shop) {
+  //   return next(new AppError("Shop is required to create an item", 400));
+  // }
+console.log('-------------------------------------🌮🥪🥪🥪🥙')
   const shop = await Shop.findById(req.body.shop);
   if (!shop) {
     return next(new AppError("No shop found with that ID", 404));
@@ -30,6 +30,8 @@ export const createItem = catchAsync(async (req, res, next) => {
 
 export const getAllItems = catchAsync(async (req, res, next) => {
   const filter = {};
+
+  if (req.path === "/mine") filter.owner = req.user._id;
 
   if (req.query.shop) filter.shop = req.query.shop;
   if (req.query.category) filter.category = req.query.category;

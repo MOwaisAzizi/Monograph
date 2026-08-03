@@ -14,6 +14,7 @@ router
   .route("/")
   .get(getAllItems)
   .post(protect, uploadMediaFiles("item", { media: 6 }), createItem);
+router.get("/mine", protect, getAllItems);
 router
   .route("/:id")
   .get(getItem)

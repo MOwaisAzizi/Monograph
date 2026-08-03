@@ -1,5 +1,19 @@
 import axios from 'axios';
 
+const isMultipartPayload = (data) => {
+  if (!data || typeof data !== 'object') return false;
+  if (typeof FormData !== 'undefined' && data instanceof FormData) return true;
+  return typeof data.append === 'function';
+};
+
+const serializeJsonPayload = (data) => {
+  if (data === undefined || data === null) return data;
+  if (typeof data === 'string') return data;
+  if (isMultipartPayload(data)) return data;
+  if (typeof data === 'object') return JSON.stringify(data);
+  return data;
+};
+
 class Api {
   constructor() {
     this.accessToken = null;
@@ -8,8 +22,22 @@ class Api {
     this.onUnauthorized = null;
     this.baseURL = axios.create({ baseURL: 'http://localhost:8000/api/v1', timeout: 10000 });
     this.baseURL.interceptors.request.use((config) => {
-      if (this.accessToken && !config.headers.Authorization)
-        config.headers.Authorization = `Bearer ${this.accessToken}`;
+      const headers = { ...(config.headers || {}) };
+
+      if (this.accessToken && !headers.Authorization)
+        headers.Authorization = `Bearer ${this.accessToken}`;
+
+      if (
+        config.data !== undefined &&
+        config.data !== null &&
+        !isMultipartPayload(config.data) &&
+        !headers['Content-Type']?.includes('multipart/form-data')
+      ) {
+        headers['Content-Type'] = headers['Content-Type'] || 'application/json';
+        config.data = serializeJsonPayload(config.data);
+      }
+
+      config.headers = headers;
       return config;
     });
     this.baseURL.interceptors.response.use(

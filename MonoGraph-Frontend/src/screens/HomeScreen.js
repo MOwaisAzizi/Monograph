@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ScrollView, SectionList, Text, View } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import api from '../services/api';
 import { normalizeShop, normalizeItem } from '../utils/marketplace';
@@ -112,9 +111,10 @@ export default function HomeScreen({ navigation }) {
 
   useEffect(() => {
     let mounted = true;
+    const params = activeCategory ? `?category=${encodeURIComponent(activeCategory)}` : '';
 
     api.baseURL
-      .get('/home')
+      .get(`/home${params}`)
       .then((homeResponse) => {
         console.log(homeResponse.data.data)
         if (!mounted) {
@@ -138,41 +138,31 @@ export default function HomeScreen({ navigation }) {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [activeCategory]);
 
-  useEffect(() => {
-    let mounted = true;
+const ALL_CATEGORY = { key: '', label: 'All', icon: 'grid' }; // pick any icon you like, e.g. an "apps"/"grid" icon
 
-    api.baseURL
-      .get('/category')
-      .then((res) => {
-        if (!mounted) {
-          return;
-        }
-        const list = normalizeCategoryFilters(res.data.data.categories, currentLanguage);
-        setCategories(list);
-      })
-      .catch(() => {
-        if (mounted) {
-          setCategories([]);
-        }
-      });
+useEffect(() => {
+  let mounted = true;
 
-    return () => {
-      mounted = false;
-    };
-  }, [currentLanguage]);
+  api.baseURL
+    .get('/category')
+    .then((res) => {
+      if (!mounted) return;
+      const list = normalizeCategoryFilters(res.data.data.categories, currentLanguage);
+      setCategories([ALL_CATEGORY, ...list]);
+    })
+    .catch(() => {
+      if (mounted) setCategories([ALL_CATEGORY]);
+    });
 
+  return () => {
+    mounted = false;
+  };
+}, [currentLanguage]);
   // Reset the selected category filter every time Home regains focus —
   // e.g. after the user navigates back from Search — so no chip stays
   // visually selected once they return here.
-  useFocusEffect(
-    useCallback(() => {
-      console.log('calling use focus effect');
-      setActiveCategory('');
-    }, []),
-  );
-
   const sections = useMemo(
     () => [
       {
@@ -223,18 +213,10 @@ export default function HomeScreen({ navigation }) {
           categories={categories}
           activeKey={activeCategory}
           onSelect={(categoryKey) => {
-            console.log('categoryKey');
-            console.log(categoryKey);
-            const category = categories.find((cat) => cat.key === categoryKey);
-            if (!category) return;
-
-            setActiveCategory(categoryKey);
-
-            navigation.navigate('Search', {
-              search: '',
-              category: category.key,
-            });
-          }}
+  const category = categories.find((cat) => cat.key === categoryKey);
+  if (!category) return;
+  setActiveCategory((current) => (current === category.key ? '' : category.key));
+}}
         />
       </View>
       {/* Vertically scrolling list of sections, each scrolling horizontally */}

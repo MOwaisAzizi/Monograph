@@ -105,14 +105,26 @@ export const getUserProfile = catchAsync(async (req, res, next) => {
   });
 });
 
+const parseJsonField = (value, fallback = value) => {
+  if (typeof value !== "string") return value;
+
+  try {
+    return JSON.parse(value);
+  } catch {
+    return fallback;
+  }
+};
+
 export const updateProfile = catchAsync(async (req, res, next) => {
+  const profile = parseJsonField(req.body.profile, {});
   const updatedFields = {
-    name: req.body.name,
-    lastName: req.body.lastName,
-    phone: req.body.phone,
-    media: req.body.media,
-    location: req.body.location,
-    preferredLanguage: req.body.preferredLanguage,
+    name: req.body.name ?? profile?.name,
+    lastName: req.body.lastName ?? profile?.lastName,
+    phone: req.body.phone ?? profile?.phone,
+    media: req.body.media ?? profile?.media,
+    location: req.body.location ?? profile?.location,
+    preferredLanguage:
+      req.body.preferredLanguage ?? profile?.preferredLanguage,
   };
 
   const user = await User.findByIdAndUpdate(req.user.id, updatedFields, {

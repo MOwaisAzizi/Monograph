@@ -5,12 +5,16 @@ import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 
 export const createShop = catchAsync(async (req, res) => {
+  console.log('----------------🌯🌮')
+  console.log(req.body)
+  // req.body.media = req.body.profile ? [req.body.profile] : [];
+  console.log('----------------🌯🌮')
   const shop = await Shop.create({ ...req.body, owner: req.user._id });
   res.status(201).json({ status: "success", data: { shop } });
 });
 
 export const getShops = catchAsync(async (req, res) => {
-  const filter = req.query.owner === "me" ? { owner: req.user._id } : {};
+  const filter = req.path === "/mine" ? { owner: req.user._id } : {};
   const shops = await Shop.find(filter);
   res
     .status(200)

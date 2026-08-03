@@ -109,10 +109,13 @@ export const uploadMediaFiles = (category, fieldMap = { media: 6 }) => {
   return (req, res, next) => {
     upload.fields(fieldNames)(req, res, async (err) => {
       try {
+        console.log('-------------🥗🥗🥗----------------')
+        console.log(req.body)
+        console.log('-------------🥗🥗🥗----------------')
+
         if (err) {
           return next(new AppError(err.message, 400));
         }
-
         req.body = normalizeFormBody(req.body);
 
         const filesByField = req.files || {};
@@ -121,7 +124,6 @@ export const uploadMediaFiles = (category, fieldMap = { media: 6 }) => {
         }
 
         const mediaEntries = [];
-
         for (const [fieldName, fieldFiles] of Object.entries(filesByField)) {
           for (const [index, file] of (fieldFiles || []).entries()) {
             const entry = await storeMediaFile(file, category, fieldName, req);

@@ -34,13 +34,13 @@ export default function ProfileScreen({ navigation }) {
     if (!permission.granted) {
       return;
     }
-
+    console.log('---------permited')
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 0.9,
     });
-
+    console.log(result)
     if (result.canceled || !result.assets?.length) {
       return;
     }
@@ -63,7 +63,6 @@ export default function ProfileScreen({ navigation }) {
       const response = await api.baseURL.patch('/user/profile', payload, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'multipart/form-data',
         },
       });
 

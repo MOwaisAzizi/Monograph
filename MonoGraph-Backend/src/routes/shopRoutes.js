@@ -16,6 +16,7 @@ router
   .route("/")
   .get(getShops)
   .post(protect, uploadMediaFiles("shop", { cover: 1, profile: 1, media: 6 }), createShop);
+router.get("/mine", protect, getShops);
 router.post("/follow/:shopId", protect, toggleFollowShop);
 router.get("/:id/items", getShopItems);
 router
