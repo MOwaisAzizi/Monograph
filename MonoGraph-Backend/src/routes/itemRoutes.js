@@ -4,6 +4,7 @@ import {
   deleteItem,
   getAllItems,
   getItem,
+  similarItems,
   updateItem,
 } from "../controllers/itemControllers.js";
 import { protect } from "../middleware/authMiddleware.js";
@@ -20,5 +21,6 @@ router
   .get(getItem)
   .patch(protect, uploadMediaFiles("item", { media: 6 }), updateItem)
   .delete(protect, deleteItem);
+  router.route("/similar/:id").get(similarItems)
 
 export default router;

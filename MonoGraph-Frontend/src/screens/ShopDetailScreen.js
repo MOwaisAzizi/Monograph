@@ -49,7 +49,6 @@ export default function ShopDetailScreen({ route, navigation }) {
     let mounted = true;
     Promise.all([api.getShopDetails(id), api.getShopItems(id), loadReviews()])
       .then(([shopResponse, itemsResponse]) => {
-        console.log(shopResponse.data.data);
         if (!mounted) return;
         console.log('--------------------')
         console.log(shopResponse.data)

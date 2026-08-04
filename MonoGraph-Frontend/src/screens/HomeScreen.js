@@ -160,9 +160,6 @@ useEffect(() => {
     mounted = false;
   };
 }, [currentLanguage]);
-  // Reset the selected category filter every time Home regains focus —
-  // e.g. after the user navigates back from Search — so no chip stays
-  // visually selected once they return here.
   const sections = useMemo(
     () => [
       {

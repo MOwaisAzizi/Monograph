@@ -27,45 +27,37 @@ export default function ProductScreen({ route, navigation }) {
   useEffect(() => {
     let mounted = true;
 
-    api.baseURL
-      .get(`/item/${id}`)
-      .then(async (response) => {
-        if (!mounted) {
-          return;
+    const fetchData = async () => {
+      console.log('fetching---------')
+      try {
+        const [item, similarItems] = await Promise.all([
+          api.getItem(id),
+          api.similarItems(id),
+        ]);
+        if (mounted) {
+          setItem(item);
+          setSimilarItems(similarItems);
         }
-
-        const rawItem =
-          response?.data?.data?.Item ||
-          response?.data?.data?.item ||
-          response?.data?.data?.itemDoc ||
-          response?.data?.data ||
-          {};
-        const normalized = normalizeItem(rawItem);
-        setItem(normalized);
-
-        if (rawItem?.category?._id || rawItem?.category) {
-          const categoryId = rawItem.category._id || rawItem.category;
-          const similarResponse = await api.baseURL.get(`/item?category=${categoryId}`);
-          const similarList = (similarResponse?.data?.data?.Items || [])
-            .map(normalizeItem)
-            .filter((entry) => entry.id !== normalized.id);
-          if (mounted) {
-            setSimilarItems(similarList.slice(0, 4));
-          }
-        }
-      })
-      .catch(() => {
+      } catch (error) {
+        console.log('-------------------------------')
+        console.log(error)
         if (mounted) {
           setItem(null);
           setSimilarItems([]);
         }
-      });
+      }
+    };
+
+    fetchData();
 
     return () => {
       mounted = false;
     };
   }, [id]);
-
+  console.log('similarItems')
+  console.log(similarItems)
+  console.log('items')
+  console.log(item)
   const itemRating = useMemo(() => {
     if (!item) {
       return '—';

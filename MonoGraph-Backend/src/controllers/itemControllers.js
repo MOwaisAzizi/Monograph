@@ -7,7 +7,7 @@ export const createItem = catchAsync(async (req, res, next) => {
   // if (!req.body.shop) {
   //   return next(new AppError("Shop is required to create an item", 400));
   // }
-console.log('-------------------------------------🌮🥪🥪🥪🥙')
+  console.log("-------------------------------------🌮🥪🥪🥪🥙");
   const shop = await Shop.findById(req.body.shop);
   if (!shop) {
     return next(new AppError("No shop found with that ID", 404));
@@ -96,5 +96,33 @@ export const deleteItem = catchAsync(async (req, res, next) => {
   res.status(204).json({
     status: "success",
     data: null,
+  });
+});
+
+export const similarItems = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+console.log('🥙🥗')
+ console.log(id)
+  const currentItem = await Item.findById(id).select("category shop price");
+  if (!currentItem) {
+    throw new Error("Item not found");
+  }
+console.log('🥙🥗')
+console.log('🥙🥗')
+// console.log(currectItem)
+console.log('🥙🥗')
+  const similar = await Item.find({
+    _id: { $ne: id },
+    category: currentItem.category,
+  })
+    .sort({ rating: -1, createdAt: -1 })
+    .limit(10)
+    .populate("shop", "translation")
+    .lean();
+console.log('similar');
+console.log(similar);
+  res.status(200).json({
+    status: "success",
+    data: similar,
   });
 });

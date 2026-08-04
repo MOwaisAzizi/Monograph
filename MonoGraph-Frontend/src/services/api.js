@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { normalizeItem } from '../utils/marketplace';
 
 const isMultipartPayload = (data) => {
   if (!data || typeof data !== 'object') return false;
@@ -99,9 +100,12 @@ class Api {
   getShopDetails(shopId) {
     return this.baseURL.get(`/shop/${shopId}`);
   }
-  saveShopReview(shopId, review) {
-    return this.baseURL.post(`/review/shops/${shopId}`, review);
-  }
+   similarItems(productId) {
+  return this.baseURL.get(`/item/similar/${productId}`).then((res) => res.data.data);
+}
+  getItem(productId) {
+  return this.baseURL.get(`/item/${productId}`).then((res) => normalizeItem(res.data.data));
+}
 }
 
 export default new Api();

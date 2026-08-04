@@ -34,8 +34,6 @@ export const getHomepageData = catchAsync(async (req, res) => {
         .limit(6)
         .select("media translation createdAt location rating"),
     ]);
-  console.log("🥨🥐🍞🍞🍞");
-  console.log(nearestItems);
   res.status(200).json({
     status: "success",
     data: {
