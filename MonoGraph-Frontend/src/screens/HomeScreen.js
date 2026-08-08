@@ -79,6 +79,8 @@ function HorizontalItemRow({ data, onPressItem }) {
 }
 
 function HorizontalShopRow({ data, onPressShop }) {
+  console.log('data')
+  console.log(data)
   return (
     <ScrollView
       horizontal

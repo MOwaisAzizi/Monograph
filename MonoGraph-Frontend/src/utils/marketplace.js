@@ -28,7 +28,7 @@ export const normalizeTranslation = (translation) => {
       acc[lang] = { title: candidate, description: '' };
     } else {
       acc[lang] = {
-        title: candidate.title || candidate.name || '',
+        title: candidate.title || '',
         description: candidate.description || candidate.note || '',
       };
     }
@@ -64,21 +64,14 @@ export const formatPrice = (price) => {
 
 export const formatRating = (rating = 0) => Number(rating).toFixed(1);
 
-export const pickImageUri = (media = []) => {
-  if (!media) {
-    return null;
-  }
+export const pickImageUri = (media = [], type = 'cover') => {
+  if (!media) return null;
 
-  if (Array.isArray(media)) {
-    if (media.length === 0) {
-      return null;
-    }
-
-    const source = media.find((entry) => entry?.url || entry?.secureUrl || entry?.path) || media[0];
-    return source?.url || source?.secureUrl || source?.path || null;
-  }
-
-  return media?.url || media?.secureUrl || media?.path || null;
+  // Shops/items store an array, while a user stores one media object.  Always
+  // return the URL React Native's <Image> expects, never the media object.
+  const entries = Array.isArray(media) ? media : [media];
+  const source = entries.find((image) => image?.type === type) || entries[0];
+  return typeof source === 'string' ? source : source?.url || null;
 };
 
 export const normalizeItem = (item = {}) => {
@@ -91,10 +84,11 @@ export const normalizeItem = (item = {}) => {
     translation, // translation.en.title / translation.fa.title / translation.ps.title
     price: formatPrice(item.price),
     rating: formatRating(item.rating),
-    ratingCount: item.ratingCount || 0,
-    image: pickImageUri(item.media),
+    coverImage: pickImageUri(item.media, 'cover'),
     city: item.city || item.location?.address?.en || 'Herat',
     shopTranslation, // shopTranslation.en.title / .fa.title / .ps.title
+    shopId: item.shop?._id || item.shop?.id || item.shop,
+    shopType: item.shop?.shopType || '',
     categoryTranslation, // categoryTranslation.en.title / .fa.title / .ps.title
     locationText: item.location?.address?.en || item.location?.address?.fa || item.city || 'Herat',
   };
@@ -107,9 +101,8 @@ export const normalizeShop = (shop = {}) => {
     id: shop._id || shop.id,
     translation, // translation.en.title / translation.fa.title / translation.ps.title
     rating: shop.rating,
-    ratingCount: shop.ratingCount || shop.ratingsCount || 0,
-    image: shop.image || pickImageUri(shop.media),
-    coverImage: shop.coverImage,
+    profile: pickImageUri(shop.media, 'profile'),
+    coverImage: pickImageUri(shop.media, 'cover'),
     city: shop.city || 'Herat',
     shopType: shop.shopType,
     address: shop.location?.address?.en || shop.location?.address?.fa || shop.city || 'Herat',
@@ -118,10 +111,12 @@ export const normalizeShop = (shop = {}) => {
 
 export const normalizeUser = (user = {}) => ({
   id: user._id || user.id,
-  name: [user.name, user.lastName].filter(Boolean).join(' ').trim() || 'Your profile',
+  fullname: user.fullname || 'Your profile',
   email: user.email || 'Connected account',
-  avatar: pickImageUri(user.media),
+  avatar: pickImageUri(user.media, 'profile'),
   phone: user.phone || '',
+  address: user.location?.address?.en || user.location?.address?.fa || user.location?.address?.ps || '',
+  location: user.location || null,
   preferredLanguage: user.preferredLanguage || 'en',
 });
 

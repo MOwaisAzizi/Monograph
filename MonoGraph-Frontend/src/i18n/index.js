@@ -36,7 +36,7 @@ export const getText = (language, key) => {
     const safeLanguage = normalizeLanguage(language);
     const dictionary = {
         profile: { en: 'Profile', fa: 'پروفایل', ps: 'پروفایل' },
-        login: { en: 'Login', fa: 'دخول', ps: 'ننوتل' },
+        login: { en: 'Login', fa: 'ورود', ps: 'ننوتل' },
         logout: { en: 'Logout', fa: 'خروج', ps: 'وتل' },
         favoriteItems: { en: 'Favorite Items', fa: 'اقلام مورد علاقه', ps: 'موردعلاقې توکي' },
         favoriteShops: { en: 'Favorite Shops', fa: 'فروشگاه های مورد علاقه', ps: 'د خوښ کردو فروشونو' },
@@ -80,5 +80,23 @@ export const getText = (language, key) => {
         herat: { en: 'Herat', fa: 'هرات', ps: 'هرات' },
     };
 
-    return dictionary[key]?.[safeLanguage] || dictionary[key]?.en || key;
+    const common = {
+        register: { en: 'Register', fa: '\u062b\u0628\u062a \u0646\u0627\u0645', ps: '\u0646\u0648\u0645 \u0644\u06cc\u06a9\u0646\u0647' },
+        email: { en: 'Email', fa: '\u0627\u06cc\u0645\u06cc\u0644', ps: '\u0628\u0631\u06d0\u069a\u0646\u0627\u0644\u06cc\u06a9' },
+        password: { en: 'Password', fa: '\u0631\u0645\u0632 \u0639\u0628\u0648\u0631', ps: '\u067e\u067c\u0646\u0648\u0645' },
+        fullName: { en: 'Full name', fa: '\u0646\u0627\u0645 \u06a9\u0627\u0645\u0644', ps: '\u0628\u0634\u067e\u0693 \u0646\u0648\u0645' },
+        signInToManage: { en: 'Sign in to add businesses and items.', fa: '\u0628\u0631\u0627\u06cc \u0627\u0641\u0632\u0648\u062f\u0646 \u0641\u0631\u0648\u0634\u06af\u0627\u0647 \u0648 \u06a9\u0627\u0644\u0627 \u0648\u0627\u0631\u062f \u0634\u0648\u06cc\u062f.', ps: '\u062f \u062f\u0648\u06a9\u0627\u0646\u0648\u0646\u0648 \u0627\u0648 \u062a\u0648\u06a9\u0648 \u062f \u0632\u06cc\u0627\u062a\u0648\u0644\u0648 \u0644\u067e\u0627\u0631\u0647 \u0646\u0646\u0648\u0632\u0626.' },
+        welcome: { en: 'Welcome to Docan.', fa: '\u0628\u0647 \u062f\u0648\u06a9\u0627\u0646 \u062e\u0648\u0634 \u0622\u0645\u062f\u06cc\u062f.', ps: '\u062f\u0648\u06a9\u0627\u0646 \u062a\u0647 \u069a\u0647 \u0631\u0627\u063a\u0644\u0627\u0633\u062a.' },
+        loggingIn: { en: 'Logging in...', fa: '\u062f\u0631 \u062d\u0627\u0644 \u0648\u0631\u0648\u062f...', ps: '\u062f \u0646\u0646\u0648\u062a\u0644\u0648 \u067e\u0647 \u062d\u0627\u0644 \u06a9\u06d0...' },
+        creatingAccount: { en: 'Creating account...', fa: '\u062f\u0631 \u062d\u0627\u0644 \u0633\u0627\u062e\u062a\u0646 \u062d\u0633\u0627\u0628...', ps: '\u06ab\u0689\u0648\u0646 \u062c\u0648\u0693\u06d0\u0696\u064a...' },
+        noAccount: { en: 'No account? Register', fa: '\u062d\u0633\u0627\u0628 \u0646\u062f\u0627\u0631\u06cc\u062f\u061f \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0646\u06cc\u062f', ps: '\u06ab\u0689\u0648\u0646 \u0646\u0647 \u0644\u0631\u0626\u061f \u0646\u0648\u0645\u200c\u0644\u06cc\u06a9\u0646\u0647 \u0648\u06a9\u0693\u0626' },
+        alreadyHaveAccount: { en: 'Already have an account? Login', fa: '\u062d\u0633\u0627\u0628 \u062f\u0627\u0631\u06cc\u062f\u061f \u0648\u0627\u0631\u062f \u0634\u0648\u06cc\u062f', ps: '\u062f\u0645\u062e\u0647 \u06ab\u0689\u0648\u0646 \u0644\u0631\u0626\u061f \u0646\u0646\u0648\u0632\u0626' },
+        price: { en: 'Price', fa: '\u0642\u06cc\u0645\u062a', ps: '\u0628\u06cc\u0647' },
+        rating: { en: 'Rating', fa: '\u0627\u0645\u062a\u06cc\u0627\u0632', ps: '\u062f\u0631\u062c\u0647' },
+        follow: { en: 'Follow', fa: '\u062f\u0646\u0628\u0627\u0644 \u06a9\u0631\u062f\u0646', ps: '\u062a\u0639\u0642\u06cc\u0628' },
+        following: { en: 'Following', fa: '\u062f\u0646\u0628\u0627\u0644 \u0645\u06cc\u200c\u06a9\u0646\u06cc\u062f', ps: '\u062a\u0639\u0642\u06cc\u0628\u0648\u0626' },
+        reviews: { en: 'Reviews', fa: '\u0646\u0638\u0631\u0627\u062a', ps: '\u0628\u06cc\u0627\u06a9\u062a\u0646\u06d0' },
+        similarShops: { en: 'Similar shops', fa: '\u0641\u0631\u0648\u0634\u06af\u0627\u0647\u200c\u0647\u0627\u06cc \u0645\u0634\u0627\u0628\u0647', ps: '\u0648\u0631\u062a\u0647 \u062f\u0648\u06a9\u0627\u0646\u0648\u0646\u0647' },
+    };
+    return common[key]?.[safeLanguage] || common[key]?.en || dictionary[key]?.[safeLanguage] || dictionary[key]?.en || key;
 };

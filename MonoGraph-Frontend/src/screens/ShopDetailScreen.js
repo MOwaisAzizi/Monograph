@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Text, Image, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 import api from '../services/api';
 import { capitalize, normalizeItem, normalizeShop } from '../utils/marketplace';
 import { ActionPill, Chip, ScreenShell, SectionHeader } from '../components/ui';
-import { ItemCard } from '../components/cards';
+import { ItemCard, ShopCard } from '../components/cards';
 import { getLocalizedValue, getText } from '../i18n';
 
 const timeAgo = (date) => {
@@ -29,6 +29,7 @@ export default function ShopDetailScreen({ route, navigation }) {
   const user = useSelector((state) => state.auth.user);
   const [shop, setShop] = useState(null);
   const [items, setItems] = useState([]);
+  const [similarShops, setSimilarShops] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [summary, setSummary] = useState({ average: 0, total: 0, distribution: {} });
   const [tab, setTab] = useState('items');
@@ -47,14 +48,15 @@ export default function ShopDetailScreen({ route, navigation }) {
   console.log(shop);
   useEffect(() => {
     let mounted = true;
-    Promise.all([api.getShopDetails(id), api.getShopItems(id), loadReviews()])
-      .then(([shopResponse, itemsResponse]) => {
+    Promise.all([api.getShopDetails(id), api.getShopItems(id), api.getSimilarShops(id), loadReviews()])
+      .then(([shopResponse, itemsResponse, similarShopResponse]) => {
         if (!mounted) return;
         console.log('--------------------')
         console.log(shopResponse.data)
         console.log('--------------------')
-        setShop(normalizeShop(shopResponse.data.data?.shop || shopResponse.data.data || {}));
+        setShop(normalizeShop(shopResponse.data.data?.shop || {}));
         setItems((itemsResponse.data.data.items || []).map(normalizeItem));
+        setSimilarShops(similarShopResponse.map(normalizeShop));
       })
       .catch(() => mounted && Alert.alert('Unable to load shop', 'Please try again.'));
     return () => {
@@ -97,20 +99,30 @@ export default function ShopDetailScreen({ route, navigation }) {
     <ScreenShell scroll contentClassName="flex-1 pb-6">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="px-5 pt-2">
-          <View className="h-56 rounded-[28px] bg-[#d6e3e2]">
-            <Pressable
-              onPress={() => navigation.goBack()}
-              className="absolute left-4 top-4 h-9 w-9 items-center justify-center rounded-full bg-white/60"
-            >
-              <Ionicons name="chevron-back" size={16} color="#2a3535" />
-            </Pressable>
-            <Pressable
-              onPress={toggleFavorite}
-              className="absolute right-4 top-4 h-9 w-9 items-center justify-center rounded-full bg-white/60"
-            >
-              <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={16} color="#2a3535" />
-            </Pressable>
-          </View>
+
+
+// In your JSX:
+<View className="h-56 rounded-[28px] bg-[#d6e3e2] overflow-hidden">
+  <Image
+    source={{ 
+      uri: shop?.coverImage || 'https://via.placeholder.com/400x224/d6e3e2/9ab0b0?text=No+Cover'
+    }}
+    className="h-full w-full"
+    style={{ resizeMode: 'cover' }}
+  />
+  <Pressable
+    onPress={() => navigation.goBack()}
+    className="absolute left-4 top-4 h-9 w-9 items-center justify-center rounded-full bg-white/60"
+  >
+    <Ionicons name="chevron-back" size={16} color="#2a3535" />
+  </Pressable>
+  <Pressable
+    onPress={toggleFavorite}
+    className="absolute right-4 top-4 h-9 w-9 items-center justify-center rounded-full bg-white/60"
+  >
+    <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={16} color="#2a3535" />
+  </Pressable>
+</View>
           <View className="mt-5 flex-row items-start justify-between">
             <View>
               <Text className="text-[18px] font-bold text-[#353f3d]">
@@ -119,7 +131,7 @@ export default function ShopDetailScreen({ route, navigation }) {
               <Text className="mt-1 text-[12px] text-[#9ab0b0]">{shop?.address || 'Herat'}</Text>
             </View>
             <ActionPill
-              label={isFollowing ? 'Following' : 'Follow'}
+              label={isFollowing ? getText(currentLanguage, 'following') : getText(currentLanguage, 'follow')}
               active={isFollowing}
               onPress={toggleFollow}
             />
@@ -141,12 +153,13 @@ export default function ShopDetailScreen({ route, navigation }) {
                 onPress={() => setTab(value)}
                 className={`pb-2 ${tab === value ? 'border-b-2 border-[#d99c17]' : ''}`}
               >
-                <Text className="font-semibold text-[#1d2221]">{value}</Text>
+                <Text className="font-semibold text-[#1d2221]">{getText(currentLanguage, value)}</Text>
               </Pressable>
             ))}
           </View>
           {tab === 'items' ? (
-            <View className="mt-5 flex-row flex-wrap justify-between gap-y-3">
+            <View className="mt-5">
+              <View className="flex-row flex-wrap justify-between gap-y-3">
               {items.map((item) => (
                 <View key={item.id} style={{ width: '48%' }}>
                   <ItemCard
@@ -159,6 +172,17 @@ export default function ShopDetailScreen({ route, navigation }) {
               {!items.length && (
                 <Text className="text-[12px] text-[#89a1a1]">Shop items will appear here.</Text>
               )}
+              </View>
+              <View className="mt-7">
+                <SectionHeader title={getText(currentLanguage, 'similarShops')} />
+                {similarShops.length ? (
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerClassName="gap-4 pr-5">
+                    {similarShops.map((similarShop) => (
+                      <ShopCard key={similarShop.id} shop={similarShop} compact onPress={() => navigation.push('ShopDetail', { id: similarShop.id })} />
+                    ))}
+                  </ScrollView>
+                ) : <Text className="text-[12px] text-[#89a1a1]">Similar shops will appear here.</Text>}
+              </View>
             </View>
           ) : (
             <View className="mt-5">
@@ -188,7 +212,7 @@ export default function ShopDetailScreen({ route, navigation }) {
               {reviews.map((review) => (
                 <View key={review._id} className="mt-4 border-t border-white/15 pt-4">
                   <Text className="font-semibold text-[#eff5f4]">
-                    {review.user?.name || 'MonoGraph user'}
+                    {review.user?.fullname || 'MonoGraph user'}
                   </Text>
                   <View className="flex-row items-center gap-2">
                     <Stars rating={review.rating} size={12} />
@@ -206,7 +230,7 @@ export default function ShopDetailScreen({ route, navigation }) {
               )}
               {showForm && (
                 <View className=" rounded-2xl bg-white/10 p-4">
-                  <Text className="font-semibold text-[#eff5f4]">Your rating</Text>
+                  <Text className="font-semibold text-[#eff5f4]">{getText(currentLanguage, 'yourRating')}</Text>
                   <View className="mt-2 flex-row">
                     {[1, 2, 3, 4, 5].map((value) => (
                       <Pressable key={value} onPress={() => setRating(value)}>
@@ -221,13 +245,13 @@ export default function ShopDetailScreen({ route, navigation }) {
                   <TextInput
                     value={comment}
                     onChangeText={setComment}
-                    placeholder="Share your experience"
+                    placeholder={getText(currentLanguage, 'shareExperience')}
                     placeholderTextColor="#9ab0b0"
                     multiline
                     className="mt-2 min-h-[90px] rounded-xl bg-white px-3 py-3 text-[#314243]"
                   />
                   <Pressable onPress={submitReview} className="mt-3 rounded-xl bg-[#0f6b75] py-3">
-                    <Text className="text-center font-semibold text-white">Submit review</Text>
+                    <Text className="text-center font-semibold text-white">{getText(currentLanguage, 'submitReview')}</Text>
                   </Pressable>
                 </View>
               )}
@@ -238,7 +262,7 @@ export default function ShopDetailScreen({ route, navigation }) {
                 className="mt-5 rounded-2xl bg-[#d6e3e2] py-4"
               >
                 <Text className="text-center font-semibold text-[#0d4e57]">
-                  {showForm ? 'Cancel review' : '+ Add a review'}
+                  {showForm ? getText(currentLanguage, 'cancelReview') : getText(currentLanguage, 'addReview')}
                 </Text>
               </Pressable>
             </View>

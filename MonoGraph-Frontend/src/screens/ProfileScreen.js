@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Modal, Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, Modal, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { MediaTypeOptions } from 'expo-image-picker';
 import api from '../services/api';
@@ -7,15 +7,19 @@ import { normalizeUser, normalizeItem, normalizeShop } from '../utils/marketplac
 import { ActionPill, ScreenShell, SectionHeader, StatTile } from '../components/ui';
 import { ItemCard, ShopCard, TextRow } from '../components/cards';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../store/slices/authSlice';
+import { logout, setUser } from '../store/slices/authSlice';
 import { setLanguage } from '../store/slices/languageSlice';
 import { LANGUAGE_OPTIONS, LANGUAGE_NAMES, getText } from '../i18n';
+import { clearStoredSession, saveSession } from '../services/session';
 
 export default function ProfileScreen({ navigation }) {
   const [profile, setProfile] = useState(null);
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
-  const [avatarFile, setAvatarFile] = useState(null);
-  const { user, accessToken } = useSelector((state) => state.auth);
+  const [mediaFile, setMediaFile] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [form, setForm] = useState({ fullname: '', phone: '' });
+  const { user, accessToken, refreshToken } = useSelector((state) => state.auth);
   const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const dispatch = useDispatch();
 
@@ -25,6 +29,7 @@ export default function ProfileScreen({ navigation }) {
     } catch { }
     api.clearSession();
     dispatch(logout());
+    clearStoredSession().catch(() => {});
     setProfile(null);
   };
 
@@ -46,36 +51,48 @@ export default function ProfileScreen({ navigation }) {
     }
 
     const asset = result.assets[0];
-    setAvatarFile(asset);
+    setMediaFile(asset);
 
-    if (!accessToken) {
-      return;
-    }
+  };
 
-    const payload = new FormData();
-    payload.append('profile', {
-      uri: asset.uri,
-      name: asset.fileName || 'profile-avatar.jpg',
-      type: asset.mimeType || 'image/jpeg',
+  const startEditing = () => {
+    setForm({
+      fullname: profile?.fullname?.split(' ')[0] || '',
+      phone: Array.isArray(profile?.phone) ? profile.phone.join(', ') : profile?.phone || '',
     });
+    setMediaFile(null);
+    setEditing(true);
+  };
 
+  const saveProfile = async () => {
+    if (!form.fullname.trim()) return;
+    console.log('--------------🥙🧀🥖🥖----')
+    console.log(form)
     try {
-      const response = await api.baseURL.patch('/user/profile', payload, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      const updatedUser = response?.data?.data?.user || null;
-      if (!updatedUser) return;
-
+      setSaving(true);
+      const payload = new FormData();
+      payload.append('fullname', form.fullname.trim());
+      payload.append('phone', JSON.stringify(form.phone.split(',').map((value) => value.trim()).filter(Boolean)));
+      if (mediaFile) {
+        
+        // The API accepts the user avatar under `profile`; `media` is used for
+        // JSON metadata and therefore made the uploaded image get ignored.
+        payload.append('profile', {
+          uri: mediaFile.uri,
+          name: mediaFile.name || 'profile-avatar.jpg',
+          type: mediaFile.mimeType || 'image/jpeg',
+        });
+      }
+      const updatedUser = await api.updateProfile(payload);
       const normalizedUser = normalizeUser(updatedUser);
-      setProfile((current) => ({
-        ...(current || {}),
-        ...normalizedUser,
-      }));
+      setProfile((current) => ({ ...current, ...normalizedUser }));
+      dispatch(setUser({ user: updatedUser, accessToken, refreshToken }));
+      saveSession({ user: updatedUser, accessToken, refreshToken }).catch(() => {});
+      setEditing(false);
     } catch (error) {
-      console.error('Unable to upload profile image:', error);
+      console.error('Unable to save profile:', error);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -146,20 +163,23 @@ export default function ProfileScreen({ navigation }) {
   return (
     <ScreenShell contentClassName="px-5 pb-6 pt-4">
       <View className="items-center">
-        <Pressable onPress={handleSelectAvatar} className="h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-[#dbe7e6]">
-          <Text className="text-[20px] font-bold text-[#365354]">
-            {profile?.name?.slice(0, 1)?.toUpperCase() || 'U'}
-          </Text>
+        <Pressable onPress={user ? startEditing : undefined} className="h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-[#dbe7e6]">
+          {profile?.avatar ? <Image source={{ uri: profile.avatar }} className="h-full w-full" /> : <Text className="text-[20px] font-bold text-[#365354]">{profile?.fullname?.slice(0, 1)?.toUpperCase() || 'U'}</Text>}
         </Pressable>
         <Text className="mt-4 text-[18px] font-bold text-[#eff5f4]">
-          {profile?.name || t.yourProfile}
+          {profile?.fullname}
         </Text>
         <Text className="mt-1 text-[11px] text-[#91a7a6]">
           {profile?.email || t.connectedAccount}
         </Text>
+        {user && (profile?.phone) ? (
+          <View className="mt-2 items-center">
+            {profile?.phone ? <Text className="text-[11px] text-[#91a7a6]">{Array.isArray(profile.phone) ? profile.phone.join(', ') : profile.phone}</Text> : null}
+          </View>
+        ) : null}
         <View className="mt-2">
           {user ? (
-            <ActionPill label={t.logout} onPress={logoutuser} />
+            <View className="flex-row gap-2"><ActionPill label="Edit profile" onPress={startEditing} /><ActionPill label={t.logout} onPress={logoutuser} /></View>
           ) : (
             <ActionPill label={t.login} onPress={() => navigation.navigate('Login')} />
           )}
@@ -268,6 +288,21 @@ export default function ProfileScreen({ navigation }) {
             ))}
           </View>
         </Pressable>
+      </Modal>
+
+      <Modal transparent visible={editing} animationType="slide" onRequestClose={() => setEditing(false)}>
+        <View className="flex-1 justify-end bg-black/40">
+          <View className="rounded-t-[28px] bg-[#eef5f5] p-5">
+            <Text className="text-[18px] font-bold text-[#233334]">Edit your profile</Text>
+            <Pressable onPress={handleSelectAvatar} className="mt-4 self-start rounded-xl bg-[#dbe7e6] px-4 py-3"><Text className="font-semibold text-[#314243]">{mediaFile ? 'Image selected' : 'Choose profile image'}</Text></Pressable>
+            {[['fullname', 'fullname'], ['phone', 'Phone number']].map(([key, label]) => (
+              <View key={key} className="mt-3 rounded-xl border border-[#d9e5e4] bg-white px-3 py-2">
+                <TextInput value={form[key]} onChangeText={(value) => setForm((current) => ({ ...current, [key]: value }))} placeholder={label} placeholderTextColor="#8ba0a0" className="p-1 text-[#213233]" />
+              </View>
+            ))}
+            <View className="mt-5 flex-row gap-3"><Pressable onPress={() => setEditing(false)} className="flex-1 rounded-xl border border-[#9aabab] py-3"><Text className="text-center font-semibold text-[#314243]">Cancel</Text></Pressable><Pressable onPress={saveProfile} disabled={saving} className="flex-1 rounded-xl bg-[#0f6b75] py-3"><Text className="text-center font-semibold text-white">{saving ? 'Saving...' : 'Save changes'}</Text></Pressable></View>
+          </View>
+        </View>
       </Modal>
     </ScreenShell>
   );

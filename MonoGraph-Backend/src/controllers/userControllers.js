@@ -22,13 +22,13 @@ const sendTokens = (user) => {
 };
 
 export const signup = catchAsync(async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { fullname, email, password } = req.body;
 
   const existingUser = await User.findOne({ email });
   if (existingUser) return next(new AppError("Email already in use", 400));
 
   const user = await User.create({
-    name,
+    fullname,
     email,
     password,
   });
@@ -116,15 +116,23 @@ const parseJsonField = (value, fallback = value) => {
 };
 
 export const updateProfile = catchAsync(async (req, res, next) => {
-  const profile = parseJsonField(req.body.profile, {});
+  const media = parseJsonField(req.body.media, {});
+  console.log("--------------------");
+  // console.log(req.body);
+  // console.log(...req.body.media);
+  // console.log(...req.body.media);
+  const email = req.body.email ?? media?.email;
+  if (email) {
+    const existingUser = await User.findOne({
+      email: String(email).toLowerCase(),
+      _id: { $ne: req.user.id },
+    });
+    if (existingUser) return next(new AppError("Email already in use", 400));
+  }
   const updatedFields = {
-    name: req.body.name ?? profile?.name,
-    lastName: req.body.lastName ?? profile?.lastName,
-    phone: req.body.phone ?? profile?.phone,
-    media: req.body.media ?? profile?.media,
-    location: req.body.location ?? profile?.location,
-    preferredLanguage:
-      req.body.preferredLanguage ?? profile?.preferredLanguage,
+    fullname: req.body.fullname,
+    phone: req.body.phone,
+    media: req.body.media,
   };
 
   const user = await User.findByIdAndUpdate(req.user.id, updatedFields, {

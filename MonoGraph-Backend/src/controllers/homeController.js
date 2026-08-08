@@ -30,10 +30,13 @@ export const getHomepageData = catchAsync(async (req, res) => {
         .select("media translation createdAt location rating"),
 
       Shop.find(shopFilter)
-        .sort({ location: 1 })
+        .sort({ createdAt: -1 })
         .limit(6)
         .select("media translation createdAt location rating"),
     ]);
+    newItems.map(item => {
+      console.log(item.translation)
+    })
   res.status(200).json({
     status: "success",
     data: {

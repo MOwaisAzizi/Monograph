@@ -4,6 +4,7 @@ import {
   deleteShop,
   getShop,
   getShopItems,
+  getSimilarShops,
   getShops,
   toggleFollowShop,
   updateShop,
@@ -18,6 +19,7 @@ router
   .post(protect, uploadMediaFiles("shop", { cover: 1, profile: 1, media: 6 }), createShop);
 router.get("/mine", protect, getShops);
 router.post("/follow/:shopId", protect, toggleFollowShop);
+router.get("/:id/similar", getSimilarShops);
 router.get("/:id/items", getShopItems);
 router
   .route("/:id")

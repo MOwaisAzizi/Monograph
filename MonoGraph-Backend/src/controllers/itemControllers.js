@@ -59,7 +59,7 @@ export const getItem = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    data: { itemDoc },
+    data: { item: itemDoc },
   });
 });
 
@@ -118,6 +118,7 @@ console.log('🥙🥗')
     .sort({ rating: -1, createdAt: -1 })
     .limit(10)
     .populate("shop", "translation")
+    .populate("category", "translation")
     .lean();
 console.log('similar');
 console.log(similar);

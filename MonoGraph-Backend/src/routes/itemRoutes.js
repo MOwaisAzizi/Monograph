@@ -16,11 +16,11 @@ router
   .get(getAllItems)
   .post(protect, uploadMediaFiles("item", { media: 6 }), createItem);
 router.get("/mine", protect, getAllItems);
+router.get("/similar/:id", similarItems);
 router
   .route("/:id")
   .get(getItem)
   .patch(protect, uploadMediaFiles("item", { media: 6 }), updateItem)
   .delete(protect, deleteItem);
-  router.route("/similar/:id").get(similarItems)
 
 export default router;

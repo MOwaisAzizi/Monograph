@@ -31,7 +31,7 @@ export const getShopReviews = catchAsync(async (req, res, next) => {
   if (!mongoose.isValidObjectId(shopId))
     return next(new AppError("Invalid shop ID", 400));
   const reviews = await Review.find({ reviewType: "Shop", target: shopId })
-    .populate("user", "name media")
+    .populate("user", "fullname media")
     .sort("-createdAt");
   const stats = await Review.aggregate([
     {

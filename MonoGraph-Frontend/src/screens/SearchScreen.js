@@ -82,8 +82,8 @@ export default function SearchScreen({ navigation, route }) {
         <TextField placeholder={getText(currentLanguage, 'searchPlaceholder')} value={search} onChangeText={setSearch} />
 
         <View className="mt-3 flex-row gap-2">
-          <Chip label="Price" active={sort === 'price'} onPress={() => setSort((value) => value === 'price' ? '' : 'price')} />
-          <Chip label="Rating" active={sort === 'rating'} onPress={() => setSort((value) => value === 'rating' ? '' : 'rating')} />
+          <Chip label={getText(currentLanguage, 'price')} active={sort === 'price'} onPress={() => setSort((value) => value === 'price' ? '' : 'price')} />
+          <Chip label={getText(currentLanguage, 'rating')} active={sort === 'rating'} onPress={() => setSort((value) => value === 'rating' ? '' : 'rating')} />
         </View>
 
         {Boolean(category) && (

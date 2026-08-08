@@ -1,34 +1,53 @@
 import 'react-native-gesture-handler';
 import './global.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Provider, useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import RootNavigator from './src/navigation';
 import { store } from './src/store';
 import api from './src/services/api';
-import { logout, updateTokens } from './src/store/slices/authSlice';
+import { logout, setUser, updateTokens } from './src/store/slices/authSlice';
+import { clearStoredSession, loadSession, saveSession } from './src/services/session';
 
-function AuthBridge() {
+function AuthBridge({ onRestored }) {
   const dispatch = useDispatch();
   useEffect(() => {
     api.setAuthCallbacks({
-      onTokensChanged: (tokens) => dispatch(updateTokens(tokens)),
-      onUnauthorized: () => dispatch(logout()),
+      onTokensChanged: (tokens) => {
+        dispatch(updateTokens(tokens));
+        saveSession({ ...store.getState().auth, ...tokens }).catch(() => {});
+      },
+      onUnauthorized: () => {
+        dispatch(logout());
+        clearStoredSession().catch(() => {});
+      },
     });
-  }, [dispatch]);
+
+    loadSession()
+      .then((session) => {
+        if (!session) return;
+        api.setSession(session);
+        dispatch(setUser(session));
+      })
+      .catch(() => clearStoredSession())
+      .finally(onRestored);
+  }, [dispatch, onRestored]);
   return null;
 }
 
 export default function App() {
+  const [sessionRestored, setSessionRestored] = useState(false);
   return (
     <Provider store={store}>
-      <AuthBridge />
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
-      </GestureHandlerRootView>
+      <AuthBridge onRestored={() => setSessionRestored(true)} />
+      {sessionRestored && (
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </GestureHandlerRootView>
+      )}
     </Provider>
   );
 }

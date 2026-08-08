@@ -100,12 +100,21 @@ class Api {
   getShopDetails(shopId) {
     return this.baseURL.get(`/shop/${shopId}`);
   }
-   similarItems(productId) {
-  return this.baseURL.get(`/item/similar/${productId}`).then((res) => res.data.data);
-}
+  getSimilarShops(shopId) {
+    return this.baseURL.get(`/shop/${shopId}/similar`).then((res) => res.data.data.shops || []);
+  }
+  similarItems(productId) {
+    return this.baseURL.get(`/item/similar/${productId}`).then((res) => res.data.data || []);
+  }
   getItem(productId) {
-  return this.baseURL.get(`/item/${productId}`).then((res) => normalizeItem(res.data.data));
-}
+    return this.baseURL.get(`/item/${productId}`).then((res) => normalizeItem(res.data.data.item));
+  }
+  getProfile() {
+    return this.baseURL.get('/user/profile').then((res) => res.data.data.user);
+  }
+  updateProfile(payload) {
+    return this.baseURL.patch('/user/profile', payload).then((res) => res.data.data.user);
+  }
 }
 
 export default new Api();

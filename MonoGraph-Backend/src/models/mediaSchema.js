@@ -5,7 +5,7 @@ const mediaSchema = new Schema(
     type: {
       type: String,
       enum: {
-        values: ["gallery", "cover", "profile"],
+        values: ["cover", "profile"],
         message: "Invalid media type",
       },
       default: "gallery",

@@ -49,7 +49,7 @@ export function ItemCard({ item, onPress, onToggleFavorite, style, compact = fal
     >
       <View className="relative">
         <Image
-          source={{ uri: item.image || fallbackImage }}
+          source={{ uri: item.coverImage || item.image || fallbackImage }}
           resizeMode="cover"
           style={{ width, height: width }}
           className="rounded-[20px] bg-[#dbe7e6]"
@@ -86,7 +86,8 @@ export function ShopCard({ shop, onPress, style, compact = false }) {
   const avatarSize = compact ? 56 : 68;
   const language = useSelector((state) => state.language.currentLanguage);
   const translatedTitle = getLocalizedValue(shop?.translation, language);
-
+console.log('🥐🍞🧈')
+console.log(shop)
   return (
     <Pressable onPress={onPress} style={[{ width }, style]} className="items-center">
       <View
@@ -102,8 +103,8 @@ export function ShopCard({ shop, onPress, style, compact = false }) {
         style={{ width: avatarSize, height: avatarSize, marginTop: -avatarSize / 2 }}
         className="items-center justify-center overflow-hidden rounded-full border-2 border-white bg-[#c9d8d7]"
       >
-        {shop.image ? (
-          <Image source={{ uri: shop.image }} resizeMode="cover" className="h-full w-full" />
+        {shop.profile ? (
+          <Image source={{ uri: shop.profile }} resizeMode="cover" className="h-full w-full" />
         ) : (
           <Text className="text-[12px] font-bold text-[#5a7172]">
             {shop.translation?.en?.title?.slice(0, 2).toUpperCase() || 'SH'}

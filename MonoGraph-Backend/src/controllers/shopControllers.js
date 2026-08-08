@@ -7,7 +7,6 @@ import { catchAsync } from "../utils/catchAsync.js";
 export const createShop = catchAsync(async (req, res) => {
   console.log('----------------🌯🌮')
   console.log(req.body)
-  // req.body.media = req.body.profile ? [req.body.profile] : [];
   console.log('----------------🌯🌮')
   const shop = await Shop.create({ ...req.body, owner: req.user._id });
   res.status(201).json({ status: "success", data: { shop } });
@@ -44,6 +43,20 @@ export const getShopItems = catchAsync(async (req, res, next) => {
     results: items.length,
     data: { items },
   });
+});
+
+export const getSimilarShops = catchAsync(async (req, res, next) => {
+  const currentShop = await Shop.findById(req.params.id).select("category shopType");
+  if (!currentShop) return next(new AppError("No shop found with that ID", 404));
+
+  const categoryFilter = currentShop.category
+    ? { category: currentShop.category }
+    : { shopType: currentShop.shopType };
+  const shops = await Shop.find({ _id: { $ne: currentShop._id }, ...categoryFilter })
+    .sort({ rating: -1, createdAt: -1 })
+    .limit(10);
+
+  res.status(200).json({ status: "success", results: shops.length, data: { shops } });
 });
 
 export const updateShop = catchAsync(async (req, res, next) => {

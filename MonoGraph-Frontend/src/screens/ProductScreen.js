@@ -1,9 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 import api from '../services/api';
-import { normalizeItem } from '../utils/marketplace';
 import { ActionPill, Chip, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
 import { getLocalizedValue, getText } from '../i18n';
@@ -71,6 +70,11 @@ export default function ProductScreen({ route, navigation }) {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="px-5 pt-2">
           <View className="h-64 rounded-[28px] bg-[#d6e3e2]">
+            <Image
+              source={{ uri: item?.coverImage || 'https://via.placeholder.com/640x480/d6e3e2/566d6d?text=No+Image' }}
+              resizeMode="cover"
+              className="h-full w-full rounded-[28px]"
+            />
             <View className="absolute left-4 right-4 top-4 flex-row items-center justify-between">
               <Pressable
                 onPress={() => navigation.goBack()}
@@ -103,12 +107,12 @@ export default function ProductScreen({ route, navigation }) {
             <View className="mt-4 rounded-[24px] border border-white/10 bg-white/6 px-4 py-4">
               <ShopCard
                 shop={{
-                  id: item?.id,
+                  id: item?.shopId,
                   translation: item?.shopTranslation,
                   rating: item?.rating || '3',
-                  shopType: item?.categoryTranslation?.en?.title || 'shop',
+                  shopType: item?.shopType || 'shop',
                 }}
-                onPress={() => navigation.navigate('ShopDetail', { id: item?.id })}
+                onPress={() => item?.shopId && navigation.navigate('ShopDetail', { id: item.shopId })}
                 compact
               />
             </View>

@@ -580,11 +580,6 @@ console.log(typeof businessProfileFile)
       return;
     }
 
-    if (kind === 'business-gallery') {
-      setBusinessGalleryFiles(assets);
-      return;
-    }
-
     if (kind === 'item-gallery') {
       setItemGalleryFiles(assets);
     }
@@ -606,7 +601,9 @@ console.log(typeof businessProfileFile)
   };
 
   const submitBusiness = async () => {
+    console.log('suth')
     if (!ensureAuth()) return;
+    console.log('suth')
 
     if (!businessTitleEn.trim() || !businessTitleFa.trim() || !businessTitlePs.trim()) {
       Alert.alert('Missing fields', 'Please add business titles for EN, FA, and PS.');
