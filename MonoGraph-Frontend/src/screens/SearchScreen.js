@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 import api from '../services/api';
@@ -6,6 +6,7 @@ import { normalizeShop, normalizeItem } from '../utils/marketplace';
 import { Chip, ScreenShell, ScreenHeader, TextField } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
 import { getText } from '../i18n';
+import { ALL_CATEGORY, CategoryFilterRow, normalizeCategoryFilters } from './HomeScreen';
 
 export default function SearchScreen({ navigation, route }) {
   const currentLanguage = useSelector((state) => state.language.currentLanguage);
@@ -13,6 +14,7 @@ export default function SearchScreen({ navigation, route }) {
 
   const [search, setSearch] = useState(initialSearch);
   const [category, setCategory] = useState(initialCategory);
+  const [categories, setCategories] = useState([ALL_CATEGORY]);
 
   const [selectedTab, setSelectedTab] = useState('Items');
   const [sort, setSort] = useState('');
@@ -30,6 +32,25 @@ export default function SearchScreen({ navigation, route }) {
     setSearch(route.params?.search ?? '');
     setCategory(route.params?.category ?? '');
   }, [route.params?.search, route.params?.category]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    api.baseURL
+      .get('/category')
+      .then((res) => {
+        if (!mounted) return;
+        const list = normalizeCategoryFilters(res.data.data.categories, currentLanguage);
+        setCategories([ALL_CATEGORY, ...list]);
+      })
+      .catch(() => {
+        if (mounted) setCategories([ALL_CATEGORY]);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, [currentLanguage]);
 
   const fetchResults = useCallback(async () => {
     try {
@@ -70,15 +91,33 @@ export default function SearchScreen({ navigation, route }) {
   }, [fetchResults]);
 
   const results = selectedTab === 'Items' ? items : shops;
+  const selectedCategoryLabel = useMemo(
+    () => categories.find((option) => option.key === category)?.label || category,
+    [categories, category],
+  );
 
   const hasQuery = Boolean(search.trim() || category);
   const showEmptyState = !loading && hasQuery && results.length === 0;
 
+  const handleCategoryChange = (nextCategoryKey) => {
+    const nextCategory = category === nextCategoryKey ? '' : nextCategoryKey;
+    setCategory(nextCategory);
+    navigation.setParams({ ...(route.params || {}), search: search.trim(), category: nextCategory });
+  };
+
   return (
     <ScreenShell contentClassName="pb-6">
-      <ScreenHeader title={getText(currentLanguage, 'search')} onBack={() => navigation.goBack()} />
+      {/* <ScreenHeader title={getText(currentLanguage, 'search')} onBack={() => navigation.goBack()} /> */}
 
       <View className="px-5">
+        <View className="mb-3 mt-5">
+          <CategoryFilterRow
+            categories={categories}
+            activeKey={category}
+            onSelect={handleCategoryChange}
+          />
+        </View>
+
         <TextField placeholder={getText(currentLanguage, 'searchPlaceholder')} value={search} onChangeText={setSearch} />
 
         <View className="mt-3 flex-row gap-2">
@@ -88,7 +127,7 @@ export default function SearchScreen({ navigation, route }) {
 
         {Boolean(category) && (
           <View className="mt-3">
-            <Text className="text-xs text-[#3f4949]">{getText(currentLanguage, 'category')}: {category}</Text>
+            <Text className="text-xs text-[#3f4949]">{getText(currentLanguage, 'category')}: {selectedCategoryLabel}</Text>
           </View>
         )}
 

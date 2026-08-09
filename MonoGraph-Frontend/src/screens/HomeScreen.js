@@ -34,7 +34,9 @@ export function normalizeCategoryFilters(categories = [], lang = 'en') {
   });
 }
 
-function CategoryFilterRow({ categories, activeKey, onSelect }) {
+export const ALL_CATEGORY = { key: '', label: 'All', icon: 'grid' };
+
+export function CategoryFilterRow({ categories, activeKey, onSelect }) {
   return (
     <ScrollView
       horizontal
@@ -142,26 +144,27 @@ export default function HomeScreen({ navigation }) {
     };
   }, [activeCategory]);
 
-const ALL_CATEGORY = { key: '', label: 'All', icon: 'grid' }; // pick any icon you like, e.g. an "apps"/"grid" icon
+  useEffect(() => {
+    let mounted = true;
 
-useEffect(() => {
-  let mounted = true;
+    api.baseURL
+      .get('/category')
+      .then((res) => {
+        if (!mounted) return;
+        const list = normalizeCategoryFilters(res.data.data.categories, currentLanguage);
+        setCategories([ALL_CATEGORY, ...list]);
+        console.log('--------------🍞🍞🍞🧈')
+        console.log(list)
+        console.log('--------------🍞🍞🍞🧈')
+      })
+      .catch(() => {
+        if (mounted) setCategories([ALL_CATEGORY]);
+      });
 
-  api.baseURL
-    .get('/category')
-    .then((res) => {
-      if (!mounted) return;
-      const list = normalizeCategoryFilters(res.data.data.categories, currentLanguage);
-      setCategories([ALL_CATEGORY, ...list]);
-    })
-    .catch(() => {
-      if (mounted) setCategories([ALL_CATEGORY]);
-    });
-
-  return () => {
-    mounted = false;
-  };
-}, [currentLanguage]);
+    return () => {
+      mounted = false;
+    };
+  }, [currentLanguage]);
   const sections = useMemo(
     () => [
       {
@@ -212,10 +215,10 @@ useEffect(() => {
           categories={categories}
           activeKey={activeCategory}
           onSelect={(categoryKey) => {
-  const category = categories.find((cat) => cat.key === categoryKey);
-  if (!category) return;
-  setActiveCategory((current) => (current === category.key ? '' : category.key));
-}}
+            const category = categories.find((cat) => cat.key === categoryKey);
+            if (!category) return;
+            setActiveCategory((current) => (current === category.key ? '' : category.key));
+          }}
         />
       </View>
       {/* Vertically scrolling list of sections, each scrolling horizontally */}
@@ -225,7 +228,7 @@ useEffect(() => {
             <SectionHeader
               title={section.title}
               actionLabel={section.actionLabel}
-              onAction={() => navigation.navigate('Search', { search: '', category: '' })}
+              onAction={() => navigation.navigate('Search', { search: '', category: activeCategory })}
             />
             {section.data.length ? (
               <View className="mt-2">

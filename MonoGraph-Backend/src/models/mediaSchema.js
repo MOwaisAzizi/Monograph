@@ -8,7 +8,7 @@ const mediaSchema = new Schema(
         values: ["cover", "profile"],
         message: "Invalid media type",
       },
-      default: "gallery",
+      default: "profile",
     },
     url: { type: String, required: true },
   },

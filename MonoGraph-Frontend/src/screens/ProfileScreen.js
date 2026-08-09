@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Image, Modal, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { Image, Modal, Pressable, ScrollView, Text, TextInput, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { MediaTypeOptions } from 'expo-image-picker';
 import api from '../services/api';
@@ -29,7 +29,7 @@ export default function ProfileScreen({ navigation }) {
     } catch { }
     api.clearSession();
     dispatch(logout());
-    clearStoredSession().catch(() => {});
+    clearStoredSession().catch(() => { });
     setProfile(null);
   };
 
@@ -66,28 +66,68 @@ export default function ProfileScreen({ navigation }) {
 
   const saveProfile = async () => {
     if (!form.fullname.trim()) return;
-    console.log('--------------🥙🧀🥖🥖----')
-    console.log(form)
+
     try {
       setSaving(true);
+
       const payload = new FormData();
+
       payload.append('fullname', form.fullname.trim());
-      payload.append('phone', JSON.stringify(form.phone.split(',').map((value) => value.trim()).filter(Boolean)));
+
+      payload.append(
+        'phone',
+        JSON.stringify(
+          form.phone
+            .split(',')
+            .map((value) => value.trim())
+            .filter(Boolean),
+        ),
+      );
+
       if (mediaFile) {
-        
-        // The API accepts the user avatar under `profile`; `media` is used for
-        // JSON metadata and therefore made the uploaded image get ignored.
-        payload.append('profile', {
-          uri: mediaFile.uri,
-          name: mediaFile.name || 'profile-avatar.jpg',
-          type: mediaFile.mimeType || 'image/jpeg',
-        });
+        if (Platform.OS === 'web') {
+          const response = await fetch(mediaFile.uri);
+          const blob = await response.blob();
+
+          payload.append(
+            'profile',
+            blob,
+            mediaFile.name || 'profile-avatar.jpg',
+          );
+        } else {
+          payload.append('profile', {
+            uri: mediaFile.uri,
+            name: mediaFile.name || 'profile-avatar.jpg',
+            type: mediaFile.mimeType || 'image/jpeg',
+          });
+        }
       }
+
+      console.log('mediaFile:', mediaFile);
+
       const updatedUser = await api.updateProfile(payload);
+
       const normalizedUser = normalizeUser(updatedUser);
-      setProfile((current) => ({ ...current, ...normalizedUser }));
-      dispatch(setUser({ user: updatedUser, accessToken, refreshToken }));
-      saveSession({ user: updatedUser, accessToken, refreshToken }).catch(() => {});
+
+      setProfile((current) => ({
+        ...current,
+        ...normalizedUser,
+      }));
+
+      dispatch(
+        setUser({
+          user: updatedUser,
+          accessToken,
+          refreshToken,
+        }),
+      );
+
+      saveSession({
+        user: updatedUser,
+        accessToken,
+        refreshToken,
+      }).catch(() => { });
+
       setEditing(false);
     } catch (error) {
       console.error('Unable to save profile:', error);
@@ -95,7 +135,6 @@ export default function ProfileScreen({ navigation }) {
       setSaving(false);
     }
   };
-
   useEffect(() => {
     if (!accessToken) return;
 
@@ -179,9 +218,16 @@ export default function ProfileScreen({ navigation }) {
         ) : null}
         <View className="mt-2">
           {user ? (
-            <View className="flex-row gap-2"><ActionPill label="Edit profile" onPress={startEditing} /><ActionPill label={t.logout} onPress={logoutuser} /></View>
+            <View className="flex-row flex-wrap gap-2">
+              <ActionPill label="Edit profile" onPress={startEditing} />
+              <ActionPill label="Add item / business" onPress={() => navigation.navigate('AddListing')} />
+              <ActionPill label={t.logout} onPress={logoutuser} />
+            </View>
           ) : (
-            <ActionPill label={t.login} onPress={() => navigation.navigate('Login')} />
+            <View className="flex-row gap-2">
+              <ActionPill label={t.login} onPress={() => navigation.navigate('Login')} />
+              <ActionPill label="Add item / business" onPress={() => navigation.navigate('AddListing')} />
+            </View>
           )}
         </View>
       </View>

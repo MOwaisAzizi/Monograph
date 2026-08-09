@@ -6,7 +6,10 @@ export const getHomepageData = catchAsync(async (req, res) => {
   const category = String(req.query.category || "").trim();
   const itemFilter = category ? { category } : {};
   const shopFilter = category ? { category } : {};
-  // console.log('🥨🥐🍞🍞🍞')
+  console.log('🥨🥐🍞🍞🍞')
+  console.log(category)
+  console.log(itemFilter) 
+  console.log(shopFilter)
   const [newItems, cheapItems, highRatedItems, nearestItems, nearestShops] =
     await Promise.all([
       Items.find(itemFilter)

@@ -82,36 +82,20 @@ export default function RootNavigator() {
       <Stack.Screen
         name="MainTabs"
         component={MainTabs}
-        options={({ navigation }) => ({
-          title: 'MonoGraph',
-          headerStyle: { backgroundColor: '#eef5f5' },
-          headerTitleStyle: { color: '#203030', fontWeight: '700' },
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('AddListing')}
-              style={{
-                backgroundColor: '#0f6b75',
-                paddingHorizontal: 12,
-                paddingVertical: 6,
-                borderRadius: 999,
-              }}
-            >
-              <Text style={{ color: '#fff', fontWeight: '600', fontSize: 12 }}>
-                Add Shop / Item
-              </Text>
-            </Pressable>
-          ),
-        })}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="AddListing"
         component={AddListingScreen}
         options={{
-          title: 'Add Business or Item',
+          title: '',
           headerStyle: { backgroundColor: '#eef5f5' },
           headerTitleStyle: { color: '#203030', fontWeight: '700' },
         }}
       />
+
       <Stack.Screen name="Product" component={ProductScreen} options={{ headerShown: false }} />
       <Stack.Screen
         name="ShopDetail"
