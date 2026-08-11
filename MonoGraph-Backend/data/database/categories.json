@@ -1,137 +1,74 @@
 [
   {
     "translation": {
-      "en": { "title": "Phones & Tablets" },
-      "fa": { "title": "موبایل و تبلت" },
-      "ps": { "title": "موبایل او ټابلېټ" }
+      "en": { "title": "Restaurants" },
+      "fa": { "title": "رستوران‌ها" },
+      "ps": { "title": "رستورانتونه" }
     },
-    "shop": "6a3240ce6b3faaf498a48ad0",
-    "icon": "phone-portrait"
+    "icon": "restaurant",
+    "order": 1
   },
   {
     "translation": {
-      "en": { "title": "Electronics" },
-      "fa": { "title": "لوازم برقی" },
-      "ps": { "title": "بریښنایي توکي" }
+      "en": { "title": "Cafes" },
+      "fa": { "title": "کافه‌ها" },
+      "ps": { "title": "کافې" }
     },
-    "shop": "6a3240ce6b3faaf498a48ad1",
-    "icon": "tv"
+    "icon": "cafe",
+    "order": 2
   },
   {
     "translation": {
-      "en": { "title": "Cars" },
-      "fa": { "title": "موتر" },
-      "ps": { "title": "موټر" }
+      "en": { "title": "Pharmacies" },
+      "fa": { "title": "داروخانه‌ها" },
+      "ps": { "title": "داروخانې" }
     },
-    "shop": "6a3240ce6b3faaf498a48ad2",
-    "icon": "car-sport"
+    "icon": "medkit",
+    "order": 3
   },
   {
     "translation": {
-      "en": { "title": "Motorbikes" },
-      "fa": { "title": "موتورسیکل" },
-      "ps": { "title": "موټرسایکل" }
+      "en": { "title": "Hotels" },
+      "fa": { "title": "هتل‌ها" },
+      "ps": { "title": "هوټلونه" }
     },
-    "shop": "6a3240ce6b3faaf498a48ad3",
-    "icon": "bicycle"
+    "icon": "bed",
+    "order": 4
   },
   {
     "translation": {
-      "en": { "title": "Bicycles" },
-      "fa": { "title": "بایسکل" },
-      "ps": { "title": "بایسکل" }
+      "en": { "title": "Gyms" },
+      "fa": { "title": "باشگاه‌های ورزشی" },
+      "ps": { "title": "جمخانه‌ونه" }
     },
-    "shop": "6a3240ce6b3faaf498a48ad4",
-    "icon": "bicycle-outline"
+    "icon": "fitness",
+    "order": 5
   },
   {
     "translation": {
-      "en": { "title": "Furniture" },
-      "fa": { "title": "مبلمان" },
-      "ps": { "title": "فرنیچر" }
+      "en": { "title": "Shopping" },
+      "fa": { "title": "مراکز خرید" },
+      "ps": { "title": "پلورنځي" }
     },
-    "shop": "6a3240ce6b3faaf498a48ad5",
-    "icon": "bed"
+    "icon": "cart",
+    "order": 6
   },
   {
     "translation": {
-      "en": { "title": "Clothing" },
-      "fa": { "title": "لباس" },
-      "ps": { "title": "کالي" }
+      "en": { "title": "Salons" },
+      "fa": { "title": "آرایشگاه‌ها" },
+      "ps": { "title": "سالونونه" }
     },
-    "shop": "6a3240ce6b3faaf498a48ad6",
-    "icon": "shirt"
+    "icon": "cut",
+    "order": 7
   },
   {
     "translation": {
-      "en": { "title": "Toys & Dolls" },
-      "fa": { "title": "اسباب‌بازی و عروسک" },
-      "ps": { "title": "بازیچې او لوبډکۍ" }
+      "en": { "title": "Education" },
+      "fa": { "title": "مراکز آموزشی" },
+      "ps": { "title": "تعلیمي مرکزونه" }
     },
-    "shop": "6a3240ce6b3faaf498a48ad7",
-    "icon": "happy"
-  },
-  {
-    "translation": {
-      "en": { "title": "Books & Stationery" },
-      "fa": { "title": "کتاب و لوازم‌التحریر" },
-      "ps": { "title": "کتابونه او د لیکلو توکي" }
-    },
-    "shop": "6a3240ce6b3faaf498a48ad8",
-    "icon": "book"
-  },
-  {
-    "translation": {
-      "en": { "title": "Home & Kitchen" },
-      "fa": { "title": "لوازم خانه و آشپزخانه" },
-      "ps": { "title": "کورني او پخلنځي توکي" }
-    },
-    "shop": "6a3240ce6b3faaf498a48ad9",
-    "icon": "restaurant"
-  },
-  {
-    "translation": {
-      "en": { "title": "Kids & Baby" },
-      "fa": { "title": "کودک و نوزاد" },
-      "ps": { "title": "ماشومان او نوي زوکړي" }
-    },
-    "shop": "6a3240ce6b3faaf498a48ada",
-    "icon": "body"
-  },
-  {
-    "translation": {
-      "en": { "title": "Sports & Outdoors" },
-      "fa": { "title": "ورزش و فضای باز" },
-      "ps": { "title": "ورزش او بهرنۍ فعالیتونه" }
-    },
-    "shop": "6a3240ce6b3faaf498a48adb",
-    "icon": "football"
-  },
-  {
-    "translation": {
-      "en": { "title": "Watches & Accessories" },
-      "fa": { "title": "ساعت و اکسسوری" },
-      "ps": { "title": "ساعتونه او اکسسوري" }
-    },
-    "shop": "6a3240ce6b3faaf498a48adc",
-    "icon": "watch"
-  },
-  {
-    "translation": {
-      "en": { "title": "Tools & Machinery" },
-      "fa": { "title": "ابزار و ماشین‌آلات" },
-      "ps": { "title": "اوزار او ماشینونه" }
-    },
-    "shop": "6a3240ce6b3faaf498a48add",
-    "icon": "hammer"
-  },
-  {
-    "translation": {
-      "en": { "title": "Pets & Animals" },
-      "fa": { "title": "حیوانات خانگی" },
-      "ps": { "title": "کورني ژوي" }
-    },
-    "shop": "6a3240ce6b3faaf498a48ade",
-    "icon": "paw"
+    "icon": "school",
+    "order": 8
   }
 ]

@@ -121,7 +121,7 @@ export const updateProfile = catchAsync(async (req, res, next) => {
   // console.log(req.body);
   // console.log(...req.body.media);
   // console.log(...req.body.media);
-  const email = req.body.email ?? media?.email;
+  const email = req.body.email;
   if (email) {
     const existingUser = await User.findOne({
       email: String(email).toLowerCase(),
@@ -132,7 +132,7 @@ export const updateProfile = catchAsync(async (req, res, next) => {
   const updatedFields = {
     fullname: req.body.fullname,
     phone: req.body.phone,
-    media: req.body.media,
+    media,
   };
 
   const user = await User.findByIdAndUpdate(req.user.id, updatedFields, {

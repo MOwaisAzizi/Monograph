@@ -660,10 +660,6 @@ if (businessProfileFile) {
   payload.append('profile', await toFormDataFile(businessProfileFile, 'business-profile.jpg'));
 }
 
-for (const file of businessGalleryFiles) {
-  payload.append('media', await toFormDataFile(file, 'business-gallery.jpg'));
-}
-
       const businessRequest = editingBusinessId
         ? api.baseURL.patch(`/shop/${editingBusinessId}`, payload, { headers: { ...authHeader } })
         : api.baseURL.post('/shop', payload, { headers: { ...authHeader } });

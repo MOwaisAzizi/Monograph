@@ -31,6 +31,10 @@ const itemSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Shop",
     },
+    distance: {
+      type: Number,
+      default: 10
+    },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",

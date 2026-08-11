@@ -15,19 +15,16 @@
       }
     },
     "attributes": [
-      {
-        "key": "cuisine",
-        "value": "Afghan"
-      },
-      {
-        "key": "spicy",
-        "value": false
-      }
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "spicy", "value": false }
     ],
     "price": 250,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1589302168068-964664d93dc0" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1589302168068-964664d93dc0" }
+    ],
     "city": "herat",
-    "rating": 3.1,
+    "rating": 4.5,
     "ratingCount": 140,
     "shop": "6a3240ce6b3faaf498a48abb",
     "category": "6a3241fd943292166f70e2af",
@@ -49,20 +46,48 @@
       }
     },
     "attributes": [
-      {
-        "key": "cuisine",
-        "value": "Afghan"
-      },
-      {
-        "key": "vegetarian",
-        "value": false
-      }
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "vegetarian", "value": false }
     ],
     "price": 180,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1617478755490-e21232a5eeaf" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1617478755490-e21232a5eeaf" }
+    ],
     "city": "herat",
-    "rating": 3.2,
+    "rating": 4.2,
     "ratingCount": 104,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Lamb Kebab Platter",
+        "description": "Tender marinated lamb skewers with naan and salad"
+      },
+      "fa": {
+        "title": "پلیت کباب گوسفند",
+        "description": "سیخ بره مرینیت شده با نان و سالاد"
+      },
+      "ps": {
+        "title": "Lamb Kebab Platter",
+        "description": "Tender marinated lamb skewers with naan and salad"
+      }
+    },
+    "attributes": [
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "spicy", "value": false }
+    ],
+    "price": 300,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1544025162-d76694265947" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1544025162-d76694265947" }
+    ],
+    "city": "herat",
+    "rating": 4.3,
+    "ratingCount": 120,
     "shop": "6a3240ce6b3faaf498a48abb",
     "category": "6a3241fd943292166f70e2af",
     "note": null
@@ -83,19 +108,16 @@
       }
     },
     "attributes": [
-      {
-        "key": "cuisine",
-        "value": "Afghan"
-      },
-      {
-        "key": "vegetarian",
-        "value": true
-      }
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "vegetarian", "value": true }
     ],
     "price": 120,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1625938144740-3cb69d1e6032" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1625938144740-3cb69d1e6032" }
+    ],
     "city": "herat",
-    "rating": 3.8,
+    "rating": 4.0,
     "ratingCount": 47,
     "shop": "6a3240ce6b3faaf498a48abb",
     "category": "6a3241fd943292166f70e2af",
@@ -117,54 +139,17 @@
       }
     },
     "attributes": [
-      {
-        "key": "cuisine",
-        "value": "Afghan"
-      },
-      {
-        "key": "vegetarian",
-        "value": false
-      }
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "vegetarian", "value": false }
     ],
     "price": 160,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1617478755490-e21232a5eeaf" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1617478755490-e21232a5eeaf" }
+    ],
     "city": "herat",
     "rating": 4.2,
     "ratingCount": 131,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Lamb Kebab Platter",
-        "description": "Tender marinated lamb skewers with naan and salad"
-      },
-      "fa": {
-        "title": "پلیت کباب گوسفند",
-        "description": "سیخ بره مرینیت شده با نان و سالاد"
-      },
-      "ps": {
-        "title": "Lamb Kebab Platter",
-        "description": "Tender marinated lamb skewers with naan and salad"
-      }
-    },
-    "attributes": [
-      {
-        "key": "cuisine",
-        "value": "Afghan"
-      },
-      {
-        "key": "spicy",
-        "value": false
-      }
-    ],
-    "price": 300,
-    "media": [],
-    "city": "herat",
-    "rating": 3.1,
-    "ratingCount": 120,
     "shop": "6a3240ce6b3faaf498a48abb",
     "category": "6a3241fd943292166f70e2af",
     "note": null
@@ -185,17 +170,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "cuisine",
-        "value": "Afghan"
-      },
-      {
-        "key": "spicy",
-        "value": true
-      }
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "spicy", "value": true }
     ],
     "price": 220,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b" }
+    ],
     "city": "herat",
     "rating": 3.7,
     "ratingCount": 138,
@@ -219,88 +201,17 @@
       }
     },
     "attributes": [
-      {
-        "key": "cuisine",
-        "value": "Afghan"
-      },
-      {
-        "key": "vegetarian",
-        "value": false
-      }
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "vegetarian", "value": false }
     ],
     "price": 90,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1547592166-23ac45744acd" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1547592166-23ac45744acd" }
+    ],
     "city": "herat",
     "rating": 3.3,
     "ratingCount": 18,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Naan Bread",
-        "description": "Freshly baked traditional Afghan flatbread"
-      },
-      "fa": {
-        "title": "نان",
-        "description": "نان سنتی افغانی تازه‌پخته"
-      },
-      "ps": {
-        "title": "Naan Bread",
-        "description": "Freshly baked traditional Afghan flatbread"
-      }
-    },
-    "attributes": [
-      {
-        "key": "cuisine",
-        "value": "Afghan"
-      },
-      {
-        "key": "vegetarian",
-        "value": true
-      }
-    ],
-    "price": 30,
-    "media": [],
-    "city": "herat",
-    "rating": 3.5,
-    "ratingCount": 139,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Qabili Rice",
-        "description": "Aromatic rice with lamb, raisins and almonds"
-      },
-      "fa": {
-        "title": "قابلی",
-        "description": "پلو معطر با بره، کشمش و بادام"
-      },
-      "ps": {
-        "title": "Qabili Rice",
-        "description": "Aromatic rice with lamb, raisins and almonds"
-      }
-    },
-    "attributes": [
-      {
-        "key": "cuisine",
-        "value": "Afghan"
-      },
-      {
-        "key": "spicy",
-        "value": false
-      }
-    ],
-    "price": 270,
-    "media": [],
-    "city": "herat",
-    "rating": 4.2,
-    "ratingCount": 69,
     "shop": "6a3240ce6b3faaf498a48abb",
     "category": "6a3241fd943292166f70e2af",
     "note": null
@@ -321,17 +232,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "cuisine",
-        "value": "Afghan"
-      },
-      {
-        "key": "spicy",
-        "value": false
-      }
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "spicy", "value": false }
     ],
     "price": 350,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1558030006-450675393462" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1558030006-450675393462" }
+    ],
     "city": "herat",
     "rating": 4.2,
     "ratingCount": 111,
@@ -355,17 +263,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "sweet",
-        "value": true
-      },
-      {
-        "key": "vegetarian",
-        "value": true
-      }
+      { "key": "sweet", "value": true },
+      { "key": "vegetarian", "value": true }
     ],
     "price": 80,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" }
+    ],
     "city": "herat",
     "rating": 3.9,
     "ratingCount": 46,
@@ -389,17 +294,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "sweet",
-        "value": true
-      },
-      {
-        "key": "vegetarian",
-        "value": true
-      }
+      { "key": "sweet", "value": true },
+      { "key": "vegetarian", "value": true }
     ],
     "price": 60,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" }
+    ],
     "city": "herat",
     "rating": 3.5,
     "ratingCount": 145,
@@ -423,17 +325,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "hot",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": true
-      }
+      { "key": "hot", "value": true },
+      { "key": "caffeine", "value": true }
     ],
     "price": 70,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
+    ],
     "city": "herat",
     "rating": 3.7,
     "ratingCount": 95,
@@ -457,17 +356,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "cold",
-        "value": true
-      },
-      {
-        "key": "vegetarian",
-        "value": true
-      }
+      { "key": "cold", "value": true },
+      { "key": "vegetarian", "value": true }
     ],
     "price": 50,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
+    ],
     "city": "herat",
     "rating": 3.4,
     "ratingCount": 56,
@@ -491,54 +387,17 @@
       }
     },
     "attributes": [
-      {
-        "key": "sweet",
-        "value": true
-      },
-      {
-        "key": "vegetarian",
-        "value": true
-      }
+      { "key": "sweet", "value": true },
+      { "key": "vegetarian", "value": true }
     ],
     "price": 90,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" }
+    ],
     "city": "herat",
     "rating": 5.0,
     "ratingCount": 82,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Roht Bread",
-        "description": "Sweet ceremonial Afghan bread with sesame seeds"
-      },
-      "fa": {
-        "title": "روط",
-        "description": "نان شیرین افغانی با کنجد"
-      },
-      "ps": {
-        "title": "Roht Bread",
-        "description": "Sweet ceremonial Afghan bread with sesame seeds"
-      }
-    },
-    "attributes": [
-      {
-        "key": "sweet",
-        "value": true
-      },
-      {
-        "key": "vegetarian",
-        "value": true
-      }
-    ],
-    "price": 40,
-    "media": [],
-    "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 67,
     "shop": "6a3240ce6b3faaf498a48abc",
     "category": "6a3241fd943292166f70e2b0",
     "note": null
@@ -559,17 +418,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "hot",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": true
-      }
+      { "key": "hot", "value": true },
+      { "key": "caffeine", "value": true }
     ],
     "price": 75,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
+    ],
     "city": "herat",
     "rating": 4.3,
     "ratingCount": 33,
@@ -593,88 +449,17 @@
       }
     },
     "attributes": [
-      {
-        "key": "cold",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": false
-      }
+      { "key": "cold", "value": true },
+      { "key": "caffeine", "value": false }
     ],
     "price": 45,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
+    ],
     "city": "herat",
     "rating": 3.0,
     "ratingCount": 96,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Shola",
-        "description": "Warm rice and mung bean porridge"
-      },
-      "fa": {
-        "title": "شوله",
-        "description": "فرنی گرم برنج و ماش"
-      },
-      "ps": {
-        "title": "Shola",
-        "description": "Warm rice and mung bean porridge"
-      }
-    },
-    "attributes": [
-      {
-        "key": "vegetarian",
-        "value": true
-      },
-      {
-        "key": "sweet",
-        "value": false
-      }
-    ],
-    "price": 85,
-    "media": [],
-    "city": "herat",
-    "rating": 3.0,
-    "ratingCount": 129,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Badam Milk",
-        "description": "Warm almond milk with saffron and sugar"
-      },
-      "fa": {
-        "title": "بادام شیر",
-        "description": "شیر بادام گرم با زعفران و شکر"
-      },
-      "ps": {
-        "title": "Badam Milk",
-        "description": "Warm almond milk with saffron and sugar"
-      }
-    },
-    "attributes": [
-      {
-        "key": "hot",
-        "value": true
-      },
-      {
-        "key": "vegetarian",
-        "value": true
-      }
-    ],
-    "price": 65,
-    "media": [],
-    "city": "herat",
-    "rating": 3.2,
-    "ratingCount": 10,
     "shop": "6a3240ce6b3faaf498a48abc",
     "category": "6a3241fd943292166f70e2b0",
     "note": null
@@ -695,17 +480,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "hot",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": true
-      }
+      { "key": "hot", "value": true },
+      { "key": "caffeine", "value": true }
     ],
     "price": 50,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
+    ],
     "city": "herat",
     "rating": 3.3,
     "ratingCount": 97,
@@ -729,17 +511,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "hot",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": true
-      }
+      { "key": "hot", "value": true },
+      { "key": "caffeine", "value": true }
     ],
     "price": 80,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085" }
+    ],
     "city": "herat",
     "rating": 4.5,
     "ratingCount": 48,
@@ -763,17 +542,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "hot",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": true
-      }
+      { "key": "hot", "value": true },
+      { "key": "caffeine", "value": true }
     ],
     "price": 100,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1518676590629-3dcbd9c5e5c9" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1518676590629-3dcbd9c5e5c9" }
+    ],
     "city": "herat",
     "rating": 3.1,
     "ratingCount": 9,
@@ -797,17 +573,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "vegetarian",
-        "value": true
-      },
-      {
-        "key": "sweet",
-        "value": true
-      }
+      { "key": "vegetarian", "value": true },
+      { "key": "sweet", "value": true }
     ],
     "price": 90,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c" }
+    ],
     "city": "herat",
     "rating": 4.7,
     "ratingCount": 117,
@@ -831,17 +604,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "vegetarian",
-        "value": true
-      },
-      {
-        "key": "sweet",
-        "value": true
-      }
+      { "key": "vegetarian", "value": true },
+      { "key": "sweet", "value": true }
     ],
     "price": 80,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" }
+    ],
     "city": "herat",
     "rating": 4.6,
     "ratingCount": 101,
@@ -865,17 +635,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "hot",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": true
-      }
+      { "key": "hot", "value": true },
+      { "key": "caffeine", "value": true }
     ],
     "price": 90,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735" }
+    ],
     "city": "herat",
     "rating": 4.8,
     "ratingCount": 52,
@@ -899,17 +666,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "hot",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": false
-      }
+      { "key": "hot", "value": true },
+      { "key": "caffeine", "value": false }
     ],
     "price": 85,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1542327897-d73f4005b533" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1542327897-d73f4005b533" }
+    ],
     "city": "herat",
     "rating": 4.7,
     "ratingCount": 105,
@@ -933,17 +697,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "hot",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": false
-      }
+      { "key": "hot", "value": true },
+      { "key": "caffeine", "value": false }
     ],
     "price": 45,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
+    ],
     "city": "herat",
     "rating": 4.2,
     "ratingCount": 72,
@@ -967,17 +728,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "hot",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": true
-      }
+      { "key": "hot", "value": true },
+      { "key": "caffeine", "value": true }
     ],
     "price": 70,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085" }
+    ],
     "city": "herat",
     "rating": 3.1,
     "ratingCount": 109,
@@ -1001,17 +759,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "vegetarian",
-        "value": true
-      },
-      {
-        "key": "hot",
-        "value": true
-      }
+      { "key": "vegetarian", "value": true },
+      { "key": "hot", "value": true }
     ],
     "price": 95,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1555507036-ab1f4038808a" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1555507036-ab1f4038808a" }
+    ],
     "city": "herat",
     "rating": 5.0,
     "ratingCount": 81,
@@ -1035,17 +790,14 @@
       }
     },
     "attributes": [
-      {
-        "key": "cold",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": false
-      }
+      { "key": "cold", "value": true },
+      { "key": "caffeine", "value": false }
     ],
     "price": 70,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b" }
+    ],
     "city": "herat",
     "rating": 5.0,
     "ratingCount": 60,
@@ -1056,2339 +808,1153 @@
   {
     "translation": {
       "en": {
-        "title": "Almond Milkshake",
-        "description": "Creamy milkshake with fresh almonds and honey"
+        "title": "Chicken Biryani",
+        "description": "Fragrant basmati rice cooked with spiced chicken and saffron"
       },
       "fa": {
-        "title": "ملک‌شیک بادام",
-        "description": "میلک‌شیک خامه‌ای با بادام تازه و عسل"
+        "title": "بریانی مرغ",
+        "description": "برنج باسمتی معطر با مرغ ادویه‌دار و زعفران"
       },
       "ps": {
-        "title": "Almond Milkshake",
-        "description": "Creamy milkshake with fresh almonds and honey"
+        "title": "Chicken Biryani",
+        "description": "Fragrant basmati rice cooked with spiced chicken and saffron"
       }
     },
     "attributes": [
-      {
-        "key": "cold",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": false
-      }
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "spicy", "value": true }
     ],
-    "price": 110,
-    "media": [],
+    "price": 240,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1585937421612-70a008356fbe" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1585937421612-70a008356fbe" }
+    ],
     "city": "herat",
-    "rating": 3.3,
-    "ratingCount": 110,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
+    "rating": 4.4,
+    "ratingCount": 126,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Croissant",
-        "description": "Buttery flaky croissant baked every morning"
+        "title": "Beef Kebab",
+        "description": "Juicy grilled beef skewers served with fresh naan"
       },
       "fa": {
-        "title": "کروسان",
-        "description": "کروسان کره‌ای ترد، هر صبح پخته می‌شود"
+        "title": "کباب گوشت گاو",
+        "description": "سیخ‌های گوشت گاو کبابی آبدار با نان تازه"
       },
       "ps": {
-        "title": "Croissant",
-        "description": "Buttery flaky croissant baked every morning"
+        "title": "Beef Kebab",
+        "description": "Juicy grilled beef skewers served with fresh naan"
       }
     },
     "attributes": [
-      {
-        "key": "vegetarian",
-        "value": true
-      },
-      {
-        "key": "sweet",
-        "value": false
-      }
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "spicy", "value": false }
     ],
-    "price": 70,
-    "media": [],
+    "price": 280,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1" }
+    ],
     "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 31,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
+    "rating": 4.6,
+    "ratingCount": 152,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Cheese Toast",
-        "description": "Toasted bread with melted cheese and herbs"
+        "title": "Chicken Shawarma",
+        "description": "Marinated chicken wrapped with vegetables and garlic sauce"
       },
       "fa": {
-        "title": "توست پنیر",
-        "description": "نان تست با پنیر ذوب‌شده و سبزیجات"
+        "title": "شاورمای مرغ",
+        "description": "مرغ مرینیت‌شده با سبزیجات و سس سیر"
       },
       "ps": {
-        "title": "Cheese Toast",
-        "description": "Toasted bread with melted cheese and herbs"
+        "title": "Chicken Shawarma",
+        "description": "Marinated chicken wrapped with vegetables and garlic sauce"
       }
     },
     "attributes": [
-      {
-        "key": "vegetarian",
-        "value": true
-      },
-      {
-        "key": "hot",
-        "value": true
-      }
-    ],
-    "price": 85,
-    "media": [],
-    "city": "herat",
-    "rating": 3.6,
-    "ratingCount": 113,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Sheer Yakh Ice Cream",
-        "description": "Traditional Afghan frozen milk dessert"
-      },
-      "fa": {
-        "title": "شیر یخ",
-        "description": "دسر سنتی افغانی از شیر یخ‌زده"
-      },
-      "ps": {
-        "title": "Sheer Yakh Ice Cream",
-        "description": "Traditional Afghan frozen milk dessert"
-      }
-    },
-    "attributes": [
-      {
-        "key": "vegetarian",
-        "value": true
-      },
-      {
-        "key": "cold",
-        "value": true
-      }
-    ],
-    "price": 60,
-    "media": [],
-    "city": "herat",
-    "rating": 3.3,
-    "ratingCount": 131,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Mango Smoothie",
-        "description": "Blended fresh mango with yogurt and honey"
-      },
-      "fa": {
-        "title": "اسموتی انبه",
-        "description": "انبه تازه با ماست و عسل"
-      },
-      "ps": {
-        "title": "Mango Smoothie",
-        "description": "Blended fresh mango with yogurt and honey"
-      }
-    },
-    "attributes": [
-      {
-        "key": "cold",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": false
-      }
-    ],
-    "price": 95,
-    "media": [],
-    "city": "herat",
-    "rating": 4.8,
-    "ratingCount": 63,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Iced Americano",
-        "description": "Chilled espresso over ice with water"
-      },
-      "fa": {
-        "title": "آمریکانو یخ",
-        "description": "اسپرسو سرد روی یخ با آب"
-      },
-      "ps": {
-        "title": "Iced Americano",
-        "description": "Chilled espresso over ice with water"
-      }
-    },
-    "attributes": [
-      {
-        "key": "cold",
-        "value": true
-      },
-      {
-        "key": "caffeine",
-        "value": true
-      }
-    ],
-    "price": 80,
-    "media": [],
-    "city": "herat",
-    "rating": 4.9,
-    "ratingCount": 75,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Chicken Sandwich",
-        "description": "Grilled chicken with lettuce and sauce in soft bread"
-      },
-      "fa": {
-        "title": "ساندویچ مرغ",
-        "description": "مرغ کبابی با کاهو و سس در نان نرم"
-      },
-      "ps": {
-        "title": "Chicken Sandwich",
-        "description": "Grilled chicken with lettuce and sauce in soft bread"
-      }
-    },
-    "attributes": [
-      {
-        "key": "vegetarian",
-        "value": false
-      },
-      {
-        "key": "hot",
-        "value": false
-      }
-    ],
-    "price": 130,
-    "media": [],
-    "city": "herat",
-    "rating": 3.3,
-    "ratingCount": 23,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Club Sandwich",
-        "description": "Triple-layered sandwich with chicken, egg and vegetables"
-      },
-      "fa": {
-        "title": "کلاب ساندویچ",
-        "description": "ساندویچ سه‌لایه با مرغ، تخم‌مرغ و سبزیجات"
-      },
-      "ps": {
-        "title": "Club Sandwich",
-        "description": "Triple-layered sandwich with chicken, egg and vegetables"
-      }
-    },
-    "attributes": [
-      {
-        "key": "vegetarian",
-        "value": false
-      },
-      {
-        "key": "hot",
-        "value": false
-      }
+      { "key": "cuisine", "value": "Middle Eastern" },
+      { "key": "spicy", "value": false }
     ],
     "price": 150,
-    "media": [],
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783" }
+    ],
     "city": "herat",
-    "rating": 4.0,
-    "ratingCount": 74,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
+    "rating": 4.1,
+    "ratingCount": 98,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Fruit Salad",
-        "description": "Fresh seasonal fruit mix with honey drizzle"
+        "title": "Beef Burger",
+        "description": "Grilled beef patty with cheese, lettuce and special sauce"
       },
       "fa": {
-        "title": "سالاد میوه",
-        "description": "ترکیب میوه‌های تازه فصلی با عسل"
+        "title": "برگر گوشت",
+        "description": "برگر گوشت کبابی با پنیر، کاهو و سس مخصوص"
       },
       "ps": {
-        "title": "Fruit Salad",
-        "description": "Fresh seasonal fruit mix with honey drizzle"
+        "title": "Beef Burger",
+        "description": "Grilled beef patty with cheese, lettuce and special sauce"
       }
     },
     "attributes": [
-      {
-        "key": "cold",
-        "value": true
-      },
-      {
-        "key": "vegetarian",
-        "value": true
-      }
+      { "key": "cuisine", "value": "American" },
+      { "key": "spicy", "value": false }
     ],
-    "price": 75,
-    "media": [],
+    "price": 220,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd" }
+    ],
     "city": "herat",
-    "rating": 3.7,
-    "ratingCount": 140,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
+    "rating": 4.5,
+    "ratingCount": 174,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Paracetamol 500mg",
-        "description": "Pain reliever and fever reducer tablets"
+        "title": "Chicken Burger",
+        "description": "Crispy chicken fillet with lettuce, tomato and mayonnaise"
       },
       "fa": {
-        "title": "پاراستامول ۵۰۰میلی‌گرم",
-        "description": "قرص‌های مسکن درد و تب‌بر"
+        "title": "برگر مرغ",
+        "description": "فیله مرغ ترد با کاهو، گوجه و سس مایونز"
       },
       "ps": {
-        "title": "Paracetamol 500mg",
-        "description": "Pain reliever and fever reducer tablets"
+        "title": "Chicken Burger",
+        "description": "Crispy chicken fillet with lettuce, tomato and mayonnaise"
       }
     },
     "attributes": [
-      {
-        "key": "dosage",
-        "value": "500mg"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
+      { "key": "cuisine", "value": "American" },
+      { "key": "spicy", "value": false }
     ],
-    "price": 15,
-    "media": [],
+    "price": 200,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1606755962773-d324e0a13086" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1606755962773-d324e0a13086" }
+    ],
     "city": "herat",
-    "rating": 4.0,
-    "ratingCount": 4,
-    "shop": "6a3240ce6b3faaf498a48abf",
-    "category": "6a3241fd943292166f70e2b3",
+    "rating": 4.3,
+    "ratingCount": 119,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Ibuprofen 400mg",
-        "description": "Anti-inflammatory pain relief tablets"
+        "title": "Margherita Pizza",
+        "description": "Classic pizza with tomato sauce, mozzarella and fresh basil"
       },
       "fa": {
-        "title": "ایبوپروفن ۴۰۰میلی‌گرم",
-        "description": "قرص‌های ضد درد ضد التهاب"
+        "title": "پیتزا مارگاریتا",
+        "description": "پیتزای کلاسیک با سس گوجه، پنیر موزارلا و ریحان تازه"
       },
       "ps": {
-        "title": "Ibuprofen 400mg",
-        "description": "Anti-inflammatory pain relief tablets"
+        "title": "Margherita Pizza",
+        "description": "Classic pizza with tomato sauce, mozzarella and fresh basil"
       }
     },
     "attributes": [
-      {
-        "key": "dosage",
-        "value": "400mg"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
+      { "key": "cuisine", "value": "Italian" },
+      { "key": "vegetarian", "value": true }
     ],
-    "price": 20,
-    "media": [],
+    "price": 280,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002" }
+    ],
+    "city": "herat",
+    "rating": 4.7,
+    "ratingCount": 188,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Chicken Pizza",
+        "description": "Cheesy pizza topped with seasoned chicken and vegetables"
+      },
+      "fa": {
+        "title": "پیتزا مرغ",
+        "description": "پیتزای پنیری با مرغ ادویه‌دار و سبزیجات"
+      },
+      "ps": {
+        "title": "Chicken Pizza",
+        "description": "Cheesy pizza topped with seasoned chicken and vegetables"
+      }
+    },
+    "attributes": [
+      { "key": "cuisine", "value": "Italian" },
+      { "key": "spicy", "value": false }
+    ],
+    "price": 320,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" }
+    ],
+    "city": "herat",
+    "rating": 4.4,
+    "ratingCount": 143,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "French Fries",
+        "description": "Crispy golden potatoes served with ketchup"
+      },
+      "fa": {
+        "title": "سیب‌زمینی سرخ‌کرده",
+        "description": "سیب‌زمینی طلایی و ترد با سس کچاپ"
+      },
+      "ps": {
+        "title": "French Fries",
+        "description": "Crispy golden potatoes served with ketchup"
+      }
+    },
+    "attributes": [
+      { "key": "vegetarian", "value": true },
+      { "key": "spicy", "value": false }
+    ],
+    "price": 80,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877" }
+    ],
     "city": "herat",
     "rating": 4.2,
     "ratingCount": 136,
-    "shop": "6a3240ce6b3faaf498a48abf",
-    "category": "6a3241fd943292166f70e2b3",
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Amoxicillin 500mg",
-        "description": "Broad-spectrum antibiotic capsules"
+        "title": "Samosa",
+        "description": "Crispy pastry filled with seasoned potatoes and peas"
       },
       "fa": {
-        "title": "آموکسیسیلین ۵۰۰میلی‌گرم",
-        "description": "کپسول‌های آنتی‌بیوتیک طیف گسترده"
+        "title": "سمبوسه",
+        "description": "خمیر ترد پرشده با سیب‌زمینی و نخود ادویه‌دار"
       },
       "ps": {
-        "title": "Amoxicillin 500mg",
-        "description": "Broad-spectrum antibiotic capsules"
+        "title": "Samosa",
+        "description": "Crispy pastry filled with seasoned potatoes and peas"
       }
     },
     "attributes": [
-      {
-        "key": "dosage",
-        "value": "500mg"
-      },
-      {
-        "key": "prescription",
-        "value": true
-      }
+      { "key": "vegetarian", "value": true },
+      { "key": "spicy", "value": true }
     ],
-    "price": 45,
-    "media": [],
-    "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 118,
-    "shop": "6a3240ce6b3faaf498a48abf",
-    "category": "6a3241fd943292166f70e2b3",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Antacid Syrup",
-        "description": "Fast-acting relief for heartburn and indigestion"
-      },
-      "fa": {
-        "title": "شربت ضد اسید",
-        "description": "تسکین سریع سوزش معده و سوء هاضمه"
-      },
-      "ps": {
-        "title": "Antacid Syrup",
-        "description": "Fast-acting relief for heartburn and indigestion"
-      }
-    },
-    "attributes": [
-      {
-        "key": "form",
-        "value": "syrup"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
+    "price": 70,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1601050690597-df0568f70950" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1601050690597-df0568f70950" }
     ],
-    "price": 40,
-    "media": [],
     "city": "herat",
     "rating": 4.0,
-    "ratingCount": 8,
-    "shop": "6a3240ce6b3faaf498a48abf",
-    "category": "6a3241fd943292166f70e2b3",
+    "ratingCount": 87,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Cough Syrup",
-        "description": "Soothing syrup for dry and wet cough"
+        "title": "Chickpea Salad",
+        "description": "Fresh chickpeas mixed with cucumber, tomato and herbs"
       },
       "fa": {
-        "title": "شربت سرفه",
-        "description": "شربت آرامش‌بخش برای سرفه خشک و مرطوب"
+        "title": "سالاد نخود",
+        "description": "نخود تازه با خیار، گوجه و سبزیجات"
       },
       "ps": {
-        "title": "Cough Syrup",
-        "description": "Soothing syrup for dry and wet cough"
+        "title": "Chickpea Salad",
+        "description": "Fresh chickpeas mixed with cucumber, tomato and herbs"
       }
     },
     "attributes": [
-      {
-        "key": "form",
-        "value": "syrup"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
+      { "key": "vegetarian", "value": true },
+      { "key": "cold", "value": true }
     ],
-    "price": 38,
-    "media": [],
+    "price": 110,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd" }
+    ],
     "city": "herat",
-    "rating": 5.0,
+    "rating": 4.1,
+    "ratingCount": 64,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Greek Salad",
+        "description": "Fresh cucumber, tomato, olives and cheese with herbs"
+      },
+      "fa": {
+        "title": "سالاد یونانی",
+        "description": "خیار، گوجه، زیتون و پنیر تازه با سبزیجات"
+      },
+      "ps": {
+        "title": "Greek Salad",
+        "description": "Fresh cucumber, tomato, olives and cheese with herbs"
+      }
+    },
+    "attributes": [
+      { "key": "vegetarian", "value": true },
+      { "key": "cold", "value": true }
+    ],
+    "price": 140,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1540420773420-3366772f4999" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1540420773420-3366772f4999" }
+    ],
+    "city": "herat",
+    "rating": 4.4,
+    "ratingCount": 91,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Chicken Pasta",
+        "description": "Creamy pasta with grilled chicken and herbs"
+      },
+      "fa": {
+        "title": "پاستا مرغ",
+        "description": "پاستای خامه‌ای با مرغ کبابی و سبزیجات"
+      },
+      "ps": {
+        "title": "Chicken Pasta",
+        "description": "Creamy pasta with grilled chicken and herbs"
+      }
+    },
+    "attributes": [
+      { "key": "cuisine", "value": "Italian" },
+      { "key": "spicy", "value": false }
+    ],
+    "price": 230,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb" }
+    ],
+    "city": "herat",
+    "rating": 4.3,
     "ratingCount": 113,
-    "shop": "6a3240ce6b3faaf498a48abf",
-    "category": "6a3241fd943292166f70e2b3",
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Metronidazole 250mg",
-        "description": "Antibiotic for bacterial and parasitic infections"
+        "title": "Creamy Mushroom Pasta",
+        "description": "Pasta tossed with mushrooms in a creamy garlic sauce"
       },
       "fa": {
-        "title": "مترونیدازول ۲۵۰میلی‌گرم",
-        "description": "آنتی‌بیوتیک برای عفونت‌های باکتریایی و انگلی"
+        "title": "پاستا قارچ خامه‌ای",
+        "description": "پاستا با قارچ در سس خامه‌ای و سیر"
       },
       "ps": {
-        "title": "Metronidazole 250mg",
-        "description": "Antibiotic for bacterial and parasitic infections"
+        "title": "Creamy Mushroom Pasta",
+        "description": "Pasta tossed with mushrooms in a creamy garlic sauce"
       }
     },
     "attributes": [
-      {
-        "key": "dosage",
-        "value": "250mg"
-      },
-      {
-        "key": "prescription",
-        "value": true
-      }
+      { "key": "cuisine", "value": "Italian" },
+      { "key": "vegetarian", "value": true }
     ],
-    "price": 30,
-    "media": [],
-    "city": "herat",
-    "rating": 3.1,
-    "ratingCount": 20,
-    "shop": "6a3240ce6b3faaf498a48abf",
-    "category": "6a3241fd943292166f70e2b3",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Diclofenac Gel",
-        "description": "Topical anti-inflammatory gel for joint pain"
-      },
-      "fa": {
-        "title": "ژل دیکلوفناک",
-        "description": "ژل موضعی ضد التهاب برای درد مفاصل"
-      },
-      "ps": {
-        "title": "Diclofenac Gel",
-        "description": "Topical anti-inflammatory gel for joint pain"
-      }
-    },
-    "attributes": [
-      {
-        "key": "form",
-        "value": "gel"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
+    "price": 210,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601" }
     ],
-    "price": 55,
-    "media": [],
-    "city": "herat",
-    "rating": 3.5,
-    "ratingCount": 143,
-    "shop": "6a3240ce6b3faaf498a48abf",
-    "category": "6a3241fd943292166f70e2b3",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Oral Rehydration Sachets",
-        "description": "Electrolyte sachets to restore body fluids"
-      },
-      "fa": {
-        "title": "پودر آبرسانی خوراکی",
-        "description": "پودر الکترولیت برای بازگرداندن مایعات بدن"
-      },
-      "ps": {
-        "title": "Oral Rehydration Sachets",
-        "description": "Electrolyte sachets to restore body fluids"
-      }
-    },
-    "attributes": [
-      {
-        "key": "form",
-        "value": "powder"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
-    ],
-    "price": 12,
-    "media": [],
-    "city": "herat",
-    "rating": 3.3,
-    "ratingCount": 101,
-    "shop": "6a3240ce6b3faaf498a48abf",
-    "category": "6a3241fd943292166f70e2b3",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Aspirin 100mg",
-        "description": "Low-dose aspirin for blood thinning"
-      },
-      "fa": {
-        "title": "آسپرین ۱۰۰میلی‌گرم",
-        "description": "آسپرین کم‌دوز برای رقیق‌کردن خون"
-      },
-      "ps": {
-        "title": "Aspirin 100mg",
-        "description": "Low-dose aspirin for blood thinning"
-      }
-    },
-    "attributes": [
-      {
-        "key": "dosage",
-        "value": "100mg"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
-    ],
-    "price": 18,
-    "media": [],
-    "city": "herat",
-    "rating": 3.6,
-    "ratingCount": 108,
-    "shop": "6a3240ce6b3faaf498a48abf",
-    "category": "6a3241fd943292166f70e2b3",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Antifungal Cream",
-        "description": "Topical cream for skin fungal infections"
-      },
-      "fa": {
-        "title": "کرم ضد قارچ",
-        "description": "کرم موضعی برای عفونت‌های قارچی پوست"
-      },
-      "ps": {
-        "title": "Antifungal Cream",
-        "description": "Topical cream for skin fungal infections"
-      }
-    },
-    "attributes": [
-      {
-        "key": "form",
-        "value": "cream"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
-    ],
-    "price": 35,
-    "media": [],
-    "city": "herat",
-    "rating": 3.7,
-    "ratingCount": 35,
-    "shop": "6a3240ce6b3faaf498a48abf",
-    "category": "6a3241fd943292166f70e2b3",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Vitamin C 1000mg",
-        "description": "Immune-boosting vitamin C supplement"
-      },
-      "fa": {
-        "title": "ویتامین سی ۱۰۰۰میلی‌گرم",
-        "description": "مکمل ویتامین سی تقویت‌کننده سیستم ایمنی"
-      },
-      "ps": {
-        "title": "Vitamin C 1000mg",
-        "description": "Immune-boosting vitamin C supplement"
-      }
-    },
-    "attributes": [
-      {
-        "key": "type",
-        "value": "supplement"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
-    ],
-    "price": 35,
-    "media": [],
     "city": "herat",
     "rating": 4.5,
-    "ratingCount": 133,
-    "shop": "6a3240ce6b3faaf498a48ac0",
-    "category": "6a3241fd943292166f70e2b4",
+    "ratingCount": 76,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Zinc Tablets",
-        "description": "Essential mineral supplement for immunity"
+        "title": "Grilled Chicken Plate",
+        "description": "Juicy grilled chicken served with rice and fresh salad"
       },
       "fa": {
-        "title": "قرص روی",
-        "description": "مکمل معدنی ضروری برای سیستم ایمنی"
+        "title": "پلیت مرغ کبابی",
+        "description": "مرغ کبابی آبدار با برنج و سالاد تازه"
       },
       "ps": {
-        "title": "Zinc Tablets",
-        "description": "Essential mineral supplement for immunity"
+        "title": "Grilled Chicken Plate",
+        "description": "Juicy grilled chicken served with rice and fresh salad"
       }
     },
     "attributes": [
-      {
-        "key": "type",
-        "value": "supplement"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "spicy", "value": false }
     ],
-    "price": 25,
-    "media": [],
-    "city": "herat",
-    "rating": 3.9,
-    "ratingCount": 119,
-    "shop": "6a3240ce6b3faaf498a48ac0",
-    "category": "6a3241fd943292166f70e2b4",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Eye Drops",
-        "description": "Lubricating drops to relieve dry and tired eyes"
-      },
-      "fa": {
-        "title": "قطره چشم",
-        "description": "قطره مرطوب‌کننده برای چشم‌های خشک"
-      },
-      "ps": {
-        "title": "Eye Drops",
-        "description": "Lubricating drops to relieve dry and tired eyes"
-      }
-    },
-    "attributes": [
-      {
-        "key": "form",
-        "value": "drops"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
+    "price": 260,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1532550907401-a500c9a57435" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1532550907401-a500c9a57435" }
     ],
-    "price": 30,
-    "media": [],
-    "city": "herat",
-    "rating": 5.0,
-    "ratingCount": 131,
-    "shop": "6a3240ce6b3faaf498a48ac0",
-    "category": "6a3241fd943292166f70e2b4",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Antiseptic Cream",
-        "description": "Antibacterial cream for minor cuts and wounds"
-      },
-      "fa": {
-        "title": "کرم ضد عفونی",
-        "description": "کرم ضد باکتری برای بریدگی‌های کوچک"
-      },
-      "ps": {
-        "title": "Antiseptic Cream",
-        "description": "Antibacterial cream for minor cuts and wounds"
-      }
-    },
-    "attributes": [
-      {
-        "key": "form",
-        "value": "cream"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
-    ],
-    "price": 28,
-    "media": [],
-    "city": "herat",
-    "rating": 3.2,
-    "ratingCount": 43,
-    "shop": "6a3240ce6b3faaf498a48ac0",
-    "category": "6a3241fd943292166f70e2b4",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "ORS Sachets",
-        "description": "Oral rehydration salts to prevent dehydration"
-      },
-      "fa": {
-        "title": "پودر ORS",
-        "description": "نمک‌های خوراکی برای جلوگیری از کم‌آبی"
-      },
-      "ps": {
-        "title": "ORS Sachets",
-        "description": "Oral rehydration salts to prevent dehydration"
-      }
-    },
-    "attributes": [
-      {
-        "key": "form",
-        "value": "powder"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
-    ],
-    "price": 12,
-    "media": [],
-    "city": "herat",
-    "rating": 4.4,
-    "ratingCount": 70,
-    "shop": "6a3240ce6b3faaf498a48ac0",
-    "category": "6a3241fd943292166f70e2b4",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Vitamin D3 1000IU",
-        "description": "Bone health and immunity vitamin D supplement"
-      },
-      "fa": {
-        "title": "ویتامین D3 ۱۰۰۰ واحد",
-        "description": "مکمل ویتامین D برای سلامت استخوان"
-      },
-      "ps": {
-        "title": "Vitamin D3 1000IU",
-        "description": "Bone health and immunity vitamin D supplement"
-      }
-    },
-    "attributes": [
-      {
-        "key": "type",
-        "value": "supplement"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
-    ],
-    "price": 40,
-    "media": [],
-    "city": "herat",
-    "rating": 3.8,
-    "ratingCount": 84,
-    "shop": "6a3240ce6b3faaf498a48ac0",
-    "category": "6a3241fd943292166f70e2b4",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Iron Tablets",
-        "description": "Iron supplement to prevent anaemia"
-      },
-      "fa": {
-        "title": "قرص آهن",
-        "description": "مکمل آهن برای جلوگیری از کم‌خونی"
-      },
-      "ps": {
-        "title": "Iron Tablets",
-        "description": "Iron supplement to prevent anaemia"
-      }
-    },
-    "attributes": [
-      {
-        "key": "type",
-        "value": "supplement"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
-    ],
-    "price": 22,
-    "media": [],
-    "city": "herat",
-    "rating": 4.4,
-    "ratingCount": 84,
-    "shop": "6a3240ce6b3faaf498a48ac0",
-    "category": "6a3241fd943292166f70e2b4",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Omega-3 Fish Oil",
-        "description": "Heart and brain health omega-3 capsules"
-      },
-      "fa": {
-        "title": "روغن ماهی امگا۳",
-        "description": "کپسول امگا۳ برای سلامت قلب و مغز"
-      },
-      "ps": {
-        "title": "Omega-3 Fish Oil",
-        "description": "Heart and brain health omega-3 capsules"
-      }
-    },
-    "attributes": [
-      {
-        "key": "type",
-        "value": "supplement"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
-    ],
-    "price": 60,
-    "media": [],
-    "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 48,
-    "shop": "6a3240ce6b3faaf498a48ac0",
-    "category": "6a3241fd943292166f70e2b4",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Calcium + D3 Tablets",
-        "description": "Combined calcium and vitamin D for strong bones"
-      },
-      "fa": {
-        "title": "قرص کلسیم + D3",
-        "description": "ترکیب کلسیم و ویتامین D برای استخوان‌های قوی"
-      },
-      "ps": {
-        "title": "Calcium + D3 Tablets",
-        "description": "Combined calcium and vitamin D for strong bones"
-      }
-    },
-    "attributes": [
-      {
-        "key": "type",
-        "value": "supplement"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
-    ],
-    "price": 45,
-    "media": [],
-    "city": "herat",
-    "rating": 4.0,
-    "ratingCount": 11,
-    "shop": "6a3240ce6b3faaf498a48ac0",
-    "category": "6a3241fd943292166f70e2b4",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Nasal Spray",
-        "description": "Saline nasal spray for congestion relief"
-      },
-      "fa": {
-        "title": "اسپری بینی",
-        "description": "اسپری نمکی بینی برای رفع گرفتگی"
-      },
-      "ps": {
-        "title": "Nasal Spray",
-        "description": "Saline nasal spray for congestion relief"
-      }
-    },
-    "attributes": [
-      {
-        "key": "form",
-        "value": "spray"
-      },
-      {
-        "key": "prescription",
-        "value": false
-      }
-    ],
-    "price": 32,
-    "media": [],
-    "city": "herat",
-    "rating": 3.6,
-    "ratingCount": 11,
-    "shop": "6a3240ce6b3faaf498a48ac0",
-    "category": "6a3241fd943292166f70e2b4",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Standard Single Room",
-        "description": "Comfortable single room with free Wi-Fi"
-      },
-      "fa": {
-        "title": "اتاق تک استاندارد",
-        "description": "اتاق تک راحت با وای‌فای رایگان"
-      },
-      "ps": {
-        "title": "Standard Single Room",
-        "description": "Comfortable single room with free Wi-Fi"
-      }
-    },
-    "attributes": [
-      {
-        "key": "beds",
-        "value": 1
-      },
-      {
-        "key": "wifi",
-        "value": true
-      }
-    ],
-    "price": 1500,
-    "media": [],
-    "city": "herat",
-    "rating": 3.9,
-    "ratingCount": 3,
-    "shop": "6a3240ce6b3faaf498a48ac1",
-    "category": "6a3241fd943292166f70e2b5",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Standard Double Room",
-        "description": "Spacious double room ideal for couples"
-      },
-      "fa": {
-        "title": "اتاق دو استاندارد",
-        "description": "اتاق دو نفره وسیع مناسب برای زوج‌ها"
-      },
-      "ps": {
-        "title": "Standard Double Room",
-        "description": "Spacious double room ideal for couples"
-      }
-    },
-    "attributes": [
-      {
-        "key": "beds",
-        "value": 2
-      },
-      {
-        "key": "wifi",
-        "value": true
-      }
-    ],
-    "price": 2200,
-    "media": [],
-    "city": "herat",
-    "rating": 4.7,
-    "ratingCount": 9,
-    "shop": "6a3240ce6b3faaf498a48ac1",
-    "category": "6a3241fd943292166f70e2b5",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Deluxe Room",
-        "description": "Upgraded room with premium furnishings and city view"
-      },
-      "fa": {
-        "title": "اتاق دلوکس",
-        "description": "اتاق ارتقا یافته با مبلمان برتر و چشم‌انداز شهر"
-      },
-      "ps": {
-        "title": "Deluxe Room",
-        "description": "Upgraded room with premium furnishings and city view"
-      }
-    },
-    "attributes": [
-      {
-        "key": "beds",
-        "value": 2
-      },
-      {
-        "key": "wifi",
-        "value": true
-      }
-    ],
-    "price": 3000,
-    "media": [],
-    "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 42,
-    "shop": "6a3240ce6b3faaf498a48ac1",
-    "category": "6a3241fd943292166f70e2b5",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Suite",
-        "description": "Luxurious suite with separate living area and mini bar"
-      },
-      "fa": {
-        "title": "سویت",
-        "description": "سویت لوکس با نشیمن جداگانه و مینی‌بار"
-      },
-      "ps": {
-        "title": "Suite",
-        "description": "Luxurious suite with separate living area and mini bar"
-      }
-    },
-    "attributes": [
-      {
-        "key": "beds",
-        "value": 2
-      },
-      {
-        "key": "wifi",
-        "value": true
-      }
-    ],
-    "price": 5000,
-    "media": [],
-    "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 96,
-    "shop": "6a3240ce6b3faaf498a48ac1",
-    "category": "6a3241fd943292166f70e2b5",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Family Room",
-        "description": "Large room accommodating families up to 5 guests"
-      },
-      "fa": {
-        "title": "اتاق خانوادگی",
-        "description": "اتاق بزرگ برای خانواده‌ها تا ۵ نفر"
-      },
-      "ps": {
-        "title": "Family Room",
-        "description": "Large room accommodating families up to 5 guests"
-      }
-    },
-    "attributes": [
-      {
-        "key": "beds",
-        "value": 3
-      },
-      {
-        "key": "wifi",
-        "value": true
-      }
-    ],
-    "price": 3800,
-    "media": [],
-    "city": "herat",
-    "rating": 4.0,
-    "ratingCount": 51,
-    "shop": "6a3240ce6b3faaf498a48ac1",
-    "category": "6a3241fd943292166f70e2b5",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Twin Room",
-        "description": "Room with two single beds perfect for friends"
-      },
-      "fa": {
-        "title": "اتاق توئین",
-        "description": "اتاق با دو تخت تک مناسب برای دوستان"
-      },
-      "ps": {
-        "title": "Twin Room",
-        "description": "Room with two single beds perfect for friends"
-      }
-    },
-    "attributes": [
-      {
-        "key": "beds",
-        "value": 2
-      },
-      {
-        "key": "wifi",
-        "value": true
-      }
-    ],
-    "price": 2000,
-    "media": [],
-    "city": "herat",
-    "rating": 4.2,
-    "ratingCount": 41,
-    "shop": "6a3240ce6b3faaf498a48ac1",
-    "category": "6a3241fd943292166f70e2b5",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Executive Room",
-        "description": "shop-oriented room with work desk and fast Wi-Fi"
-      },
-      "fa": {
-        "title": "اتاق اجرایی",
-        "description": "اتاق تجاری با میز کار و وای‌فای سریع"
-      },
-      "ps": {
-        "title": "Executive Room",
-        "description": "shop-oriented room with work desk and fast Wi-Fi"
-      }
-    },
-    "attributes": [
-      {
-        "key": "beds",
-        "value": 1
-      },
-      {
-        "key": "wifi",
-        "value": true
-      }
-    ],
-    "price": 3500,
-    "media": [],
-    "city": "herat",
-    "rating": 3.4,
-    "ratingCount": 113,
-    "shop": "6a3240ce6b3faaf498a48ac1",
-    "category": "6a3241fd943292166f70e2b5",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Penthouse Suite",
-        "description": "Top-floor suite with panoramic views of Herat"
-      },
-      "fa": {
-        "title": "پنت‌هاوس سویت",
-        "description": "سویت طبقه آخر با چشم‌انداز پانوراما هرات"
-      },
-      "ps": {
-        "title": "Penthouse Suite",
-        "description": "Top-floor suite with panoramic views of Herat"
-      }
-    },
-    "attributes": [
-      {
-        "key": "beds",
-        "value": 2
-      },
-      {
-        "key": "wifi",
-        "value": true
-      }
-    ],
-    "price": 8000,
-    "media": [],
-    "city": "herat",
-    "rating": 3.2,
-    "ratingCount": 110,
-    "shop": "6a3240ce6b3faaf498a48ac1",
-    "category": "6a3241fd943292166f70e2b5",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Accessible Room",
-        "description": "Specially equipped room for guests with disabilities"
-      },
-      "fa": {
-        "title": "اتاق معلولین",
-        "description": "اتاق مجهز برای مهمانان دارای معلولیت"
-      },
-      "ps": {
-        "title": "Accessible Room",
-        "description": "Specially equipped room for guests with disabilities"
-      }
-    },
-    "attributes": [
-      {
-        "key": "beds",
-        "value": 1
-      },
-      {
-        "key": "wifi",
-        "value": true
-      }
-    ],
-    "price": 1800,
-    "media": [],
-    "city": "herat",
-    "rating": 3.8,
-    "ratingCount": 114,
-    "shop": "6a3240ce6b3faaf498a48ac1",
-    "category": "6a3241fd943292166f70e2b5",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Connecting Rooms",
-        "description": "Two adjoining rooms sharing an internal door"
-      },
-      "fa": {
-        "title": "اتاق‌های متصل",
-        "description": "دو اتاق مجاور با درب داخلی مشترک"
-      },
-      "ps": {
-        "title": "Connecting Rooms",
-        "description": "Two adjoining rooms sharing an internal door"
-      }
-    },
-    "attributes": [
-      {
-        "key": "beds",
-        "value": 4
-      },
-      {
-        "key": "wifi",
-        "value": true
-      }
-    ],
-    "price": 4200,
-    "media": [],
-    "city": "herat",
-    "rating": 3.2,
-    "ratingCount": 89,
-    "shop": "6a3240ce6b3faaf498a48ac1",
-    "category": "6a3241fd943292166f70e2b5",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Breakfast Buffet",
-        "description": "Full spread of hot and cold breakfast items"
-      },
-      "fa": {
-        "title": "بوفه صبحانه",
-        "description": "میز کامل صبحانه‌های گرم و سرد"
-      },
-      "ps": {
-        "title": "Breakfast Buffet",
-        "description": "Full spread of hot and cold breakfast items"
-      }
-    },
-    "attributes": [
-      {
-        "key": "meal",
-        "value": "breakfast"
-      },
-      {
-        "key": "buffet",
-        "value": true
-      }
-    ],
-    "price": 300,
-    "media": [],
-    "city": "herat",
-    "rating": 3.7,
-    "ratingCount": 70,
-    "shop": "6a3240ce6b3faaf498a48ac2",
-    "category": "6a3241fd943292166f70e2b6",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Airport Transfer",
-        "description": "Private car pick-up and drop-off at Herat Airport"
-      },
-      "fa": {
-        "title": "انتقال فرودگاهی",
-        "description": "سرویس خودروی خصوصی به فرودگاه هرات"
-      },
-      "ps": {
-        "title": "Airport Transfer",
-        "description": "Private car pick-up and drop-off at Herat Airport"
-      }
-    },
-    "attributes": [
-      {
-        "key": "service",
-        "value": true
-      },
-      {
-        "key": "transfer",
-        "value": true
-      }
-    ],
-    "price": 800,
-    "media": [],
-    "city": "herat",
-    "rating": 4.2,
-    "ratingCount": 60,
-    "shop": "6a3240ce6b3faaf498a48ac2",
-    "category": "6a3241fd943292166f70e2b6",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Laundry Service",
-        "description": "Same-day wash and fold laundry service"
-      },
-      "fa": {
-        "title": "خدمات لباسشویی",
-        "description": "سرویس لباسشویی و تا کردن همان روز"
-      },
-      "ps": {
-        "title": "Laundry Service",
-        "description": "Same-day wash and fold laundry service"
-      }
-    },
-    "attributes": [
-      {
-        "key": "service",
-        "value": true
-      }
-    ],
-    "price": 200,
-    "media": [],
-    "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 53,
-    "shop": "6a3240ce6b3faaf498a48ac2",
-    "category": "6a3241fd943292166f70e2b6",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Conference Hall Booking",
-        "description": "Fully equipped conference hall for up to 50 guests"
-      },
-      "fa": {
-        "title": "رزرو سالن کنفرانس",
-        "description": "سالن کنفرانس کاملاً مجهز تا ۵۰ نفر"
-      },
-      "ps": {
-        "title": "Conference Hall Booking",
-        "description": "Fully equipped conference hall for up to 50 guests"
-      }
-    },
-    "attributes": [
-      {
-        "key": "capacity",
-        "value": 50
-      },
-      {
-        "key": "projector",
-        "value": true
-      }
-    ],
-    "price": 4000,
-    "media": [],
-    "city": "herat",
-    "rating": 4.4,
-    "ratingCount": 93,
-    "shop": "6a3240ce6b3faaf498a48ac2",
-    "category": "6a3241fd943292166f70e2b6",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Rooftop Dinner",
-        "description": "Scenic rooftop dining experience with city views"
-      },
-      "fa": {
-        "title": "شام روف‌تاپ",
-        "description": "تجربه شام روف‌تاپ با چشم‌انداز شهر"
-      },
-      "ps": {
-        "title": "Rooftop Dinner",
-        "description": "Scenic rooftop dining experience with city views"
-      }
-    },
-    "attributes": [
-      {
-        "key": "meal",
-        "value": "dinner"
-      },
-      {
-        "key": "view",
-        "value": "city"
-      }
-    ],
-    "price": 600,
-    "media": [],
-    "city": "herat",
-    "rating": 3.2,
-    "ratingCount": 147,
-    "shop": "6a3240ce6b3faaf498a48ac2",
-    "category": "6a3241fd943292166f70e2b6",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Room Service",
-        "description": "24-hour in-room food and beverage delivery"
-      },
-      "fa": {
-        "title": "سرویس اتاق",
-        "description": "سرویس غذا و نوشیدنی ۲۴ ساعته به اتاق"
-      },
-      "ps": {
-        "title": "Room Service",
-        "description": "24-hour in-room food and beverage delivery"
-      }
-    },
-    "attributes": [
-      {
-        "key": "service",
-        "value": true
-      },
-      {
-        "key": "available_hours",
-        "value": "24/7"
-      }
-    ],
-    "price": 150,
-    "media": [],
-    "city": "herat",
-    "rating": 4.1,
-    "ratingCount": 150,
-    "shop": "6a3240ce6b3faaf498a48ac2",
-    "category": "6a3241fd943292166f70e2b6",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "City Tour Package",
-        "description": "Guided full-day tour of Herat's historic sites"
-      },
-      "fa": {
-        "title": "تور شهری",
-        "description": "تور تمام‌روز با راهنما به مکان‌های تاریخی هرات"
-      },
-      "ps": {
-        "title": "City Tour Package",
-        "description": "Guided full-day tour of Herat's historic sites"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_hours",
-        "value": 8
-      },
-      {
-        "key": "guided",
-        "value": true
-      }
-    ],
-    "price": 1200,
-    "media": [],
-    "city": "herat",
-    "rating": 4.9,
-    "ratingCount": 14,
-    "shop": "6a3240ce6b3faaf498a48ac2",
-    "category": "6a3241fd943292166f70e2b6",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Spa & Massage",
-        "description": "60-minute relaxing full-body massage session"
-      },
-      "fa": {
-        "title": "اسپا و ماساژ",
-        "description": "جلسه ماساژ آرامش‌بخش تمام بدن ۶۰ دقیقه‌ای"
-      },
-      "ps": {
-        "title": "Spa & Massage",
-        "description": "60-minute relaxing full-body massage session"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_min",
-        "value": 60
-      },
-      {
-        "key": "service",
-        "value": true
-      }
-    ],
-    "price": 900,
-    "media": [],
-    "city": "herat",
-    "rating": 3.3,
-    "ratingCount": 19,
-    "shop": "6a3240ce6b3faaf498a48ac2",
-    "category": "6a3241fd943292166f70e2b6",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Parking Space",
-        "description": "Secure covered parking for one vehicle per day"
-      },
-      "fa": {
-        "title": "پارکینگ",
-        "description": "پارکینگ سرپوشیده امن برای یک خودرو در روز"
-      },
-      "ps": {
-        "title": "Parking Space",
-        "description": "Secure covered parking for one vehicle per day"
-      }
-    },
-    "attributes": [
-      {
-        "key": "service",
-        "value": true
-      },
-      {
-        "key": "secure",
-        "value": true
-      }
-    ],
-    "price": 100,
-    "media": [],
-    "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 37,
-    "shop": "6a3240ce6b3faaf498a48ac2",
-    "category": "6a3241fd943292166f70e2b6",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Wedding Hall Booking",
-        "description": "Elegant banquet hall for weddings up to 200 guests"
-      },
-      "fa": {
-        "title": "رزرو سالن عروسی",
-        "description": "سالن ضیافت زیبا برای عروسی تا ۲۰۰ نفر"
-      },
-      "ps": {
-        "title": "Wedding Hall Booking",
-        "description": "Elegant banquet hall for weddings up to 200 guests"
-      }
-    },
-    "attributes": [
-      {
-        "key": "capacity",
-        "value": 200
-      },
-      {
-        "key": "catering",
-        "value": true
-      }
-    ],
-    "price": 15000,
-    "media": [],
-    "city": "herat",
-    "rating": 3.3,
-    "ratingCount": 139,
-    "shop": "6a3240ce6b3faaf498a48ac2",
-    "category": "6a3241fd943292166f70e2b6",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Monthly Membership",
-        "description": "Full gym access for 30 days"
-      },
-      "fa": {
-        "title": "عضویت ماهانه",
-        "description": "دسترسی کامل به باشگاه به مدت ۳۰ روز"
-      },
-      "ps": {
-        "title": "Monthly Membership",
-        "description": "Full gym access for 30 days"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_days",
-        "value": 30
-      },
-      {
-        "key": "access",
-        "value": "full"
-      }
-    ],
-    "price": 800,
-    "media": [],
-    "city": "herat",
-    "rating": 3.8,
-    "ratingCount": 124,
-    "shop": "6a3240ce6b3faaf498a48ac3",
-    "category": "6a3241fd943292166f70e2b7",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "3-Month Membership",
-        "description": "Full gym access for 90 days at a discounted rate"
-      },
-      "fa": {
-        "title": "عضویت ۳ ماهه",
-        "description": "دسترسی کامل به باشگاه ۹۰ روزه با تخفیف"
-      },
-      "ps": {
-        "title": "3-Month Membership",
-        "description": "Full gym access for 90 days at a discounted rate"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_days",
-        "value": 90
-      },
-      {
-        "key": "access",
-        "value": "full"
-      }
-    ],
-    "price": 2000,
-    "media": [],
-    "city": "herat",
-    "rating": 3.2,
-    "ratingCount": 62,
-    "shop": "6a3240ce6b3faaf498a48ac3",
-    "category": "6a3241fd943292166f70e2b7",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Annual Membership",
-        "description": "Best value full-year gym access"
-      },
-      "fa": {
-        "title": "عضویت سالانه",
-        "description": "بهترین ارزش برای دسترسی یک‌ساله به باشگاه"
-      },
-      "ps": {
-        "title": "Annual Membership",
-        "description": "Best value full-year gym access"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_days",
-        "value": 365
-      },
-      {
-        "key": "access",
-        "value": "full"
-      }
-    ],
-    "price": 6000,
-    "media": [],
-    "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 42,
-    "shop": "6a3240ce6b3faaf498a48ac3",
-    "category": "6a3241fd943292166f70e2b7",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Personal Training Session",
-        "description": "One-on-one 60-minute session with a certified trainer"
-      },
-      "fa": {
-        "title": "جلسه ترینر شخصی",
-        "description": "جلسه ۶۰ دقیقه‌ای تک به تک با مربی مجاز"
-      },
-      "ps": {
-        "title": "Personal Training Session",
-        "description": "One-on-one 60-minute session with a certified trainer"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_min",
-        "value": 60
-      },
-      {
-        "key": "trainer",
-        "value": true
-      }
-    ],
-    "price": 500,
-    "media": [],
-    "city": "herat",
-    "rating": 4.9,
-    "ratingCount": 80,
-    "shop": "6a3240ce6b3faaf498a48ac3",
-    "category": "6a3241fd943292166f70e2b7",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Body Assessment",
-        "description": "Full body composition analysis with detailed report"
-      },
-      "fa": {
-        "title": "ارزیابی بدن",
-        "description": "تجزیه و تحلیل کامل ترکیب بدن با گزارش دقیق"
-      },
-      "ps": {
-        "title": "Body Assessment",
-        "description": "Full body composition analysis with detailed report"
-      }
-    },
-    "attributes": [
-      {
-        "key": "service",
-        "value": true
-      },
-      {
-        "key": "report",
-        "value": true
-      }
-    ],
-    "price": 200,
-    "media": [],
-    "city": "herat",
-    "rating": 3.1,
-    "ratingCount": 9,
-    "shop": "6a3240ce6b3faaf498a48ac3",
-    "category": "6a3241fd943292166f70e2b7",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Day Pass",
-        "description": "Single-day full gym access"
-      },
-      "fa": {
-        "title": "پاس روزانه",
-        "description": "دسترسی کامل به باشگاه برای یک روز"
-      },
-      "ps": {
-        "title": "Day Pass",
-        "description": "Single-day full gym access"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_days",
-        "value": 1
-      },
-      {
-        "key": "access",
-        "value": "full"
-      }
-    ],
-    "price": 120,
-    "media": [],
-    "city": "herat",
-    "rating": 3.7,
-    "ratingCount": 144,
-    "shop": "6a3240ce6b3faaf498a48ac3",
-    "category": "6a3241fd943292166f70e2b7",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Student Membership",
-        "description": "Discounted monthly membership for students"
-      },
-      "fa": {
-        "title": "عضویت دانش‌آموزی",
-        "description": "عضویت ماهانه با تخفیف برای دانش‌آموزان"
-      },
-      "ps": {
-        "title": "Student Membership",
-        "description": "Discounted monthly membership for students"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_days",
-        "value": 30
-      },
-      {
-        "key": "access",
-        "value": "full"
-      }
-    ],
-    "price": 500,
-    "media": [],
-    "city": "herat",
-    "rating": 4.1,
-    "ratingCount": 75,
-    "shop": "6a3240ce6b3faaf498a48ac3",
-    "category": "6a3241fd943292166f70e2b7",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Women-Only Session",
-        "description": "Dedicated gym hours exclusively for women"
-      },
-      "fa": {
-        "title": "جلسه بانوان",
-        "description": "ساعات اختصاصی باشگاه فقط برای بانوان"
-      },
-      "ps": {
-        "title": "Women-Only Session",
-        "description": "Dedicated gym hours exclusively for women"
-      }
-    },
-    "attributes": [
-      {
-        "key": "gender",
-        "value": "female"
-      },
-      {
-        "key": "duration_hours",
-        "value": 2
-      }
-    ],
-    "price": 350,
-    "media": [],
-    "city": "herat",
-    "rating": 3.9,
-    "ratingCount": 116,
-    "shop": "6a3240ce6b3faaf498a48ac3",
-    "category": "6a3241fd943292166f70e2b7",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Weight Loss Program",
-        "description": "12-week structured weight loss training program"
-      },
-      "fa": {
-        "title": "برنامه کاهش وزن",
-        "description": "برنامه تمرینی ساختارمند ۱۲ هفته‌ای کاهش وزن"
-      },
-      "ps": {
-        "title": "Weight Loss Program",
-        "description": "12-week structured weight loss training program"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_weeks",
-        "value": 12
-      },
-      {
-        "key": "trainer",
-        "value": true
-      }
-    ],
-    "price": 3500,
-    "media": [],
-    "city": "herat",
-    "rating": 4.1,
-    "ratingCount": 67,
-    "shop": "6a3240ce6b3faaf498a48ac3",
-    "category": "6a3241fd943292166f70e2b7",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Muscle Building Program",
-        "description": "10-week hypertrophy focused training plan"
-      },
-      "fa": {
-        "title": "برنامه عضله‌سازی",
-        "description": "برنامه تمرینی ۱۰ هفته‌ای هایپرتروفی"
-      },
-      "ps": {
-        "title": "Muscle Building Program",
-        "description": "10-week hypertrophy focused training plan"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_weeks",
-        "value": 10
-      },
-      {
-        "key": "trainer",
-        "value": true
-      }
-    ],
-    "price": 3200,
-    "media": [],
-    "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 147,
-    "shop": "6a3240ce6b3faaf498a48ac3",
-    "category": "6a3241fd943292166f70e2b7",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Yoga Class",
-        "description": "45-minute guided group yoga session"
-      },
-      "fa": {
-        "title": "کلاس یوگا",
-        "description": "جلسه یوگا گروهی ۴۵ دقیقه‌ای با راهنما"
-      },
-      "ps": {
-        "title": "Yoga Class",
-        "description": "45-minute guided group yoga session"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_min",
-        "value": 45
-      },
-      {
-        "key": "group",
-        "value": true
-      }
-    ],
-    "price": 300,
-    "media": [],
-    "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 18,
-    "shop": "6a3240ce6b3faaf498a48ac4",
-    "category": "6a3241fd943292166f70e2b8",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Zumba Class",
-        "description": "High-energy 45-minute dance fitness class"
-      },
-      "fa": {
-        "title": "کلاس زومبا",
-        "description": "کلاس رقص فیتنس پرانرژی ۴۵ دقیقه‌ای"
-      },
-      "ps": {
-        "title": "Zumba Class",
-        "description": "High-energy 45-minute dance fitness class"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_min",
-        "value": 45
-      },
-      {
-        "key": "group",
-        "value": true
-      }
-    ],
-    "price": 300,
-    "media": [],
-    "city": "herat",
-    "rating": 3.0,
-    "ratingCount": 7,
-    "shop": "6a3240ce6b3faaf498a48ac4",
-    "category": "6a3241fd943292166f70e2b8",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Swimming Pool Access",
-        "description": "2-hour access to the heated indoor swimming pool"
-      },
-      "fa": {
-        "title": "دسترسی به استخر",
-        "description": "دسترسی ۲ ساعته به استخر سرپوشیده گرم"
-      },
-      "ps": {
-        "title": "Swimming Pool Access",
-        "description": "2-hour access to the heated indoor swimming pool"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_hours",
-        "value": 2
-      },
-      {
-        "key": "pool",
-        "value": true
-      }
-    ],
-    "price": 400,
-    "media": [],
-    "city": "herat",
-    "rating": 3.8,
-    "ratingCount": 106,
-    "shop": "6a3240ce6b3faaf498a48ac4",
-    "category": "6a3241fd943292166f70e2b8",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Protein Shake",
-        "description": "Post-workout chocolate protein shake"
-      },
-      "fa": {
-        "title": "شیک پروتئین",
-        "description": "شیک پروتئین شکلاتی پس از تمرین"
-      },
-      "ps": {
-        "title": "Protein Shake",
-        "description": "Post-workout chocolate protein shake"
-      }
-    },
-    "attributes": [
-      {
-        "key": "flavor",
-        "value": "chocolate"
-      },
-      {
-        "key": "weight_g",
-        "value": 30
-      }
-    ],
-    "price": 150,
-    "media": [],
-    "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 116,
-    "shop": "6a3240ce6b3faaf498a48ac4",
-    "category": "6a3241fd943292166f70e2b8",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Locker Rental",
-        "description": "Secure personal locker rental for one month"
-      },
-      "fa": {
-        "title": "اجاره کمد",
-        "description": "اجاره کمد شخصی امن برای یک ماه"
-      },
-      "ps": {
-        "title": "Locker Rental",
-        "description": "Secure personal locker rental for one month"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_days",
-        "value": 30
-      },
-      {
-        "key": "secure",
-        "value": true
-      }
-    ],
-    "price": 100,
-    "media": [],
-    "city": "herat",
-    "rating": 3.0,
-    "ratingCount": 24,
-    "shop": "6a3240ce6b3faaf498a48ac4",
-    "category": "6a3241fd943292166f70e2b8",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Pilates Class",
-        "description": "Core-strengthening 50-minute Pilates session"
-      },
-      "fa": {
-        "title": "کلاس پیلاتس",
-        "description": "جلسه پیلاتس ۵۰ دقیقه‌ای تقویت عضلات مرکزی"
-      },
-      "ps": {
-        "title": "Pilates Class",
-        "description": "Core-strengthening 50-minute Pilates session"
-      }
-    },
-    "attributes": [
-      {
-        "key": "duration_min",
-        "value": 50
-      },
-      {
-        "key": "group",
-        "value": true
-      }
-    ],
-    "price": 320,
-    "media": [],
     "city": "herat",
     "rating": 4.6,
-    "ratingCount": 43,
-    "shop": "6a3240ce6b3faaf498a48ac4",
-    "category": "6a3241fd943292166f70e2b8",
+    "ratingCount": 145,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Kickboxing Class",
-        "description": "High-intensity 60-minute kickboxing workout"
+        "title": "Lamb Curry",
+        "description": "Tender lamb cooked slowly in a rich spiced curry"
       },
       "fa": {
-        "title": "کلاس کیک‌بوکسینگ",
-        "description": "تمرین کیک‌بوکسینگ پرشدت ۶۰ دقیقه‌ای"
+        "title": "کاری گوشت بره",
+        "description": "گوشت بره نرم پخته‌شده در سس کاری پرادویه"
       },
       "ps": {
-        "title": "Kickboxing Class",
-        "description": "High-intensity 60-minute kickboxing workout"
+        "title": "Lamb Curry",
+        "description": "Tender lamb cooked slowly in a rich spiced curry"
       }
     },
     "attributes": [
-      {
-        "key": "duration_min",
-        "value": 60
-      },
-      {
-        "key": "group",
-        "value": true
-      }
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "spicy", "value": true }
     ],
-    "price": 350,
-    "media": [],
+    "price": 290,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1601050690597-df0568f70950" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1601050690597-df0568f70950" }
+    ],
     "city": "herat",
-    "rating": 3.2,
-    "ratingCount": 81,
-    "shop": "6a3240ce6b3faaf498a48ac4",
-    "category": "6a3241fd943292166f70e2b8",
+    "rating": 4.2,
+    "ratingCount": 84,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Stretching & Flexibility",
-        "description": "30-minute guided stretching for all levels"
+        "title": "Vegetable Rice",
+        "description": "Steamed rice cooked with mixed vegetables and herbs"
       },
       "fa": {
-        "title": "کشش و انعطاف",
-        "description": "کشش راهنمایی شده ۳۰ دقیقه‌ای برای همه سطوح"
+        "title": "برنج سبزیجات",
+        "description": "برنج بخارپز با سبزیجات مخلوط و سبزی‌های معطر"
       },
       "ps": {
-        "title": "Stretching & Flexibility",
-        "description": "30-minute guided stretching for all levels"
+        "title": "Vegetable Rice",
+        "description": "Steamed rice cooked with mixed vegetables and herbs"
       }
     },
     "attributes": [
-      {
-        "key": "duration_min",
-        "value": 30
-      },
-      {
-        "key": "group",
-        "value": true
-      }
+      { "key": "vegetarian", "value": true },
+      { "key": "spicy", "value": false }
     ],
-    "price": 200,
-    "media": [],
-    "city": "herat",
-    "rating": 3.2,
-    "ratingCount": 82,
-    "shop": "6a3240ce6b3faaf498a48ac4",
-    "category": "6a3241fd943292166f70e2b8",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Towel Service",
-        "description": "Fresh towel rental for each gym visit"
-      },
-      "fa": {
-        "title": "سرویس حوله",
-        "description": "اجاره حوله تازه برای هر بازدید از باشگاه"
-      },
-      "ps": {
-        "title": "Towel Service",
-        "description": "Fresh towel rental for each gym visit"
-      }
-    },
-    "attributes": [
-      {
-        "key": "service",
-        "value": true
-      }
+    "price": 150,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1512058564366-18510be2db19" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1512058564366-18510be2db19" }
     ],
-    "price": 30,
-    "media": [],
     "city": "herat",
     "rating": 3.9,
-    "ratingCount": 98,
-    "shop": "6a3240ce6b3faaf498a48ac4",
-    "category": "6a3241fd943292166f70e2b8",
+    "ratingCount": 58,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
     "translation": {
       "en": {
-        "title": "Energy Bar",
-        "description": "High-protein snack bar for pre or post workout"
+        "title": "Naan Bread",
+        "description": "Freshly baked Afghan flatbread with a soft chewy texture"
       },
       "fa": {
-        "title": "انرژی بار",
-        "description": "میان‌وعده پروتئین بالا قبل یا بعد از تمرین"
+        "title": "نان افغانی",
+        "description": "نان افغانی تازه و نرم با بافت لطیف"
       },
       "ps": {
-        "title": "Energy Bar",
-        "description": "High-protein snack bar for pre or post workout"
+        "title": "Naan Bread",
+        "description": "Freshly baked Afghan flatbread with a soft chewy texture"
       }
     },
     "attributes": [
-      {
-        "key": "calories",
-        "value": 250
-      },
-      {
-        "key": "protein_g",
-        "value": 20
-      }
+      { "key": "vegetarian", "value": true },
+      { "key": "spicy", "value": false }
     ],
-    "price": 80,
-    "media": [],
+    "price": 30,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7" }
+    ],
     "city": "herat",
-    "rating": 3.5,
-    "ratingCount": 114,
-    "shop": "6a3240ce6b3faaf498a48ac4",
-    "category": "6a3241fd943292166f70e2b8",
+    "rating": 4.6,
+    "ratingCount": 203,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Chapli Kebab",
+        "description": "Juicy minced meat kebab seasoned with herbs and spices"
+      },
+      "fa": {
+        "title": "کباب چپلی",
+        "description": "کباب گوشت چرخ‌کرده آبدار با سبزیجات و ادویه"
+      },
+      "ps": {
+        "title": "Chapli Kebab",
+        "description": "Juicy minced meat kebab seasoned with herbs and spices"
+      }
+    },
+    "attributes": [
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "spicy", "value": true }
+    ],
+    "price": 190,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1544025162-d76694265947" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1544025162-d76694265947" }
+    ],
+    "city": "herat",
+    "rating": 4.7,
+    "ratingCount": 167,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Qabili Rice with Chicken",
+        "description": "Afghan rice topped with carrots, raisins and tender chicken"
+      },
+      "fa": {
+        "title": "قابلی پلو با مرغ",
+        "description": "پلو افغانی با هویج، کشمش و مرغ نرم"
+      },
+      "ps": {
+        "title": "Qabili Rice with Chicken",
+        "description": "Afghan rice topped with carrots, raisins and tender chicken"
+      }
+    },
+    "attributes": [
+      { "key": "cuisine", "value": "Afghan" },
+      { "key": "spicy", "value": false }
+    ],
+    "price": 230,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1512058564366-18510be2db19" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1512058564366-18510be2db19" }
+    ],
+    "city": "herat",
+    "rating": 4.5,
+    "ratingCount": 139,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Daal Soup",
+        "description": "Warm lentil soup with herbs and mild spices"
+      },
+      "fa": {
+        "title": "سوپ دال",
+        "description": "سوپ گرم عدس با سبزیجات و ادویه ملایم"
+      },
+      "ps": {
+        "title": "Daal Soup",
+        "description": "Warm lentil soup with herbs and mild spices"
+      }
+    },
+    "attributes": [
+      { "key": "vegetarian", "value": true },
+      { "key": "spicy", "value": false }
+    ],
+    "price": 85,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1547592166-23ac45744acd" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1547592166-23ac45744acd" }
+    ],
+    "city": "herat",
+    "rating": 4.0,
+    "ratingCount": 71,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Mushroom Soup",
+        "description": "Creamy soup made with fresh mushrooms and herbs"
+      },
+      "fa": {
+        "title": "سوپ قارچ",
+        "description": "سوپ خامه‌ای تهیه‌شده از قارچ تازه و سبزیجات"
+      },
+      "ps": {
+        "title": "Mushroom Soup",
+        "description": "Creamy soup made with fresh mushrooms and herbs"
+      }
+    },
+    "attributes": [
+      { "key": "vegetarian", "value": true },
+      { "key": "hot", "value": true }
+    ],
+    "price": 100,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1547592180-85f173990554" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1547592180-85f173990554" }
+    ],
+    "city": "herat",
+    "rating": 4.3,
+    "ratingCount": 88,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Mango Smoothie",
+        "description": "Creamy chilled mango smoothie made with fresh fruit"
+      },
+      "fa": {
+        "title": "اسموتی انبه",
+        "description": "اسموتی سرد و خامه‌ای تهیه‌شده از انبه تازه"
+      },
+      "ps": {
+        "title": "Mango Smoothie",
+        "description": "Creamy chilled mango smoothie made with fresh fruit"
+      }
+    },
+    "attributes": [
+      { "key": "cold", "value": true },
+      { "key": "caffeine", "value": false }
+    ],
+    "price": 100,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1505252585461-04db1eb84625" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1505252585461-04db1eb84625" }
+    ],
+    "city": "herat",
+    "rating": 4.6,
+    "ratingCount": 94,
+    "shop": "6a3240ce6b3faaf498a48abc",
+    "category": "6a3241fd943292166f70e2b0",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Strawberry Smoothie",
+        "description": "Refreshing strawberry smoothie blended with fresh milk"
+      },
+      "fa": {
+        "title": "اسموتی توت‌فرنگی",
+        "description": "اسموتی تازه توت‌فرنگی با شیر تازه"
+      },
+      "ps": {
+        "title": "Strawberry Smoothie",
+        "description": "Refreshing strawberry smoothie blended with fresh milk"
+      }
+    },
+    "attributes": [
+      { "key": "cold", "value": true },
+      { "key": "vegetarian", "value": true }
+    ],
+    "price": 110,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1553530666-ba11a7da3888" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1553530666-ba11a7da3888" }
+    ],
+    "city": "herat",
+    "rating": 4.5,
+    "ratingCount": 102,
+    "shop": "6a3240ce6b3faaf498a48abc",
+    "category": "6a3241fd943292166f70e2b0",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Iced Coffee",
+        "description": "Chilled espresso served over ice with creamy milk"
+      },
+      "fa": {
+        "title": "قهوه سرد",
+        "description": "اسپرسوی سرد با یخ و شیر خامه‌ای"
+      },
+      "ps": {
+        "title": "Iced Coffee",
+        "description": "Chilled espresso served over ice with creamy milk"
+      }
+    },
+    "attributes": [
+      { "key": "cold", "value": true },
+      { "key": "caffeine", "value": true }
+    ],
+    "price": 95,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1517701604599-bb29b565090c" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1517701604599-bb29b565090c" }
+    ],
+    "city": "herat",
+    "rating": 4.4,
+    "ratingCount": 117,
+    "shop": "6a3240ce6b3faaf498a48abd",
+    "category": "6a3241fd943292166f70e2b1",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Cappuccino",
+        "description": "Espresso topped with steamed milk and thick foam"
+      },
+      "fa": {
+        "title": "کاپوچینو",
+        "description": "اسپرسو با شیر بخارپز و کف شیر غلیظ"
+      },
+      "ps": {
+        "title": "Cappuccino",
+        "description": "Espresso topped with steamed milk and thick foam"
+      }
+    },
+    "attributes": [
+      { "key": "hot", "value": true },
+      { "key": "caffeine", "value": true }
+    ],
+    "price": 90,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1572442388796-11668a67e53d" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1572442388796-11668a67e53d" }
+    ],
+    "city": "herat",
+    "rating": 4.8,
+    "ratingCount": 156,
+    "shop": "6a3240ce6b3faaf498a48abd",
+    "category": "6a3241fd943292166f70e2b1",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Vanilla Latte",
+        "description": "Smooth espresso with steamed milk and vanilla flavor"
+      },
+      "fa": {
+        "title": "لته وانیلی",
+        "description": "اسپرسوی نرم با شیر بخارپز و طعم وانیل"
+      },
+      "ps": {
+        "title": "Vanilla Latte",
+        "description": "Smooth espresso with steamed milk and vanilla flavor"
+      }
+    },
+    "attributes": [
+      { "key": "hot", "value": true },
+      { "key": "caffeine", "value": true }
+    ],
+    "price": 100,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1561882468-9110e03e0f78" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1561882468-9110e03e0f78" }
+    ],
+    "city": "herat",
+    "rating": 4.6,
+    "ratingCount": 83,
+    "shop": "6a3240ce6b3faaf498a48abd",
+    "category": "6a3241fd943292166f70e2b1",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Chocolate Cake",
+        "description": "Moist chocolate cake covered with rich chocolate cream"
+      },
+      "fa": {
+        "title": "کیک شکلاتی",
+        "description": "کیک شکلاتی نرم با روکش خامه و شکلات"
+      },
+      "ps": {
+        "title": "Chocolate Cake",
+        "description": "Moist chocolate cake covered with rich chocolate cream"
+      }
+    },
+    "attributes": [
+      { "key": "vegetarian", "value": true },
+      { "key": "sweet", "value": true }
+    ],
+    "price": 120,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1578985545062-69928b1d9587" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1578985545062-69928b1d9587" }
+    ],
+    "city": "herat",
+    "rating": 4.9,
+    "ratingCount": 174,
+    "shop": "6a3240ce6b3faaf498a48abd",
+    "category": "6a3241fd943292166f70e2b1",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Cheesecake",
+        "description": "Creamy baked cheesecake with a buttery biscuit base"
+      },
+      "fa": {
+        "title": "چیزکیک",
+        "description": "چیزکیک خامه‌ای با پایه بیسکویت کره‌ای"
+      },
+      "ps": {
+        "title": "Cheesecake",
+        "description": "Creamy baked cheesecake with a buttery biscuit base"
+      }
+    },
+    "attributes": [
+      { "key": "vegetarian", "value": true },
+      { "key": "sweet", "value": true }
+    ],
+    "price": 130,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1565958011703-44f9829ba187" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1565958011703-44f9829ba187" }
+    ],
+    "city": "herat",
+    "rating": 4.7,
+    "ratingCount": 112,
+    "shop": "6a3240ce6b3faaf498a48abd",
+    "category": "6a3241fd943292166f70e2b1",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Ice Cream",
+        "description": "Creamy vanilla ice cream served with chocolate topping"
+      },
+      "fa": {
+        "title": "بستنی",
+        "description": "بستنی خامه‌ای وانیلی با روکش شکلات"
+      },
+      "ps": {
+        "title": "Ice Cream",
+        "description": "Creamy vanilla ice cream served with chocolate topping"
+      }
+    },
+    "attributes": [
+      { "key": "vegetarian", "value": true },
+      { "key": "cold", "value": true }
+    ],
+    "price": 90,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
+    ],
+    "city": "herat",
+    "rating": 4.4,
+    "ratingCount": 99,
+    "shop": "6a3240ce6b3faaf498a48abd",
+    "category": "6a3241fd943292166f70e2b0",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Fruit Platter",
+        "description": "Fresh seasonal fruits beautifully arranged and served chilled"
+      },
+      "fa": {
+        "title": "پلیت میوه",
+        "description": "میوه‌های تازه فصلی به شکل زیبا و سرد سرو می‌شوند"
+      },
+      "ps": {
+        "title": "Fruit Platter",
+        "description": "Fresh seasonal fruits beautifully arranged and served chilled"
+      }
+    },
+    "attributes": [
+      { "key": "vegetarian", "value": true },
+      { "key": "cold", "value": true }
+    ],
+    "price": 150,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea" }
+    ],
+    "city": "herat",
+    "rating": 4.5,
+    "ratingCount": 67,
+    "shop": "6a3240ce6b3faaf498a48abe",
+    "category": "6a3241fd943292166f70e2b2",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Lemon Mint Drink",
+        "description": "Refreshing lemon and fresh mint drink served over ice"
+      },
+      "fa": {
+        "title": "لیموناد نعنا",
+        "description": "نوشیدنی تازه لیمو و نعنا با یخ"
+      },
+      "ps": {
+        "title": "Lemon Mint Drink",
+        "description": "Refreshing lemon and fresh mint drink served over ice"
+      }
+    },
+    "attributes": [
+      { "key": "cold", "value": true },
+      { "key": "caffeine", "value": false }
+    ],
+    "price": 65,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd" }
+    ],
+    "city": "herat",
+    "rating": 4.3,
+    "ratingCount": 93,
+    "shop": "6a3240ce6b3faaf498a48abe",
+    "category": "6a3241fd943292166f70e2b2",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Peach Iced Tea",
+        "description": "Chilled black tea infused with sweet peach flavor"
+      },
+      "fa": {
+        "title": "چای سرد هلو",
+        "description": "چای سیاه سرد با طعم شیرین هلو"
+      },
+      "ps": {
+        "title": "Peach Iced Tea",
+        "description": "Chilled black tea infused with sweet peach flavor"
+      }
+    },
+    "attributes": [
+      { "key": "cold", "value": true },
+      { "key": "caffeine", "value": true }
+    ],
+    "price": 75,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1556679343-c7306c1976bc" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1556679343-c7306c1976bc" }
+    ],
+    "city": "herat",
+    "rating": 4.1,
+    "ratingCount": 78,
+    "shop": "6a3240ce6b3faaf498a48abe",
+    "category": "6a3241fd943292166f70e2b2",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Grilled Vegetable Sandwich",
+        "description": "Toasted bread filled with grilled vegetables and cheese"
+      },
+      "fa": {
+        "title": "ساندویچ سبزیجات کبابی",
+        "description": "نان تست با سبزیجات کبابی و پنیر"
+      },
+      "ps": {
+        "title": "Grilled Vegetable Sandwich",
+        "description": "Toasted bread filled with grilled vegetables and cheese"
+      }
+    },
+    "attributes": [
+      { "key": "vegetarian", "value": true },
+      { "key": "hot", "value": true }
+    ],
+    "price": 160,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af" }
+    ],
+    "city": "herat",
+    "rating": 4.2,
+    "ratingCount": 69,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Chicken Sandwich",
+        "description": "Grilled chicken breast with lettuce, tomato and creamy sauce"
+      },
+      "fa": {
+        "title": "ساندویچ مرغ",
+        "description": "سینه مرغ کبابی با کاهو، گوجه و سس خامه‌ای"
+      },
+      "ps": {
+        "title": "Chicken Sandwich",
+        "description": "Grilled chicken breast with lettuce, tomato and creamy sauce"
+      }
+    },
+    "attributes": [
+      { "key": "spicy", "value": false },
+      { "key": "hot", "value": true }
+    ],
+    "price": 180,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af" }
+    ],
+    "city": "herat",
+    "rating": 4.4,
+    "ratingCount": 108,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Spicy Chicken Wings",
+        "description": "Crispy chicken wings coated in a spicy homemade sauce"
+      },
+      "fa": {
+        "title": "بال مرغ تند",
+        "description": "بال مرغ ترد با سس تند خانگی"
+      },
+      "ps": {
+        "title": "Spicy Chicken Wings",
+        "description": "Crispy chicken wings coated in a spicy homemade sauce"
+      }
+    },
+    "attributes": [
+      { "key": "spicy", "value": true },
+      { "key": "hot", "value": true }
+    ],
+    "price": 190,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1527477396000-e27163b481c2" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1527477396000-e27163b481c2" }
+    ],
+    "city": "herat",
+    "rating": 4.6,
+    "ratingCount": 121,
+    "shop": "6a3240ce6b3faaf498a48abb",
+    "category": "6a3241fd943292166f70e2af",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Rice Pudding",
+        "description": "Creamy rice pudding flavored with cardamom and cinnamon"
+      },
+      "fa": {
+        "title": "شیربرنج",
+        "description": "شیربرنج خامه‌ای با هل و دارچین"
+      },
+      "ps": {
+        "title": "Rice Pudding",
+        "description": "Creamy rice pudding flavored with cardamom and cinnamon"
+      }
+    },
+    "attributes": [
+      { "key": "sweet", "value": true },
+      { "key": "vegetarian", "value": true }
+    ],
+    "price": 75,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1551024506-0bccd828d307" }
+    ],
+    "city": "herat",
+    "rating": 4.2,
+    "ratingCount": 61,
+    "shop": "6a3240ce6b3faaf498a48abc",
+    "category": "6a3241fd943292166f70e2b0",
+    "note": null
+  },
+  {
+    "translation": {
+      "en": {
+        "title": "Date Milkshake",
+        "description": "Creamy milkshake blended with sweet dates and milk"
+      },
+      "fa": {
+        "title": "شیک خرما",
+        "description": "شیک خامه‌ای با خرمای شیرین و شیر"
+      },
+      "ps": {
+        "title": "Date Milkshake",
+        "description": "Creamy milkshake blended with sweet dates and milk"
+      }
+    },
+    "attributes": [
+      { "key": "cold", "value": true },
+      { "key": "vegetarian", "value": true }
+    ],
+    "price": 120,
+    "media": [
+      { "type": "cover", "url": "https://images.unsplash.com/photo-1577805947697-89e18249d767" },
+      { "type": "profile", "url": "https://images.unsplash.com/photo-1577805947697-89e18249d767" }
+    ],
+    "city": "herat",
+    "rating": 4.5,
+    "ratingCount": 73,
+    "shop": "6a3240ce6b3faaf498a48abc",
+    "category": "6a3241fd943292166f70e2b0",
     "note": null
   }
+
+
+
+
+
 ]

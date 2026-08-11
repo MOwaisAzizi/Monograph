@@ -109,15 +109,12 @@ export const uploadMediaFiles = (category, fieldMap = { media: 6 }) => {
   return (req, res, next) => {
     upload.fields(fieldNames)(req, res, async (err) => {
       try {
-        console.log('-------------🥗🥗🥗----------------')
-        console.log(req.body)
-        console.log('-------------🥗🥗🥗----------------')
 
         if (err) {
           return next(new AppError(err.message, 400));
         }
         req.body = normalizeFormBody(req.body);
-
+       
         const filesByField = req.files || {};
         if (!filesByField || Object.keys(filesByField).length === 0) {
           return next();

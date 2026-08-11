@@ -64,7 +64,8 @@ export default function ProductScreen({ route, navigation }) {
 
     return item.rating;
   }, [item]);
-
+console.log('--------------------------------------')
+console.log(item?.shopId)
   return (
     <ScreenShell scroll={true} contentClassName="flex-1 pb-6">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -130,21 +131,32 @@ export default function ProductScreen({ route, navigation }) {
             </View>
             <View className="mt-6 ">
               <SectionHeader title={getText(currentLanguage, 'similarItems')} />
-              {similarItems.length ? (
-                <View className="mt-2 flex-row flex-wrap justify-between gap-y-3">
-                  {similarItems.map((similarItem) => (
-                    <View key={similarItem.id} style={{ width: '48%' }}>
-                      <ItemCard item={similarItem} compact />
-                    </View>
-                  ))}
-                </View>
-              ) : (
-                <View className="rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
-                  <Text className="text-[12px] text-[#89a1a1]">
-                    Similar items will appear here.
-                  </Text>
-                </View>
-              )}
+              
+{similarItems.length ? (
+  <ScrollView
+    horizontal
+    showsHorizontalScrollIndicator={false}
+    contentContainerClassName="gap-3 pr-5"
+    className="mt-2"
+  >
+    {similarItems.map((similarItem) => (
+      <ItemCard
+        key={similarItem.id}
+        item={similarItem}
+        // onPressItem={(id) => navigation.navigate('Product', { id })}
+        onPress={() => navigation.push('Product', { id: similarItem._id })}
+        style={{ width: 150 }}
+      />
+    ))}
+  </ScrollView>
+) : (
+  <View className="rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
+    <Text className="text-[12px] text-[#89a1a1]">
+      Similar items will appear here.
+    </Text>
+  </View>
+)}
+
             </View>
           </View>
         </View>
