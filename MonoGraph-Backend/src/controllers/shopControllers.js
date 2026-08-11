@@ -5,9 +5,9 @@ import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 
 export const createShop = catchAsync(async (req, res) => {
-  console.log('----------------🌯🌮')
-  console.log(req.body)
-  console.log('----------------🌯🌮')
+  console.log("----------------🌯🌮");
+  console.log(req.body);
+  console.log("----------------🌯🌮");
   const shop = await Shop.create({ ...req.body, owner: req.user._id });
   res.status(201).json({ status: "success", data: { shop } });
 });
@@ -21,11 +21,7 @@ export const getShops = catchAsync(async (req, res) => {
 });
 
 export const getShop = catchAsync(async (req, res, next) => {
-  console.log('----------------')
-  console.log(req.params.id)
   const shop = await Shop.findById(req.params.id);
-  console.log('------------shop--🥗🥗🥗🧀-----------------');
-  console.log(shop);
   if (!shop) return next(new AppError("No shop found with that ID", 404));
   res.status(200).json({ status: "success", data: { shop } });
 });
@@ -46,17 +42,25 @@ export const getShopItems = catchAsync(async (req, res, next) => {
 });
 
 export const getSimilarShops = catchAsync(async (req, res, next) => {
-  const currentShop = await Shop.findById(req.params.id).select("category shopType");
-  if (!currentShop) return next(new AppError("No shop found with that ID", 404));
+  const currentShop = await Shop.findById(req.params.id).select(
+    "category shopType",
+  );
+  if (!currentShop)
+    return next(new AppError("No shop found with that ID", 404));
 
   const categoryFilter = currentShop.category
     ? { category: currentShop.category }
     : { shopType: currentShop.shopType };
-  const shops = await Shop.find({ _id: { $ne: currentShop._id }, ...categoryFilter })
+  const shops = await Shop.find({
+    _id: { $ne: currentShop._id },
+    ...categoryFilter,
+  })
     .sort({ rating: -1, createdAt: -1 })
     .limit(10);
 
-  res.status(200).json({ status: "success", results: shops.length, data: { shops } });
+  res
+    .status(200)
+    .json({ status: "success", results: shops.length, data: { shops } });
 });
 
 export const updateShop = catchAsync(async (req, res, next) => {

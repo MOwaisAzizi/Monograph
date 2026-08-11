@@ -101,7 +101,6 @@ export default function ShopDetailScreen({ route, navigation }) {
         <View className="px-5 pt-2">
 
 
-// In your JSX:
 <View className="h-56 rounded-[28px] bg-[#d6e3e2] overflow-hidden">
   <Image
     source={{ 
@@ -128,7 +127,7 @@ export default function ShopDetailScreen({ route, navigation }) {
               <Text className="text-[18px] font-bold text-[#353f3d]">
                 {getLocalizedValue(shop?.translation, currentLanguage) || getText(currentLanguage, 'shopFallback')}
               </Text>
-              <Text className="mt-1 text-[12px] text-[#9ab0b0]">{shop?.address || 'Herat'}</Text>
+              <Text className="mt-1 text-[12px] text-[#3f4545]">{shop?.address || 'Herat'}</Text>
             </View>
             <ActionPill
               label={isFollowing ? getText(currentLanguage, 'following') : getText(currentLanguage, 'follow')}
@@ -159,20 +158,20 @@ export default function ShopDetailScreen({ route, navigation }) {
           </View>
           {tab === 'items' ? (
             <View className="mt-5">
-              <View className="flex-row flex-wrap justify-between gap-y-3">
-              {items.map((item) => (
-                <View key={item.id} style={{ width: '48%' }}>
-                  <ItemCard
-                    item={item}
-                    compact
-                    onPress={() => navigation.navigate('Product', { id: item.id })}
-                  />
-                </View>
-              ))}
-              {!items.length && (
-                <Text className="text-[12px] text-[#89a1a1]">Shop items will appear here.</Text>
-              )}
-              </View>
+             <View className="flex-row flex-wrap justify-between">
+{items.map((item) => (
+  <View key={item.id} className="w-[48%] mb-3">
+    <ItemCard
+      item={item}
+      onPress={() => navigation.navigate('Product', { id: item.id })}
+      style={{ width: '100%' }}
+    />
+  </View>
+))}
+{!items.length && (
+  <Text className="text-[12px] text-[#89a1a1]">Shop items will appear here.</Text>
+)}
+</View>
               <View className="mt-7">
                 <SectionHeader title={getText(currentLanguage, 'similarShops')} />
                 {similarShops.length ? (

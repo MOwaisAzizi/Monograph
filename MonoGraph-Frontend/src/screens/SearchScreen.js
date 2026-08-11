@@ -73,7 +73,8 @@ export default function SearchScreen({ navigation, route }) {
       const response = await api.baseURL.get(`/search?${params.toString()}`);
 
       const data = response?.data?.data;
-
+console.log('data[------------------------]')
+console.log(data[0])
       setItems((data?.items || []).map(normalizeItem));
       setShops((data?.shops || []).map(normalizeShop));
     } catch (error) {
@@ -91,6 +92,8 @@ export default function SearchScreen({ navigation, route }) {
   }, [fetchResults]);
 
   const results = selectedTab === 'Items' ? items : shops;
+  console.log('-------🥙🥙🥙🥗-----------')
+  console.log(results[0])
   const selectedCategoryLabel = useMemo(
     () => categories.find((option) => option.key === category)?.label || category,
     [categories, category],
@@ -110,7 +113,7 @@ export default function SearchScreen({ navigation, route }) {
       {/* <ScreenHeader title={getText(currentLanguage, 'search')} onBack={() => navigation.goBack()} /> */}
 
       <View className="px-5">
-        <View className="mb-3 mt-5">
+        <View className="mb-3 mt-6">
           <CategoryFilterRow
             categories={categories}
             activeKey={category}
@@ -147,29 +150,31 @@ export default function SearchScreen({ navigation, route }) {
           />
         </View>
 
-        <View className="mt-5 flex-row flex-wrap justify-between">
-          {results.map((entry) => (
-            <View key={entry.id} className="w-[48%] mb-3">
-              {selectedTab === 'Items' ? (
-                <ItemCard
-                  item={entry}
-                  onPress={() => navigation.navigate('Product', { id: entry.id })}
-                />
-              ) : (
-                <ShopCard
-                  shop={entry}
-                  onPress={() => navigation.navigate('ShopDetail', { id: entry.id })}
-                />
-              )}
-            </View>
-          ))}
+    <View className="mt-5 flex-row flex-wrap justify-between">
+  {results.map((entry) => (
+    <View key={entry.id} className="w-[48%] mb-3">
+      {selectedTab === 'Items' ? (
+        <ItemCard
+          item={entry}
+          onPress={() => navigation.navigate('Product', { id: entry.id })}
+          style={{ width: '100%' }}
+        />
+      ) : (
+        <ShopCard
+          shop={entry}
+          onPress={() => navigation.navigate('ShopDetail', { id: entry.id })}
+          style={{ width: '100%' }}
+        />
+      )}
+    </View>
+  ))}
 
-          {showEmptyState && (
-            <View className="w-full rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
-              <Text className="text-[12px] text-[#89a1a9]">{getText(currentLanguage, 'noResults')}</Text>
-            </View>
-          )}
-        </View>
+  {showEmptyState && (
+    <View className="w-full rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
+      <Text className="text-[12px] text-[#89a1a9]">{getText(currentLanguage, 'noResults')}</Text>
+    </View>
+  )}
+</View>
       </View>
     </ScreenShell>
   );

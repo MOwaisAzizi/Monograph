@@ -54,7 +54,7 @@ export const pickTranslation = (translation, language = DEFAULT_LANGUAGE) => {
   return candidate;
 };
 
-export const formatPrice = (price) => {
+export const  formatPrice = (price) => {
   if (price === null || price === undefined || price === '') {
     return 'Price on request';
   }
@@ -78,10 +78,13 @@ export const normalizeItem = (item = {}) => {
   const translation = normalizeTranslation(item.translation);
   const shopTranslation = normalizeTranslation(item.shop?.translation);
   const categoryTranslation = normalizeTranslation(item.category?.translation);
-
-  return {
+console.log('🍿🍿🍿🌭🍟')
+console.log(item)
+console.log('item')
+console.log('🍿🍿🍿🌭🍟')
+  const data =  {
     id: item._id || item.id,
-    translation, // translation.en.title / translation.fa.title / translation.ps.title
+    translation,
     price: formatPrice(item.price),
     rating: formatRating(item.rating),
     coverImage: pickImageUri(item.media, 'cover'),
@@ -89,9 +92,14 @@ export const normalizeItem = (item = {}) => {
     shopTranslation, // shopTranslation.en.title / .fa.title / .ps.title
     shopId: item.shop?._id || item.shop?.id || item.shop,
     shopType: item.shop?.shopType || '',
+    distance: item.distance || 5,
     categoryTranslation, // categoryTranslation.en.title / .fa.title / .ps.title
     locationText: item.location?.address?.en || item.location?.address?.fa || item.city || 'Herat',
   };
+  console.log(data)
+console.log('🍿🍿🍿🌭🍟')
+
+  return data;
 };
 
 export const normalizeShop = (shop = {}) => {

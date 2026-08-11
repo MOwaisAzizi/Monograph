@@ -116,9 +116,6 @@ const parseJsonField = (value, fallback = value) => {
 };
 
 export const updateProfile = catchAsync(async (req, res, next) => {
-  console.log('----------------🥙----------')
-  console.log(req.body.media)
-  console.log('----------------🥙----------')
   const media = parseJsonField(req.body.media, {});
   console.log("--------------------");
   // console.log(req.body);
