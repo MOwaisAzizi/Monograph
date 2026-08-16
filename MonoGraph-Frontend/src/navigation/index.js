@@ -49,19 +49,13 @@ function MainTabs() {
         },
       })}
     >
+      {/* tab screan you can not go top and down, side by side */}
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen
         name="Search"
         component={SearchScreen}
         listeners={({ navigation, route }) => ({
           tabPress: (e) => {
-            // Tapping the Search tab icon just refocuses the existing
-            // screen instance — it does NOT call navigate() with fresh
-            // params, so a category filter set on a previous visit (e.g.
-            // via Home's filter row, which navigates into this same tab)
-            // would otherwise stay applied forever. If there's no active
-            // filter/search already, there's nothing to reset — skip it
-            // to avoid an unnecessary extra render/refetch on every tap.
             if (route.params?.search || route.params?.category) {
               e.preventDefault();
               navigation.navigate('Search', { search: '', category: '' });
@@ -77,7 +71,7 @@ function MainTabs() {
 }
 
 export default function RootNavigator() {
-  return (
+  return (//statck screan you go go down and up, up and down
     <Stack.Navigator>
       <Stack.Screen
         name="MainTabs"

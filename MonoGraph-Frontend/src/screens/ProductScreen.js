@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
-import api from '../services/api';
+import { useFavorite, useProduct } from '../hooks/useProduct';
 import { ActionPill, Chip, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
 import { getLocalizedValue, getText } from '../i18n';
@@ -10,53 +10,8 @@ import { getLocalizedValue, getText } from '../i18n';
 export default function ProductScreen({ route, navigation }) {
   const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const { id } = route.params;
-  const [item, setItem] = useState(null);
-  const [similarItems, setSimilarItems] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const toggleFavorite = async () => {
-    try {
-      await api.toggleFavorite(id, null);
-      setIsFavorite(!isFavorite);
-    } catch (error) {
-      console.error('Error toggling favorite:', error);
-    }
-  };
-
-  useEffect(() => {
-    let mounted = true;
-
-    const fetchData = async () => {
-      console.log('fetching---------')
-      try {
-        const [item, similarItems] = await Promise.all([
-          api.getItem(id),
-          api.similarItems(id),
-        ]);
-        if (mounted) {
-          setItem(item);
-          setSimilarItems(similarItems);
-        }
-      } catch (error) {
-        console.log('-------------------------------')
-        console.log(error)
-        if (mounted) {
-          setItem(null);
-          setSimilarItems([]);
-        }
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      mounted = false;
-    };
-  }, [id]);
-  console.log('similarItems')
-  console.log(similarItems)
-  console.log('items')
-  console.log(item)
+  const { item, similarItems } = useProduct(id);
+  const { isFavorite, toggleFavorite } = useFavorite(id);
   const itemRating = useMemo(() => {
     if (!item) {
       return '—';
@@ -64,10 +19,8 @@ export default function ProductScreen({ route, navigation }) {
 
     return item.rating;
   }, [item]);
-console.log('--------------------------------------')
-console.log(item?.shopId)
   return (
-    <ScreenShell scroll={true} contentClassName="flex-1 pb-6">
+    <ScreenShell scroll={false} contentClassName="flex-1 pb-6">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="px-5 pt-2">
           <View className="h-64 rounded-[28px] bg-[#d6e3e2]">
@@ -111,7 +64,7 @@ console.log(item?.shopId)
                   id: item?.shopId,
                   translation: item?.shopTranslation,
                   rating: item?.rating || '3',
-                  shopType: item?.shopType || 'shop',
+                  category: item?.category,
                 }}
                 onPress={() => item?.shopId && navigation.navigate('ShopDetail', { id: item.shopId })}
                 compact
@@ -143,8 +96,7 @@ console.log(item?.shopId)
       <ItemCard
         key={similarItem.id}
         item={similarItem}
-        // onPressItem={(id) => navigation.navigate('Product', { id })}
-        onPress={() => navigation.push('Product', { id: similarItem._id })}
+        onPress={() => navigation.push('Product', { id: similarItem.id })}
         style={{ width: 150 }}
       />
     ))}

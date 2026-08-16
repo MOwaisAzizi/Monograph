@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { normalizeItem } from '../utils/marketplace';
+import { normalizeItem } from '../helpers/marketplace';
 
 const isMultipartPayload = (data) => {
   if (!data || typeof data !== 'object') return false;
@@ -85,11 +85,19 @@ class Api {
     this.onTokensChanged = onTokensChanged;
     this.onUnauthorized = onUnauthorized;
   }
+  // Auth
+  login(credentials) { return this.baseURL.post('/user/login', credentials); }
+  register(credentials) { return this.baseURL.post('/user/signup', credentials); }
+  logout() { return this.baseURL.post('/user/logout'); }
+
+  // Shop
+  createShop(payload, headers) { return this.baseURL.post('/shop', payload, { headers }); }
+  updateShop(shopId, payload, headers) { return this.baseURL.patch(`/shop/${shopId}`, payload, { headers }); }
   toggleFavorite(item, shop) {
     return this.baseURL.patch('/user/toggle-favorite', { item, shop });
   }
   toggleFollowShop(shopId) {
-    return this.baseURL.post(`/shop/${shopId}/follow`);
+    return this.baseURL.post(`/shop/follow/${shopId}`);
   }
   getShopItems(shopId) {
     return this.baseURL.get(`/shop/${shopId}/items`);
@@ -100,11 +108,15 @@ class Api {
   getShopDetails(shopId) {
     return this.baseURL.get(`/shop/${shopId}`);
   }
+
+  // Item
+  createItem(payload, headers) { return this.baseURL.post('/item', payload, { headers }); }
+  updateItem(itemId, payload, headers) { return this.baseURL.patch(`/item/${itemId}`, payload, { headers }); }
   getSimilarShops(shopId) {
     return this.baseURL.get(`/shop/${shopId}/similar`).then((res) => res.data.data.shops || []);
   }
   similarItems(productId) {
-    return this.baseURL.get(`/item/similar/${productId}`).then((res) => res.data.data || []);
+    return this.baseURL.get(`/item/similar/${productId}`).then((res) => (res.data.data || []).map(normalizeItem));
   }
   getItem(productId) {
     return this.baseURL.get(`/item/${productId}`).then((res) => normalizeItem(res.data.data.item));
@@ -115,6 +127,17 @@ class Api {
   updateProfile(payload) {
     return this.baseURL.patch('/user/profile', payload).then((res) => res.data.data.user);
   }
+  getTypes() {
+    return this.baseURL.get('/category/').then((res) => res.data.data.categories || []);
+  }
+
+  getMyItems(authHeader) { return this.baseURL.get('/item/mine', { headers: authHeader }); }
+  getMyShops(authHeader) { return this.baseURL.get('/shop/mine', { headers: authHeader }); }
+  getCategories() { return this.baseURL.get('/category'); }
+  getHome(categoryId = '') { return this.baseURL.get(`/home${categoryId ? `?category=${encodeURIComponent(categoryId)}` : ''}`); }
+  search(query) { return this.baseURL.get(`/search?${query}`); }
+  updatePreferredLanguage(payload, headers) { return this.baseURL.patch('/user/profile', payload, { headers }); }
+  saveShopReview(shopId, payload) { return this.baseURL.post(`/review/shops/${shopId}`, payload); }
 }
 
 export default new Api();

@@ -1,21 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Alert, Pressable, ScrollView, Text, Image, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 import api from '../services/api';
-import { capitalize, normalizeItem, normalizeShop } from '../utils/marketplace';
+import { useShopDetail } from '../hooks/useShopDetail';
 import { ActionPill, Chip, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
 import { getLocalizedValue, getText } from '../i18n';
+import { timeAgo } from '../helpers/shopDetailScreenHelpers';
 
-const timeAgo = (date) => {
-  const days = Math.floor((Date.now() - new Date(date)) / 86400000);
-  return days < 1
-    ? 'today'
-    : days < 30
-      ? `${days} days ago`
-      : `${Math.floor(days / 30)} months ago`;
-};
 const Stars = ({ rating, size = 14 }) => (
   <Text style={{ fontSize: size, color: '#d99c17' }}>
     {'★'.repeat(Math.round(rating))}
@@ -27,11 +20,7 @@ export default function ShopDetailScreen({ route, navigation }) {
   const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const { id } = route.params;
   const user = useSelector((state) => state.auth.user);
-  const [shop, setShop] = useState(null);
-  const [items, setItems] = useState([]);
-  const [similarShops, setSimilarShops] = useState([]);
-  const [reviews, setReviews] = useState([]);
-  const [summary, setSummary] = useState({ average: 0, total: 0, distribution: {} });
+  const { shop, items, similarShops, reviews, summary, loadReviews } = useShopDetail(id);
   const [tab, setTab] = useState('items');
   const [isFavorite, setIsFavorite] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -39,30 +28,6 @@ export default function ShopDetailScreen({ route, navigation }) {
 
   const [comment, setComment] = useState('');
   const [showForm, setShowForm] = useState(false);
-  const loadReviews = useCallback(async () => {
-    const response = await api.getShopReviews(id);
-    setReviews(response.data.data.reviews || []);
-    setSummary(response.data.data.summary || { average: 0, total: 0, distribution: {} });
-  }, [id]);
-  console.log('shop');
-  console.log(shop);
-  useEffect(() => {
-    let mounted = true;
-    Promise.all([api.getShopDetails(id), api.getShopItems(id), api.getSimilarShops(id), loadReviews()])
-      .then(([shopResponse, itemsResponse, similarShopResponse]) => {
-        if (!mounted) return;
-        console.log('--------------------')
-        console.log(shopResponse.data)
-        console.log('--------------------')
-        setShop(normalizeShop(shopResponse.data.data?.shop || {}));
-        setItems((itemsResponse.data.data.items || []).map(normalizeItem));
-        setSimilarShops(similarShopResponse.map(normalizeShop));
-      })
-      .catch(() => mounted && Alert.alert('Unable to load shop', 'Please try again.'));
-    return () => {
-      mounted = false;
-    };
-  }, [id, loadReviews]);
   const submitReview = async () => {
     if (!user) return navigation.navigate('Login');
     if (!comment.trim()) return Alert.alert('Write a review', 'Please add a short comment.');
@@ -92,36 +57,33 @@ export default function ShopDetailScreen({ route, navigation }) {
     }
   };
   const maxCount = Math.max(...Object.values(summary.distribution || {}), 1);
-  console.log('----------🥞----------------------------');
-  console.log(shop);
-  console.log('----------🍙----------------------------');
   return (
-    <ScreenShell scroll contentClassName="flex-1 pb-6">
+    <ScreenShell scroll={false} contentClassName="flex-1 pb-6">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="px-5 pt-2">
 
 
-<View className="h-56 rounded-[28px] bg-[#d6e3e2] overflow-hidden">
-  <Image
-    source={{ 
-      uri: shop?.coverImage || 'https://via.placeholder.com/400x224/d6e3e2/9ab0b0?text=No+Cover'
-    }}
-    className="h-full w-full"
-    style={{ resizeMode: 'cover' }}
-  />
-  <Pressable
-    onPress={() => navigation.goBack()}
-    className="absolute left-4 top-4 h-9 w-9 items-center justify-center rounded-full bg-white/60"
-  >
-    <Ionicons name="chevron-back" size={16} color="#2a3535" />
-  </Pressable>
-  <Pressable
-    onPress={toggleFavorite}
-    className="absolute right-4 top-4 h-9 w-9 items-center justify-center rounded-full bg-white/60"
-  >
-    <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={16} color="#2a3535" />
-  </Pressable>
-</View>
+          <View className="h-56 rounded-[28px] bg-[#d6e3e2] overflow-hidden">
+            <Image
+              source={{
+                uri: shop?.coverImage || 'https://via.placeholder.com/400x224/d6e3e2/9ab0b0?text=No+Cover'
+              }}
+              className="h-full w-full"
+              style={{ resizeMode: 'cover' }}
+            />
+            <Pressable
+              onPress={() => navigation.goBack()}
+              className="absolute left-4 top-4 h-9 w-9 items-center justify-center rounded-full bg-white/60"
+            >
+              <Ionicons name="chevron-back" size={16} color="#2a3535" />
+            </Pressable>
+            <Pressable
+              onPress={toggleFavorite}
+              className="absolute right-4 top-4 h-9 w-9 items-center justify-center rounded-full bg-white/60"
+            >
+              <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={16} color="#2a3535" />
+            </Pressable>
+          </View>
           <View className="mt-5 flex-row items-start justify-between">
             <View>
               <Text className="text-[18px] font-bold text-[#353f3d]">
@@ -137,7 +99,7 @@ export default function ShopDetailScreen({ route, navigation }) {
           </View>
           <View className="mt-3 flex-row flex-wrap gap-2">
             <Chip label={`★ ${(Number(shop?.rating) || summary.average || 0).toFixed(1)}`} active />
-            <Chip label={capitalize(shop?.shopType || 'shop')} />
+            <Chip label={getLocalizedValue(shop?.categoryTranslation, currentLanguage) || getText(currentLanguage, 'categoryFallback')} />
           </View>
           <View className="mt-4">
             <SectionHeader title={getText(currentLanguage, 'about')} />
@@ -158,20 +120,20 @@ export default function ShopDetailScreen({ route, navigation }) {
           </View>
           {tab === 'items' ? (
             <View className="mt-5">
-             <View className="flex-row flex-wrap justify-between">
-{items.map((item) => (
-  <View key={item.id} className="w-[48%] mb-3">
-    <ItemCard
-      item={item}
-      onPress={() => navigation.navigate('Product', { id: item.id })}
-      style={{ width: '100%' }}
-    />
-  </View>
-))}
-{!items.length && (
-  <Text className="text-[12px] text-[#89a1a1]">Shop items will appear here.</Text>
-)}
-</View>
+              <View className="flex-row flex-wrap justify-between">
+                {items.map((item) => (
+                  <View key={item.id} className="w-[48%] mb-3">
+                    <ItemCard
+                      item={item}
+                      onPress={() => navigation.navigate('Product', { id: item.id })}
+                      style={{ width: '100%' }}
+                    />
+                  </View>
+                ))}
+                {!items.length && (
+                  <Text className="text-[12px] text-[#89a1a1]">Shop items will appear here.</Text>
+                )}
+              </View>
               <View className="mt-7">
                 <SectionHeader title={getText(currentLanguage, 'similarShops')} />
                 {similarShops.length ? (

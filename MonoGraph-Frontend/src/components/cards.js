@@ -3,23 +3,11 @@ import { Image, Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 import { getLocalizedValue } from '../i18n';
-import { formatPrice } from '../utils/marketplace';
 
 const fallbackImage =
   'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=900&q=80';
 
 const CARD_WIDTH = 150;
-
-function ConditionBadge({ label }) {
-  if (!label) {
-    return null;
-  }
-  return (
-    <View className="absolute left-2 top-2 rounded-full bg-white/90 px-2 py-1">
-      <Text className="text-[9px] font-bold uppercase tracking-wide text-[#223233]">{label}</Text>
-    </View>
-  );
-}
 
 function FavoriteButton({ active, onPress }) {
   return (
@@ -41,7 +29,6 @@ export function ItemCard({ item, onPress, onToggleFavorite, style, compact = fal
   const width = style?.width ?? (compact ? 120 : CARD_WIDTH);
   const language = useSelector((state) => state.language.currentLanguage);
   const translatedTitle = getLocalizedValue(item?.translation, language);
-console.log(item.coverImage)
   return (
     <Pressable
       onPress={onPress}
@@ -50,12 +37,11 @@ console.log(item.coverImage)
     >
       <View className="relative">
         <Image
-  source={{ uri: item.coverImage || item.image || fallbackImage }}
-  resizeMode="cover"
-  style={{ width, aspectRatio: 1 }}
-  className="rounded-xl bg-[#dbe7e6]"
-/>
-        <ConditionBadge label={item.condition} />
+          source={{ uri: item.coverImage || item.image || fallbackImage }}
+          resizeMode="cover"
+          style={{ width, aspectRatio: 1 }}
+          className="rounded-xl bg-[#dbe7e6]"
+        />
         <FavoriteButton active={item.isFavorite} onPress={onToggleFavorite} />
       </View>
 
@@ -64,13 +50,13 @@ console.log(item.coverImage)
           {translatedTitle || 'Item'}
         </Text>
 
-       <View className="mt-1.5 flex-row items-center justify-between">
-  <Text className="text-[12px] font-bold text-[#223233]">{formatPrice(item.price) || 'no price'}</Text>
-  <View className="flex-row items-center gap-1">
-    <Ionicons name="star" size={10} color="#f1b33f" />
-    <Text className="text-[10px] font-semibold text-[#4e6667]">{item.rating}</Text>
-  </View>
-</View>
+        <View className="mt-1.5 flex-row items-center justify-between">
+          <Text className="text-[12px] font-bold text-[#223233]">{item.price || 'Price on request'}</Text>
+          <View className="flex-row items-center gap-1">
+            <Ionicons name="star" size={10} color="#f1b33f" />
+            <Text className="text-[10px] font-semibold text-[#4e6667]">{item.rating}</Text>
+          </View>
+        </View>
 
 
         {item.distance ? (

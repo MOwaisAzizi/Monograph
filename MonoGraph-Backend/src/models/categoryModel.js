@@ -5,6 +5,7 @@ const CategorySchema = new Schema(
   {
     translation: singleField,
     icon: { type: String, default: null },
+    scope: { type: String, default: "shop" },
   },
   { timestamps: true },
 );

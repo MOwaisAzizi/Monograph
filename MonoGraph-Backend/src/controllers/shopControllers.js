@@ -42,15 +42,11 @@ export const getShopItems = catchAsync(async (req, res, next) => {
 });
 
 export const getSimilarShops = catchAsync(async (req, res, next) => {
-  const currentShop = await Shop.findById(req.params.id).select(
-    "category shopType",
-  );
+  const currentShop = await Shop.findById(req.params.id).select("category");
   if (!currentShop)
     return next(new AppError("No shop found with that ID", 404));
 
-  const categoryFilter = currentShop.category
-    ? { category: currentShop.category }
-    : { shopType: currentShop.shopType };
+  const categoryFilter = { category: currentShop.category };
   const shops = await Shop.find({
     _id: { $ne: currentShop._id },
     ...categoryFilter,

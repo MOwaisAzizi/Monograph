@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import api from '../services/api';
-import { ScreenShell, TextField } from '../components/ui';
+import { ScreenShell, SubmitButton, TextField } from '../components/ui';
 import { setUser } from '../store/slices/authSlice';
 import { saveSession } from '../services/session';
 import { getText } from '../i18n';
@@ -25,7 +25,7 @@ export default function RegisterScreen({ navigation }) {
     try {
       setLoading(true);
 
-      const res = await api.baseURL.post('/user/signup', {
+      const res = await api.register({
         fullname: fullname.trim(),
         email: email.trim(),
         password,
@@ -73,15 +73,12 @@ export default function RegisterScreen({ navigation }) {
         />
       </View>
 
-      <Pressable
+      <SubmitButton
+        label={getText(language, 'register')}
+        loadingLabel={getText(language, 'creatingAccount')}
         onPress={onRegister}
-        disabled={loading}
-        className={`mt-4 rounded-2xl px-4 py-3 ${loading ? 'bg-[#96afb0]' : 'bg-[#0f6b75]'}`}
-      >
-        <Text className="text-center text-[13px] font-semibold text-white">
-          {loading ? getText(language, 'creatingAccount') : getText(language, 'register')}
-        </Text>
-      </Pressable>
+        loading={loading}
+      />
 
       <Pressable onPress={() => navigation.navigate('Login')} className="mt-4">
         <Text className="text-center text-[12px] text-[#c2d1d0]">

@@ -1,9 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Image, Modal, Pressable, ScrollView, Text, TextInput, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { MediaTypeOptions } from 'expo-image-picker';
 import api from '../services/api';
-import { normalizeUser, normalizeItem, normalizeShop } from '../utils/marketplace';
+import { normalizeUser, normalizeItem, normalizeShop } from '../helpers/marketplace';
 import { ActionPill, ScreenShell, SectionHeader, StatTile } from '../components/ui';
 import { ItemCard, ShopCard, TextRow } from '../components/cards';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,13 +38,11 @@ export default function ProfileScreen({ navigation }) {
     if (!permission.granted) {
       return;
     }
-    console.log('---------permited')
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: MediaTypeOptions.Images,
+      mediaTypes: ['images'],
       allowsEditing: true,
       quality: 0.9,
     });
-    console.log(result)
     if (result.canceled || !result.assets?.length) {
       return;
     }
@@ -103,7 +100,6 @@ export default function ProfileScreen({ navigation }) {
         }
       }
 
-      console.log('mediaFile:', mediaFile);
 
       const updatedUser = await api.updateProfile(payload);
 
@@ -129,8 +125,7 @@ export default function ProfileScreen({ navigation }) {
       }).catch(() => { });
 
       setEditing(false);
-    } catch (error) {
-      console.error('Unable to save profile:', error);
+    } catch {
     } finally {
       setSaving(false);
     }
@@ -158,8 +153,7 @@ export default function ProfileScreen({ navigation }) {
           dispatch(setLanguage(normalizedUser.preferredLanguage));
         }
       })
-      .catch((error) => {
-        console.error('Error fetching profile:', error);
+      .catch(() => {
         if (mounted) setProfile(null);
       });
 
@@ -175,8 +169,7 @@ export default function ProfileScreen({ navigation }) {
         ...current,
         favoriteItems: current.favoriteItems.filter((i) => i.id !== itemId),
       }));
-    } catch (error) {
-      console.error('Error toggling favorite item:', error);
+    } catch {
     }
   };
 
@@ -199,26 +192,24 @@ export default function ProfileScreen({ navigation }) {
     }),
     [currentLanguage],
   );
-console.log(profile)
-console.log(profile)
- return (
-  <ScreenShell contentClassName="px-5 pb-6 pt-4">
-    <View className="items-center">
-      <Pressable onPress={user ? startEditing : undefined} className="h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-[#dbe7e6]">
-        {profile?.avatar ? <Image source={{ uri: profile.avatar }} className="h-full w-full" /> : <Text className="text-[20px] font-bold text-[#365354]">{profile?.fullname?.slice(0, 1)?.toUpperCase() || 'U'}</Text>}
-      </Pressable>
+  return (
+    <ScreenShell contentClassName="px-5 pb-6 pt-4">
+      <View className="items-center">
+        <Pressable onPress={user ? startEditing : undefined} className="h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-[#dbe7e6]">
+          {profile?.avatar ? <Image source={{ uri: profile.avatar }} className="h-full w-full" /> : <Text className="text-[20px] font-bold text-[#365354]">{profile?.fullname?.slice(0, 1)?.toUpperCase() || 'U'}</Text>}
+        </Pressable>
 
-      {user ? (
-        <Text className="mt-4 text-[18px] font-bold text-[#394240]">
-          {profile?.fullname}
-        </Text>
-      ) : (
-        <View className="mt-4">
-          <ActionPill label={t.login} onPress={() => navigation.navigate('Login')} />
-        </View>
-      )}
+        {user ? (
+          <Text className="mt-4 text-[18px] font-bold text-[#394240]">
+            {profile?.fullname}
+          </Text>
+        ) : (
+          <View className="mt-4">
+            <ActionPill label={t.login} onPress={() => navigation.navigate('Login')} />
+          </View>
+        )}
 
-      {/* <Text className="mt-1 text-[11px] text-[#91a7a6]">
+        {/* <Text className="mt-1 text-[11px] text-[#91a7a6]">
         {profile?.email || t.connectedAccount}
       </Text>
 
@@ -228,131 +219,129 @@ console.log(profile)
         </View>
       ) : null} */}
 
-    </View>
+      </View>
 
-    <View className="mt-6 flex-row gap-3">
-      <StatTile value="18" label="Listed" />
-      <StatTile value="27" label="Sold" />
-      <StatTile value="4.9" label="Rating" />
-    </View>
+      <View className="mt-6 flex-row gap-3">
+        <StatTile value="18" label="Listed" />
+        <StatTile value="27" label="Sold" />
+        <StatTile value="4.9" label="Rating" />
+      </View>
 
-    <View className="mt-7">
-      <SectionHeader title={t.favoriteItems} actionLabel="See all" />
-      {profile?.favoriteItems?.length ? (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="mt-2"
-          contentContainerClassName="gap-3"
-        >
-          {profile.favoriteItems.map((item) => (
-            <ItemCard
-              key={item.id}
-              item={item}
-              compact
-              onPress={() => navigation.navigate('Product', { id: item.id })}
-              onToggleFavorite={() => handleToggleFavoriteItem(item.id)}
-            />
-          ))}
-        </ScrollView>
-      ) : (
-        <View className="mt-2 rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
-          <Text className="text-[12px] text-[#89a1a1]">{t.noFavoriteItems}</Text>
-        </View>
-      )}
-    </View>
+      <View className="mt-7">
+        <SectionHeader title={t.favoriteItems} actionLabel="See all" />
+        {profile?.favoriteItems?.length ? (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            className="mt-2"
+            contentContainerClassName="gap-3"
+          >
+            {profile.favoriteItems.map((item) => (
+              <ItemCard
+                key={item.id}
+                item={item}
+                compact
+                onPress={() => navigation.navigate('Product', { id: item.id })}
+                onToggleFavorite={() => handleToggleFavoriteItem(item.id)}
+              />
+            ))}
+          </ScrollView>
+        ) : (
+          <View className="mt-2 rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
+            <Text className="text-[12px] text-[#89a1a1]">{t.noFavoriteItems}</Text>
+          </View>
+        )}
+      </View>
 
-    <View className="mt-5">
-      <SectionHeader title={t.favoriteShops} />
-      {profile?.favoriteShops?.length ? (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="mt-2"
-          contentContainerClassName="gap-4"
-        >
-          {profile.favoriteShops.map((shop) => (
-            <ShopCard
-              key={shop.id}
-              shop={shop}
-              compact
-              onPress={() => navigation.navigate('ShopDetail', { id: shop.id })}
-            />
-          ))}
-        </ScrollView>
-      ) : (
-        <View className="mt-2 rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
-          <Text className="text-[12px] text-[#89a1a1]">{t.noFavoriteShops}</Text>
-        </View>
-      )}
-    </View>
+      <View className="mt-5">
+        <SectionHeader title={t.favoriteShops} />
+        {profile?.favoriteShops?.length ? (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            className="mt-2"
+            contentContainerClassName="gap-4"
+          >
+            {profile.favoriteShops.map((shop) => (
+              <ShopCard
+                key={shop.id}
+                shop={shop}
+                compact
+                onPress={() => navigation.navigate('ShopDetail', { id: shop.id })}
+              />
+            ))}
+          </ScrollView>
+        ) : (
+          <View className="mt-2 rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
+            <Text className="text-[12px] text-[#89a1a1]">{t.noFavoriteShops}</Text>
+          </View>
+        )}
+      </View>
 
-    <View className="mt-5">
-      <View className="rounded-[24px] border border-white/10 bg-white/5 px-4 py-2">
-        <TextRow label={t.settings} value="" />
-        <TextRow label={t.myListings} value="" />
-        <TextRow label={t.ordersMessages} value="" />
-        <TextRow label={t.addListing} onPress={() => navigation.navigate('AddListing')} />
-      {user ? (
+      <View className="mt-5">
+        <View className="rounded-[24px] border border-white/10 bg-white/5 px-4 py-2">
+          <TextRow label={t.settings} value="" />
+          <TextRow label={t.myListings} value="" />
+          <TextRow label={t.ordersMessages} value="" />
+          <TextRow label={t.addListing} onPress={() => navigation.navigate('AddListing')} />
+          {user ? (
             <TextRow label={t.logout} onPress={logoutuser} />
-      ) : null} 
+          ) : null}
 
-        <Pressable onPress={() => setShowLanguageMenu(true)} className="flex-row items-center justify-between rounded-2xl border-b border-[#d9e3e2] py-3">
-          <Text className="text-[12px] text-[#213233]">{t.language}</Text>
-          <Text className="text-[12px] font-semibold text-[#7a8f8f]">{LANGUAGE_NAMES[currentLanguage]}</Text>
-        </Pressable>
+          <Pressable onPress={() => setShowLanguageMenu(true)} className="flex-row items-center justify-between rounded-2xl border-b border-[#d9e3e2] py-3">
+            <Text className="text-[12px] text-[#213233]">{t.language}</Text>
+            <Text className="text-[12px] font-semibold text-[#7a8f8f]">{LANGUAGE_NAMES[currentLanguage]}</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
 
-    <Modal transparent visible={showLanguageMenu} animationType="fade" onRequestClose={() => setShowLanguageMenu(false)}>
-      <Pressable className="flex-1 justify-end bg-black/40" onPress={() => setShowLanguageMenu(false)}>
-        <View className="rounded-t-[28px] bg-[#eef5f5] p-4">
-          <Text className="mb-3 text-[15px] font-bold text-[#233334]">{t.language}</Text>
-          {LANGUAGE_OPTIONS.map((option) => (
-            <Pressable
-              key={option.value}
-              onPress={async () => {
-                dispatch(setLanguage(option.value));
-                if (accessToken) {
-                  try {
-                    await api.baseURL.patch(
-                      '/user/profile',
-                      { preferredLanguage: option.value },
-                      { headers: { Authorization: `Bearer ${accessToken}` } },
-                    );
-                  } catch (error) {
-                    console.error('Unable to save preferred language:', error);
+      <Modal transparent visible={showLanguageMenu} animationType="fade" onRequestClose={() => setShowLanguageMenu(false)}>
+        <Pressable className="flex-1 justify-end bg-black/40" onPress={() => setShowLanguageMenu(false)}>
+          <View className="rounded-t-[28px] bg-[#eef5f5] p-4">
+            <Text className="mb-3 text-[15px] font-bold text-[#233334]">{t.language}</Text>
+            {LANGUAGE_OPTIONS.map((option) => (
+              <Pressable
+                key={option.value}
+                onPress={async () => {
+                  dispatch(setLanguage(option.value));
+                  if (accessToken) {
+                    try {
+                      await api.baseURL.patch(
+                        '/user/profile',
+                        { preferredLanguage: option.value },
+                        { headers: { Authorization: `Bearer ${accessToken}` } },
+                      );
+                    } catch {}
                   }
-                }
-                setShowLanguageMenu(false);
-              }}
-              className={`mb-2 rounded-2xl px-4 py-3 ${currentLanguage === option.value ? 'bg-[#0f6b75]' : 'bg-white'}`}
-            >
-              <Text
-                className={`text-[13px] font-semibold ${currentLanguage === option.value ? 'text-white' : 'text-[#314243]'}`}
+                  setShowLanguageMenu(false);
+                }}
+                className={`mb-2 rounded-2xl px-4 py-3 ${currentLanguage === option.value ? 'bg-[#0f6b75]' : 'bg-white'}`}
               >
-                {option.label}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-      </Pressable>
-    </Modal>
+                <Text
+                  className={`text-[13px] font-semibold ${currentLanguage === option.value ? 'text-white' : 'text-[#314243]'}`}
+                >
+                  {option.label}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </Pressable>
+      </Modal>
 
-    <Modal transparent visible={editing} animationType="slide" onRequestClose={() => setEditing(false)}>
-      <View className="flex-1 justify-end bg-black/40">
-        <View className="rounded-t-[28px] bg-[#eef5f5] p-5">
-          <Text className="text-[18px] font-bold text-[#233334]">Edit your profile</Text>
-          <Pressable onPress={handleSelectAvatar} className="mt-4 self-start rounded-xl bg-[#dbe7e6] px-4 py-3"><Text className="font-semibold text-[#314243]">{mediaFile ? 'Image selected' : 'Choose profile image'}</Text></Pressable>
-          {[['fullname', 'fullname'], ['phone', 'Phone number']].map(([key, label]) => (
-            <View key={key} className="mt-3 rounded-xl border border-[#d9e5e4] bg-white px-3 py-2">
-              <TextInput value={form[key]} onChangeText={(value) => setForm((current) => ({ ...current, [key]: value }))} placeholder={label} placeholderTextColor="#8ba0a0" className="p-1 text-[#213233]" />
-            </View>
-          ))}
-          <View className="mt-5 flex-row gap-3"><Pressable onPress={() => setEditing(false)} className="flex-1 rounded-xl border border-[#9aabab] py-3"><Text className="text-center font-semibold text-[#314243]">Cancel</Text></Pressable><Pressable onPress={saveProfile} disabled={saving} className="flex-1 rounded-xl bg-[#0f6b75] py-3"><Text className="text-center font-semibold text-white">{saving ? 'Saving...' : 'Save changes'}</Text></Pressable></View>
+      <Modal transparent visible={editing} animationType="slide" onRequestClose={() => setEditing(false)}>
+        <View className="flex-1 justify-end bg-black/40">
+          <View className="rounded-t-[28px] bg-[#eef5f5] p-5">
+            <Text className="text-[18px] font-bold text-[#233334]">Edit your profile</Text>
+            <Pressable onPress={handleSelectAvatar} className="mt-4 self-start rounded-xl bg-[#dbe7e6] px-4 py-3"><Text className="font-semibold text-[#314243]">{mediaFile ? 'Image selected' : 'Choose profile image'}</Text></Pressable>
+            {[['fullname', 'fullname'], ['phone', 'Phone number']].map(([key, label]) => (
+              <View key={key} className="mt-3 rounded-xl border border-[#d9e5e4] bg-white px-3 py-2">
+                <TextInput value={form[key]} onChangeText={(value) => setForm((current) => ({ ...current, [key]: value }))} placeholder={label} placeholderTextColor="#8ba0a0" className="p-1 text-[#213233]" />
+              </View>
+            ))}
+            <View className="mt-5 flex-row gap-3"><Pressable onPress={() => setEditing(false)} className="flex-1 rounded-xl border border-[#9aabab] py-3"><Text className="text-center font-semibold text-[#314243]">Cancel</Text></Pressable><Pressable onPress={saveProfile} disabled={saving} className="flex-1 rounded-xl bg-[#0f6b75] py-3"><Text className="text-center font-semibold text-white">{saving ? 'Saving...' : 'Save changes'}</Text></Pressable></View>
+          </View>
         </View>
-      </View>
-    </Modal>
-  </ScreenShell>
-);
+      </Modal>
+    </ScreenShell>
+  );
 }
