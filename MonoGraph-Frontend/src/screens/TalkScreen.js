@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import api from '../services/api';
-import { normalizeShop } from '../utils/marketplace';
-import { Chip, ScreenHeader, ScreenShell } from '../components/ui';
-import { ShopCard } from '../components/cards';
+import React from 'react';
+import { Text } from 'react-native';
+import { ScreenShell } from '../components/ui';
 
 export default function ShopScreen({ navigation }) {
   return (

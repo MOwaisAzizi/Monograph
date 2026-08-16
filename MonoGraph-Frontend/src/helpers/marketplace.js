@@ -37,8 +37,6 @@ export const normalizeTranslation = (translation) => {
   }, empty());
 };
 
-// Convenience for spots that still just want "the best available title/description"
-// in a given language (e.g. list sorting, search matching) without touching translation.*
 export const pickTranslation = (translation, language = DEFAULT_LANGUAGE) => {
   const normalized = normalizeTranslation(translation);
 
@@ -59,7 +57,7 @@ export const  formatPrice = (price) => {
     return 'Price on request';
   }
 
-  return `Af ${Number(price).toLocaleString()}`;
+  return `Af ${price}`;
 };
 
 export const formatRating = (rating = 0) => Number(rating).toFixed(1);
@@ -67,8 +65,6 @@ export const formatRating = (rating = 0) => Number(rating).toFixed(1);
 export const pickImageUri = (media = [], type = 'cover') => {
   if (!media) return null;
 
-  // Shops/items store an array, while a user stores one media object.  Always
-  // return the URL React Native's <Image> expects, never the media object.
   const entries = Array.isArray(media) ? media : [media];
   const source = entries.find((image) => image?.type === type) || entries[0];
   return typeof source === 'string' ? source : source?.url || null;
@@ -78,10 +74,7 @@ export const normalizeItem = (item = {}) => {
   const translation = normalizeTranslation(item.translation);
   const shopTranslation = normalizeTranslation(item.shop?.translation);
   const categoryTranslation = normalizeTranslation(item.category?.translation);
-console.log('🍿🍿🍿🌭🍟')
-console.log(item)
-console.log('item')
-console.log('🍿🍿🍿🌭🍟')
+
   const data =  {
     id: item._id || item.id,
     translation,
@@ -89,15 +82,12 @@ console.log('🍿🍿🍿🌭🍟')
     rating: formatRating(item.rating),
     coverImage: pickImageUri(item.media, 'cover'),
     city: item.city || item.location?.address?.en || 'Herat',
-    shopTranslation, // shopTranslation.en.title / .fa.title / .ps.title
+    shopTranslation,
     shopId: item.shop?._id || item.shop?.id || item.shop,
-    shopType: item.shop?.shopType || '',
     distance: item.distance || 5,
-    categoryTranslation, // categoryTranslation.en.title / .fa.title / .ps.title
+    categoryTranslation,
     locationText: item.location?.address?.en || item.location?.address?.fa || item.city || 'Herat',
   };
-  console.log(data)
-console.log('🍿🍿🍿🌭🍟')
 
   return data;
 };
@@ -106,13 +96,14 @@ export const normalizeShop = (shop = {}) => {
   const translation = normalizeTranslation(shop.translation);
 
   return {
-    id: shop._id || shop.id,
-    translation, // translation.en.title / translation.fa.title / translation.ps.title
+    id: shop._id,
+    translation,
     rating: shop.rating,
     profile: pickImageUri(shop.media, 'profile'),
     coverImage: pickImageUri(shop.media, 'cover'),
     city: shop.city || 'Herat',
-    shopType: shop.shopType,
+    category: shop.category,
+    categoryTranslation: normalizeTranslation(shop.category?.translation),
     address: shop.location?.address?.en || shop.location?.address?.fa || shop.city || 'Herat',
   };
 };
