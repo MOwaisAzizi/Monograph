@@ -21,7 +21,7 @@ export const getShops = catchAsync(async (req, res) => {
 });
 
 export const getShop = catchAsync(async (req, res, next) => {
-  const shop = await Shop.findById(req.params.id);
+  const shop = await Shop.findById(req.params.id).populate("category", "translation");
   if (!shop) return next(new AppError("No shop found with that ID", 404));
   res.status(200).json({ status: "success", data: { shop } });
 });

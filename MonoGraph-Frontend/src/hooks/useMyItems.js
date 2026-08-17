@@ -15,7 +15,8 @@ export function useMyItems(authHeader) {
     let cancelled = false;
 
     setLoading(true);
-    api.getMyItems(authHeader)
+    api
+      .getMyItems(authHeader)
       .then((response) => {
         const list = response?.data?.data?.items || response?.data?.data?.Items || [];
         if (!cancelled) setItems(Array.isArray(list) ? list : []);
@@ -28,7 +29,9 @@ export function useMyItems(authHeader) {
         if (!cancelled) setLoading(false);
       });
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [authHeader?.Authorization]);
 
   return { items, loading, error };

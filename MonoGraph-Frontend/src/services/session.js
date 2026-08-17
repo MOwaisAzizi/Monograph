@@ -15,9 +15,7 @@ const loadWebSession = () => {
   try {
     const session = JSON.parse(value);
 
-    return session?.accessToken && session?.refreshToken
-      ? session
-      : null;
+    return session?.accessToken && session?.refreshToken ? session : null;
   } catch {
     localStorage.removeItem(SESSION_KEY);
     return null;
@@ -28,11 +26,7 @@ const clearWebSession = () => {
   localStorage.removeItem(SESSION_KEY);
 };
 
-export const saveSession = async ({
-  user,
-  accessToken,
-  refreshToken,
-}) => {
+export const saveSession = async ({ user, accessToken, refreshToken }) => {
   const session = {
     user,
     accessToken,
@@ -44,10 +38,7 @@ export const saveSession = async ({
     return;
   }
 
-  await SecureStore.setItemAsync(
-    SESSION_KEY,
-    JSON.stringify(session),
-  );
+  await SecureStore.setItemAsync(SESSION_KEY, JSON.stringify(session));
 };
 
 export const loadSession = async () => {
@@ -62,9 +53,7 @@ export const loadSession = async () => {
   try {
     const session = JSON.parse(value);
 
-    return session?.accessToken && session?.refreshToken
-      ? session
-      : null;
+    return session?.accessToken && session?.refreshToken ? session : null;
   } catch {
     await SecureStore.deleteItemAsync(SESSION_KEY);
     return null;

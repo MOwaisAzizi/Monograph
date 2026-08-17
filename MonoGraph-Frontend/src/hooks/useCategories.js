@@ -10,7 +10,8 @@ export function useCategories(currentLanguage) {
     let cancelled = false;
 
     setLoading(true);
-    api.getCategories()
+    api
+      .getCategories()
       .then((response) => {
         const list = response?.data?.data?.categories || [];
         if (!cancelled) setCategories(Array.isArray(list) ? list : []);
@@ -23,7 +24,9 @@ export function useCategories(currentLanguage) {
         if (!cancelled) setLoading(false);
       });
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [currentLanguage]);
 
   return { categories, loading, error };

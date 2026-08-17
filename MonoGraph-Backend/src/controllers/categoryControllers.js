@@ -1,5 +1,5 @@
-import Category from "../models/CategoryModel.js";
-import AppError from "../utils/appError.js";
+import Category from "../models/categoryModel.js";
+import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 
 export const createCategory = catchAsync(async (req, res) => {

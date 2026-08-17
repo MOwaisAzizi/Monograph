@@ -4,13 +4,29 @@ import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { useSelector } from 'react-redux';
 import api from '../services/api';
-import { AttributeEditor, ImagePickerButton, ListEditor, ScreenShell, SectionLabel, SelectField, SocialEditor, SubmitButton, TextField, WorkingHoursEditor } from '../components/ui';
+import {
+  AttributeEditor,
+  ImagePickerButton,
+  ListEditor,
+  ScreenShell,
+  SectionLabel,
+  SelectField,
+  SocialEditor,
+  SubmitButton,
+  TextField,
+  WorkingHoursEditor,
+} from '../components/ui';
 import { CITIES } from '../const/generalConst';
-import { buildBusinessPayload, buildDefaultWorkingHours, buildItemPayload, businessFormFromShop, itemFormFromItem } from '../helpers/addShopItemHelper';
+import {
+  buildBusinessPayload,
+  buildDefaultWorkingHours,
+  buildItemPayload,
+  businessFormFromShop,
+  itemFormFromItem,
+} from '../helpers/addShopItemHelper';
 import { useCategories } from '../hooks/useCategories';
 import { useMyItems } from '../hooks/useMyItems';
 import { useMyShops } from '../hooks/useMyShops';
-
 
 export default function AddListingScreen() {
   const navigation = useNavigation();
@@ -80,33 +96,66 @@ export default function AddListingScreen() {
   };
 
   const resetItemForm = () => {
-    setEditingItemId(''); setItemTitleEn(''); setItemTitleFa(''); setItemTitlePs('');
-    setItemDescription(''); setItemPrice(''); setBusinessId(''); setItemCity('herat');
-    setCategoryId(''); setItemNote(''); setItemAttributes([]); setItemGalleryFiles([]);
+    setEditingItemId('');
+    setItemTitleEn('');
+    setItemTitleFa('');
+    setItemTitlePs('');
+    setItemDescription('');
+    setItemPrice('');
+    setBusinessId('');
+    setItemCity('herat');
+    setCategoryId('');
+    setItemNote('');
+    setItemAttributes([]);
+    setItemGalleryFiles([]);
   };
 
   const fillBusinessForm = useCallback((shop) => {
     if (!shop) return;
     const form = businessFormFromShop(shop);
-    setEditingBusinessId(shop._id || ''); setBusinessTitleEn(form.titleEn); setBusinessTitleFa(form.titleFa);
-    setBusinessTitlePs(form.titlePs); setBusinessDescription(form.description); setBusinessCategoryId(form.categoryId);
-    setCity(form.city); setPhones(form.phones); setEmail(form.email); setWorkingHours(form.workingHours); setSocialLinks(form.socialLinks);
-    setBusinessCoverFile(null); setBusinessProfileFile(null);
+    setEditingBusinessId(shop._id || '');
+    setBusinessTitleEn(form.titleEn);
+    setBusinessTitleFa(form.titleFa);
+    setBusinessTitlePs(form.titlePs);
+    setBusinessDescription(form.description);
+    setBusinessCategoryId(form.categoryId);
+    setCity(form.city);
+    setPhones(form.phones);
+    setEmail(form.email);
+    setWorkingHours(form.workingHours);
+    setSocialLinks(form.socialLinks);
+    setBusinessCoverFile(null);
+    setBusinessProfileFile(null);
   }, []);
 
   const fillItemForm = useCallback((item) => {
     if (!item) return;
     const form = itemFormFromItem(item);
-    setEditingItemId(item._id || ''); setItemTitleEn(form.titleEn); setItemTitleFa(form.titleFa); setItemTitlePs(form.titlePs);
-    setItemDescription(form.description); setItemPrice(form.price); setBusinessId(form.businessId); setItemCity(form.city);
-    setCategoryId(form.categoryId); setItemNote(form.note); setItemAttributes(form.attributes); setItemGalleryFiles([]);
+    setEditingItemId(item._id || '');
+    setItemTitleEn(form.titleEn);
+    setItemTitleFa(form.titleFa);
+    setItemTitlePs(form.titlePs);
+    setItemDescription(form.description);
+    setItemPrice(form.price);
+    setBusinessId(form.businessId);
+    setItemCity(form.city);
+    setCategoryId(form.categoryId);
+    setItemNote(form.note);
+    setItemAttributes(form.attributes);
+    setItemGalleryFiles([]);
   }, []);
 
   const pickLocalImage = async (kind) => {
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permission.granted) return Alert.alert('Permission needed', 'Please allow access to your photo library.');
+    if (!permission.granted)
+      return Alert.alert('Permission needed', 'Please allow access to your photo library.');
     const isGallery = kind === 'item-gallery';
-    const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'], quality: 0.9, allowsEditing: !isGallery, allowsMultipleSelection: isGallery });
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      quality: 0.9,
+      allowsEditing: !isGallery,
+      allowsMultipleSelection: isGallery,
+    });
     if (result.canceled || !result.assets?.length) return;
     if (kind === 'business-cover') setBusinessCoverFile(result.assets[0]);
     else if (kind === 'business-profile') setBusinessProfileFile(result.assets[0]);
@@ -115,30 +164,79 @@ export default function AddListingScreen() {
 
   const submitBusiness = async () => {
     if (!ensureAuth()) return;
-    if (![businessTitleEn, businessTitleFa, businessTitlePs].every((title) => title.trim())) return Alert.alert('Missing fields', 'Please add business titles for EN, FA, and PS.');
+    if (![businessTitleEn, businessTitleFa, businessTitlePs].every((title) => title.trim()))
+      return Alert.alert('Missing fields', 'Please add business titles for EN, FA, and PS.');
     try {
       setSubmitting(true);
-      const payload = await buildBusinessPayload({ form: { titleEn: businessTitleEn, titleFa: businessTitleFa, titlePs: businessTitlePs, description: businessDescription, categoryId: businessCategoryId, city, phones, email, workingHours, socialLinks }, coverFile: businessCoverFile, profileFile: businessProfileFile });
+      const payload = await buildBusinessPayload({
+        form: {
+          titleEn: businessTitleEn,
+          titleFa: businessTitleFa,
+          titlePs: businessTitlePs,
+          description: businessDescription,
+          categoryId: businessCategoryId,
+          city,
+          phones,
+          email,
+          workingHours,
+          socialLinks,
+        },
+        coverFile: businessCoverFile,
+        profileFile: businessProfileFile,
+      });
       const isUpdating = Boolean(editingBusinessId);
-      await (isUpdating ? api.baseURL.patch(`/shop/${editingBusinessId}`, payload, { headers: authHeader }) : api.baseURL.post('/shop', payload, { headers: authHeader }));
-      resetBusinessForm(); navigation.navigate('MainTabs', { screen: 'Home' });
-      Alert.alert('Success', isUpdating ? 'Business updated successfully.' : 'Business added successfully.');
-    } catch (error) { Alert.alert('Failed', error?.response?.data?.message || 'Could not save business.'); }
-    finally { setSubmitting(false); }
+      await (isUpdating
+        ? api.baseURL.patch(`/shop/${editingBusinessId}`, payload, { headers: authHeader })
+        : api.baseURL.post('/shop', payload, { headers: authHeader }));
+      resetBusinessForm();
+      navigation.navigate('MainTabs', { screen: 'Home' });
+      Alert.alert(
+        'Success',
+        isUpdating ? 'Business updated successfully.' : 'Business added successfully.',
+      );
+    } catch (error) {
+      Alert.alert('Failed', error?.response?.data?.message || 'Could not save business.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const submitItem = async () => {
     if (!ensureAuth()) return;
-    if (![itemTitleEn, itemTitleFa, itemTitlePs, businessId].every((value) => value.trim())) return Alert.alert('Missing fields', 'Please fill EN/FA/PS titles and select a business.');
+    if (![itemTitleEn, itemTitleFa, itemTitlePs, businessId].every((value) => value.trim()))
+      return Alert.alert('Missing fields', 'Please fill EN/FA/PS titles and select a business.');
     try {
       setSubmitting(true);
-      const payload = await buildItemPayload({ form: { titleEn: itemTitleEn, titleFa: itemTitleFa, titlePs: itemTitlePs, description: itemDescription, price: itemPrice, businessId, city: itemCity, categoryId, note: itemNote, attributes: itemAttributes }, galleryFiles: itemGalleryFiles });
+      const payload = await buildItemPayload({
+        form: {
+          titleEn: itemTitleEn,
+          titleFa: itemTitleFa,
+          titlePs: itemTitlePs,
+          description: itemDescription,
+          price: itemPrice,
+          businessId,
+          city: itemCity,
+          categoryId,
+          note: itemNote,
+          attributes: itemAttributes,
+        },
+        galleryFiles: itemGalleryFiles,
+      });
       const isUpdating = Boolean(editingItemId);
-      await (isUpdating ? api.baseURL.patch(`/item/${editingItemId}`, payload, { headers: authHeader }) : api.baseURL.post('/item', payload, { headers: authHeader }));
-      resetItemForm(); navigation.navigate('MainTabs', { screen: 'Home' });
-      Alert.alert('Success', isUpdating ? 'Item updated successfully.' : 'Item added successfully.');
-    } catch (error) { Alert.alert('Failed', error?.response?.data?.message || 'Could not save item.'); }
-    finally { setSubmitting(false); }
+      await (isUpdating
+        ? api.baseURL.patch(`/item/${editingItemId}`, payload, { headers: authHeader })
+        : api.baseURL.post('/item', payload, { headers: authHeader }));
+      resetItemForm();
+      navigation.navigate('MainTabs', { screen: 'Home' });
+      Alert.alert(
+        'Success',
+        isUpdating ? 'Item updated successfully.' : 'Item added successfully.',
+      );
+    } catch (error) {
+      Alert.alert('Failed', error?.response?.data?.message || 'Could not save item.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -150,8 +248,9 @@ export default function AddListingScreen() {
       <View className="mt-4 flex-row gap-2">
         <Pressable
           onPress={() => setTab('business')}
-          className={`rounded-full border px-4 py-2 ${tab === 'business' ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
-            }`}
+          className={`rounded-full border px-4 py-2 ${
+            tab === 'business' ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
+          }`}
         >
           <Text
             className={`text-[12px] font-semibold ${tab === 'business' ? 'text-white' : 'text-[#314243]'}`}
@@ -162,8 +261,9 @@ export default function AddListingScreen() {
 
         <Pressable
           onPress={() => setTab('item')}
-          className={`rounded-full border px-4 py-2 ${tab === 'item' ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
-            }`}
+          className={`rounded-full border px-4 py-2 ${
+            tab === 'item' ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
+          }`}
         >
           <Text
             className={`text-[12px] font-semibold ${tab === 'item' ? 'text-white' : 'text-[#314243]'}`}
@@ -219,7 +319,9 @@ export default function AddListingScreen() {
             options={categories}
             onSelect={setBusinessCategoryId}
             loading={loadingCategories}
-            getLabel={(category) => category?.translation?.en?.title || category?.name || category?._id}
+            getLabel={(category) =>
+              category?.translation?.en?.title || category?.name || category?._id
+            }
             getValue={(category) => category?._id}
           />
 
@@ -272,7 +374,11 @@ export default function AddListingScreen() {
             />
           </View>
 
-          <SubmitButton label={editingBusinessId ? 'Update Business' : 'Submit Business'} onPress={submitBusiness} loading={submitting} />
+          <SubmitButton
+            label={editingBusinessId ? 'Update Business' : 'Submit Business'}
+            onPress={submitBusiness}
+            loading={submitting}
+          />
         </View>
       ) : (
         <View className="mt-4 gap-3">
@@ -369,7 +475,11 @@ export default function AddListingScreen() {
             selectedCount={itemGalleryFiles.length}
           />
 
-          <SubmitButton label={editingItemId ? 'Update Item' : 'Submit Item'} onPress={submitItem} loading={submitting} />
+          <SubmitButton
+            label={editingItemId ? 'Update Item' : 'Submit Item'}
+            onPress={submitItem}
+            loading={submitting}
+          />
         </View>
       )}
 

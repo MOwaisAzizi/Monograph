@@ -137,9 +137,13 @@ export function ActionPill({ label, onPress, active = false }) {
   );
 }
 
-
-
-export function SubmitButton({ label, onPress, loading, loadingLabel = 'Submitting...', className = '' }) {
+export function SubmitButton({
+  label,
+  onPress,
+  loading,
+  loadingLabel = 'Submitting...',
+  className = '',
+}) {
   return (
     <Pressable
       onPress={onPress}
@@ -159,10 +163,7 @@ export function SectionLabel({ children }) {
 
 export function ImagePickerButton({ label, onPress, selectedCount = 0 }) {
   return (
-    <Pressable
-      onPress={onPress}
-      className="rounded-2xl border border-[#d7e1e0] bg-white px-4 py-3"
-    >
+    <Pressable onPress={onPress} className="rounded-2xl border border-[#d7e1e0] bg-white px-4 py-3">
       <Text className="text-[12px] font-semibold text-[#0f6b75]">
         {selectedCount > 0 ? `${label} (${selectedCount})` : label}
       </Text>
@@ -199,7 +200,7 @@ export function SelectField({
 
       <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
         <Pressable className="flex-1 justify-end bg-black/40" onPress={() => setOpen(false)}>
-          <Pressable className="max-h-[70%] rounded-t-3xl bg-white p-4" onPress={() => { }}>
+          <Pressable className="max-h-[70%] rounded-t-3xl bg-white p-4" onPress={() => {}}>
             {label ? (
               <Text className="mb-2 text-[13px] font-semibold text-[#314243]">{label}</Text>
             ) : null}

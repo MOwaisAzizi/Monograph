@@ -52,7 +52,7 @@ export const pickTranslation = (translation, language = DEFAULT_LANGUAGE) => {
   return candidate;
 };
 
-export const  formatPrice = (price) => {
+export const formatPrice = (price) => {
   if (price === null || price === undefined || price === '') {
     return 'Price on request';
   }
@@ -75,7 +75,7 @@ export const normalizeItem = (item = {}) => {
   const shopTranslation = normalizeTranslation(item.shop?.translation);
   const categoryTranslation = normalizeTranslation(item.category?.translation);
 
-  const data =  {
+  const data = {
     id: item._id || item.id,
     translation,
     price: formatPrice(item.price),
@@ -114,7 +114,8 @@ export const normalizeUser = (user = {}) => ({
   email: user.email || 'Connected account',
   avatar: pickImageUri(user.media, 'profile'),
   phone: user.phone || '',
-  address: user.location?.address?.en || user.location?.address?.fa || user.location?.address?.ps || '',
+  address:
+    user.location?.address?.en || user.location?.address?.fa || user.location?.address?.ps || '',
   location: user.location || null,
   preferredLanguage: user.preferredLanguage || 'en',
 });

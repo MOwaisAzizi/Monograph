@@ -51,13 +51,14 @@ export function ItemCard({ item, onPress, onToggleFavorite, style, compact = fal
         </Text>
 
         <View className="mt-1.5 flex-row items-center justify-between">
-          <Text className="text-[12px] font-bold text-[#223233]">{item.price || 'Price on request'}</Text>
+          <Text className="text-[12px] font-bold text-[#223233]">
+            {item.price || 'Price on request'}
+          </Text>
           <View className="flex-row items-center gap-1">
             <Ionicons name="star" size={10} color="#f1b33f" />
             <Text className="text-[10px] font-semibold text-[#4e6667]">{item.rating}</Text>
           </View>
         </View>
-
 
         {item.distance ? (
           <View className="mt-1 flex-row items-center gap-1">

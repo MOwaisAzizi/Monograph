@@ -14,6 +14,9 @@ import ShopDetailScreen from '../screens/ShopDetailScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import AddListingScreen from '../screens/AddListingScreen';
+import ChatScreen from '../screens/ChatScreen';
+import ConfirmBuyScreen from '../screens/ConfirmBuyScreen';
+import OfferStatusScreen from '../screens/OfferStatusScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -71,7 +74,8 @@ function MainTabs() {
 }
 
 export default function RootNavigator() {
-  return (//statck screan you go go down and up, up and down
+  return (
+    //statck screan you go go down and up, up and down
     <Stack.Navigator>
       <Stack.Screen
         name="MainTabs"
@@ -91,6 +95,17 @@ export default function RootNavigator() {
       />
 
       <Stack.Screen name="Product" component={ProductScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Chat" component={ChatScreen} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="ConfirmBuy"
+        component={ConfirmBuyScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="OfferStatus"
+        component={OfferStatusScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="ShopDetail"
         component={ShopDetailScreen}
