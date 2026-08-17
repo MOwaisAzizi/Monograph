@@ -15,7 +15,8 @@ export function useMyShops(authHeader) {
     let cancelled = false;
 
     setLoading(true);
-    api.getMyShops(authHeader)
+    api
+      .getMyShops(authHeader)
       .then((response) => {
         const list = response?.data?.data?.shops || [];
         if (!cancelled) setShops(Array.isArray(list) ? list : []);
@@ -28,7 +29,9 @@ export function useMyShops(authHeader) {
         if (!cancelled) setLoading(false);
       });
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [authHeader?.Authorization]);
 
   return { shops, loading, error };

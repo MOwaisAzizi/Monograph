@@ -101,16 +101,16 @@ export const deleteItem = catchAsync(async (req, res, next) => {
 
 export const similarItems = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-console.log('🥙🥗')
- console.log(id)
+  console.log("🥙🥗");
+  console.log(id);
   const currentItem = await Item.findById(id).select("category shop price");
   if (!currentItem) {
     throw new Error("Item not found");
   }
-console.log('🥙🥗')
-console.log('🥙🥗')
-// console.log(currectItem)
-console.log('🥙🥗')
+  console.log("🥙🥗");
+  console.log("🥙🥗");
+  // console.log(currectItem)
+  console.log("🥙🥗");
   const similar = await Item.find({
     _id: { $ne: id },
     category: currentItem.category,
@@ -120,8 +120,8 @@ console.log('🥙🥗')
     .populate("shop", "translation")
     .populate("category", "translation")
     .lean();
-console.log('similar');
-console.log(similar);
+  console.log("similar");
+  console.log(similar);
   res.status(200).json({
     status: "success",
     data: similar,

@@ -40,7 +40,8 @@ export const search = catchAsync(async (req, res) => {
   console.log(
     "-------------------------------------🧈🥞🥞🥞🧇🍳🍳🍳-------------",
   );
-  const itemSort = sort === "price" ? { price: 1 } : sort === "rating" ? { rating: -1 } : {};
+  const itemSort =
+    sort === "price" ? { price: 1 } : sort === "rating" ? { rating: -1 } : {};
   // Shops have no price field, so a price sort only applies to items.
   const shopSort = sort === "rating" ? { rating: -1 } : {};
   const [items, shops] = await Promise.all([

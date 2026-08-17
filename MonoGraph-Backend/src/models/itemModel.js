@@ -33,7 +33,7 @@ const itemSchema = new mongoose.Schema(
     },
     distance: {
       type: Number,
-      default: 10
+      default: 10,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,

@@ -78,7 +78,9 @@ export default function LoginScreen({ navigation }) {
       />
 
       <Pressable onPress={() => navigation.navigate('Register')} className="mt-4">
-        <Text className="text-center text-[12px] text-[#c2d1d0]">{getText(language, 'noAccount')}</Text>
+        <Text className="text-center text-[12px] text-[#c2d1d0]">
+          {getText(language, 'noAccount')}
+        </Text>
       </Pressable>
     </ScreenShell>
   );

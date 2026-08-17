@@ -57,7 +57,11 @@ export default function RegisterScreen({ navigation }) {
       <Text className="mt-1 text-[12px] text-[#99acac]">{getText(language, 'welcome')}</Text>
 
       <View className="mt-5 gap-3">
-        <TextField placeholder={getText(language, 'fullName')} value={fullname} onChangeText={setName} />
+        <TextField
+          placeholder={getText(language, 'fullName')}
+          value={fullname}
+          onChangeText={setName}
+        />
         <TextField
           placeholder={getText(language, 'email')}
           value={email}

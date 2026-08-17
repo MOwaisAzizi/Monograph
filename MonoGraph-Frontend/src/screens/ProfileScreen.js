@@ -25,10 +25,10 @@ export default function ProfileScreen({ navigation }) {
   const logoutuser = async () => {
     try {
       await api.baseURL.post('/user/logout');
-    } catch { }
+    } catch {}
     api.clearSession();
     dispatch(logout());
-    clearStoredSession().catch(() => { });
+    clearStoredSession().catch(() => {});
     setProfile(null);
   };
 
@@ -49,7 +49,6 @@ export default function ProfileScreen({ navigation }) {
 
     const asset = result.assets[0];
     setMediaFile(asset);
-
   };
 
   const startEditing = () => {
@@ -86,11 +85,7 @@ export default function ProfileScreen({ navigation }) {
           const response = await fetch(mediaFile.uri);
           const blob = await response.blob();
 
-          payload.append(
-            'profile',
-            blob,
-            mediaFile.name || 'profile-avatar.jpg',
-          );
+          payload.append('profile', blob, mediaFile.name || 'profile-avatar.jpg');
         } else {
           payload.append('profile', {
             uri: mediaFile.uri,
@@ -99,7 +94,6 @@ export default function ProfileScreen({ navigation }) {
           });
         }
       }
-
 
       const updatedUser = await api.updateProfile(payload);
 
@@ -122,7 +116,7 @@ export default function ProfileScreen({ navigation }) {
         user: updatedUser,
         accessToken,
         refreshToken,
-      }).catch(() => { });
+      }).catch(() => {});
 
       setEditing(false);
     } catch {
@@ -169,8 +163,7 @@ export default function ProfileScreen({ navigation }) {
         ...current,
         favoriteItems: current.favoriteItems.filter((i) => i.id !== itemId),
       }));
-    } catch {
-    }
+    } catch {}
   };
 
   const t = useMemo(
@@ -195,14 +188,21 @@ export default function ProfileScreen({ navigation }) {
   return (
     <ScreenShell contentClassName="px-5 pb-6 pt-4">
       <View className="items-center">
-        <Pressable onPress={user ? startEditing : undefined} className="h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-[#dbe7e6]">
-          {profile?.avatar ? <Image source={{ uri: profile.avatar }} className="h-full w-full" /> : <Text className="text-[20px] font-bold text-[#365354]">{profile?.fullname?.slice(0, 1)?.toUpperCase() || 'U'}</Text>}
+        <Pressable
+          onPress={user ? startEditing : undefined}
+          className="h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-[#dbe7e6]"
+        >
+          {profile?.avatar ? (
+            <Image source={{ uri: profile.avatar }} className="h-full w-full" />
+          ) : (
+            <Text className="text-[20px] font-bold text-[#365354]">
+              {profile?.fullname?.slice(0, 1)?.toUpperCase() || 'U'}
+            </Text>
+          )}
         </Pressable>
 
         {user ? (
-          <Text className="mt-4 text-[18px] font-bold text-[#394240]">
-            {profile?.fullname}
-          </Text>
+          <Text className="mt-4 text-[18px] font-bold text-[#394240]">{profile?.fullname}</Text>
         ) : (
           <View className="mt-4">
             <ActionPill label={t.login} onPress={() => navigation.navigate('Login')} />
@@ -218,7 +218,6 @@ export default function ProfileScreen({ navigation }) {
           {profile?.phone ? <Text className="text-[11px] text-[#91a7a6]">{Array.isArray(profile.phone) ? profile.phone.join(', ') : profile.phone}</Text> : null}
         </View>
       ) : null} */}
-
       </View>
 
       <View className="mt-6 flex-row gap-3">
@@ -284,19 +283,30 @@ export default function ProfileScreen({ navigation }) {
           <TextRow label={t.myListings} value="" />
           <TextRow label={t.ordersMessages} value="" />
           <TextRow label={t.addListing} onPress={() => navigation.navigate('AddListing')} />
-          {user ? (
-            <TextRow label={t.logout} onPress={logoutuser} />
-          ) : null}
+          {user ? <TextRow label={t.logout} onPress={logoutuser} /> : null}
 
-          <Pressable onPress={() => setShowLanguageMenu(true)} className="flex-row items-center justify-between rounded-2xl border-b border-[#d9e3e2] py-3">
+          <Pressable
+            onPress={() => setShowLanguageMenu(true)}
+            className="flex-row items-center justify-between rounded-2xl border-b border-[#d9e3e2] py-3"
+          >
             <Text className="text-[12px] text-[#213233]">{t.language}</Text>
-            <Text className="text-[12px] font-semibold text-[#7a8f8f]">{LANGUAGE_NAMES[currentLanguage]}</Text>
+            <Text className="text-[12px] font-semibold text-[#7a8f8f]">
+              {LANGUAGE_NAMES[currentLanguage]}
+            </Text>
           </Pressable>
         </View>
       </View>
 
-      <Modal transparent visible={showLanguageMenu} animationType="fade" onRequestClose={() => setShowLanguageMenu(false)}>
-        <Pressable className="flex-1 justify-end bg-black/40" onPress={() => setShowLanguageMenu(false)}>
+      <Modal
+        transparent
+        visible={showLanguageMenu}
+        animationType="fade"
+        onRequestClose={() => setShowLanguageMenu(false)}
+      >
+        <Pressable
+          className="flex-1 justify-end bg-black/40"
+          onPress={() => setShowLanguageMenu(false)}
+        >
           <View className="rounded-t-[28px] bg-[#eef5f5] p-4">
             <Text className="mb-3 text-[15px] font-bold text-[#233334]">{t.language}</Text>
             {LANGUAGE_OPTIONS.map((option) => (
@@ -328,17 +338,57 @@ export default function ProfileScreen({ navigation }) {
         </Pressable>
       </Modal>
 
-      <Modal transparent visible={editing} animationType="slide" onRequestClose={() => setEditing(false)}>
+      <Modal
+        transparent
+        visible={editing}
+        animationType="slide"
+        onRequestClose={() => setEditing(false)}
+      >
         <View className="flex-1 justify-end bg-black/40">
           <View className="rounded-t-[28px] bg-[#eef5f5] p-5">
             <Text className="text-[18px] font-bold text-[#233334]">Edit your profile</Text>
-            <Pressable onPress={handleSelectAvatar} className="mt-4 self-start rounded-xl bg-[#dbe7e6] px-4 py-3"><Text className="font-semibold text-[#314243]">{mediaFile ? 'Image selected' : 'Choose profile image'}</Text></Pressable>
-            {[['fullname', 'fullname'], ['phone', 'Phone number']].map(([key, label]) => (
-              <View key={key} className="mt-3 rounded-xl border border-[#d9e5e4] bg-white px-3 py-2">
-                <TextInput value={form[key]} onChangeText={(value) => setForm((current) => ({ ...current, [key]: value }))} placeholder={label} placeholderTextColor="#8ba0a0" className="p-1 text-[#213233]" />
+            <Pressable
+              onPress={handleSelectAvatar}
+              className="mt-4 self-start rounded-xl bg-[#dbe7e6] px-4 py-3"
+            >
+              <Text className="font-semibold text-[#314243]">
+                {mediaFile ? 'Image selected' : 'Choose profile image'}
+              </Text>
+            </Pressable>
+            {[
+              ['fullname', 'fullname'],
+              ['phone', 'Phone number'],
+            ].map(([key, label]) => (
+              <View
+                key={key}
+                className="mt-3 rounded-xl border border-[#d9e5e4] bg-white px-3 py-2"
+              >
+                <TextInput
+                  value={form[key]}
+                  onChangeText={(value) => setForm((current) => ({ ...current, [key]: value }))}
+                  placeholder={label}
+                  placeholderTextColor="#8ba0a0"
+                  className="p-1 text-[#213233]"
+                />
               </View>
             ))}
-            <View className="mt-5 flex-row gap-3"><Pressable onPress={() => setEditing(false)} className="flex-1 rounded-xl border border-[#9aabab] py-3"><Text className="text-center font-semibold text-[#314243]">Cancel</Text></Pressable><Pressable onPress={saveProfile} disabled={saving} className="flex-1 rounded-xl bg-[#0f6b75] py-3"><Text className="text-center font-semibold text-white">{saving ? 'Saving...' : 'Save changes'}</Text></Pressable></View>
+            <View className="mt-5 flex-row gap-3">
+              <Pressable
+                onPress={() => setEditing(false)}
+                className="flex-1 rounded-xl border border-[#9aabab] py-3"
+              >
+                <Text className="text-center font-semibold text-[#314243]">Cancel</Text>
+              </Pressable>
+              <Pressable
+                onPress={saveProfile}
+                disabled={saving}
+                className="flex-1 rounded-xl bg-[#0f6b75] py-3"
+              >
+                <Text className="text-center font-semibold text-white">
+                  {saving ? 'Saving...' : 'Save changes'}
+                </Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </Modal>

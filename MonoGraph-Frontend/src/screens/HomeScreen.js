@@ -18,7 +18,6 @@ import { useCategories } from '../hooks/useCategories';
  * @param {string} lang - 'en' | 'fa' | 'ps'
  */
 
-
 export function CategoryFilterRow({ categories, activeKey, onSelect }) {
   return (
     <ScrollView
@@ -32,8 +31,9 @@ export function CategoryFilterRow({ categories, activeKey, onSelect }) {
           <View key={cat.key} className="items-center">
             <IconCircleButton icon={cat.icon} active={active} onPress={() => onSelect(cat.key)} />
             <Text
-              className={`mt-1.5 text-[11px] ${active ? 'text-[#0f3d3e] font-semibold' : 'text-[#7c9291]'
-                }`}
+              className={`mt-1.5 text-[11px] ${
+                active ? 'text-[#0f3d3e] font-semibold' : 'text-[#7c9291]'
+              }`}
             >
               {cat.label}
             </Text>
@@ -87,7 +87,6 @@ export default function HomeScreen({ navigation }) {
   const [activeCategory, setActiveCategory] = useState('');
   const homeData = useHomeData(activeCategory);
   const { categories } = useCategories(currentLanguage);
-
 
   const sections = useMemo(
     () => [
@@ -149,7 +148,9 @@ export default function HomeScreen({ navigation }) {
             <SectionHeader
               title={section.title}
               actionLabel={section.actionLabel}
-              onAction={() => navigation.navigate('Search', { search: '', category: activeCategory })}
+              onAction={() =>
+                navigation.navigate('Search', { search: '', category: activeCategory })
+              }
             />
             {section.data.length ? (
               <View className="mt-2">

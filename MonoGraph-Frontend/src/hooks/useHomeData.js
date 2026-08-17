@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react';
 import { normalizeItem, normalizeShop } from '../helpers/marketplace';
 import api from '../services/api';
 
-const emptyData = { newItems: [], cheapItems: [], highRatedItems: [], nearestItems: [], nearestShops: [] };
+const emptyData = {
+  newItems: [],
+  cheapItems: [],
+  highRatedItems: [],
+  nearestItems: [],
+  nearestShops: [],
+};
 
 export function useHomeData(categoryId) {
   const [data, setData] = useState(emptyData);
@@ -10,7 +16,8 @@ export function useHomeData(categoryId) {
   useEffect(() => {
     let active = true;
 
-    api.getHome(categoryId)
+    api
+      .getHome(categoryId)
       .then((response) => {
         if (!active) return;
 
@@ -23,8 +30,8 @@ export function useHomeData(categoryId) {
           nearestShops: (result.nearestShops || []).map(normalizeShop),
         });
       })
-      .catch(() => { })
-      .finally(() => { });
+      .catch(() => {})
+      .finally(() => {});
 
     return () => {
       active = false;
