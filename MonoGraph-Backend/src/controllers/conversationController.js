@@ -1,8 +1,11 @@
 import Conversation from "../models/conversationModel.js";
 import Message from "../models/messageModel.js";
+import Offer from "../models/offerModel.js";
+import Order from "../models/orderModel.js";
 import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 import Item from "../models/itemModel.js";
+import { getConversationRole, getConversationStatusMeta } from "../helpers/conversationInbox.js";
 
 export const getOrCreateConversation = catchAsync(async (req, res, next) => {
   const { itemId, sellerId } = req.body;
@@ -45,15 +48,92 @@ export const getOrCreateConversation = catchAsync(async (req, res, next) => {
 });
 
 export const listConversations = catchAsync(async (req, res) => {
+  const roleFilter = String(req.query.role || "")
+    .trim()
+    .toLowerCase();
+
   const conversations = await Conversation.find({
     participants: req.user._id,
   })
     .populate("participants", "fullname email")
-    .sort({ lastMessageAt: -1, createdAt: -1 });
+    .populate("item", "translation media owner price")
+    .sort({ lastMessageAt: -1, createdAt: -1 })
+    .lean();
+
+  const conversationIds = conversations.map((conversation) => conversation._id);
+  const itemIds = [...new Set(conversations.map((conversation) => String(conversation.item?._id)).filter(Boolean))];
+
+  const [latestMessages, latestOffers, latestOrders] = await Promise.all([
+    Message.find({ conversation: { $in: conversationIds } })
+      .sort({ createdAt: -1 })
+      .lean(),
+    Offer.find({ item: { $in: itemIds } })
+      .sort({ createdAt: -1 })
+      .lean(),
+    Order.find({ item: { $in: itemIds } })
+      .sort({ createdAt: -1 })
+      .lean(),
+  ]);
+
+  const latestMessagesByConversation = latestMessages.reduce((acc, message) => {
+    const key = String(message.conversation);
+    if (!acc[key]) acc[key] = message;
+    return acc;
+  }, {});
+
+  const latestOffersByItem = latestOffers.reduce((acc, offer) => {
+    const key = String(offer.item);
+    if (!acc[key]) acc[key] = offer;
+    return acc;
+  }, {});
+
+  const latestOrderByOffer = latestOrders.reduce((acc, order) => {
+    const key = String(order.offer);
+    if (!acc[key]) acc[key] = order;
+    return acc;
+  }, {});
+
+  const rows = conversations
+    .map((conversation) => {
+      const item = conversation.item;
+      const role = getConversationRole({ item, currentUserId: req.user._id });
+
+      if (roleFilter && role !== roleFilter) {
+        return null;
+      }
+
+      const itemId = item && item._id ? String(item._id) : "";
+      const latestOffer = itemId ? latestOffersByItem[itemId] : null;
+      const latestOrder = latestOffer ? latestOrderByOffer[String(latestOffer._id)] : null;
+      const lastMessage = latestMessagesByConversation[String(conversation._id)] || null;
+      const otherParticipant = (conversation.participants || []).find(
+        (participant) => String(participant._id || participant) !== String(req.user._id),
+      );
+
+      return {
+        ...conversation,
+        role,
+        item,
+        otherParticipant: otherParticipant || null,
+        latestOffer: latestOffer
+          ? {
+            _id: latestOffer._id,
+            status: latestOffer.status,
+            price: latestOffer.proposedPrice ?? latestOffer.price,
+            isDirectBuy: Boolean(latestOffer.isDirectBuy),
+          }
+          : null,
+        latestOrder: latestOrder ? { _id: latestOrder._id, status: latestOrder.status } : null,
+        lastMessage,
+        statusText: getConversationStatusMeta({ latestOffer, latestOrder, lastMessage }).label,
+        statusPill: getConversationStatusMeta({ latestOffer, latestOrder, lastMessage }).pill,
+      };
+    })
+    .filter(Boolean);
 
   res.status(200).json({
     status: "success",
-    data: { conversations },
+    data: { conversations: rows },
   });
 });
 

@@ -5,8 +5,8 @@ import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 
 const getOfferTargetUser = (offer, userId) => {
-  if (offer.buyer.toString() === userId.toString()) return "buyer";
-  if (offer.seller.toString() === userId.toString()) return "seller";
+  if (offer.buyer && offer.buyer.toString() === userId.toString()) return "buyer";
+  if (offer.seller && offer.seller.toString() === userId.toString()) return "seller";
   return null;
 };
 
@@ -22,13 +22,13 @@ export const createOffer = catchAsync(async (req, res, next) => {
     return next(new AppError("Item not found.", 404));
   }
 
-  // const sellerId = item.shop?.owner || item.owner;
+  const sellerId = item.shop?.owner || item.owner;
   // if (!sellerId) {
-  //     return next(new AppError("This item has no seller assigned.", 400));
+  //   return next(new AppError("This item has no seller assigned.", 400));
   // }
 
   // if (sellerId.toString() === req.user._id.toString()) {
-  //     return next(new AppError("You cannot make an offer on your own item.", 400));
+  //   return next(new AppError("You cannot make an offer on your own item.", 400));
   // }
 
   const acceptedPrice = Number(price ?? item.price ?? 0);
@@ -39,7 +39,7 @@ export const createOffer = catchAsync(async (req, res, next) => {
   const offer = await Offer.create({
     item: itemId,
     buyer: req.user._id,
-    // seller: sellerId,
+    seller: sellerId,
     price: item.price ?? acceptedPrice,
     proposedPrice: acceptedPrice,
     isDirectBuy: Boolean(isDirectBuy),

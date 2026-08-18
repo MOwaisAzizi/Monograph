@@ -116,7 +116,7 @@ class Api {
     return this.baseURL.get(`/review/shops/${shopId}`);
   }
   getShopDetails(shopId) {
-    return this.baseURL.get(`/shop/${shopId}`).then((res)=> normalizeShop(res.data.data.shop));
+    return this.baseURL.get(`/shop/${shopId}`).then((res) => normalizeShop(res.data.data.shop));
   }
 
   // Item
@@ -176,8 +176,9 @@ class Api {
   openConversation(payload) {
     return this.baseURL.post('/conversation/open', payload);
   }
-  listConversations() {
-    return this.baseURL.get('/conversation');
+  listConversations(role = '') {
+    const params = role ? `?role=${encodeURIComponent(role)}` : '';
+    return this.baseURL.get(`/conversation${params}`);
   }
   getConversationMessages(conversationId) {
     return this.baseURL.get(`/conversation/${conversationId}/messages`);

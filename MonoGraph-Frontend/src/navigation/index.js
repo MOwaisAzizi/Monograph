@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ProductScreen from '../screens/ProductScreen';
-import ShopScreen from '../screens/TalkScreen';
+import TalkScreen from '../screens/TalkScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import FavoritesScreen from '../screens/History';
 import ShopDetailScreen from '../screens/ShopDetailScreen';
@@ -40,14 +40,13 @@ function MainTabs() {
           fontWeight: '600',
         },
         tabBarIcon: ({ color, size, focused }) => {
-          const icons = {
-            Home: focused ? 'home' : 'home-outline',
-            Search: focused ? 'search' : 'search-outline',
-            Talk: focused ? 'chatbubbles' : 'chatbubbles-outline',
-            History: focused ? 'receipt' : 'receipt-outline',
-            Profile: focused ? 'person' : 'person-outline',
-          };
-
+const icons = {
+  Home: focused ? 'home' : 'home-outline',
+  Search: focused ? 'search' : 'search-outline',
+  Talk: focused ? 'chatbubbles' : 'chatbubbles-outline',
+  History: focused ? 'receipt' : 'receipt-outline',
+  Profile: focused ? 'person' : 'person-outline',
+};
           return <Ionicons name={icons[route.name]} size={size} color={color} />;
         },
       })}
@@ -66,7 +65,7 @@ function MainTabs() {
           },
         })}
       />
-      <Tab.Screen name="Talk" component={ShopScreen} />
+     <Tab.Screen name="Talk" component={TalkScreen} />  
       <Tab.Screen name="History" component={FavoritesScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
