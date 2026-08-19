@@ -10,8 +10,8 @@ import { useCategories } from '../hooks/useCategories';
  * Turns raw category API objects into the shape the filter row renders.
  * Picks the label for the given language, falling back to English if
  * missing — handles both a nested `{ title }` per language (matching the
- * confirmed multipleFields shape) and a flat string per language, since
- * Category's `singleField` shape hasn't been confirmed against the schema
+ * accepted multipleFields shape) and a flat string per language, since
+ * Category's `singleField` shape hasn't been accepted against the schema
  * yet (see seed.js notes).
  *
  * @param {Array} categories - raw array from GET /categories
@@ -31,9 +31,8 @@ export function CategoryFilterRow({ categories, activeKey, onSelect }) {
           <View key={cat.key} className="items-center">
             <IconCircleButton icon={cat.icon} active={active} onPress={() => onSelect(cat.key)} />
             <Text
-              className={`mt-1.5 text-[11px] ${
-                active ? 'text-[#0f3d3e] font-semibold' : 'text-[#7c9291]'
-              }`}
+              className={`mt-1.5 text-[11px] ${active ? 'text-[#0f3d3e] font-semibold' : 'text-[#7c9291]'
+                }`}
             >
               {cat.label}
             </Text>

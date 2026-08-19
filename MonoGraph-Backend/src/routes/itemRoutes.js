@@ -6,6 +6,7 @@ import {
   getItem,
   similarItems,
   updateItem,
+  buyItem,
 } from "../controllers/itemControllers.js";
 import { protect } from "../middleware/authMiddleware.js";
 import { uploadMediaFiles } from "../middleware/uploadMiddleware.js";
@@ -16,6 +17,7 @@ router
   .get(getAllItems)
   .post(protect, uploadMediaFiles("item", { media: 6 }), createItem);
 router.get("/mine", protect, getAllItems);
+router.post("/:id/buy", protect, buyItem);
 router.get("/similar/:id", similarItems);
 router
   .route("/:id")

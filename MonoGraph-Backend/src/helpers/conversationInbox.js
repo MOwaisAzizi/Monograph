@@ -23,11 +23,11 @@ export const getConversationStatusMeta = ({
         if (latestOrder.status === "disputed") {
             return { label: "Order disputed", pill: "rejected" };
         }
-        return { label: "Order confirmed", pill: "order" };
+        return { label: "Order accepted", pill: "order" };
     }
 
     if (latestOffer) {
-        const offerPrice = latestOffer.proposedPrice ?? latestOffer.price;
+        const offerPrice = latestOffer.offeredPrice ?? latestOffer.price;
 
         switch (latestOffer.status) {
             case "pending":
@@ -42,8 +42,8 @@ export const getConversationStatusMeta = ({
                 return { label: "Offer declined", pill: "rejected" };
             case "cancelled":
                 return { label: "Offer cancelled", pill: "cancelled" };
-            case "confirmed":
-                return { label: "Order confirmed", pill: "order" };
+            case "accepted":
+                return { label: "Order accepted", pill: "order" };
             default:
                 return { label: `Offer · ${formatAf(offerPrice)}`, pill: "pending" };
         }

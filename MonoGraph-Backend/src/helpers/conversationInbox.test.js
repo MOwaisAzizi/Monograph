@@ -20,7 +20,7 @@ describe('conversation inbox helpers', () => {
             latestOffer: {
                 status: 'accepted',
                 price: 4500,
-                proposedPrice: 4500,
+                offeredPrice: 4500,
                 isDirectBuy: false,
             },
             latestOrder: null,

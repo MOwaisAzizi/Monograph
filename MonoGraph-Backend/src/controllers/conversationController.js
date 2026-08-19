@@ -119,7 +119,7 @@ export const listConversations = catchAsync(async (req, res) => {
           ? {
             _id: latestOffer._id,
             status: latestOffer.status,
-            price: latestOffer.proposedPrice ?? latestOffer.price,
+            price: latestOffer.offeredPrice ?? latestOffer.price,
             isDirectBuy: Boolean(latestOffer.isDirectBuy),
           }
           : null,

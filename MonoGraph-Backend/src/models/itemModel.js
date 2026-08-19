@@ -22,6 +22,12 @@ const itemSchema = new mongoose.Schema(
     price: {
       type: Number,
     },
+    status: {
+      type: String,
+      enum: ["available", "reserved", "sold"],
+      default: "available",
+      index: true,
+    },
     media: [mediaSchema],
     city: { type: String, default: "herat" },
     rating: { type: Number, min: 0, max: 5, default: 0 },

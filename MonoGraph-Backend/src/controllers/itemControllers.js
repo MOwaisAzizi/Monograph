@@ -2,6 +2,7 @@ import Item from "../models/itemModel.js";
 import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 import Shop from "../models/shopModel.js";
+import { createOrder } from "../services/orderService.js";
 
 export const createItem = catchAsync(async (req, res, next) => {
   // if (!req.body.shop) {
@@ -60,6 +61,41 @@ export const getItem = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: { item: itemDoc },
+  });
+});
+
+export const buyItem = catchAsync(async (req, res, next) => {
+  const item = await Item.findById(req.params.id).populate("shop", "owner");
+
+  if (!item) {
+    return next(new AppError("No item found with that ID", 404));
+  }
+
+  const sellerId = item.shop?.owner || item.owner;
+  const subtotal = Number(item.price ?? 0);
+  const location = req.body?.location || {};
+
+  // if (!sellerId) {
+  //   return next(new AppError("Item seller is not configured", 400));
+  // }
+
+  // if (!location.label) {
+  //   return next(new AppError("Location label is required.", 400));
+  // }
+
+  const order = await createOrder({
+    itemId: item._id,
+    buyerId: req.user._id,
+    sellerId,
+    subtotal,
+    total: subtotal,
+    location,
+    initialStatus: "pending",
+  });
+
+  res.status(201).json({
+    status: "success",
+    data: { order },
   });
 });
 

@@ -38,7 +38,7 @@ app.use((req, res, next) => {
   ) {
     try {
       req.body = JSON.parse(req.body);
-    } catch {}
+    } catch { }
   }
 
   next();
@@ -50,9 +50,11 @@ app.use("/api/v1/review", reviewRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/home", homeRoute);
 app.use("/api/v1/item", itemRoutes);
+app.use("/api/v1/items", itemRoutes);
 app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/search", searchRoutes);
 app.use("/api/v1/offer", offerRoutes);
+app.use("/api/v1/offers", offerRoutes);
 app.use("/api/v1/order", orderRoutes);
 app.use("/api/v1/conversation", conversationRoutes);
 

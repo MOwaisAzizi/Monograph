@@ -80,6 +80,9 @@ export const getText = (language, key) => {
         reserveItem: { en: 'Reserve item', fa: 'رزرو کالا', ps: 'د توکي ساتنه' },
         offerPrice: { en: 'Offer a price', fa: 'پیشنهاد قیمت', ps: 'د نرخ وړاندیز' },
         buyNow: { en: 'Buy now', fa: 'همین الان بخرید', ps: 'همدا اوس خرید کړئ' },
+        purchaseLocation: { en: 'Purchase location', fa: 'محل خرید', ps: 'د پیرود ځای' },
+        unableToBuy: { en: 'Unable to buy', fa: 'خرید انجام نشد', ps: 'پیرود ونه شو' },
+        purchaseFailed: { en: 'Purchase failed.', fa: 'خرید ناموفق بود.', ps: 'پیرود ناکام شو.' },
         offerPlaceholder: {
             en: 'Enter your offer',
             fa: 'قیمت پیشنهادی خود را وارد کنید',

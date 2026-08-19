@@ -54,7 +54,12 @@ export default function ProductScreen({ route, navigation }) {
 
     try {
       setSubmittingOffer(true);
-      await api.createOffer({ itemId: item.id, price: parsedPrice, note: 'Buyer offer' });
+      await api.createOffer({
+        itemId: item.id,
+        askingPrice: Number(item.price || 0),
+        offeredPrice: parsedPrice,
+        note: 'Buyer offer',
+      });
       setOfferModalOpen(false);
       setOfferValue('');
       Alert.alert(getText(currentLanguage, 'offerPrice'), getText(currentLanguage, 'offerSaved'));

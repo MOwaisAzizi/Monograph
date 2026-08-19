@@ -7,25 +7,29 @@ const orderSchema = new Schema(
     offer: {
       type: Schema.Types.ObjectId,
       ref: "Offer",
-      required: true,
-      unique: true,
+      default: null,
     },
     item: {
       type: Schema.Types.ObjectId,
       ref: "Item",
-      required: true,
+      // required: true,
     },
     buyer: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      // required: true,
     },
     seller: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      // required: true,
     },
-    agreedPrice: {
+    total: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    subtotal: {
       type: Number,
       required: true,
       min: 0,
@@ -37,28 +41,23 @@ const orderSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["pending", "completed", "cancelled", "disputed"],
+      enum: ["pending", "accepted", "completed", "rejected"],
       default: "pending",
     },
-    buyerConfirmed: {
-      type: Boolean,
-      default: false,
-    },
-    sellerConfirmed: {
-      type: Boolean,
-      default: false,
-    },
-    cancelledBy: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      default: null,
-    },
-    disputeReason: {
+    rejectionReason: {
       type: String,
       default: "",
     },
   },
   { timestamps: true },
+);
+
+orderSchema.index(
+  { offer: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { offer: { $type: "objectId" } },
+  },
 );
 
 export default mongoose.model("Order", orderSchema);

@@ -153,6 +153,9 @@ class Api {
   getMyShops(authHeader) {
     return this.baseURL.get('/shop/mine', { headers: authHeader });
   }
+  getMyOrders() {
+    return this.baseURL.get('/order/mine');
+  }
   getCategories() {
     return this.baseURL.get('/category');
   }
@@ -167,10 +170,16 @@ class Api {
   createOffer(payload) {
     return this.baseURL.post('/offer', payload);
   }
+  createOrder(payload) {
+    return this.baseURL.post(`/items/${payload.itemId}/buy`, payload);
+  }
   getOffers() {
     return this.baseURL.get('/offer');
   }
   respondToOffer(offerId, payload) {
+    if (payload?.action === 'accept') {
+      return this.baseURL.post(`/offers/${offerId}/accept`, payload);
+    }
     return this.baseURL.patch(`/offer/${offerId}/respond`, payload);
   }
   openConversation(payload) {

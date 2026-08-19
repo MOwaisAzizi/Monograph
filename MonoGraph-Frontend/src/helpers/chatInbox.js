@@ -30,7 +30,7 @@ export const getConversationInboxStatus = ({ latestOffer, latestOrder, lastMessa
     }
 
     if (latestOffer) {
-        const offerPrice = latestOffer.proposedPrice ?? latestOffer.price ?? null;
+        const offerPrice = latestOffer.offeredPrice ?? latestOffer.askingPrice ?? null;
         switch (latestOffer.status) {
             case 'pending':
                 return latestOffer.isDirectBuy
@@ -44,7 +44,7 @@ export const getConversationInboxStatus = ({ latestOffer, latestOrder, lastMessa
                 return { text: getText(language, 'offerDeclined'), pill: 'rejected' };
             case 'cancelled':
                 return { text: getText(language, 'offerCancelled'), pill: 'cancelled' };
-            case 'confirmed':
+            case 'accepted':
                 return { text: getText(language, 'orderConfirmed'), pill: 'order' };
             default:
                 return { text: `${getText(language, 'offerPrefix')} ${moneyText(offerPrice)}`, pill: 'pending' };

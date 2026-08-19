@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const { Schema } = mongoose;
 
 const offerSchema = new Schema(
@@ -20,18 +19,15 @@ const offerSchema = new Schema(
       ref: "User",
       // required: true,
     },
-    price: {
+    askingPrice: {
       type: Number,
       required: true,
       min: 0,
     },
-    proposedPrice: {
+
+    offeredPrice: {
       type: Number,
       default: null,
-    },
-    isDirectBuy: {
-      type: Boolean,
-      default: false,
     },
     note: {
       type: String,
@@ -40,35 +36,13 @@ const offerSchema = new Schema(
     },
     status: {
       type: String,
-      enum: [
-        "pending",
-        "accepted",
-        "rejected",
-        "countered",
-        "cancelled",
-        "confirmed",
-      ],
+      enum: ["pending", "rejected", "accepted"],
       default: "pending",
     },
     location: {
       label: { type: String, default: "" },
       latitude: { type: Number, default: null },
       longitude: { type: Number, default: null },
-      proposedBy: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        default: null,
-      },
-      confirmedBy: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        default: null,
-      },
-    },
-    order: {
-      type: Schema.Types.ObjectId,
-      ref: "Order",
-      default: null,
     },
   },
   { timestamps: true },
