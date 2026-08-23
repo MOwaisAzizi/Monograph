@@ -43,6 +43,65 @@ export const getText = (language, key) => {
         favoriteShops: { en: 'Favorite Shops', fa: 'فروشگاه های مورد علاقه', ps: 'د خوښ کردو فروشونو' },
         settings: { en: 'Settings', fa: 'تنظیمات', ps: 'امستنې' },
         myListings: { en: 'My listings', fa: 'لیست های من', ps: 'زما لیستونه' },
+
+        offerAccepted: {
+    en: 'Offer accepted',
+    fa: 'پیشنهاد پذیرفته شد',
+    ps: 'وړاندیز ومنل شو',
+},
+
+offerDeclined: {
+    en: 'Offer declined',
+    fa: 'پیشنهاد رد شد',
+    ps: 'وړاندیز رد شو',
+},
+
+chatLabel: {
+    en: 'Chat',
+    fa: 'گفت‌وگو',
+    ps: 'خبرې',
+},
+
+youOrdered: {
+    en: 'You ordered:',
+    fa: 'شما سفارش دادید:',
+    ps: 'تاسو سفارش ورکړی:',
+},
+
+youOffered: {
+    en: 'You offered:',
+    fa: 'شما پیشنهاد دادید:',
+    ps: 'تاسو وړاندیز کړی:',
+},
+
+noMessagesYet: {
+    en: 'No messages yet',
+    fa: 'هنوز پیامی وجود ندارد',
+    ps: 'تر اوسه کوم پیغام نشته',
+},
+
+        orderPending: {
+    en: 'pending',
+    fa: 'حال بررسی',
+    ps: 'د بیاکتنې په حال کې دی',
+},
+orderRejected: {
+    en: 'rejected',
+    fa: 'رد شد',
+    ps: 'رد شو',
+},
+orderAccepted: {
+    en: 'accepted',
+    fa: 'پذیرفته شد',
+    ps: 'ومنل شو',
+},
+orderCompleted: {
+    en: 'completed',
+    fa: 'تکمیل شد',
+    ps: 'بشپړ شو',
+},
+
+
         ordersMessages: {
             en: 'Orders & messages',
             fa: 'سفارشات و پیام ها',
@@ -80,6 +139,9 @@ export const getText = (language, key) => {
         reserveItem: { en: 'Reserve item', fa: 'رزرو کالا', ps: 'د توکي ساتنه' },
         offerPrice: { en: 'Offer a price', fa: 'پیشنهاد قیمت', ps: 'د نرخ وړاندیز' },
         buyNow: { en: 'Buy now', fa: 'همین الان بخرید', ps: 'همدا اوس خرید کړئ' },
+        purchaseLocation: { en: 'Purchase location', fa: 'محل خرید', ps: 'د پیرود ځای' },
+        unableToBuy: { en: 'Unable to buy', fa: 'خرید انجام نشد', ps: 'پیرود ونه شو' },
+        purchaseFailed: { en: 'Purchase failed.', fa: 'خرید ناموفق بود.', ps: 'پیرود ناکام شو.' },
         offerPlaceholder: {
             en: 'Enter your offer',
             fa: 'قیمت پیشنهادی خود را وارد کنید',
@@ -98,7 +160,7 @@ export const getText = (language, key) => {
             fa: 'پیشنهاد شما ارسال شد',
             ps: 'ستاسو وړاندیز واستول شو',
         },
-        offerPending: { en: 'Pending review', fa: 'در حال بررسی', ps: 'د بیاکتنې په حال کې' },
+        offerPending: { en: 'Pending', fa: 'در حال بررسی', ps: 'د بیاکتنې په حال کې' },
         chatWithSeller: {
             en: 'Chat with seller',
             fa: 'گفت‌وگوی با فروشنده',
@@ -144,6 +206,26 @@ export const getText = (language, key) => {
     };
 
     const common = {
+        scheduleMeetup: { en: 'Schedule meetup', fa: 'زمان ملاقات را تعیین کنید', ps: 'د لیدنې وخت وټاکئ' },
+        meetupDate: { en: 'Date', fa: 'تاریخ', ps: 'نېټه' },
+        meetupTime: { en: 'Time', fa: 'زمان', ps: 'وخت' },
+        meetupArea: { en: 'Area', fa: 'منطقه', ps: 'سیمه' },
+        selectMeetingArea: { en: 'Select a meeting area', fa: 'منطقه ملاقات را انتخاب کنید', ps: 'د لیدنې سیمه وټاکئ' },
+        hour: { en: 'Hour', fa: 'ساعت', ps: 'ساعت' },
+        minute: { en: 'Minute', fa: 'دقیقه', ps: 'دقیقه' },
+        period: { en: 'AM / PM', fa: 'قبل/بعد از ظهر', ps: 'غرمې مخکې/وروسته' },
+        confirmMeetup: { en: 'Confirm meetup', fa: 'تأیید ملاقات', ps: 'لیدنه تایید کړئ' },
+        meetupInfo: { en: 'Meetup information', fa: 'اطلاعات ملاقات', ps: 'د لیدنې معلومات' },
+        directions: { en: 'Directions', fa: 'مسیر', ps: 'لارښوونې' },
+        acceptOrder: { en: 'Accept order', fa: 'پذیرش سفارش', ps: 'غوښتنه ومنئ' },
+        confirm: { en: 'Confirm', fa: 'تأیید', ps: 'تایید' },
+        requestChange: { en: 'Request change', fa: 'درخواست تغییر', ps: 'د بدلون غوښتنه' },
+        changeReasonOptional: { en: 'Reason (optional)', fa: 'دلیل (اختیاری)', ps: 'دلیل (اختیاري)' },
+        orderUpdateFailed: { en: 'Order update failed', fa: 'به‌روزرسانی سفارش ناموفق بود', ps: 'د غوښتنې تازه کول ناکام شول' },
+        unableToUpdateOrder: { en: 'Unable to update order.', fa: 'امکان به‌روزرسانی سفارش نیست.', ps: 'غوښتنه تازه کېدای نه شي.' },
+        meetupStatusPending: { en: 'Awaiting buyer confirmation', fa: 'در انتظار تأیید خریدار', ps: 'د پېرودونکي تایید ته په تمه' },
+        meetupStatusConfirmed: { en: 'Confirmed', fa: 'تأیید شد', ps: 'تایید شو' },
+        meetupStatusChangeRequested: { en: 'Change requested', fa: 'درخواست تغییر', ps: 'د بدلون غوښتنه شوې' },
         register: {
             en: 'Register',
             fa: '\u062b\u0628\u062a \u0646\u0627\u0645',

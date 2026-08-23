@@ -7,58 +7,78 @@ const orderSchema = new Schema(
     offer: {
       type: Schema.Types.ObjectId,
       ref: "Offer",
-      required: true,
-      unique: true,
+      // default: null,
     },
     item: {
       type: Schema.Types.ObjectId,
       ref: "Item",
-      required: true,
+      // required: true,
     },
     buyer: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      // required: true,
     },
     seller: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      // required: true,
     },
-    agreedPrice: {
+    total: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    subtotal: {
       type: Number,
       required: true,
       min: 0,
     },
     location: {
-      label: { type: String, required: true },
+      label: { type: String },
       latitude: { type: Number, default: null },
       longitude: { type: Number, default: null },
     },
     status: {
       type: String,
-      enum: ["pending", "completed", "cancelled", "disputed"],
+      enum: [
+        "pending",
+        "pending_buyer_confirmation",
+        "confirmed",
+        "change_requested",
+        "accepted",
+        "completed",
+        "rejected",
+        "cancelled",
+      ],
       default: "pending",
     },
-    buyerConfirmed: {
-      type: Boolean,
-      default: false,
-    },
-    sellerConfirmed: {
-      type: Boolean,
-      default: false,
-    },
-    cancelledBy: {
+    meetupDate: { type: Date, default: null },
+    meetupTime: { type: String, default: "" },
+    meetupLocation: { type: String, default: "" },
+    meetupLocationId: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "MeetingPlace",
       default: null,
     },
-    disputeReason: {
+    meetupStatus: {
+      type: String,
+      enum: [
+        "pending_seller",
+        "pending_buyer_confirmation",
+        "confirmed",
+        "change_requested",
+      ],
+      default: "pending_seller",
+    },
+    changeRequestReason: { type: String, default: "" },
+    rejectionReason: {
       type: String,
       default: "",
     },
   },
   { timestamps: true },
 );
+
 
 export default mongoose.model("Order", orderSchema);

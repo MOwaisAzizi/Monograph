@@ -1,18 +1,83 @@
 import Order from "../models/orderModel.js";
-import Offer from "../models/offerModel.js";
 import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
+import { createOrder, rejectOrder as rejectOrderTransaction } from "../services/orderService.js";
+import Item from "../models/itemModel.js";
+import MeetingPlace from "../models/meetingPlaceModel.js";
+import Conversation from "../models/conversationModel.js";
+import Message from "../models/messageModel.js";
 
 const canAccessOrder = (order, userId) =>
   order.buyer.toString() === userId.toString() ||
   order.seller.toString() === userId.toString();
+
+const isValidTime = (value) => /^([01]\d|2[0-3]):[0-5]\d$/.test(String(value || ""));
+
+const scheduledAt = (date, time) => {
+  if (!date || !isValidTime(time)) return null;
+  const day = new Date(date);
+  if (Number.isNaN(day.getTime())) return null;
+  const [hours, minutes] = time.split(":").map(Number);
+  day.setHours(hours, minutes, 0, 0);
+  return day;
+};
+
+const addOrderSystemMessage = async (order, sender, content) => {
+  const participants = [String(order.buyer), String(order.seller)].sort();
+  let conversation = await Conversation.findOne({
+    item: order.item,
+    participants: { $all: participants },
+  });
+  if (!conversation) {
+    conversation = await Conversation.create({ item: order.item, participants });
+  }
+  await Message.create({ conversation: conversation._id, sender, content, type: "system" });
+  conversation.lastMessageAt = new Date();
+  await conversation.save();
+};
+
+  export const buyItem = catchAsync(async (req, res, next) => {
+    const item = await Item.findById(req.params.id).populate("shop", "owner");
+  
+    if (!item) {
+      return next(new AppError("No item found with that ID", 404));
+    }
+  
+    const sellerId = item.shop?.owner || item.owner;
+    const subtotal = Number(item.price ?? 0);
+    const location = req.body?.location || {};
+  
+    // if (!sellerId) {
+    //   return next(new AppError("Item seller is not configured", 400));
+    // }
+  
+    // if (!location.label) {
+    //   return next(new AppError("Location label is required.", 400));
+    // }
+  
+    const order = await createOrder({
+      itemId: item._id,
+      buyerId: req.user._id,
+      sellerId,
+      subtotal,
+      total: subtotal,
+      location,
+      initialStatus: "pending",
+    });
+  
+    res.status(201).json({
+      status: "success",
+      data: { order },
+    });
+  });
+  
 
 export const getMyOrders = catchAsync(async (req, res) => {
   const orders = await Order.find({
     $or: [{ buyer: req.user._id }, { seller: req.user._id }],
   })
     .populate("item", "translation price media")
-    .populate("offer", "status price proposedPrice")
+    .populate("offer", "status askingPrice offeredPrice")
     .sort({ createdAt: -1 });
 
   res.status(200).json({
@@ -24,15 +89,17 @@ export const getMyOrders = catchAsync(async (req, res) => {
 export const getOrderById = catchAsync(async (req, res, next) => {
   const order = await Order.findById(req.params.id)
     .populate("item", "translation price media")
-    .populate("offer");
+    .populate("offer")
+    .populate("buyer", "fullname")
+    .populate("seller", "fullname");
 
   if (!order) {
     return next(new AppError("Order not found.", 404));
   }
 
-  if (!canAccessOrder(order, req.user._id)) {
-    return next(new AppError("You are not allowed to view this order.", 403));
-  }
+  // if (!canAccessOrder(order, req.user._id)) {
+  //   return next(new AppError("You are not allowed to view this order.", 403));
+  // }
 
   res.status(200).json({
     status: "success",
@@ -41,84 +108,116 @@ export const getOrderById = catchAsync(async (req, res, next) => {
 });
 
 export const confirmOrder = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const order = await Order.findById(id);
-
-  if (!order) {
-    return next(new AppError("Order not found.", 404));
-  }
-
-  if (!canAccessOrder(order, req.user._id)) {
-    return next(
-      new AppError("You are not allowed to confirm this order.", 403),
-    );
-  }
-
-  if (order.status === "cancelled") {
-    return next(
-      new AppError("This order is cancelled and cannot be completed.", 400),
-    );
-  }
-
-  if (order.status === "completed") {
-    return next(new AppError("This order is already completed.", 400));
-  }
-
-  if (order.buyer.toString() === req.user._id.toString()) {
-    order.buyerConfirmed = true;
-  }
-
-  if (order.seller.toString() === req.user._id.toString()) {
-    order.sellerConfirmed = true;
-  }
-
-  if (order.buyerConfirmed && order.sellerConfirmed) {
-    order.status = "completed";
-  }
-
-  await order.save();
-
-  res.status(200).json({
-    status: "success",
-    data: { order },
-  });
+  return next(
+    new AppError(
+      "Use the meetup acceptance endpoint with a date, time, and location.",
+      400,
+    ),
+  );
 });
 
-export const cancelOrder = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const order = await Order.findById(id);
-
-  if (!order) {
-    return next(new AppError("Order not found.", 404));
+export const acceptOrderWithMeetup = catchAsync(async (req, res, next) => {
+  const { meetupDate, meetupTime, meetupLocationId } = req.body;
+  if (!meetupDate || !meetupTime || !meetupLocationId) {
+    return next(new AppError("Meetup date, time, and location are required.", 400));
+  }
+  const dateTime = scheduledAt(meetupDate, meetupTime);
+  if (!dateTime || dateTime <= new Date()) {
+    return next(new AppError("Meetup must be scheduled in the future.", 400));
+  }
+  const [order, meetingPlace] = await Promise.all([
+    Order.findById(req.params.id),
+    MeetingPlace.findOne({ _id: meetupLocationId, active: true }),
+  ]);
+  if (!order) return next(new AppError("Order not found.", 404));
+  if (!meetingPlace) return next(new AppError("Meeting place not found.", 400));
+  if (String(order.seller) !== String(req.user._id)) {
+    return next(new AppError("Only the seller can accept this order.", 403));
+  }
+  if (order.status !== "pending" && order.status !== "change_requested") {
+    return next(new AppError("This order cannot be scheduled.", 400));
   }
 
-  if (!canAccessOrder(order, req.user._id)) {
-    return next(new AppError("You are not allowed to cancel this order.", 403));
-  }
-
-  if (order.status === "completed") {
-    return next(new AppError("A completed order cannot be cancelled.", 400));
-  }
-
-  order.status = "cancelled";
-  order.cancelledBy = req.user._id;
+  order.meetupDate = new Date(meetupDate);
+  order.meetupTime = meetupTime;
+  order.meetupLocationId = meetingPlace._id;
+  order.meetupLocation = meetingPlace.name;
+  order.meetupStatus = "pending_buyer_confirmation";
+  order.status = "pending_buyer_confirmation";
+  order.changeRequestReason = "";
   await order.save();
+  await addOrderSystemMessage(order, req.user._id, `Meetup proposed: ${meetingPlace.name} on ${order.meetupDate.toISOString().slice(0, 10)} at ${meetupTime}.`);
 
-  const offer = await Offer.findById(order.offer);
-  if (offer) {
-    offer.status = "cancelled";
-    await offer.save();
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: { order },
-  });
+  res.status(200).json({ status: "success", data: { order } });
 });
 
-export const disputeOrder = catchAsync(async (req, res, next) => {
+export const confirmMeetup = catchAsync(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+  if (!order) return next(new AppError("Order not found.", 404));
+  if (String(order.buyer) !== String(req.user._id)) {
+    return next(new AppError("Only the buyer can confirm this meetup.", 403));
+  }
+  if (order.status !== "pending_buyer_confirmation") {
+    return next(new AppError("This meetup is not awaiting confirmation.", 400));
+  }
+  order.status = "confirmed";
+  order.meetupStatus = "confirmed";
+  await order.save();
+  await addOrderSystemMessage(order, req.user._id, "Buyer confirmed the meetup.");
+  res.status(200).json({ status: "success", data: { order } });
+});
+
+export const requestMeetupChange = catchAsync(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+  if (!order) return next(new AppError("Order not found.", 404));
+  if (String(order.buyer) !== String(req.user._id)) {
+    return next(new AppError("Only the buyer can request a change.", 403));
+  }
+  if (order.status !== "pending_buyer_confirmation") {
+    return next(new AppError("This meetup cannot be changed now.", 400));
+  }
+  order.status = "change_requested";
+  order.meetupStatus = "change_requested";
+  order.changeRequestReason = String(req.body.reason || "").trim().slice(0, 500);
+  await order.save();
+  await addOrderSystemMessage(order, req.user._id, `Buyer requested a meetup change${order.changeRequestReason ? `: ${order.changeRequestReason}` : "."}`);
+  res.status(200).json({ status: "success", data: { order } });
+});
+
+export const rejectOrder = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const { reason } = req.body;
+
+  const order = await Order.findById(id);
+
+  if (!order) {
+    return next(new AppError("Order not found.", 404));
+  }
+
+  if (order.seller.toString() !== req.user._id.toString()) {
+    return next(
+      new AppError("Only the seller can reject this order.", 403),
+    );
+  }
+
+  if (order.status !== "pending") {
+    return next(new AppError("Only pending orders can be rejected.", 400));
+  }
+
+  const rejectedOrder = await rejectOrderTransaction({
+    orderId: id,
+    rejectionReason: reason || "Rejected by a participant.",
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: { order: rejectedOrder },
+  });
+});
+
+export const completeOrder = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
   const order = await Order.findById(id);
 
   if (!order) {
@@ -127,16 +226,21 @@ export const disputeOrder = catchAsync(async (req, res, next) => {
 
   if (!canAccessOrder(order, req.user._id)) {
     return next(
-      new AppError("You are not allowed to dispute this order.", 403),
+      new AppError("You are not allowed to complete this order.", 403),
     );
   }
 
-  if (order.status === "completed") {
-    return next(new AppError("A completed order cannot be disputed.", 400));
+  if (order.status !== "confirmed" && order.status !== "accepted") {
+    return next(
+      new AppError(
+        "Only accepted orders can be completed.",
+        400,
+      ),
+    );
   }
 
-  order.status = "disputed";
-  order.disputeReason = reason || "Disputed by a participant.";
+  order.status = "completed";
+
   await order.save();
 
   res.status(200).json({
@@ -144,3 +248,4 @@ export const disputeOrder = catchAsync(async (req, res, next) => {
     data: { order },
   });
 });
+

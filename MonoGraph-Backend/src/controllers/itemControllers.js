@@ -2,6 +2,7 @@ import Item from "../models/itemModel.js";
 import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 import Shop from "../models/shopModel.js";
+import { createOrder } from "../services/orderService.js";
 
 export const createItem = catchAsync(async (req, res, next) => {
   // if (!req.body.shop) {

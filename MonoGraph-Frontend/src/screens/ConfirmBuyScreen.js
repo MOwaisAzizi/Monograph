@@ -14,24 +14,21 @@ export default function ConfirmBuyScreen({ route, navigation }) {
     if (!itemId) return;
     try {
       setLoading(true);
-      const offerRes = await api.createOffer({
+      await api.createOrder({
         itemId,
-        price,
-        isDirectBuy: true,
-        note: 'Direct buy request',
+        location: { label: itemTitle || getText(language, 'purchaseLocation') },
       });
-      const offerId = offerRes?.data?.data?.offer?._id;
-      if (offerId) {
-        await api.respondToOffer(offerId, { action: 'accept', note: 'Accepted via direct buy' });
-      }
       navigation.navigate('OfferStatus', {
         itemId,
         itemTitle,
-        status: 'accepted',
+        status: 'pending',
         amount: price || 0,
       });
     } catch (error) {
-      Alert.alert('Unable to buy', error?.response?.data?.message || 'Purchase failed.');
+      Alert.alert(
+        getText(language, 'unableToBuy'),
+        error?.response?.data?.message || getText(language, 'purchaseFailed'),
+      );
     } finally {
       setLoading(false);
     }
