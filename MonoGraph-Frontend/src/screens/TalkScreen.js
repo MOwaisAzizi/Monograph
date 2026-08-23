@@ -4,7 +4,13 @@ import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { ScreenShell } from '../components/ui';
 import api from '../services/api';
-import { getConversationInboxStatus, getConversationTitle, getItemImageUri } from '../helpers/chatInbox';
+import {
+  getConversationStatusBadge,
+  getConversationTitle,
+  getItemImageUri,
+  getLastMessagePreview,
+  getOfferOrderPriceLine,
+} from '../helpers/chatInbox';
 import { getText } from '../i18n';
 
 const TAB_OPTIONS = [
@@ -18,6 +24,7 @@ const STATUS_STYLES = {
   order: 'bg-[#7dc1d9] bg-opacity-15',
   rejected: 'bg-[#e98c8c] bg-opacity-15',
   cancelled: 'bg-[#b4b8b8] bg-opacity-15',
+  chat: 'bg-[#ecf2f2] bg-opacity-15',
   neutral: 'bg-[#ecf2f2] bg-opacity-15',
 };
 
@@ -27,11 +34,20 @@ const STATUS_TEXT = {
   order: 'text-[#0d5f78]',
   rejected: 'text-[#8d2626]',
   cancelled: 'text-[#4b5b5d]',
+  chat: 'text-[#5f7676]',
   neutral: 'text-[#5f7676]',
+};
+
+const formatDate = (value) => {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
 };
 
 export default function TalkScreen({ navigation }) {
   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+  const currentUserId = useSelector((state) => state.auth?.user?._id || state.auth?.user?.id);
   const [activeTab, setActiveTab] = useState('buying');
   const [conversations, setConversations] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,28 +76,37 @@ export default function TalkScreen({ navigation }) {
   const openThread = (conversation) => {
     const item = conversation?.item || {};
     const otherParticipant = conversation?.otherParticipant || {};
-    console.log('conversation');
-    console.log(conversation);
     navigation.navigate('Chat', {
       conversationId: conversation?._id || null,
       itemId: item?._id || item?.id,
       itemTitle: getConversationTitle(conversation, currentLanguage),
-      sellerId: otherParticipant?._id || otherParticipant?.id,
+      sellerId: conversation?.sellerId || otherParticipant?._id || otherParticipant?.id,
+      buyerId: conversation?.buyerId,
       otherParticipantName: otherParticipant?.fullname || 'User',
       otherParticipantAvatar: otherParticipant?.avatar || otherParticipant?.profileImage || null,
       latestOffer: conversation?.latestOffer || null,
       latestOrder: conversation?.latestOrder || null,
+      hasConversation: Boolean(conversation?.hasConversation),
       activeRole: activeTab,
     });
   };
 
   const renderRow = ({ item }) => {
-    const status = getConversationInboxStatus({
+    const badge = getConversationStatusBadge({
       latestOffer: item?.latestOffer,
       latestOrder: item?.latestOrder,
-      lastMessage: item?.lastMessage,
+      currentUserId,
       language: currentLanguage,
     });
+    const priceLine = getOfferOrderPriceLine({
+      latestOffer: item?.latestOffer,
+      latestOrder: item?.latestOrder,
+      language: currentLanguage,
+    });
+    const secondaryLine =
+      priceLine || getLastMessagePreview({ lastMessage: item?.lastMessage, language: currentLanguage });
+    const dateLabel = formatDate(badge.updatedAt);
+
     const otherParticipant = item?.otherParticipant || {};
     const imageUri = getItemImageUri(item?.item || {});
     const displayName = otherParticipant.fullname || 'User';
@@ -98,14 +123,20 @@ export default function TalkScreen({ navigation }) {
         />
 
         <View className="ml-3 flex-1">
-          <View className="flex-row items-center justify-between">
+          <View className="flex-row items-start justify-between">
             <Text className="flex-1 text-[13px] font-bold text-[#203030]" numberOfLines={1}>
               {getConversationTitle(item, currentLanguage)}
             </Text>
-            <View className={`ml-2 rounded-full px-2 py-1 ${STATUS_STYLES[status.pill] || STATUS_STYLES.neutral}`}>
-              <Text className={`text-[9px] font-semibold ${STATUS_TEXT[status.pill] || STATUS_TEXT.neutral}`}>
-                {status.pill === 'pending' ? 'Pending' : status.pill === 'accepted' ? 'Accepted' : status.pill === 'order' ? 'Order' : status.pill === 'rejected' ? 'Rejected' : status.pill === 'cancelled' ? 'Cancelled' : 'Latest'}
-              </Text>
+
+            <View className="ml-2 items-end">
+              <View className={`rounded-full px-2 py-1 ${STATUS_STYLES[badge.pill] || STATUS_STYLES.neutral}`}>
+                <Text className={`text-[9px] font-semibold ${STATUS_TEXT[badge.pill] || STATUS_TEXT.neutral}`}>
+                  {badge.label}
+                </Text>
+              </View>
+              {dateLabel ? (
+                <Text className="mt-1 text-[9px] text-[#8ba0a0]">{dateLabel}</Text>
+              ) : null}
             </View>
           </View>
 
@@ -114,7 +145,7 @@ export default function TalkScreen({ navigation }) {
           </Text>
 
           <Text className="mt-1 text-[11px] text-[#314243]" numberOfLines={2}>
-            {status.text}
+            {secondaryLine}
           </Text>
         </View>
       </Pressable>
@@ -156,7 +187,7 @@ export default function TalkScreen({ navigation }) {
       ) : (
         <FlatList
           data={conversations}
-          keyExtractor={(item) => String(item._id)}
+          keyExtractor={(item) => String(item._id || item.threadKey)}
           renderItem={renderRow}
           contentContainerStyle={{ paddingBottom: 24 }}
           showsVerticalScrollIndicator={false}

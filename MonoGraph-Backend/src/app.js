@@ -15,6 +15,7 @@ import globalErrorHandler from "./middleware/globalErrorHandler.js";
 import offerRoutes from "./routes/offerRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import conversationRoutes from "./routes/conversationRoutes.js";
+import meetingPlaceRoutes from "./routes/meetingPlaceRoutes.js";
 const app = express();
 import cors from "cors";
 
@@ -56,7 +57,9 @@ app.use("/api/v1/search", searchRoutes);
 app.use("/api/v1/offer", offerRoutes);
 app.use("/api/v1/offers", offerRoutes);
 app.use("/api/v1/order", orderRoutes);
+app.use("/api/v1/orders", orderRoutes);
 app.use("/api/v1/conversation", conversationRoutes);
+app.use("/api/v1/meeting-places", meetingPlaceRoutes);
 
 app.use((req, res, next) => {
   return next(

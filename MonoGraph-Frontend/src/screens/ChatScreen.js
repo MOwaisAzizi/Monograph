@@ -9,12 +9,14 @@ import {
   Text,
   TextInput,
   View,
+  Linking,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 import { ScreenShell } from '../components/ui';
 import api from '../services/api';
 import { getText } from '../i18n';
+import MeetupSchedulerModal from '../components/MeetupSchedulerModal';
 
 const OFFER_STATUS_COLOR = {
   pending: 'text-[#7f4e00]',
@@ -35,6 +37,9 @@ const ORDER_STATUS_COLOR = {
   accepted: 'text-[#0a5d76]',
   completed: 'text-[#195736]',
   rejected: 'text-[#912e2e]',
+  pending_buyer_confirmation: 'text-[#7f4e00]',
+  confirmed: 'text-[#195736]',
+  change_requested: 'text-[#912e2e]',
 };
 
 const ORDER_STATUS_LABEL = {
@@ -42,6 +47,9 @@ const ORDER_STATUS_LABEL = {
   accepted: 'accepted',
   completed: 'Completed',
   rejected: 'Rejected',
+  pending_buyer_confirmation: 'Awaiting buyer confirmation',
+  confirmed: 'Confirmed',
+  change_requested: 'Change requested',
 };
 
 const moneyText = (value) => {
@@ -98,6 +106,9 @@ export default function ChatScreen({ route, navigation }) {
 
   const [offerState, setOfferState] = useState(latestOffer);
   const [orderState, setOrderState] = useState(latestOrder);
+  const [scheduleVisible, setScheduleVisible] = useState(false);
+  const [changeReasonVisible, setChangeReasonVisible] = useState(false);
+  const [changeReason, setChangeReason] = useState('');
 
   useEffect(() => {
     const loadConversation = async () => {
@@ -130,6 +141,10 @@ export default function ChatScreen({ route, navigation }) {
             messagesRes?.data?.data?.messages || []
           );
         }
+        if (latestOrder?._id) {
+          const orderRes = await api.getOrder(latestOrder._id);
+          setOrderState(orderRes?.data?.data?.order || latestOrder);
+        }
       } catch (error) {
         Alert.alert(
           'Chat unavailable',
@@ -142,7 +157,7 @@ export default function ChatScreen({ route, navigation }) {
     };
 
     loadConversation();
-  }, [initialConversationId, itemId, sellerId]);
+  }, [initialConversationId, itemId, sellerId, latestOrder]);
 
   /*
    * ============================
@@ -150,9 +165,43 @@ export default function ChatScreen({ route, navigation }) {
    * ============================
    */
 
-  const canRespondToOffer =
-    Boolean(offerState?._id) &&
-    offerState?.status === 'pending';
+  const getUserId = (user) => {
+  if (!user) return '';
+
+  if (typeof user === 'string') {
+    return user;
+  }
+
+  return user?._id || user?.id || '';
+};
+
+const offerBuyerId = getUserId(offerState?.buyer);
+const offerSellerId = getUserId(offerState?.seller);
+
+const isOfferBuyer =
+  String(offerBuyerId) === String(currentUserId || '');
+
+const isOfferSeller =
+  String(offerSellerId) === String(currentUserId || '');
+
+const canRespondToOffer =
+  Boolean(offerState?._id) &&
+  offerState?.status === 'pending' &&
+  isOfferSeller;
+
+const canCancelOffer =
+  Boolean(offerState?._id) &&
+  offerState?.status === 'pending' &&
+  isOfferBuyer;
+
+const orderSellerId = getUserId(orderState?.seller);
+const isOrderSeller = String(orderSellerId) === String(currentUserId || '');
+const canRespondToOrder =
+  Boolean(orderState?._id) &&
+  ['pending', 'change_requested'].includes(orderState?.status) &&
+  isOrderSeller;
+const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
+  orderState?.status === 'pending_buyer_confirmation' && !isOrderSeller;
 
   const offerAmount = useMemo(() => {
     return (
@@ -175,8 +224,14 @@ export default function ChatScreen({ route, navigation }) {
    * ============================
    */
 
-  const orderStatusText =
-    ORDER_STATUS_LABEL[orderState?.status] || 'Pending';
+  const meetupStatusKeys = {
+    pending_buyer_confirmation: 'meetupStatusPending',
+    confirmed: 'meetupStatusConfirmed',
+    change_requested: 'meetupStatusChangeRequested',
+  };
+  const orderStatusText = meetupStatusKeys[orderState?.status]
+    ? getText(language, meetupStatusKeys[orderState.status])
+    : ORDER_STATUS_LABEL[orderState?.status] || 'Pending';
 
   const orderStatusClass =
     ORDER_STATUS_COLOR[orderState?.status] ||
@@ -231,7 +286,7 @@ export default function ChatScreen({ route, navigation }) {
    */
 
   const runOfferAction = async (action) => {
-    if (!canRespondToOffer) {
+    if (action === 'cancel' ? !canCancelOffer : !canRespondToOffer) {
       return;
     }
 
@@ -242,10 +297,9 @@ export default function ChatScreen({ route, navigation }) {
         action,
       };
 
-      const response = await api.respondToOffer(
-        offerState._id,
-        payload
-      );
+      const response = action === 'cancel'
+        ? await api.cancelOffer(offerState._id)
+        : await api.respondToOffer(offerState._id, payload);
 
       const nextOffer =
         response?.data?.data?.offer;
@@ -273,6 +327,44 @@ export default function ChatScreen({ route, navigation }) {
     } finally {
       setActionLoading(false);
     }
+  };
+
+  const runOrderAction = async (action) => {
+    if (!canRespondToOrder) return;
+
+    try {
+      setActionLoading(true);
+      const response = action === 'accept'
+        ? await api.confirmOrder(orderState._id)
+        : await api.rejectOrder(orderState._id);
+      const nextOrder = response?.data?.data?.order;
+      if (nextOrder) setOrderState(nextOrder);
+    } catch (error) {
+      Alert.alert('Order update failed', error?.response?.data?.message || 'Unable to update order.');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const submitMeetup = async (payload) => {
+    try {
+      setActionLoading(true);
+      const response = await api.acceptOrderWithMeetup(orderState._id, payload);
+      setOrderState(response?.data?.data?.order || orderState);
+      setScheduleVisible(false);
+    } catch (error) {
+      Alert.alert(getText(language, 'orderUpdateFailed'), error?.response?.data?.message || getText(language, 'unableToUpdateOrder'));
+    } finally { setActionLoading(false); }
+  };
+  const confirmMeetup = async () => {
+    try { setActionLoading(true); const response = await api.confirmMeetup(orderState._id); setOrderState(response?.data?.data?.order || orderState); }
+    catch (error) { Alert.alert(getText(language, 'orderUpdateFailed'), error?.response?.data?.message || getText(language, 'unableToUpdateOrder')); }
+    finally { setActionLoading(false); }
+  };
+  const requestChange = async () => {
+    try { setActionLoading(true); const response = await api.requestMeetupChange(orderState._id, changeReason); setOrderState(response?.data?.data?.order || orderState); setChangeReasonVisible(false); setChangeReason(''); }
+    catch (error) { Alert.alert(getText(language, 'orderUpdateFailed'), error?.response?.data?.message || getText(language, 'unableToUpdateOrder')); }
+    finally { setActionLoading(false); }
   };
 
   return (
@@ -340,7 +432,7 @@ export default function ChatScreen({ route, navigation }) {
         {offerState ? (
           <View className="mb-3 rounded-[16px] border border-[#e7a825] bg-[#f8dca1] px-3 py-3">
             <Text className="text-[11px] font-semibold uppercase text-[#735001]">
-              OFFER · {offerStatusText}
+              {isOfferSeller ? 'OFFER RECEIVED' : 'YOUR OFFER'} · {offerStatusText}
             </Text>
 
             <Text className="mt-1 text-[34px] font-extrabold text-[#111111]">
@@ -359,9 +451,7 @@ export default function ChatScreen({ route, navigation }) {
                   className="rounded-xl bg-[#111111] px-5 py-2"
                 >
                   <Text className="text-[15px] font-semibold text-white">
-                    {actionLoading
-                      ? 'Saving...'
-                      : 'Accept'}
+                    {actionLoading ? 'Saving...' : 'Accept Offer'}
                   </Text>
                 </Pressable>
 
@@ -375,10 +465,18 @@ export default function ChatScreen({ route, navigation }) {
                   className="rounded-xl border border-[#d6b06b] bg-white px-5 py-2"
                 >
                   <Text className="text-[15px] font-semibold text-[#992f2f]">
-                    Reject
+                    Reject Offer
                   </Text>
                 </Pressable>
               </View>
+            ) : canCancelOffer ? (
+              <Pressable
+                onPress={() => runOfferAction('cancel')}
+                disabled={actionLoading}
+                className="mt-3 self-start rounded-xl border border-[#d6b06b] bg-white px-5 py-2"
+              >
+                <Text className="text-[15px] font-semibold text-[#992f2f]">Cancel Offer</Text>
+              </Pressable>
             ) : (
               <Text
                 className={`mt-2 text-[13px] font-semibold ${offerStatusClass}`}
@@ -396,7 +494,7 @@ export default function ChatScreen({ route, navigation }) {
         {orderState ? (
           <View className="mb-3 rounded-[16px] border border-[#cddddd] bg-white px-3 py-3">
             <Text className="text-[11px] font-semibold uppercase text-[#607575]">
-              ORDER · {orderStatusText}
+              {isOrderSeller ? 'ORDER RECEIVED' : 'YOUR ORDER'} · {orderStatusText}
             </Text>
 
             <Text className="mt-1 text-[30px] font-extrabold text-[#111111]">
@@ -425,6 +523,37 @@ export default function ChatScreen({ route, navigation }) {
                 </Text>
               </View>
             ) : null}
+
+            {orderState.meetupDate && orderState.meetupTime && orderState.meetupLocation ? (
+              <View className="mt-3 rounded-xl bg-[#edf7f6] p-3">
+                <Text className="text-[13px] font-bold text-[#0f6b75]">{getText(language, 'meetupInfo')}</Text>
+                <Text className="mt-1 text-[13px] text-[#203030]">{new Date(orderState.meetupDate).toLocaleDateString()} · {orderState.meetupTime}</Text>
+                <Pressable onPress={() => Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(orderState.meetupLocation)}`)} className="mt-2 flex-row items-center">
+                  <Ionicons name="location" size={16} color="#0f6b75" /><Text className="ml-1 font-semibold text-[#0f6b75]">{orderState.meetupLocation} · {getText(language, 'directions')}</Text>
+                </Pressable>
+              </View>
+            ) : null}
+            {canRespondToOrder ? (
+              <View className="mt-3 flex-row items-center gap-2">
+                <Pressable
+                  onPress={() => setScheduleVisible(true)}
+                  disabled={actionLoading}
+                  className="rounded-xl bg-[#111111] px-5 py-2"
+                >
+                  <Text className="text-[15px] font-semibold text-white">
+                    {getText(language, 'acceptOrder')}
+                  </Text>
+                </Pressable>
+                {orderState.status === 'pending' ? <Pressable
+                  onPress={() => runOrderAction('reject')}
+                  disabled={actionLoading}
+                  className="rounded-xl border border-[#d6b06b] bg-white px-5 py-2"
+                >
+                  <Text className="text-[15px] font-semibold text-[#992f2f]">Reject Order</Text>
+                </Pressable> : null}
+              </View>
+            ) : null}
+            {isBuyerAwaitingMeetup ? <View className="mt-3"><View className="flex-row gap-2"><Pressable onPress={confirmMeetup} disabled={actionLoading} className="rounded-xl bg-[#111111] px-4 py-2"><Text className="font-semibold text-white">{getText(language, 'confirm')}</Text></Pressable><Pressable onPress={() => setChangeReasonVisible((value) => !value)} className="rounded-xl border border-[#0f6b75] px-4 py-2"><Text className="font-semibold text-[#0f6b75]">{getText(language, 'requestChange')}</Text></Pressable></View>{changeReasonVisible ? <View className="mt-2"><TextInput value={changeReason} onChangeText={setChangeReason} placeholder={getText(language, 'changeReasonOptional')} className="rounded-xl border border-[#d7e1e0] px-3 py-2 text-[#203030]" /><Pressable onPress={requestChange} disabled={actionLoading} className="mt-2 self-start rounded-xl bg-[#0f6b75] px-4 py-2"><Text className="font-semibold text-white">{getText(language, 'send')}</Text></Pressable></View> : null}</View> : null}
           </View>
         ) : null}
 
@@ -515,6 +644,7 @@ export default function ChatScreen({ route, navigation }) {
           </Pressable>
         </View>
       </KeyboardAvoidingView>
+      <MeetupSchedulerModal visible={scheduleVisible} onClose={() => setScheduleVisible(false)} onConfirm={submitMeetup} loading={actionLoading} language={language} />
     </ScreenShell>
   );
 }

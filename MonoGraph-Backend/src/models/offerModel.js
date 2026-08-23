@@ -36,7 +36,7 @@ const offerSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["pending", "rejected", "accepted"],
+      enum: ["pending", "rejected", "accepted",'cancelled'],
       default: "pending",
     },
     location: {

@@ -150,6 +150,10 @@ export const respondToOffer = catchAsync(async (req, res, next) => {
     );
   }
 
+  if (action === "reject" && actor !== "seller") {
+    return next(new AppError("Only the seller can reject this offer.", 403));
+  }
+
   if (action === "accepted") {
     return next(new AppError("Use the offer accept endpoint to accept an offer.", 400));
   } else if (action === "reject") {
@@ -289,9 +293,9 @@ export const acceptOffer = catchAsync(async (req, res, next) => {
   const subtotal = offer.offeredPrice ?? offer.askingPrice;
   const location = req.body?.location || offer.location;
 
-  if (!location?.label) {
-    return next(new AppError("Location label is required.", 400));
-  }
+  // if (!location?.label) {
+  //   return next(new AppError("Location label is required.", 400));
+  // }
 
   const order = await createOrder({
     itemId: offer.item,
@@ -307,5 +311,35 @@ export const acceptOffer = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: "success",
     data: { offer: await Offer.findById(offer._id), order },
+  });
+});
+
+export const cancelOffer = catchAsync(async (req, res, next) => {
+  const offer = await Offer.findById(req.params.id);
+
+  if (!offer) {
+    return next(new AppError("Offer not found.", 404));
+  }
+
+  // Only the buyer who created the offer can cancel it
+  if (offer.buyer.toString() !== req.user._id.toString()) {
+    return next(
+      new AppError("Only the buyer can cancel this offer.", 403)
+    );
+  }
+
+  if (offer.status !== "pending") {
+    return next(
+      new AppError("Only pending offers can be cancelled.", 400)
+    );
+  }
+
+  offer.status = "cancelled";
+
+  await offer.save();
+
+  res.status(200).json({
+    status: "success",
+    data: { offer },
   });
 });

@@ -171,7 +171,7 @@ class Api {
     return this.baseURL.post('/offer', payload);
   }
   createOrder(payload) {
-    return this.baseURL.post(`/items/${payload.itemId}/buy`, payload);
+    return this.baseURL.post(`/order/${payload.itemId}`, payload);
   }
   getOffers() {
     return this.baseURL.get('/offer');
@@ -181,6 +181,24 @@ class Api {
       return this.baseURL.post(`/offers/${offerId}/accept`, payload);
     }
     return this.baseURL.patch(`/offer/${offerId}/respond`, payload);
+  }
+  confirmOrder(orderId) {
+    return this.baseURL.post(`/order/${orderId}/confirm`);
+  }
+  getOrder(orderId) {
+    return this.baseURL.get(`/order/${orderId}`);
+  }
+  getMeetingPlaces(city = 'herat') {
+    return this.baseURL.get(`/meeting-places?city=${encodeURIComponent(city)}`);
+  }
+  acceptOrderWithMeetup(orderId, payload) {
+    return this.baseURL.patch(`/orders/${orderId}/accept`, payload);
+  }
+  confirmMeetup(orderId) {
+    return this.baseURL.patch(`/order/${orderId}/meetup/confirm`);
+  }
+  requestMeetupChange(orderId, reason = '') {
+    return this.baseURL.patch(`/order/${orderId}/meetup/request-change`, { reason });
   }
   openConversation(payload) {
     return this.baseURL.post('/conversation/open', payload);
@@ -201,6 +219,20 @@ class Api {
   saveShopReview(shopId, payload) {
     return this.baseURL.post(`/review/shops/${shopId}`, payload);
   }
+
+  cancelOffer(offerId) {
+  return this.baseURL.patch(`/offer/${offerId}/cancel`);
+}
+
+rejectOrder(orderId, reason = '') {
+  return this.baseURL.post(`/order/${orderId}/reject`, {
+    reason,
+  });
+}
+
+cancelOrder(orderId) {
+  return this.baseURL.post(`/order/${orderId}/cancel`);
+}
 }
 
 export default new Api();
