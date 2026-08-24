@@ -27,6 +27,7 @@ import {
 import { useCategories } from '../hooks/useCategories';
 import { useMyItems } from '../hooks/useMyItems';
 import { useMyShops } from '../hooks/useMyShops';
+// import LocationPickerMap from '../components/LocationPickerMap';
 
 export default function AddListingScreen() {
   const navigation = useNavigation();
@@ -42,6 +43,8 @@ export default function AddListingScreen() {
   const [email, setEmail] = useState('');
   const [workingHours, setWorkingHours] = useState(buildDefaultWorkingHours());
   const [socialLinks, setSocialLinks] = useState([]);
+  const [businessLocation, setBusinessLocation] = useState(null);
+  const [businessLocationFields, setBusinessLocationFields] = useState({ area: '', street: '', details: '' });
 
   const [itemTitleEn, setItemTitleEn] = useState('');
   const [itemTitleFa, setItemTitleFa] = useState('');
@@ -53,6 +56,8 @@ export default function AddListingScreen() {
   const [categoryId, setCategoryId] = useState('');
   const [itemNote, setItemNote] = useState('');
   const [itemAttributes, setItemAttributes] = useState([]);
+  const [itemLocation, setItemLocation] = useState(null);
+  const [itemLocationFields, setItemLocationFields] = useState({ area: '', street: '', details: '' });
   const [editingBusinessId, setEditingBusinessId] = useState('');
   const [editingItemId, setEditingItemId] = useState('');
 
@@ -93,6 +98,8 @@ export default function AddListingScreen() {
     setEmail('');
     setWorkingHours(buildDefaultWorkingHours());
     setSocialLinks([]);
+    setBusinessLocation(null);
+    setBusinessLocationFields({ area: '', street: '', details: '' });
   };
 
   const resetItemForm = () => {
@@ -108,6 +115,8 @@ export default function AddListingScreen() {
     setItemNote('');
     setItemAttributes([]);
     setItemGalleryFiles([]);
+    setItemLocation(null);
+    setItemLocationFields({ area: '', street: '', details: '' });
   };
 
   const fillBusinessForm = useCallback((shop) => {
@@ -126,6 +135,10 @@ export default function AddListingScreen() {
     setSocialLinks(form.socialLinks);
     setBusinessCoverFile(null);
     setBusinessProfileFile(null);
+    const coordinates = shop.location?.geoPosition?.coordinates;
+    setBusinessLocation(coordinates ? { lng: coordinates[0], lat: coordinates[1] } : null);
+    const address = shop.location?.address?.en?.title || '';
+    setBusinessLocationFields({ area: address, street: '', details: '' });
   }, []);
 
   const fillItemForm = useCallback((item) => {
@@ -143,6 +156,9 @@ export default function AddListingScreen() {
     setItemNote(form.note);
     setItemAttributes(form.attributes);
     setItemGalleryFiles([]);
+    const coordinates = item.location?.geoPosition?.coordinates;
+    setItemLocation(coordinates ? { lng: coordinates[0], lat: coordinates[1] } : null);
+    setItemLocationFields({ area: item.location?.address?.en?.title || '', street: '', details: '' });
   }, []);
 
   const pickLocalImage = async (kind) => {
@@ -166,6 +182,7 @@ export default function AddListingScreen() {
     if (!ensureAuth()) return;
     if (![businessTitleEn, businessTitleFa, businessTitlePs].every((title) => title.trim()))
       return Alert.alert('Missing fields', 'Please add business titles for EN, FA, and PS.');
+    if (!businessLocation) return Alert.alert('Location required', 'Choose and confirm the business location.');
     try {
       setSubmitting(true);
       const payload = await buildBusinessPayload({
@@ -180,6 +197,8 @@ export default function AddListingScreen() {
           email,
           workingHours,
           socialLinks,
+          locationCoordinates: [businessLocation.lng, businessLocation.lat],
+          locationText: [businessLocationFields.area, businessLocationFields.street, businessLocationFields.details].filter(Boolean).join(', '),
         },
         coverFile: businessCoverFile,
         profileFile: businessProfileFile,
@@ -203,8 +222,13 @@ export default function AddListingScreen() {
 
   const submitItem = async () => {
     if (!ensureAuth()) return;
-    if (![itemTitleEn, itemTitleFa, itemTitlePs, businessId].every((value) => value.trim()))
-      return Alert.alert('Missing fields', 'Please fill EN/FA/PS titles and select a business.');
+    if (![itemTitleEn, itemTitleFa, itemTitlePs].every((value) => value.trim()))
+      return Alert.alert('Missing fields', 'Please fill EN/FA/PS titles.');
+    const linkedShop = shops.find((shop) => shop._id === businessId);
+    const effectiveItemLocation = linkedShop?.location?.geoPosition?.coordinates
+      ? { lng: linkedShop.location.geoPosition.coordinates[0], lat: linkedShop.location.geoPosition.coordinates[1] }
+      : itemLocation;
+    if (!effectiveItemLocation) return Alert.alert('Location required', 'Choose and confirm the item location.');
     try {
       setSubmitting(true);
       const payload = await buildItemPayload({
@@ -219,6 +243,8 @@ export default function AddListingScreen() {
           categoryId,
           note: itemNote,
           attributes: itemAttributes,
+          locationCoordinates: [effectiveItemLocation.lng, effectiveItemLocation.lat],
+          locationText: linkedShop?.location?.address?.en?.title || [itemLocationFields.area, itemLocationFields.street, itemLocationFields.details].filter(Boolean).join(', '),
         },
         galleryFiles: itemGalleryFiles,
       });
@@ -336,6 +362,15 @@ export default function AddListingScreen() {
             getValue={(c) => c}
           />
 
+          <SectionLabel>Location</SectionLabel>
+          {/* <LocationPickerMap
+            mode="listing"
+            initialLocation={businessLocation}
+            fields={businessLocationFields}
+            onFieldsChange={setBusinessLocationFields}
+            onLocationSelected={(lat, lng) => setBusinessLocation({ lat, lng })}
+          /> */}
+
           <SectionLabel>Email</SectionLabel>
           <TextField
             placeholder="Business email"
@@ -429,11 +464,29 @@ export default function AddListingScreen() {
             placeholder="Select business"
             value={businessId}
             options={shops}
-            onSelect={setBusinessId}
+            onSelect={(id) => {
+              setBusinessId(id);
+              const shop = shops.find((entry) => entry._id === id);
+              const coordinates = shop?.location?.geoPosition?.coordinates;
+              if (coordinates) setItemLocation({ lng: coordinates[0], lat: coordinates[1] });
+            }}
             loading={loadingShops}
             getLabel={(b) => b?.translation?.en?.title || b?.name || b?._id}
             getValue={(b) => b?._id}
           />
+
+          {!businessId ? (
+            <>
+              <SectionLabel>Location</SectionLabel>
+              <LocationPickerMap
+                mode="listing"
+                initialLocation={itemLocation}
+                fields={itemLocationFields}
+                onFieldsChange={setItemLocationFields}
+                onLocationSelected={(lat, lng) => setItemLocation({ lat, lng })}
+              />
+            </>
+          ) : null}
 
           <SectionLabel>Category</SectionLabel>
           <SelectField

@@ -233,6 +233,12 @@ rejectOrder(orderId, reason = '') {
 cancelOrder(orderId) {
   return this.baseURL.post(`/order/${orderId}/cancel`);
 }
+
+getUserStats() {
+  return this.baseURL
+    .get("/user/stats")
+    .then((res) => res.data.data.stats);
+}
 }
 
 export default new Api();

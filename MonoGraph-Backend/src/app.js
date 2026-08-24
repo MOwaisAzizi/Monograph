@@ -16,8 +16,20 @@ import offerRoutes from "./routes/offerRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import conversationRoutes from "./routes/conversationRoutes.js";
 import meetingPlaceRoutes from "./routes/meetingPlaceRoutes.js";
-const app = express();
 import cors from "cors";
+import helmet from "helmet";
+import xss from "xss-clean";
+import hpp from "hpp";
+import rateLimit from "express-rate-limit";
+
+const app = express();
+
+app.use(helmet());
+// app.use(xss());
+app.use(hpp());
+
+const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 20 });
+app.use("/api/auth", authLimiter);
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -39,7 +51,7 @@ app.use((req, res, next) => {
   ) {
     try {
       req.body = JSON.parse(req.body);
-    } catch { }
+    } catch {}
   }
 
   next();
