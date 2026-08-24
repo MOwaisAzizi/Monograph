@@ -7,6 +7,8 @@ import {
   signRefreshToken,
   verifyRefreshToken,
 } from "../utils/jwt.js";
+import Item from "../models/itemModel.js";
+import Review from "../models/reviewModel.js";
 
 const sendTokens = (user) => {
   const payload = {
@@ -117,6 +119,7 @@ const parseJsonField = (value, fallback = value) => {
 
 export const updateProfile = catchAsync(async (req, res, next) => {
   const media = parseJsonField(req.body.media, {});
+  const location = parseJsonField(req.body.location);
   console.log("--------------------");
   // console.log(req.body);
   // console.log(...req.body.media);
@@ -129,11 +132,11 @@ export const updateProfile = catchAsync(async (req, res, next) => {
     });
     if (existingUser) return next(new AppError("Email already in use", 400));
   }
-  const updatedFields = {
-    fullname: req.body.fullname,
-    phone: req.body.phone,
-    media,
-  };
+  const updatedFields = {};
+  if (req.body.fullname !== undefined) updatedFields.fullname = req.body.fullname;
+  if (req.body.phone !== undefined) updatedFields.phone = parseJsonField(req.body.phone, req.body.phone);
+  if (req.body.media !== undefined) updatedFields.media = media;
+  if (location?.geoPosition?.coordinates?.length === 2) updatedFields.location = location;
 
   const user = await User.findByIdAndUpdate(req.user.id, updatedFields, {
     new: true,
@@ -177,4 +180,74 @@ export const toggleFavoriteItemOrShop = catchAsync(async (req, res, next) => {
   await user.save();
 
   return res.status(200).json({ message: "Added to favorites!" });
+});
+
+export const getUserStats = catchAsync(async (req, res) => {
+  console.log("User2 authenticated:");
+  const userId = req.user._id;
+
+  const [itemStats, ratingStats] = await Promise.all([
+    Item.aggregate([
+      {
+        $match: {
+          owner: userId,
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          listed: { $sum: 1 },
+          sold: {
+            $sum: {
+              $cond: [{ $eq: ["$status", "sold"] }, 1, 0],
+            },
+          },
+        },
+      },
+    ]),
+
+    Review.aggregate([
+      {
+        $match: {
+          reviewType: "Item",
+        },
+      },
+      {
+        $lookup: {
+          from: "items",
+          localField: "target",
+          foreignField: "_id",
+          as: "item",
+        },
+      },
+      {
+        $unwind: "$item",
+      },
+      {
+        $match: {
+          "item.owner": userId,
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          averageRating: { $avg: "$rating" },
+        },
+      },
+    ]),
+  ]);
+
+  const stats = {
+    listed: itemStats[0]?.listed || 2,
+    sold: itemStats[0]?.sold || 0,
+    rating: Number((ratingStats[0]?.averageRating || 0).toFixed(1)),
+  };
+console.log('stats')
+console.log(stats)
+  res.status(200).json({
+    status: "success",
+    data: {
+      stats,
+    },
+  });
 });

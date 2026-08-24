@@ -7,6 +7,7 @@ import {
   updateProfile,
   getUserProfile,
   toggleFavoriteItemOrShop,
+  getUserStats,
 } from "../controllers/userControllers.js";
 import { protect } from "../middleware/authMiddleware.js";
 import { uploadMediaFiles } from "../middleware/uploadMiddleware.js";
@@ -22,5 +23,6 @@ router
   .get(protect, getUserProfile)
   .patch(protect, uploadMediaFiles("user", { profile: 1 }), updateProfile);
 router.route("/toggle-favorite").patch(protect, toggleFavoriteItemOrShop);
+router.get("/stats", protect, getUserStats);
 
 export default router;

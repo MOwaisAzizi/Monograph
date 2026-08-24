@@ -59,7 +59,8 @@ export const buildBusinessPayload = async ({ form, coverFile, profileFile }) => 
   );
   appendMultipartValue(payload, 'social', social);
   appendMultipartValue(payload, 'location', {
-    geoPosition: { type: 'Point', coordinates: DEFAULT_COORDS },
+    address: { en: { title: form.locationText }, fa: { title: form.locationText }, ps: { title: form.locationText } },
+    geoPosition: { type: 'Point', coordinates: form.locationCoordinates || DEFAULT_COORDS },
   });
   if (coverFile) payload.append('cover', await toFormDataFile(coverFile, 'business-cover.jpg'));
   if (profileFile)
@@ -83,7 +84,8 @@ export const buildItemPayload = async ({ form, galleryFiles }) => {
       .map((entry) => ({ key: entry.key.trim(), value: parseAttributeValue(entry.value) })),
   );
   appendMultipartValue(payload, 'location', {
-    geoPosition: { type: 'Point', coordinates: DEFAULT_COORDS },
+    address: { en: { title: form.locationText }, fa: { title: form.locationText }, ps: { title: form.locationText } },
+    geoPosition: { type: 'Point', coordinates: form.locationCoordinates || DEFAULT_COORDS },
   });
   for (const file of galleryFiles)
     payload.append('media', await toFormDataFile(file, 'item-gallery.jpg'));

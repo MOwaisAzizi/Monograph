@@ -56,8 +56,21 @@ const userSchema = new Schema(
     },
 
     media: mediaSchema,
-    location: locationSchema,
-  },
+    location: {
+          address: {type: String},
+          geoPosition: {
+            type: {
+              type: String,
+              enum: ["Point"],
+              default: "Point",
+            },
+            coordinates: {
+              type: [Number],
+              required: true,
+            },
+          },
+        },
+          },
   { timestamps: true },
 );
 

@@ -9,13 +9,12 @@ export const createItem = catchAsync(async (req, res, next) => {
   //   return next(new AppError("Shop is required to create an item", 400));
   // }
   console.log("-------------------------------------🌮🥪🥪🥪🥙");
-  const shop = await Shop.findById(req.body.shop);
-  if (!shop) {
-    return next(new AppError("No shop found with that ID", 404));
-  }
-
-  if (!shop.owner || shop.owner.toString() !== req.user._id.toString()) {
-    return next(new AppError("You can only add items to your own shop", 403));
+  if (req.body.shop) {
+    const shop = await Shop.findById(req.body.shop);
+    if (!shop) return next(new AppError("No shop found with that ID", 404));
+    if (!shop.owner || shop.owner.toString() !== req.user._id.toString()) {
+      return next(new AppError("You can only add items to your own shop", 403));
+    }
   }
 
   const itemDoc = await Item.create({

@@ -10,6 +10,7 @@ import { logout, setUser } from '../store/slices/authSlice';
 import { setLanguage } from '../store/slices/languageSlice';
 import { LANGUAGE_OPTIONS, LANGUAGE_NAMES, getText } from '../i18n';
 import { clearStoredSession, saveSession } from '../services/session';
+// import LocationPickerMap from '../components/LocationPickerMap';
 
 export default function ProfileScreen({ navigation }) {
   const [profile, setProfile] = useState(null);
@@ -18,6 +19,9 @@ export default function ProfileScreen({ navigation }) {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({ fullname: '', phone: '' });
+  const [addressPickerOpen, setAddressPickerOpen] = useState(false);
+  const [addressLocation, setAddressLocation] = useState(null);
+  const [addressFields, setAddressFields] = useState({ fullAddress: '' });
   const { user, accessToken, refreshToken } = useSelector((state) => state.auth);
   const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const dispatch = useDispatch();
@@ -58,6 +62,33 @@ export default function ProfileScreen({ navigation }) {
     });
     setMediaFile(null);
     setEditing(true);
+  };
+
+  const openAddressPicker = () => {
+    const coordinates = profile?.location?.geoPosition?.coordinates;
+    setAddressLocation(coordinates ? { lng: coordinates[0], lat: coordinates[1] } : null);
+    setAddressFields({ fullAddress: profile?.address || '' });
+    setAddressPickerOpen(true);
+  };
+
+  const saveAddress = async () => {
+    if (!addressLocation) return;
+    try {
+      setSaving(true);
+      const payload = new FormData();
+      payload.append('location', JSON.stringify({
+        address: addressFields.fullAddress.trim(),
+        geoPosition: { type: 'Point', coordinates: [addressLocation.lng, addressLocation.lat] },
+      }));
+      const updatedUser = await api.updateProfile(payload);
+      const normalizedUser = normalizeUser(updatedUser);
+      setProfile((current) => ({ ...current, ...normalizedUser }));
+      dispatch(setUser({ user: updatedUser, accessToken, refreshToken }));
+      saveSession({ user: updatedUser, accessToken, refreshToken }).catch(() => {});
+      setAddressPickerOpen(false);
+    } finally {
+      setSaving(false);
+    }
   };
 
   const saveProfile = async () => {
@@ -185,6 +216,29 @@ export default function ProfileScreen({ navigation }) {
     }),
     [currentLanguage],
   );
+
+  const [stats, setStats] = useState({
+    listed: 0,
+    sold: 0,
+    rating: 0,
+  });
+
+ useEffect(() => {
+  let isMounted = true;
+
+  const loadStats = async () => {
+    try {
+      const data = await api.getUserStats();
+      if (isMounted) setStats(data);
+    } catch (error) {
+      console.error("Failed to load profile stats:", error);
+    }
+  };
+
+  loadStats();
+  return () => { isMounted = false; };
+}, []);
+
   return (
     <ScreenShell contentClassName="px-5 pb-6 pt-4">
       <View className="items-center">
@@ -221,9 +275,9 @@ export default function ProfileScreen({ navigation }) {
       </View>
 
       <View className="mt-6 flex-row gap-3">
-        <StatTile value="18" label="Listed" />
-        <StatTile value="27" label="Sold" />
-        <StatTile value="4.9" label="Rating" />
+        <StatTile value={stats.listed} label="Listed" />
+        <StatTile value={stats.sold} label="Sold" />
+        <StatTile value={stats.rating} label="Rating" />
       </View>
 
       <View className="mt-7">
@@ -282,6 +336,7 @@ export default function ProfileScreen({ navigation }) {
           <TextRow label={t.settings} value="" />
           <TextRow label={t.myListings} value="" />
           <TextRow label={t.ordersMessages} value="" />
+          {user ? <TextRow label="Add Address" value={profile?.address || ''} onPress={openAddressPicker} /> : null}
           <TextRow label={t.addListing} onPress={() => navigation.navigate('AddListing')} />
           {user ? <TextRow label={t.logout} onPress={logoutuser} /> : null}
 
@@ -296,6 +351,27 @@ export default function ProfileScreen({ navigation }) {
           </Pressable>
         </View>
       </View>
+
+      <Modal
+        visible={addressPickerOpen}
+        animationType="slide"
+        onRequestClose={() => setAddressPickerOpen(false)}
+      >
+        <View className="flex-1 bg-[#eef5f5] px-5 pt-14">
+          <Text className="mb-4 text-[18px] font-bold text-[#233334]">Add Address</Text>
+          {/* <LocationPickerMap
+            mode="profile"
+            initialLocation={addressLocation}
+            fields={addressFields}
+            onFieldsChange={setAddressFields}
+            onLocationSelected={(lat, lng) => setAddressLocation({ lat, lng })}
+          /> */}
+          <View className="mt-5 flex-row gap-3">
+            <Pressable onPress={() => setAddressPickerOpen(false)} className="flex-1 rounded-xl border border-[#9aabab] py-3"><Text className="text-center font-semibold text-[#314243]">Cancel</Text></Pressable>
+            <Pressable onPress={saveAddress} disabled={!addressLocation || saving} className="flex-1 rounded-xl bg-[#0f6b75] py-3"><Text className="text-center font-semibold text-white">{saving ? 'Saving...' : 'Save address'}</Text></Pressable>
+          </View>
+        </View>
+      </Modal>
 
       <Modal
         transparent
