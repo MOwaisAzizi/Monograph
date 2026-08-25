@@ -29,6 +29,15 @@ import { useMyItems } from '../hooks/useMyItems';
 import { useMyShops } from '../hooks/useMyShops';
 // import LocationPickerMap from '../components/LocationPickerMap';
 
+function FormSection({ title, children }) {
+  return (
+    <View className="gap-3 rounded-2xl border border-[#DDEAE8] bg-[#F1F8F8] p-4">
+      {title ? <SectionLabel>{title}</SectionLabel> : null}
+      {children}
+    </View>
+  );
+}
+
 export default function AddListingScreen() {
   const navigation = useNavigation();
   const [tab, setTab] = useState('business');
@@ -266,20 +275,20 @@ export default function AddListingScreen() {
   };
 
   return (
-    <ScreenShell contentClassName="px-5 pb-8 pt-4">
-      <Text className="text-[12px] text-[#99acac]">
+    <ScreenShell contentClassName="px-5 pb-10 pt-5">
+      <Text className="text-[20px] font-bold text-[#e9f1f0]">New listing</Text>
+      <Text className="mt-1 text-[13px] leading-5 text-[#99acac]">
         Add a shop (business) or item. Each record is linked to the logged-in user.
       </Text>
 
-      <View className="mt-4 flex-row gap-2">
+      {/* Bigger, evenly-split segmented tabs instead of two small pills */}
+      <View className="mt-5 flex-row rounded-xl bg-[#eaf8f8] p-1">
         <Pressable
           onPress={() => setTab('business')}
-          className={`rounded-full border px-4 py-2 ${
-            tab === 'business' ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
-          }`}
+          className={`flex-1 items-center rounded-lg py-3 ${tab === 'business' ? 'bg-[#0f6b75]' : ''}`}
         >
           <Text
-            className={`text-[12px] font-semibold ${tab === 'business' ? 'text-white' : 'text-[#314243]'}`}
+            className={`text-[13px] font-semibold ${tab === 'business' ? 'text-white' : 'text-[#99acac]'}`}
           >
             {editingBusinessId ? 'Update Business' : 'Add Business'}
           </Text>
@@ -287,12 +296,10 @@ export default function AddListingScreen() {
 
         <Pressable
           onPress={() => setTab('item')}
-          className={`rounded-full border px-4 py-2 ${
-            tab === 'item' ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
-          }`}
+          className={`flex-1 items-center rounded-lg py-3 ${tab === 'item' ? 'bg-[#0f6b75]' : ''}`}
         >
           <Text
-            className={`text-[12px] font-semibold ${tab === 'item' ? 'text-white' : 'text-[#314243]'}`}
+            className={`text-[13px] font-semibold ${tab === 'item' ? 'text-white' : 'text-[#99acac]'}`}
           >
             {editingItemId ? 'Update Item' : 'Add Item'}
           </Text>
@@ -300,10 +307,9 @@ export default function AddListingScreen() {
       </View>
 
       {tab === 'business' ? (
-        <View className="mt-4 gap-3">
+        <View className="mt-5 gap-4">
           {shops.length > 0 && (
-            <>
-              <SectionLabel>Update an existing business</SectionLabel>
+            <FormSection title="Update an existing business">
               <SelectField
                 label="Select business to update"
                 placeholder="Select business to update"
@@ -313,90 +319,99 @@ export default function AddListingScreen() {
                 getLabel={(business) => business?.translation?.en?.title || business?._id}
                 getValue={(business) => business?._id}
               />
-            </>
+            </FormSection>
           )}
-          <TextField
-            placeholder="Business title (EN)"
-            value={businessTitleEn}
-            onChangeText={setBusinessTitleEn}
-          />
-          <TextField
-            placeholder="Business title (FA)"
-            value={businessTitleFa}
-            onChangeText={setBusinessTitleFa}
-          />
-          <TextField
-            placeholder="Business title (PS)"
-            value={businessTitlePs}
-            onChangeText={setBusinessTitlePs}
-          />
-          <TextField
-            placeholder="Description"
-            value={businessDescription}
-            onChangeText={setBusinessDescription}
-            multiline
-          />
 
-          <SectionLabel>Category</SectionLabel>
-          <SelectField
-            label="Select business category"
-            placeholder="Select business category"
-            value={businessCategoryId}
-            options={categories}
-            onSelect={setBusinessCategoryId}
-            loading={loadingCategories}
-            getLabel={(category) =>
-              category?.translation?.en?.title || category?.name || category?._id
-            }
-            getValue={(category) => category?._id}
-          />
+          <FormSection title="Business details">
+            <TextField
+              placeholder="Business title (EN)"
+              value={businessTitleEn}
+              onChangeText={setBusinessTitleEn}
+            />
+            <TextField
+              placeholder="Business title (FA)"
+              value={businessTitleFa}
+              onChangeText={setBusinessTitleFa}
+            />
+            <TextField
+              placeholder="Business title (PS)"
+              value={businessTitlePs}
+              onChangeText={setBusinessTitlePs}
+            />
+            <TextField
+              placeholder="Description"
+              value={businessDescription}
+              onChangeText={setBusinessDescription}
+              multiline
+            />
+          </FormSection>
 
-          <SectionLabel>City</SectionLabel>
-          <SelectField
-            label="Select city"
-            placeholder="Select city"
-            value={city}
-            options={CITIES}
-            onSelect={setCity}
-            getLabel={(c) => c.charAt(0).toUpperCase() + c.slice(1)}
-            getValue={(c) => c}
-          />
+          <FormSection title="Category">
+            <SelectField
+              label="Select business category"
+              placeholder="Select business category"
+              value={businessCategoryId}
+              options={categories}
+              onSelect={setBusinessCategoryId}
+              loading={loadingCategories}
+              getLabel={(category) =>
+                category?.translation?.en?.title || category?.name || category?._id
+              }
+              getValue={(category) => category?._id}
+            />
+          </FormSection>
 
-          <SectionLabel>Location</SectionLabel>
-          {/* <LocationPickerMap
-            mode="listing"
-            initialLocation={businessLocation}
-            fields={businessLocationFields}
-            onFieldsChange={setBusinessLocationFields}
-            onLocationSelected={(lat, lng) => setBusinessLocation({ lat, lng })}
-          /> */}
+          <FormSection title="City">
+            <SelectField
+              label="Select city"
+              placeholder="Select city"
+              value={city}
+              options={CITIES}
+              onSelect={setCity}
+              getLabel={(c) => c.charAt(0).toUpperCase() + c.slice(1)}
+              getValue={(c) => c}
+            />
+          </FormSection>
 
-          <SectionLabel>Email</SectionLabel>
-          <TextField
-            placeholder="Business email"
-            value={email}
-            onChangeText={setEmail}
-            autoCapitalize="none"
-            keyboardType="email-address"
-          />
+          <FormSection title="Location">
+            {/* <LocationPickerMap
+              mode="listing"
+              initialLocation={businessLocation}
+              fields={businessLocationFields}
+              onFieldsChange={setBusinessLocationFields}
+              onLocationSelected={(lat, lng) => setBusinessLocation({ lat, lng })}
+            /> */}
+            <Text className="text-[12px] text-[#99acac]">Map picker is temporarily disabled.</Text>
+          </FormSection>
 
-          <SectionLabel>Phone numbers</SectionLabel>
-          <ListEditor
-            items={phones}
-            onChange={setPhones}
-            placeholder="Phone number"
-            addLabel="Add phone number"
-            keyboardType="phone-pad"
-          />
+          <FormSection title="Contact">
+            <Text className="text-[12px] font-medium text-[#99acac]">Email</Text>
+            <TextField
+              placeholder="Business email"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
+              keyboardType="email-address"
+            />
+            <Text className="mt-2 text-[12px] font-medium text-[#99acac]">Phone numbers</Text>
+            <ListEditor
+              items={phones}
+              onChange={setPhones}
+              placeholder="Phone number"
+              addLabel="Add phone number"
+              keyboardType="phone-pad"
+            />
+          </FormSection>
 
-          <SectionLabel>Working hours</SectionLabel>
-          <WorkingHoursEditor items={workingHours} onChange={setWorkingHours} />
+          <FormSection title="Working hours">
+            <WorkingHoursEditor items={workingHours} onChange={setWorkingHours} />
+          </FormSection>
 
-          <SectionLabel>Social links</SectionLabel>
-          <SocialEditor items={socialLinks} onChange={setSocialLinks} />
+          <FormSection title="Social links">
+            <SocialEditor items={socialLinks} onChange={setSocialLinks} />
+          </FormSection>
 
-          <SectionLabel>Media</SectionLabel>
-          <View className="gap-2">
+          <FormSection title="Media">
             <ImagePickerButton
               label={businessCoverFile ? 'Change cover image' : 'Add cover image'}
               onPress={() => pickLocalImage('business-cover')}
@@ -407,7 +422,7 @@ export default function AddListingScreen() {
               onPress={() => pickLocalImage('business-profile')}
               selectedCount={businessProfileFile ? 1 : 0}
             />
-          </View>
+          </FormSection>
 
           <SubmitButton
             label={editingBusinessId ? 'Update Business' : 'Submit Business'}
@@ -416,10 +431,9 @@ export default function AddListingScreen() {
           />
         </View>
       ) : (
-        <View className="mt-4 gap-3">
+        <View className="mt-5 gap-4">
           {ownedItems.length > 0 && (
-            <>
-              <SectionLabel>Update an existing item</SectionLabel>
+            <FormSection title="Update an existing item">
               <SelectField
                 label="Select item to update"
                 placeholder="Select item to update"
@@ -429,55 +443,59 @@ export default function AddListingScreen() {
                 getLabel={(item) => item?.translation?.en?.title || item?._id}
                 getValue={(item) => item?._id}
               />
-            </>
+            </FormSection>
           )}
-          <TextField
-            placeholder="Item title (EN)"
-            value={itemTitleEn}
-            onChangeText={setItemTitleEn}
-          />
-          <TextField
-            placeholder="Item title (FA)"
-            value={itemTitleFa}
-            onChangeText={setItemTitleFa}
-          />
-          <TextField
-            placeholder="Item title (PS)"
-            value={itemTitlePs}
-            onChangeText={setItemTitlePs}
-          />
-          <TextField
-            placeholder="Description"
-            value={itemDescription}
-            onChangeText={setItemDescription}
-            multiline
-          />
-          <TextField
-            placeholder="Price"
-            value={itemPrice}
-            onChangeText={setItemPrice}
-            keyboardType="decimal-pad"
-          />
-          <SectionLabel>Business</SectionLabel>
-          <SelectField
-            label="Select your business"
-            placeholder="Select business"
-            value={businessId}
-            options={shops}
-            onSelect={(id) => {
-              setBusinessId(id);
-              const shop = shops.find((entry) => entry._id === id);
-              const coordinates = shop?.location?.geoPosition?.coordinates;
-              if (coordinates) setItemLocation({ lng: coordinates[0], lat: coordinates[1] });
-            }}
-            loading={loadingShops}
-            getLabel={(b) => b?.translation?.en?.title || b?.name || b?._id}
-            getValue={(b) => b?._id}
-          />
 
-          {!businessId ? (
-            <>
-              <SectionLabel>Location</SectionLabel>
+          <FormSection title="Item details">
+            <TextField
+              placeholder="Item title (EN)"
+              value={itemTitleEn}
+              onChangeText={setItemTitleEn}
+            />
+            <TextField
+              placeholder="Item title (FA)"
+              value={itemTitleFa}
+              onChangeText={setItemTitleFa}
+            />
+            <TextField
+              placeholder="Item title (PS)"
+              value={itemTitlePs}
+              onChangeText={setItemTitlePs}
+            />
+            <TextField
+              placeholder="Description"
+              value={itemDescription}
+              onChangeText={setItemDescription}
+              multiline
+            />
+            <TextField
+              placeholder="Price"
+              value={itemPrice}
+              onChangeText={setItemPrice}
+              keyboardType="decimal-pad"
+            />
+          </FormSection>
+
+          <FormSection title="Business">
+            <SelectField
+              label="Select your business"
+              placeholder="Select business"
+              value={businessId}
+              options={shops}
+              onSelect={(id) => {
+                setBusinessId(id);
+                const shop = shops.find((entry) => entry._id === id);
+                const coordinates = shop?.location?.geoPosition?.coordinates;
+                if (coordinates) setItemLocation({ lng: coordinates[0], lat: coordinates[1] });
+              }}
+              loading={loadingShops}
+              getLabel={(b) => b?.translation?.en?.title || b?.name || b?._id}
+              getValue={(b) => b?._id}
+            />
+          </FormSection>
+
+          {/* {!businessId ? (
+            <FormSection title="Location">
               <LocationPickerMap
                 mode="listing"
                 initialLocation={itemLocation}
@@ -485,48 +503,55 @@ export default function AddListingScreen() {
                 onFieldsChange={setItemLocationFields}
                 onLocationSelected={(lat, lng) => setItemLocation({ lat, lng })}
               />
-            </>
-          ) : null}
+            </FormSection>
+          ) : null} */}
 
-          <SectionLabel>Category</SectionLabel>
-          <SelectField
-            label="Select category"
-            placeholder="Select category (optional)"
-            value={categoryId}
-            options={categories}
-            onSelect={setCategoryId}
-            loading={loadingCategories}
-            getLabel={(c) => c?.translation?.en?.title || c?.name || c?._id}
-            getValue={(c) => c?._id}
-          />
+          <FormSection title="Category">
+            <SelectField
+              label="Select category"
+              placeholder="Select category (optional)"
+              value={categoryId}
+              options={categories}
+              onSelect={setCategoryId}
+              loading={loadingCategories}
+              getLabel={(c) => c?.translation?.en?.title || c?.name || c?._id}
+              getValue={(c) => c?._id}
+            />
+          </FormSection>
 
-          <SectionLabel>City</SectionLabel>
-          <SelectField
-            label="Select city"
-            placeholder="Select city"
-            value={itemCity}
-            options={CITIES}
-            onSelect={setItemCity}
-            getLabel={(c) => c.charAt(0).toUpperCase() + c.slice(1)}
-            getValue={(c) => c}
-          />
-          <TextField
-            placeholder="Note (max 500 characters, optional)"
-            value={itemNote}
-            onChangeText={setItemNote}
-            multiline
-            maxLength={500}
-          />
+          <FormSection title="City">
+            <SelectField
+              label="Select city"
+              placeholder="Select city"
+              value={itemCity}
+              options={CITIES}
+              onSelect={setItemCity}
+              getLabel={(c) => c.charAt(0).toUpperCase() + c.slice(1)}
+              getValue={(c) => c}
+            />
+          </FormSection>
 
-          <SectionLabel>Attributes</SectionLabel>
-          <AttributeEditor items={itemAttributes} onChange={setItemAttributes} />
+          <FormSection title="Note">
+            <TextField
+              placeholder="Note (max 500 characters, optional)"
+              value={itemNote}
+              onChangeText={setItemNote}
+              multiline
+              maxLength={500}
+            />
+          </FormSection>
 
-          <SectionLabel>Media</SectionLabel>
-          <ImagePickerButton
-            label={itemGalleryFiles.length > 0 ? 'Add item image' : 'Add item image'}
-            onPress={() => pickLocalImage('item-gallery')}
-            selectedCount={itemGalleryFiles.length}
-          />
+          <FormSection title="Attributes">
+            <AttributeEditor items={itemAttributes} onChange={setItemAttributes} />
+          </FormSection>
+
+          <FormSection title="Media">
+            <ImagePickerButton
+              label={itemGalleryFiles.length > 0 ? 'Add item image' : 'Add item image'}
+              onPress={() => pickLocalImage('item-gallery')}
+              selectedCount={itemGalleryFiles.length}
+            />
+          </FormSection>
 
           <SubmitButton
             label={editingItemId ? 'Update Item' : 'Submit Item'}

@@ -38,8 +38,7 @@ export default function LoginScreen({ navigation }) {
 
       api.setSession({ accessToken, refreshToken });
       dispatch(setUser({ user, accessToken, refreshToken }));
-      saveSession({ user, accessToken, refreshToken }).catch(() => {});
-      Alert.alert('Success', 'You are now logged in.');
+      saveSession({ user, accessToken, refreshToken }).catch(() => { });
       navigation.navigate('MainTabs');
     } catch (error) {
       const message = error?.response?.data?.message || 'Login failed.';
@@ -50,35 +49,53 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <ScreenShell contentClassName="px-5 pb-6 pt-4">
-      <Text className="text-[20px] font-bold text-[#e9f1f0]">{getText(language, 'login')}</Text>
-      <Text className="mt-1 text-[12px] text-[#99acac]">{getText(language, 'signInToManage')}</Text>
+    <ScreenShell contentClassName="flex-1 justify-center px-6 pb-1 pt-4">
+      {/* Brand / header block */}
+      <View className="mb-10 items-center">
+        <View className="mb-4 h-16 w-16 items-center justify-center rounded-2xl bg-[#0f6b75]/15">
+          <View className="h-9 w-9 rounded-xl bg-[#0f6b75]" />
+        </View>
+        <Text className="text-[24px] font-bold text-[#e9f1f0]">{getText(language, 'login')}</Text>
+        <Text className="text-center text-[13px] leading-5 text-[#99acac]">
+          {getText(language, 'signInToManage')}
+        </Text>
+      </View>
 
-      <View className="mt-5 gap-3">
-        <TextField
-          placeholder={getText(language, 'email')}
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          keyboardType="email-address"
-        />
-        <TextField
-          placeholder={getText(language, 'password')}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
+      {/* Form card — groups the fields visually instead of floating on the bg */}
+      <View className="gap-3 rounded-2xl  border border-[#DDEAE8] bg-[#F1F8F8] p-5 pt-3">
+        <View className="gap-2">
+          <Text className="text-[12px] font-medium text-[#99acac]">{getText(language, 'email')}</Text>
+          <TextField
+            placeholder={getText(language, 'email')}
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            keyboardType="email-address"
+          />
+        </View>
+
+        <View className="gap-2">
+          <Text className="text-[12px] font-medium text-[#99acac]">{getText(language, 'password')}</Text>
+          <TextField
+            placeholder={getText(language, 'password')}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+        </View>
+      </View>
+
+      <View className="mt-6">
+        <SubmitButton
+          label={getText(language, 'login')}
+          loadingLabel={getText(language, 'loggingIn')}
+          onPress={onLogin}
+          loading={loading}
         />
       </View>
 
-      <SubmitButton
-        label={getText(language, 'login')}
-        loadingLabel={getText(language, 'loggingIn')}
-        onPress={onLogin}
-        loading={loading}
-      />
-
-      <Pressable onPress={() => navigation.navigate('Register')} className="mt-4">
-        <Text className="text-center text-[12px] text-[#c2d1d0]">
+      <Pressable onPress={() => navigation.navigate('Register')} className="mt-6 py-2">
+        <Text className="text-center text-[13px] text-[#c2d1d0]">
           {getText(language, 'noAccount')}
         </Text>
       </Pressable>

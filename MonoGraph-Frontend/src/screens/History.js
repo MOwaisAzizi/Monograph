@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, FlatList, Image, Pressable, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, Image, Text, View, Pressable } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import { ScreenShell, ScreenHeader } from '../components/ui';
+import { ScreenShell } from '../components/ui';
 import api from '../services/api';
 import {
   getHistoryImage,
@@ -18,36 +18,72 @@ const TAB_OPTIONS = [
   { key: 'sold', label: 'Sold' },
 ];
 
+// Solid light bg + dark text per status — used on the small pill badge.
 const STATUS_STYLES = {
-  pending: 'bg-[#f3c76d] bg-opacity-15',
-  accepted: 'bg-[#9ed0a6] bg-opacity-15',
-  completed: 'bg-[#7dc1d9] bg-opacity-15',
-  rejected: 'bg-[#e98c8c] bg-opacity-15',
-  cancelled: 'bg-[#b4b8b8] bg-opacity-15',
-  disputed: 'bg-[#e7b7d8] bg-opacity-15',
+  pending: 'bg-[#FAEEDA]',
+  accepted: 'bg-[#EAF3DE]',
+  completed: 'bg-[#EAF3DE]',
+  rejected: 'bg-[#FCEBEB]',
+  cancelled: 'bg-[#FCEBEB]',
+  disputed: 'bg-[#FCEBEB]',
 };
 
 const STATUS_TEXT = {
-  pending: 'text-[#8b5d00]',
-  accepted: 'text-[#1e5d3a]',
-  completed: 'text-[#0d5f78]',
-  rejected: 'text-[#8d2626]',
-  cancelled: 'text-[#4b5b5d]',
-  disputed: 'text-[#7b2a62]',
+  pending: 'text-[#633806]',
+  accepted: 'text-[#27500A]',
+  completed: 'text-[#27500A]',
+  rejected: 'text-[#791F1F]',
+  cancelled: 'text-[#791F1F]',
+  disputed: 'text-[#791F1F]',
+};
+
+// Left-edge stripe color per status — lets you scan outcomes without reading each pill.
+const STRIPE_COLORS = {
+  pending: '#854F0B',
+  accepted: '#3B6D11',
+  completed: '#3B6D11',
+  rejected: '#A32D2D',
+  cancelled: '#A32D2D',
+  disputed: '#A32D2D',
 };
 
 const moneyText = (value) => {
   const number = Number(value);
-  if (!Number.isFinite(number) || number <= 0) return 'AFN 0';
+  if (!Number.isFinite(number) || number <= 0) return '0 AFN';
   return `${new Intl.NumberFormat('en-US').format(number)} AFN`;
 };
 
-export default function FavoritesScreen({ navigation }) {
+export default function HistoryScreen({ navigation }) {
   const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const currentUserId = useSelector((state) => state.auth?.user?._id || state.auth?.user?.id);
   const [activeTab, setActiveTab] = useState('bought');
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  // Summary counts for the two stat tiles up top. Comes from the same
+  // /user/stats endpoint the profile screen uses — expects the response
+  // to include `bought` and `sold` counts alongside `listed`/`rating`.
+  const [stats, setStats] = useState({ bought: 0, sold: 0 });
+  const [statsLoading, setStatsLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadStats = async () => {
+      try {
+        const data = await api.getUserStats();
+        if (isMounted) setStats({ bought: data?.bought || 0, sold: data?.sold || 0 });
+      } catch (error) {
+        // keep zeros on failure, no need to block the rest of the screen
+      } finally {
+        if (isMounted) setStatsLoading(false);
+      }
+    };
+
+    loadStats();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const loadOrders = async () => {
@@ -86,51 +122,77 @@ export default function FavoritesScreen({ navigation }) {
     const imageUri = getHistoryImage(item);
     const price = moneyText(getHistoryPrice(item));
     const role = getUserRoleForOrder(currentUserId, item);
+    const stripeColor = STRIPE_COLORS[item?.status] || '#8BA0A0';
 
     return (
-      <Pressable className="mb-3 flex-row items-center rounded-[24px] border border-[#d7e1e0] bg-white px-3 py-3">
-        <Image
-          source={{ uri: imageUri }}
-          resizeMode="cover"
-          className="h-14 w-14 rounded-2xl bg-[#dfe9e8]"
-        />
+      <View className="mb-3 flex-row overflow-hidden rounded-[16px] border border-[#d7e1e0] bg-white">
+        <View style={{ width: 3, backgroundColor: stripeColor }} />
+        <View className="flex-1 flex-row items-center px-3 py-3">
+          <Image
+            source={{ uri: imageUri }}
+            resizeMode="cover"
+            className="h-11 w-11 rounded-xl bg-[#dfe9e8]"
+          />
 
-        <View className="ml-3 flex-1">
-          <View className="flex-row items-center justify-between">
-            <Text className="flex-1 text-[13px] font-bold text-[#203030]" numberOfLines={1}>
-              {title}
-            </Text>
-            <View
-              className={`ml-2 rounded-full px-2 py-1 ${STATUS_STYLES[item?.status] || 'bg-[#ecf2f2] bg-opacity-15'}`}
-            >
-              <Text
-                className={`text-[9px] font-semibold ${STATUS_TEXT[item?.status] || 'text-[#5f7676]'}`}
+          <View className="ml-3 flex-1">
+            <View className="flex-row items-center justify-between">
+              <Text className="flex-1 text-[13px] font-medium text-[#203030]" numberOfLines={1}>
+                {title}
+              </Text>
+              <View
+                className={`ml-2 rounded-full px-2 py-1 ${STATUS_STYLES[item?.status] || 'bg-[#ecf2f2]'}`}
               >
-                {status}
+                <Text
+                  className={`text-[9px] font-semibold ${STATUS_TEXT[item?.status] || 'text-[#5f7676]'}`}
+                >
+                  {status}
+                </Text>
+              </View>
+            </View>
+
+            <Text className="mt-1 text-[11px] text-[#5d7676]" numberOfLines={1}>
+              {role === 'bought' ? 'Bought from' : 'Sold to'} · {item?.seller?.fullname || item?.buyer?.fullname || 'User'}
+            </Text>
+
+            <View className="mt-1.5 flex-row items-center justify-between">
+              <Text className="text-[13px] font-medium text-[#203030]">{price}</Text>
+              <Text className="text-[10px] text-[#8ba0a0]">
+                {item?.location?.label || 'Location accepted'}
               </Text>
             </View>
           </View>
-
-          <Text className="mt-1 text-[11px] text-[#5d7676]" numberOfLines={1}>
-            {role === 'bought' ? 'Bought from' : 'Sold to'} · {item?.seller?.fullname || item?.buyer?.fullname || 'User'}
-          </Text>
-
-          <View className="mt-2 flex-row items-center justify-between">
-            <Text className="text-[12px] font-semibold text-[#203030]">{price}</Text>
-            <Text className="text-[11px] text-[#5d7676]">
-              {item?.location?.label || 'Location accepted'}
-            </Text>
-          </View>
         </View>
-      </Pressable>
+      </View>
     );
   };
 
   return (
     <ScreenShell contentClassName="px-4 pb-5 pt-4">
-      <ScreenHeader title="History" rightAction={() => navigation.navigate('Search')} />
+      <View className="mb-5 flex-row items-center justify-between">
+        <Text className="text-[20px] font-medium text-[#203030]">Order history</Text>
+        <Pressable onPress={() => navigation.navigate('Search')}>
+          <Ionicons name="search-outline" size={20} color="#5d7676" />
+        </Pressable>
+      </View>
 
-      <View className="mb-4 flex-row rounded-full bg-white p-1 shadow-sm">
+      {/* Summary tiles — this is what makes History read as a ledger rather
+          than a copy of the chat inbox. */}
+      <View className="mb-5 flex-row gap-3">
+        <View className="flex-1 rounded-2xl border border-[#d7e1e0] bg-white p-3">
+          <Text className="text-[11px] text-[#5d7676]">Total bought</Text>
+          <Text className="mt-1 text-[17px] font-medium text-[#203030]">
+            {statsLoading ? '—' : `${stats.bought} orders`}
+          </Text>
+        </View>
+        <View className="flex-1 rounded-2xl border border-[#d7e1e0] bg-white p-3">
+          <Text className="text-[11px] text-[#5d7676]">Total sold</Text>
+          <Text className="mt-1 text-[17px] font-medium text-[#203030]">
+            {statsLoading ? '—' : `${stats.sold} orders`}
+          </Text>
+        </View>
+      </View>
+
+      <View className="mb-5 flex-row rounded-full border border-[#d7e1e0] bg-white p-1">
         {TAB_OPTIONS.map((tab) => (
           <Pressable
             key={tab.key}
@@ -147,11 +209,8 @@ export default function FavoritesScreen({ navigation }) {
       </View>
 
       <View className="mb-3 flex-row items-center justify-between">
-        <Text className="text-[18px] font-bold text-[#203030]">{headerLabel}</Text>
-        <View className="flex-row items-center gap-2">
-          <Ionicons name="receipt-outline" size={16} color="#5d7676" />
-          <Text className="text-[11px] text-[#5d7676]">{orders.length}</Text>
-        </View>
+        <Text className="text-[15px] font-medium text-[#203030]">{headerLabel}</Text>
+        <Text className="text-[11px] text-[#5d7676]">{orders.length} orders</Text>
       </View>
 
       {loading ? (
@@ -159,7 +218,7 @@ export default function FavoritesScreen({ navigation }) {
           <ActivityIndicator color="#0f6b75" />
         </View>
       ) : orders.length === 0 ? (
-        <View className="mt-8 items-center justify-center rounded-[24px] border border-dashed border-[#d7e1e0] bg-white/60 px-5 py-8">
+        <View className="mt-8 items-center justify-center rounded-[20px] border border-dashed border-[#d7e1e0] bg-white/60 px-5 py-8">
           <Text className="text-[13px] text-[#5d7676]">No {activeTab} items yet.</Text>
         </View>
       ) : (
