@@ -72,11 +72,10 @@ export const getMyOrders = catchAsync(async (req, res) => {
     .populate("item", "translation price media")
     .populate({
       path: "offer",
-      select: "status askingPrice offeredPrice offerLocation",
-      populate: { path: "offerLocation" },
+      select: "status askingPrice offeredPrice",
     })
     .populate("orderLocation")
-    .populate("meetupLocation")
+    .populate("meetupLocationId")
     .sort({ createdAt: -1 });
 
   res.status(200).json({
@@ -92,7 +91,7 @@ export const getOrderById = catchAsync(async (req, res, next) => {
     .populate("buyer", "fullname")
     .populate("seller", "fullname")
     .populate("orderLocation")
-    .populate("meetupLocation");
+    .populate("meetupLocationId");
 
   if (!order) {
     return next(new AppError("Order not found.", 404));
@@ -118,8 +117,8 @@ export const confirmOrder = catchAsync(async (req, res, next) => {
 });
 
 export const acceptOrderWithMeetup = catchAsync(async (req, res, next) => {
-  const { meetupDate, meetupLocation } = req.body;
-  if (!meetupDate || !meetupLocation) {
+  const { meetupDate, meetupLocationId } = req.body;
+  if (!meetupDate || !meetupLocationId) {
     return next(new AppError("Meetup date and location are required.", 400));
   }
   const dateTime = new Date(meetupDate);
@@ -128,7 +127,7 @@ export const acceptOrderWithMeetup = catchAsync(async (req, res, next) => {
   }
   const [order, meetingPlace] = await Promise.all([
     Order.findById(req.params.id),
-    MeetingPlace.findOne({ _id: meetupLocation, active: true }),
+    MeetingPlace.findOne({ _id: meetupLocationId, active: true }),
   ]);
   if (!order) return next(new AppError("Order not found.", 404));
   if (!meetingPlace) return next(new AppError("Meeting place not found.", 400));
@@ -140,12 +139,12 @@ export const acceptOrderWithMeetup = catchAsync(async (req, res, next) => {
   }
 
   order.meetupDate = dateTime;
-  order.meetupLocation = meetingPlace._id;
+  order.meetupLocationId = meetingPlace._id;
   order.meetupStatus = "pending_buyer_confirmation";
   order.status = "pending";
   order.changeRequestReason = "";
   await order.save();
-  await order.populate("meetupLocation");
+  await order.populate("meetupLocationId");
   await addOrderSystemMessage(order, req.user._id, `Meetup proposed: ${meetingPlace.name} at ${order.meetupDate.toISOString()}.`);
 
   res.status(200).json({ status: "success", data: { order } });

@@ -20,6 +20,7 @@ export default function ProductScreen({ route, navigation }) {
   const [offerModalOpen, setOfferModalOpen] = useState(false);
   const [offerValue, setOfferValue] = useState('');
   const [submittingOffer, setSubmittingOffer] = useState(false);
+  const [detailTab, setDetailTab] = useState('similar');
   const itemRating = useMemo(() => {
     if (!item) {
       return '—';
@@ -165,8 +166,18 @@ export default function ProductScreen({ route, navigation }) {
                 onPress={handleBuyNow}
               />
             </View>
-            <ReviewSection targetType="item" reviews={reviews} summary={summary} user={user} onSave={saveReview} language={currentLanguage} navigation={navigation} />
-            <View className="mt-6 ">
+            <View className="mt-6 flex-row gap-5 border-b border-white/15">
+              <Pressable onPress={() => setDetailTab('similar')} className={`pb-2 ${detailTab === 'similar' ? 'border-b-2 border-[#d99c17]' : ''}`}>
+                <Text className="font-semibold text-[#1d2221]">{getText(currentLanguage, 'similarItems')}</Text>
+              </Pressable>
+              <Pressable onPress={() => setDetailTab('reviews')} className={`pb-2 ${detailTab === 'reviews' ? 'border-b-2 border-[#d99c17]' : ''}`}>
+                <Text className="font-semibold text-[#1d2221]">{getText(currentLanguage, 'reviews')}</Text>
+              </Pressable>
+            </View>
+
+            {detailTab === 'reviews' ? (
+              <ReviewSection targetType="item" reviews={reviews} summary={summary} user={user} onSave={saveReview} language={currentLanguage} navigation={navigation} />
+            ) : <View className="mt-6">
               <SectionHeader title={getText(currentLanguage, 'similarItems')} />
 
               {similarItems.length ? (
@@ -192,7 +203,7 @@ export default function ProductScreen({ route, navigation }) {
                   </Text>
                 </View>
               )}
-            </View>
+            </View>}
           </View>
         </View>
       </ScrollView>

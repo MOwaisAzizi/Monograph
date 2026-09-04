@@ -2,26 +2,22 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, SectionList, Image, Text, View, Pressable } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import { ScreenShell } from '../components/ui';
+import { ScreenShell, SegmentedTabs } from '../components/ui';
+import { getText } from '../i18n';
 import api from '../services/api';
 import {
   getHistoryImage,
   getHistoryPrice,
-  getHistoryTabKey,
   getHistoryTitle,
   getOrderStatusLabel,
   getUserRoleForOrder,
 } from '../helpers/history';
 import { groupByDay } from '../helpers/dateGroups';
 
-const TAB_OPTIONS = [
-  { key: 'bought', label: 'Bought' },
-  { key: 'sold', label: 'Sold' },
-];
-
 // Solid light bg + dark text per status — used on the small pill badge.
 const STATUS_STYLES = {
   pending: 'bg-[#FAEEDA]',
+  confirmed: 'bg-[#E6F1FB]',
   completed: 'bg-[#EAF3DE]',
   cancelled: 'bg-[#FCEBEB]',
   disputed: 'bg-[#FCEBEB]',
@@ -29,6 +25,7 @@ const STATUS_STYLES = {
 
 const STATUS_TEXT = {
   pending: 'text-[#633806]',
+  confirmed: 'text-[#0C447C]',
   completed: 'text-[#27500A]',
   cancelled: 'text-[#791F1F]',
   disputed: 'text-[#791F1F]',
@@ -37,6 +34,7 @@ const STATUS_TEXT = {
 // Left-edge stripe color per status — lets you scan outcomes without reading each pill.
 const STRIPE_COLORS = {
   pending: '#854F0B',
+  confirmed: '#0C447C',
   completed: '#3B6D11',
   cancelled: '#A32D2D',
   disputed: '#A32D2D',
@@ -53,6 +51,7 @@ export default function HistoryScreen({ navigation }) {
   const currentUserId = useSelector((state) => state.auth?.user?._id || state.auth?.user?.id);
   const [activeTab, setActiveTab] = useState('bought');
   const [orders, setOrders] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   // Summary counts for the two stat tiles up top. Comes from the same
   // /user/stats endpoint the profile screen uses — expects the response
@@ -92,10 +91,7 @@ export default function HistoryScreen({ navigation }) {
         setLoading(true);
         const response = await api.getMyOrders();
         const allOrders = response?.data?.data?.orders || [];
-        const filteredOrders = allOrders.filter((order) =>
-          order?.status === 'completed' && getUserRoleForOrder(currentUserId, order) === activeTab,
-        );
-        setOrders(filteredOrders);
+        setAllOrders(allOrders);
       } catch (error) {
         setOrders([]);
       } finally {
@@ -104,17 +100,22 @@ export default function HistoryScreen({ navigation }) {
     };
 
     loadOrders();
-  }, [activeTab, currentUserId]);
+  }, [currentUserId]);
+
+  useEffect(() => {
+    setOrders(allOrders.filter((order) =>
+      ['confirmed', 'completed'].includes(order?.status) && getUserRoleForOrder(currentUserId, order) === activeTab,
+    ));
+  }, [activeTab, allOrders, currentUserId]);
 
   const sections = useMemo(() => groupByDay(orders, 'updatedAt'), [orders]);
 
   const headerLabel = useMemo(() => {
-    const label = activeTab === 'bought' ? 'Bought' : 'Sold';
-    return getHistoryTabKey(label) === 'sold' ? 'Sold' : 'Bought';
-  }, [activeTab]);
+    return getText(currentLanguage, activeTab);
+  }, [activeTab, currentLanguage]);
 
   const renderRow = ({ item }) => {
-    const status = getOrderStatusLabel(item?.status);
+    const status = getOrderStatusLabel(item?.status, currentLanguage);
     const title = getHistoryTitle(item, currentLanguage);
     const imageUri = getHistoryImage(item);
     const price = moneyText(getHistoryPrice(item));
@@ -148,13 +149,13 @@ export default function HistoryScreen({ navigation }) {
             </View>
 
             <Text className="mt-1 text-[11px] text-[#5d7676]" numberOfLines={1}>
-              {role === 'bought' ? 'Bought from' : 'Sold to'} · {item?.seller?.fullname || item?.buyer?.fullname || 'User'}
+              {role === 'bought' ? getText(currentLanguage, 'boughtFrom') : getText(currentLanguage, 'soldTo')} · {item?.seller?.fullname || item?.buyer?.fullname || getText(currentLanguage, 'user')}
             </Text>
 
             <View className="mt-1.5 flex-row items-center justify-between">
               <Text className="text-[13px] font-medium text-[#203030]">{price}</Text>
               <Text className="text-[10px] text-[#8ba0a0]">
-                {item?.orderLocation?.name || 'Location accepted'}
+                {item?.orderLocation?.location?.address?.[currentLanguage] || getText(currentLanguage, 'locationAccepted')}
               </Text>
             </View>
           </View>
@@ -166,7 +167,7 @@ export default function HistoryScreen({ navigation }) {
   return (
     <ScreenShell scroll={false} contentClassName="px-4 pb-5 pt-4">
       <View className="mb-5 flex-row items-center justify-between">
-        <Text className="text-[20px] font-medium text-[#203030]">Order history</Text>
+        <Text className="text-[20px] font-medium text-[#203030]">{getText(currentLanguage, 'orderHistory')}</Text>
         <Pressable onPress={() => navigation.navigate('Search')}>
           <Ionicons name="search-outline" size={20} color="#5d7676" />
         </Pressable>
@@ -176,38 +177,31 @@ export default function HistoryScreen({ navigation }) {
           than a copy of the chat inbox. */}
       <View className="mb-5 flex-row gap-3">
         <View className="flex-1 rounded-2xl border border-[#d7e1e0] bg-white p-3">
-          <Text className="text-[11px] text-[#5d7676]">Total bought</Text>
+          <Text className="text-[11px] text-[#5d7676]">{getText(currentLanguage, 'totalBought')}</Text>
           <Text className="mt-1 text-[17px] font-medium text-[#203030]">
-            {statsLoading ? '—' : `${stats.bought} orders`}
+            {statsLoading ? '—' : `${stats.bought} ${getText(currentLanguage, 'orders')}`}
           </Text>
         </View>
         <View className="flex-1 rounded-2xl border border-[#d7e1e0] bg-white p-3">
-          <Text className="text-[11px] text-[#5d7676]">Total sold</Text>
+          <Text className="text-[11px] text-[#5d7676]">{getText(currentLanguage, 'totalSold')}</Text>
           <Text className="mt-1 text-[17px] font-medium text-[#203030]">
-            {statsLoading ? '—' : `${stats.sold} orders`}
+            {statsLoading ? '—' : `${stats.sold} ${getText(currentLanguage, 'orders')}`}
           </Text>
         </View>
       </View>
 
-      <View className="mb-5 flex-row rounded-full border border-[#d7e1e0] bg-white p-1">
-        {TAB_OPTIONS.map((tab) => (
-          <Pressable
-            key={tab.key}
-            onPress={() => setActiveTab(tab.key)}
-            className={`flex-1 rounded-full px-3 py-2 ${activeTab === tab.key ? 'bg-[#0f6b75]' : 'bg-transparent'}`}
-          >
-            <Text
-              className={`text-center text-[12px] font-semibold ${activeTab === tab.key ? 'text-white' : 'text-[#425a5a]'}`}
-            >
-              {tab.label}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
+      <SegmentedTabs
+        tabs={[
+          { key: 'bought', label: getText(currentLanguage, 'bought') },
+          { key: 'sold', label: getText(currentLanguage, 'sold') },
+        ]}
+        activeKey={activeTab}
+        onChange={setActiveTab}
+      />
 
       <View className="mb-3 flex-row items-center justify-between">
         <Text className="text-[15px] font-medium text-[#203030]">{headerLabel}</Text>
-        <Text className="text-[11px] text-[#5d7676]">{orders.length} orders</Text>
+        <Text className="text-[11px] text-[#5d7676]">{orders.length} {getText(currentLanguage, 'orders')}</Text>
       </View>
 
       {loading ? (
@@ -216,7 +210,7 @@ export default function HistoryScreen({ navigation }) {
         </View>
       ) : orders.length === 0 ? (
         <View className="mt-8 items-center justify-center rounded-[20px] border border-dashed border-[#d7e1e0] bg-white/60 px-5 py-8">
-          <Text className="text-[13px] text-[#5d7676]">No {activeTab} items yet.</Text>
+          <Text className="text-[13px] text-[#5d7676]">{getText(currentLanguage, 'noHistoryItems')}</Text>
         </View>
       ) : (
         <SectionList

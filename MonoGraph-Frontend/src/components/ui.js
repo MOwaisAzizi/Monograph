@@ -86,6 +86,39 @@ export function HeaderBackButton({ onPress, isRTL = false, className = '' }) {
     </Pressable>
   );
 }
+export function SegmentedTabs({ tabs, activeKey, onChange }) {
+  return (
+    <View className="mb-4 w-full border-b border-[#d7e1e0]">
+      <View className="flex-row w-full">
+        {tabs.map((tab) => {
+          const isActive = activeKey === tab.key;
+
+          return (
+            <Pressable
+              key={tab.key}
+              onPress={() => onChange(tab.key)}
+              className="w-1/2 items-center justify-center py-3"
+            >
+              <Text
+                className={`text-[14px] font-semibold ${
+                  isActive
+                    ? "text-[#0f6b75]"
+                    : "text-[#7a8b8b]"
+                }`}
+              >
+                {tab.label}
+              </Text>
+
+              {isActive && (
+                <View className="absolute bottom-0 h-[2px] w-full bg-[#0f6b75]" />
+              )}
+            </Pressable>
+          );
+        })}
+      </View>
+    </View>
+  );
+}
 
 export function SectionHeader({ title, actionLabel, onAction }) {
   return (
@@ -114,13 +147,13 @@ export function Chip({ label, active = false, onPress, compact = false }) {
   );
 }
 
-export function IconCircleButton({ icon, onPress, active = false }) {
+export function IconCircleButton({ icon, onPress, active = false, size }) {
   return (
     <Pressable
       onPress={onPress}
       className={`h-9 w-9 items-center justify-center rounded-full ${active ? 'bg-[#0f6b75]' : 'bg-white/85'}`}
     >
-      <Ionicons name={icon} size={16} color={active ? '#fff' : '#304244'} />
+      <Ionicons name={icon} size={size} color={active ? '#fff' : '#304244'} />
     </Pressable>
   );
 }

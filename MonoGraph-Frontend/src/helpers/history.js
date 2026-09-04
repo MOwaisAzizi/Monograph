@@ -1,11 +1,4 @@
-import { getLocalizedValue } from '../i18n';
-
-const ORDER_STATUS_DISPLAY = {
-    pending: 'Pending',
-    confirmed: 'Confirmed',
-    completed: 'Completed',
-    cancelled: 'Cancelled',
-};
+import { getLocalizedValue, getText } from '../i18n';
 
 export const getHistoryTabKey = (label = '') => {
     const normalized = `${label}`.trim().toLowerCase();
@@ -26,7 +19,10 @@ export const getUserRoleForOrder = (currentUserId, order = {}) => {
     return 'bought';
 };
 
-export const getOrderStatusLabel = (status) => ORDER_STATUS_DISPLAY[status] || 'Pending';
+export const getOrderStatusLabel = (status, language = 'en') => {
+    const keys = { pending: 'orderPending', confirmed: 'orderConfirmed', completed: 'orderCompleted', cancelled: 'orderCancelled' };
+    return getText(language, keys[status] || 'orderPending');
+};
 
 export const getHistoryTitle = (order = {}, language = 'en') => {
     const item = order?.item || {};
@@ -34,7 +30,7 @@ export const getHistoryTitle = (order = {}, language = 'en') => {
     const title = getLocalizedValue(translation, language, 'title') || getLocalizedValue(translation, 'en', 'title');
 
     if (title) return title;
-    return item.name || item.title || 'Item';
+    return item.name || item.title || getText(language, 'itemTitleFallback');
 };
 
 export const getHistoryPrice = (order = {}) => {

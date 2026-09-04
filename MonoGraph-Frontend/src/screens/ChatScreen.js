@@ -68,18 +68,18 @@ const senderIdFromMessage = (message) => {
   return sender?._id || sender?.id || '';
 };
 
-const getMeetingPlaceLabel = (meetingPlace) => {
+const getMeetingPlaceLabel = (meetingPlace, language = 'en') => {
   if (!meetingPlace || typeof meetingPlace === 'string') return '';
   const address = meetingPlace.location?.address;
-  const localizedAddress = address?.en?.title || address?.fa?.title || address?.ps?.title;
-  return [meetingPlace.name, localizedAddress].filter(Boolean).join(' · ');
+  const localizedAddress = address?.[language]?.title || address?.[language] || address?.en?.title || address?.en;
+  return [localizedAddress, meetingPlace.city].filter(Boolean).join(' · ');
 };
 
-const getMeetingPlaceQuery = (meetingPlace) => {
+const getMeetingPlaceQuery = (meetingPlace, language = 'en') => {
   const coordinates = meetingPlace?.location?.geoPosition?.coordinates;
   return Array.isArray(coordinates) && coordinates.length === 2
     ? `${coordinates[1]},${coordinates[0]}`
-    : getMeetingPlaceLabel(meetingPlace);
+    : getMeetingPlaceLabel(meetingPlace, language);
 };
 
 export default function ChatScreen({ route, navigation }) {
@@ -514,7 +514,7 @@ export default function ChatScreen({ route, navigation }) {
               Status: {orderStatusText}
             </Text>
 
-            {getMeetingPlaceLabel(orderState.orderLocation) ? (
+            {getMeetingPlaceLabel(orderState.orderLocation, language) ? (
               <View className="mt-3 flex-row items-center">
                 <Ionicons
                   name="location-outline"
@@ -526,18 +526,18 @@ export default function ChatScreen({ route, navigation }) {
                   className="ml-1 flex-1 text-[13px] text-[#607575]"
                   numberOfLines={2}
                 >
-                  {getMeetingPlaceLabel(orderState.orderLocation)}
+                  {getMeetingPlaceLabel(orderState.orderLocation, language)}
                 </Text>
               </View>
             ) : null}
             {canCancelOrder ? <Pressable onPress={() => runOrderAction('cancel')} disabled={actionLoading} className="mt-3 self-start rounded-xl border border-[#d6b06b] bg-white px-5 py-2"><Text className="text-[15px] font-semibold text-[#992f2f]">Cancel Order</Text></Pressable> : null}
 
-            {orderState.meetupDate && getMeetingPlaceLabel(orderState.meetupLocation) ? (
+            {orderState.meetupDate && getMeetingPlaceLabel(orderState.meetupLocationId, language) ? (
               <View className="mt-3 rounded-xl bg-[#edf7f6] p-3">
                 <Text className="text-[13px] font-bold text-[#0f6b75]">{getText(language, 'meetupInfo')}</Text>
                 <Text className="mt-1 text-[13px] text-[#203030]">{new Date(orderState.meetupDate).toLocaleString()}</Text>
-                <Pressable onPress={() => Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(getMeetingPlaceQuery(orderState.meetupLocation))}`)} className="mt-2 flex-row items-center">
-                  <Ionicons name="location" size={16} color="#0f6b75" /><Text className="ml-1 font-semibold text-[#0f6b75]">{getMeetingPlaceLabel(orderState.meetupLocation)} · {getText(language, 'directions')}</Text>
+                <Pressable onPress={() => Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(getMeetingPlaceQuery(orderState.meetupLocationId, language))}`)} className="mt-2 flex-row items-center">
+                  <Ionicons name="location" size={16} color="#0f6b75" /><Text className="ml-1 font-semibold text-[#0f6b75]">{getMeetingPlaceLabel(orderState.meetupLocationId, language)} · {getText(language, 'directions')}</Text>
                 </Pressable>
               </View>
             ) : null}

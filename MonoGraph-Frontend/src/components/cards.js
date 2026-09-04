@@ -72,6 +72,98 @@ export function ItemCard({ item, onPress, onToggleFavorite, style, compact = fal
   );
 }
 
+export function SearchItemCard({
+  item,
+  onPress,
+  onToggleFavorite,
+  style,
+}) {
+  const language = useSelector(
+    (state) => state.language.currentLanguage
+  );
+
+  const translatedTitle = getLocalizedValue(
+    item?.translation,
+    language
+  );
+
+  return (
+    <Pressable
+      onPress={onPress}
+      style={style}
+      className="mb-3 w-full overflow-hidden rounded-2xl bg-white"
+    >
+      <View className="flex-row p-3">
+        {/* Item Image */}
+        <Image
+          source={{
+            uri:
+              item?.coverImage ||
+              item?.image ||
+              fallbackImage,
+          }}
+          resizeMode="cover"
+          className="h-24 w-24 rounded-xl bg-[#dbe7e6]"
+        />
+
+        {/* Content */}
+        <View className="ml-3 flex-1 justify-between">
+          {/* Top row */}
+          <View className="flex-row items-start justify-between">
+            <View className="flex-1 pr-2">
+              <Text
+                className="text-[14px] font-bold text-[#223233]"
+                numberOfLines={1}
+              >
+                {translatedTitle || "Item"}
+              </Text>
+
+              {!!item?.category && (
+                <Text
+                  className="mt-1 text-[11px] text-[#7a8f8f]"
+                  numberOfLines={1}
+                >
+                  {item.category}
+                </Text>
+              )}
+            </View>
+
+            <FavoriteButton
+              active={item?.isFavorite}
+              onPress={onToggleFavorite}
+            />
+          </View>
+
+          {/* Bottom row */}
+          <View className="mt-3 flex-row items-center justify-between">
+            <View className="rounded-lg bg-[#e5f3f1] px-2.5 py-1.5">
+              <Text className="text-[12px] font-bold text-[#0f6b75]">
+                {item?.price
+                  ? `AFN ${item.price}`
+                  : "Price on request"}
+              </Text>
+            </View>
+
+            {!!item?.distance && (
+              <View className="flex-row items-center gap-1">
+                <Ionicons
+                  name="location"
+                  size={12}
+                  color="#c0392b"
+                />
+
+                <Text className="text-[11px] text-[#7a8f8f]">
+                  {item.distance}
+                </Text>
+              </View>
+            )}
+          </View>
+        </View>
+      </View>
+    </Pressable>
+  );
+}
+
 export function ShopCard({ shop, onPress, style, compact = false }) {
   const width = style?.width ?? (compact ? 110 : 130);
   const avatarSize = compact ? 56 : 68;

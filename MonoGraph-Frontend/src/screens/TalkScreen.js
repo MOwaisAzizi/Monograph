@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, SectionList, Image, Pressable, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import { ScreenShell } from '../components/ui';
+import { ScreenShell, SegmentedTabs } from '../components/ui';
 import api from '../services/api';
 import {
   getConversationStatusBadge,
@@ -13,11 +13,6 @@ import {
 } from '../helpers/chatInbox';
 import { getText } from '../i18n';
 import { groupByDay } from '../helpers/dateGroups';
-
-const TAB_OPTIONS = [
-  { key: 'buying', label: 'Buying' },
-  { key: 'selling', label: 'Selling' },
-];
 
 const STATUS_STYLES = {
   pending: 'bg-[#FAEEDA]',
@@ -47,14 +42,22 @@ export default function TalkScreen({ navigation }) {
   const currentUserId = useSelector((state) => state.auth?.user?._id || state.auth?.user?.id);
   const [activeTab, setActiveTab] = useState('buying');
   const [conversations, setConversations] = useState([]);
+  const [conversationCache, setConversationCache] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadConversations = async () => {
+      if (conversationCache[activeTab]) {
+        setConversations(conversationCache[activeTab]);
+        setLoading(false);
+        return;
+      }
       try {
         setLoading(true);
         const response = await api.listConversations(activeTab);
-        setConversations(response?.data?.data?.conversations || []);
+        const nextConversations = response?.data?.data?.conversations || [];
+        setConversations(nextConversations);
+        setConversationCache((current) => ({ ...current, [activeTab]: nextConversations }));
       } catch (error) {
         setConversations([]);
       } finally {
@@ -63,13 +66,12 @@ export default function TalkScreen({ navigation }) {
     };
 
     loadConversations();
-  }, [activeTab]);
+  }, [activeTab, conversationCache]);
 
   const sections = useMemo(() => groupByDay(conversations, 'sortAt'), [conversations]);
 
   const headerLabel = useMemo(() => {
-    const label = activeTab === 'buying' ? 'Buying' : 'Selling';
-    return getText(currentLanguage, label.toLowerCase()) || label;
+    return getText(currentLanguage, activeTab);
   }, [activeTab, currentLanguage]);
 
   const openThread = (conversation) => {
@@ -81,7 +83,7 @@ export default function TalkScreen({ navigation }) {
       itemTitle: getConversationTitle(conversation, currentLanguage),
       sellerId: conversation?.sellerId || otherParticipant?._id || otherParticipant?.id,
       buyerId: conversation?.buyerId,
-      otherParticipantName: otherParticipant?.fullname || 'User',
+      otherParticipantName: otherParticipant?.fullname || getText(currentLanguage, 'user'),
       otherParticipantAvatar: otherParticipant?.avatar || otherParticipant?.profileImage || null,
       latestOffer: conversation?.latestOffer || null,
       latestOrder: conversation?.latestOrder || null,
@@ -108,7 +110,7 @@ export default function TalkScreen({ navigation }) {
 
     const otherParticipant = item?.otherParticipant || {};
     const imageUri = getItemImageUri(item?.item || {});
-    const displayName = otherParticipant.fullname || 'User';
+    const displayName = otherParticipant.fullname || getText(currentLanguage, 'user');
 
     return (
       <Pressable
@@ -162,31 +164,21 @@ export default function TalkScreen({ navigation }) {
   return (
     <ScreenShell scroll={false} contentClassName="px-4 pb-5 pt-4">
       <View className="mb-4 flex-row items-center justify-between">
-        <Text className="text-[20px] font-bold text-[#203030]">Messages</Text>
+        <Text className="text-[20px] font-bold text-[#203030]">{getText(currentLanguage, 'messages')}</Text>
         <View className="flex-row items-center gap-1">
           <Ionicons name="chatbubbles-outline" size={16} color="#5d7676" />
           <Text className="text-[11px] text-[#5d7676]">{conversations.length}</Text>
         </View>
       </View>
 
-      {/* Underline tabs instead of a pill switcher — keeps this screen
-          reading as an inbox rather than a copy of History's ledger. */}
-      <View className="mb-4 flex-row border-b border-[#d7e1e0]">
-        {TAB_OPTIONS.map((tab) => (
-          <Pressable
-            key={tab.key}
-            onPress={() => setActiveTab(tab.key)}
-            className="mr-6 pb-2"
-            style={activeTab === tab.key ? { borderBottomWidth: 2, borderBottomColor: '#0f6b75' } : null}
-          >
-            <Text
-              className={`text-[13px] font-semibold ${activeTab === tab.key ? 'text-[#0f6b75]' : 'text-[#8ba0a0]'}`}
-            >
-              {tab.label}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
+      <SegmentedTabs
+        tabs={[
+          { key: 'buying', label: getText(currentLanguage, 'buying') },
+          { key: 'selling', label: getText(currentLanguage, 'selling') },
+        ]}
+        activeKey={activeTab}
+        onChange={setActiveTab}
+      />
 
       {loading ? (
         <View className="flex-1 items-center justify-center py-12">
@@ -194,7 +186,7 @@ export default function TalkScreen({ navigation }) {
         </View>
       ) : conversations.length === 0 ? (
         <View className="mt-8 items-center justify-center rounded-[20px] border border-dashed border-[#d7e1e0] bg-white/60 px-5 py-8">
-          <Text className="text-[13px] text-[#5d7676]">No conversations yet.</Text>
+          <Text className="text-[13px] text-[#5d7676]">{getText(currentLanguage, 'noConversations')}</Text>
         </View>
       ) : (
         <SectionList

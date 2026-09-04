@@ -45,7 +45,7 @@ const orderSchema = new Schema(
       default: "pending",
     },
     meetupDate: { type: Date, default: null },
-    meetupLocation: {
+    meetupLocationId: {
       type: Schema.Types.ObjectId,
       ref: "MeetingPlace",
       default: null,

@@ -6,6 +6,11 @@ import { getText } from '../i18n';
 
 const pad = (number) => String(number).padStart(2, '0');
 const dateKey = (date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+const meetingPlaceLabel = (place, language) =>
+  place?.location?.address?.[language] ||
+  place?.location?.address?.en ||
+  place?.city ||
+  '';
 export default function MeetupSchedulerModal({ visible, onClose, onConfirm, loading, language }) {
   const dates = useMemo(() => Array.from({ length: 10 }, (_, index) => {
     const date = new Date();
@@ -38,7 +43,7 @@ export default function MeetupSchedulerModal({ visible, onClose, onConfirm, load
     const hour24 = (hour % 12) + (period === 'PM' ? 12 : 0);
     const meetupDate = new Date(selectedDate);
     meetupDate.setHours(hour24, minute, 0, 0);
-    onConfirm({ meetupDate: meetupDate.toISOString(), meetupLocation: place._id });
+    onConfirm({ meetupDate: meetupDate.toISOString(), meetupLocationId: place._id });
   };
 
   const Wheel = ({ values, selected, onSelect, renderValue = String }) => (
@@ -72,7 +77,7 @@ export default function MeetupSchedulerModal({ visible, onClose, onConfirm, load
             {hour !== null && minute !== null && period ? <Text className="mb-4 text-center text-lg font-bold text-[#0f6b75]">{hour}:{pad(minute)} {period}</Text> : null}
           </View>
           <Text className="mb-2 font-semibold text-[#203030]">{getText(language, 'meetupArea')}</Text>
-          {placesLoading ? <ActivityIndicator color="#0f6b75" /> : <View className="mb-4"><Pressable onPress={() => setLocationOpen((open) => !open)} className="flex-row items-center justify-between rounded-xl border border-[#0f6b75] bg-[#edf7f6] px-3 py-3"><Text className={`flex-1 font-semibold ${place ? 'text-[#203030]' : 'text-[#607575]'}`} numberOfLines={1}>{place?.name || getText(language, 'selectMeetingArea')}</Text><Ionicons name={locationOpen ? 'chevron-up' : 'chevron-down'} size={20} color="#0f6b75" /></Pressable>{locationOpen ? <View className="max-h-52 rounded-b-xl border border-t-0 border-[#d7e1e0] bg-white"><ScrollView nestedScrollEnabled>{places.map((item) => <Pressable key={item._id} onPress={() => { setPlace(item); setLocationOpen(false); }} className="border-b border-[#edf1f0] px-3 py-3"><Text className="font-semibold text-[#203030]">{item.name}</Text></Pressable>)}</ScrollView></View> : null}</View>}
+          {placesLoading ? <ActivityIndicator color="#0f6b75" /> : <View className="mb-4"><Pressable onPress={() => setLocationOpen((open) => !open)} className="flex-row items-center justify-between rounded-xl border border-[#0f6b75] bg-[#edf7f6] px-3 py-3"><Text className={`flex-1 font-semibold ${place ? 'text-[#203030]' : 'text-[#607575]'}`} numberOfLines={1}>{meetingPlaceLabel(place, language) || getText(language, 'selectMeetingArea')}</Text><Ionicons name={locationOpen ? 'chevron-up' : 'chevron-down'} size={20} color="#0f6b75" /></Pressable>{locationOpen ? <View className="max-h-52 rounded-b-xl border border-t-0 border-[#d7e1e0] bg-white"><ScrollView nestedScrollEnabled>{places.map((item) => <Pressable key={item._id} onPress={() => { setPlace(item); setLocationOpen(false); }} className="border-b border-[#edf1f0] px-3 py-3"><Text className="font-semibold text-[#203030]">{meetingPlaceLabel(item, language)}</Text></Pressable>)}</ScrollView></View> : null}</View>}
           <Pressable onPress={choose} disabled={!complete || loading} className={`items-center rounded-2xl py-4 ${complete && !loading ? 'bg-[#111111]' : 'bg-[#dfe8e7]'}`}><Text className={`font-bold ${complete && !loading ? 'text-white' : 'text-[#829494]'}`}>{loading ? getText(language, 'saving') : getText(language, 'confirmMeetup')}</Text></Pressable>
         </ScrollView>
       </View>

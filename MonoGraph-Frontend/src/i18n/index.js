@@ -73,6 +73,26 @@ export const getText = (language, key) => {
             fa: 'شما پیشنهاد دادید:',
             ps: 'تاسو وړاندیز کړی:',
         },
+        offerByYou: {
+            en: 'You offered: {amount}',
+            fa: 'شما پیشنهاد دادید: {amount}',
+            ps: 'تاسو وړاندیز کړی: {amount}',
+        },
+        offerByOther: {
+            en: '{name} offered: {amount}',
+            fa: '{name} پیشنهاد داد: {amount}',
+            ps: '{name} وړاندیز کړی: {amount}',
+        },
+        orderByYou: {
+            en: 'You ordered: {amount}',
+            fa: 'شما سفارش دادید: {amount}',
+            ps: 'تاسو سفارش ورکړی: {amount}',
+        },
+        orderByOther: {
+            en: '{name} ordered: {amount}',
+            fa: '{name} سفارش داد: {amount}',
+            ps: '{name} سفارش ورکړی: {amount}',
+        },
 
         noMessagesYet: {
             en: 'No messages yet',
@@ -100,6 +120,24 @@ export const getText = (language, key) => {
             fa: 'تکمیل شد',
             ps: 'بشپړ شو',
         },
+        orderConfirmed: { en: 'Confirmed', fa: 'تأیید شد', ps: 'تایید شو' },
+        orderCancelled: { en: 'Cancelled', fa: 'لغو شد', ps: 'لغوه شو' },
+        orderReceived: { en: 'Order received', fa: 'سفارش دریافت شد', ps: 'سفارش ترلاسه شو' },
+        offerCancelled: { en: 'Offer cancelled', fa: 'پیشنهاد لغو شد', ps: 'وړاندیز لغوه شو' },
+        buying: { en: 'Buying', fa: 'خریداری', ps: 'پېرودل' },
+        selling: { en: 'Selling', fa: 'فروش', ps: 'پلورل' },
+        bought: { en: 'Bought', fa: 'خریداری‌شده', ps: 'پېرودل شوي' },
+        sold: { en: 'Sold', fa: 'فروخته‌شده', ps: 'پلورل شوي' },
+        messages: { en: 'Messages', fa: 'پیام‌ها', ps: 'پیغامونه' },
+        noConversations: { en: 'No conversations yet.', fa: 'هنوز گفت‌وگویی وجود ندارد.', ps: 'تر اوسه خبرې نشته.' },
+        orderHistory: { en: 'Order history', fa: 'تاریخچه سفارش‌ها', ps: 'د سفارشونو تاریخچه' },
+        totalBought: { en: 'Total bought', fa: 'مجموع خریداری', ps: 'ټولې پېرودنې' },
+        totalSold: { en: 'Total sold', fa: 'مجموع فروش', ps: 'ټول پلورل شوي' },
+        orders: { en: 'orders', fa: 'سفارش', ps: 'سفارشونه' },
+        noHistoryItems: { en: 'No orders yet.', fa: 'هنوز سفارشی وجود ندارد.', ps: 'تر اوسه سفارش نشته.' },
+        locationAccepted: { en: 'Location accepted', fa: 'محل تأییدشده', ps: 'تایید شوی ځای' },
+        boughtFrom: { en: 'Bought from', fa: 'خریداری از', ps: 'له دې څخه واخیستل شول' },
+        soldTo: { en: 'Sold to', fa: 'فروخته‌شده به', ps: 'دې ته وپلورل شول' },
 
 
         ordersMessages: {

@@ -39,11 +39,6 @@ const offerSchema = new Schema(
       enum: ["pending", "confirmed", "cancelled", "completed"],
       default: "pending",
     },
-    offerLocation: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "MeetingPlace",
-      default: null,
-    },
   },
   { timestamps: true },
 );

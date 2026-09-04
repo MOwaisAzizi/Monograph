@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Chip, ScreenShell, TextField } from '../components/ui';
-import { ItemCard, ShopCard } from '../components/cards';
+import { Chip, ScreenShell, SegmentedTabs, TextField } from '../components/ui';
+import { SearchItemCard, ShopCard } from '../components/cards';
 import { getText } from '../i18n';
 import { CategoryFilterRow } from './HomeScreen';
 import { useCategories } from '../hooks/useCategories';
@@ -15,13 +15,13 @@ export default function SearchScreen({ navigation, route }) {
   const [search, setSearch] = useState(initialSearch);
   const [category, setCategory] = useState(initialCategory);
 
-  const [selectedTab, setSelectedTab] = useState('Items');
+  const [selectedTab, setSelectedTab] = useState('items');
   const [sort, setSort] = useState('');
 
   const { categories } = useCategories(currentLanguage);
   const { items, shops, loading } = useSearchResults({ search, category, sort });
 
-  const results = selectedTab === 'Items' ? items : shops;
+  const results = selectedTab === 'items' ? items : shops;
   const selectedCategoryLabel = useMemo(
     () => categories.find((option) => option.key === category)?.label || category,
     [categories, category],
@@ -80,25 +80,20 @@ export default function SearchScreen({ navigation, route }) {
 
         {loading && <ActivityIndicator className="mt-4" />}
 
-        <View className="mt-6 flex-row gap-2">
-          <Chip
-            label={getText(currentLanguage, 'items')}
-            active={selectedTab === 'Items'}
-            onPress={() => setSelectedTab('Items')}
-          />
+        <SegmentedTabs
+          tabs={[
+            { key: 'items', label: getText(currentLanguage, 'items') },
+            { key: 'shops', label: getText(currentLanguage, 'shops') },
+          ]}
+          activeKey={selectedTab}
+          onChange={setSelectedTab}
+        />
 
-          <Chip
-            label={getText(currentLanguage, 'shops')}
-            active={selectedTab === 'Shops'}
-            onPress={() => setSelectedTab('Shops')}
-          />
-        </View>
-
-        <View className="mt-5 flex-row flex-wrap justify-between">
+        {/* <View className="mt-5 flex-row flex-wrap justify-between">
           {results.map((entry) => (
             <View key={entry.id} className="w-[48%] mb-3">
-              {selectedTab === 'Items' ? (
-                <ItemCard
+              {selectedTab === 'items' ? (
+                <SearchItemCard
                   item={entry}
                   onPress={() => navigation.navigate('Product', { id: entry.id })}
                   style={{ width: '100%' }}
@@ -120,7 +115,39 @@ export default function SearchScreen({ navigation, route }) {
               </Text>
             </View>
           )}
-        </View>
+        </View> */}
+
+        <View className="mt-5 w-full">
+  {results.map((entry) => (
+    <View key={entry.id} className="mb-3 w-full">
+      {selectedTab === "items" ? (
+        <SearchItemCard
+          item={entry}
+          onPress={() =>
+            navigation.navigate("Product", { id: entry.id })
+          }
+          style={{ width: "100%" }}
+        />
+      ) : (
+        <ShopCard
+          shop={entry}
+          onPress={() =>
+            navigation.navigate("ShopDetail", { id: entry.id })
+          }
+          style={{ width: "100%" }}
+        />
+      )}
+    </View>
+  ))}
+
+  {showEmptyState && (
+    <View className="w-full rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
+      <Text className="text-[12px] text-[#89a1a9]">
+        {getText(currentLanguage, "noResults")}
+      </Text>
+    </View>
+  )}
+</View>
       </View>
     </ScreenShell>
   );

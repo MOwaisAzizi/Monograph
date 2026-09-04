@@ -19,21 +19,37 @@ import { useCategories } from '../hooks/useCategories';
  */
 
 export function CategoryFilterRow({ categories, activeKey, onSelect }) {
-  const keyedCategories = categories.filter((category) => String(category?.icon || '').trim());
+  const keyedCategories = categories.filter((category) =>
+    String(category?.icon || "").trim()
+  );
+
   return (
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerClassName="px-1 gap-5"
+      contentContainerClassName="px-2 pt-4 gap-6"
     >
       {keyedCategories.map((cat, index) => {
         const active = cat.key === activeKey;
+
         return (
-          <View key={`${cat.key}-${cat.id || cat._id || index}`} className="items-center">
-            <IconCircleButton icon={cat.icon} active={active} onPress={() => onSelect(cat.key)} />
+          <View
+            key={`${cat.key}-${cat.id || cat._id || index}`}
+            className="items-center"
+          >
+            <IconCircleButton
+              icon={cat.icon}
+              active={active}
+              onPress={() => onSelect(cat.key)}
+              size={24}
+            />
+
             <Text
-              className={`mt-1.5 text-[11px] ${active ? 'text-[#0f3d3e] font-semibold' : 'text-[#7c9291]'
-                }`}
+              className={`mt-2 text-[12px] ${
+                active
+                  ? "font-semibold text-[#0f3d3e]"
+                  : "text-[#7c9291]"
+              }`}
             >
               {cat.label}
             </Text>
@@ -142,38 +158,38 @@ export default function HomeScreen({ navigation }) {
         />
       </View>
       {/* Vertically scrolling list of sections, each scrolling horizontally */}
-      <View className="mt-6 space-y-7">
-        {sections.map((section) => (
-          <View key={section.key}>
-            <SectionHeader
-              title={section.title}
-              actionLabel={section.actionLabel}
-              onAction={() =>
-                navigation.navigate('Search', { search: '', category: activeCategory })
-              }
+      <View className="mt-1">
+  {sections.map((section, index) => (
+    <View key={section.key} className={index === 0 ? 'mt-2' : 'mt-10'}>
+      <SectionHeader
+        title={section.title}
+        actionLabel={section.actionLabel}
+        onAction={() =>
+          navigation.navigate('Search', { search: '', category: activeCategory })
+        }
+      />
+      {section.data.length ? (
+        <View className="mt-2">
+          {section.type === 'item' ? (
+            <HorizontalItemRow
+              data={section.data}
+              onPressItem={(id) => navigation.navigate('Product', { id })}
             />
-            {section.data.length ? (
-              <View className="mt-2">
-                {section.type === 'item' ? (
-                  <HorizontalItemRow
-                    data={section.data}
-                    onPressItem={(id) => navigation.navigate('Product', { id })}
-                  />
-                ) : (
-                  <HorizontalShopRow
-                    data={section.data}
-                    onPressShop={(id) => navigation.navigate('ShopDetail', { id })}
-                  />
-                )}
-              </View>
-            ) : (
-              <View className="mt-2 rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
-                <Text className="text-[12px] text-[#89a1a1]">Waiting for backend data.</Text>
-              </View>
-            )}
-          </View>
-        ))}
-      </View>
+          ) : (
+            <HorizontalShopRow
+              data={section.data}
+              onPressShop={(id) => navigation.navigate('ShopDetail', { id })}
+            />
+          )}
+        </View>
+      ) : (
+        <View className="mt-2 rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
+          <Text className="text-[12px] text-[#89a1a1]">Waiting for backend data.</Text>
+        </View>
+      )}
+    </View>
+  ))}
+</View>
     </ScreenShell>
   );
 }
