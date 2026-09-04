@@ -1,45 +1,20 @@
 import React, { useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, Image, TextInput, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Pressable, ScrollView, Text, Image, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import api from '../services/api';
 import { useShopDetail } from '../hooks/useShopDetail';
-import { ActionPill, Chip, ScreenShell, SectionHeader } from '../components/ui';
+import { ActionPill, Chip, DetailHeaderActions, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
 import { getLocalizedValue, getText } from '../i18n';
-import { timeAgo } from '../helpers/shopDetailScreenHelpers';
-
-const Stars = ({ rating, size = 14 }) => (
-  <Text style={{ fontSize: size, color: '#d99c17' }}>
-    {'★'.repeat(Math.round(rating))}
-    {'☆'.repeat(5 - Math.round(rating))}
-  </Text>
-);
+import { ReviewSection } from '../components/ReviewComponents';
 
 export default function ShopDetailScreen({ route, navigation }) {
   const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const { id } = route.params;
   const user = useSelector((state) => state.auth.user);
-  const { shop, items, similarShops, reviews, summary, loadReviews } = useShopDetail(id);
+  const { shop, items, similarShops, reviews, summary, saveReview } = useShopDetail(id);
   const [tab, setTab] = useState('items');
   const [isFavorite, setIsFavorite] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
-  const [rating, setRating] = useState(5);
-
-  const [comment, setComment] = useState('');
-  const [showForm, setShowForm] = useState(false);
-  const submitReview = async () => {
-    if (!user) return navigation.navigate('Login');
-    if (!comment.trim()) return Alert.alert('Write a review', 'Please add a short comment.');
-    try {
-      await api.saveShopReview(id, { rating, comment: comment.trim() });
-      setComment('');
-      setShowForm(false);
-      await loadReviews();
-    } catch (error) {
-      Alert.alert('Could not save review', error.response?.data?.message || 'Please try again.');
-    }
-  };
   const toggleFavorite = async () => {
     try {
       await api.toggleFavorite(null, id);
@@ -56,7 +31,6 @@ export default function ShopDetailScreen({ route, navigation }) {
       navigation.navigate('Login');
     }
   };
-  const maxCount = Math.max(...Object.values(summary.distribution || {}), 1);
   return (
     <ScreenShell scroll={false} contentClassName="flex-1 pb-6">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -71,18 +45,12 @@ export default function ShopDetailScreen({ route, navigation }) {
               className="h-full w-full"
               style={{ resizeMode: 'cover' }}
             />
-            <Pressable
-              onPress={() => navigation.goBack()}
-              className="absolute left-4 top-4 h-9 w-9 items-center justify-center rounded-full bg-white/60"
-            >
-              <Ionicons name="chevron-back" size={16} color="#2a3535" />
-            </Pressable>
-            <Pressable
-              onPress={toggleFavorite}
-              className="absolute right-4 top-4 h-9 w-9 items-center justify-center rounded-full bg-white/60"
-            >
-              <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={16} color="#2a3535" />
-            </Pressable>
+            <DetailHeaderActions
+              onBack={() => navigation.goBack()}
+              onFavorite={toggleFavorite}
+              favoriteActive={isFavorite}
+              isRTL={currentLanguage !== 'en'}
+            />
           </View>
           <View className="mt-5 flex-row items-start justify-between">
             <View>
@@ -172,93 +140,7 @@ export default function ShopDetailScreen({ route, navigation }) {
               </View>
             </View>
           ) : (
-            <View className="mt-5">
-              <View className="flex-row gap-5">
-                <View className="items-center justify-center">
-                  <Text className="text-4xl font-bold text-[#eff5f4]">
-                    {summary.average.toFixed(1)}
-                  </Text>
-                  <Stars rating={summary.average} />
-                </View>
-                <View className="flex-1 justify-center">
-                  {[5, 4, 3, 2, 1].map((value) => (
-                    <View key={value} className="mb-2 flex-row items-center gap-2">
-                      <Text className="w-5 text-[11px] text-[#a9bbbb]">{value}★</Text>
-                      <View className="h-1.5 flex-1 overflow-hidden rounded bg-[#d6e3e2]">
-                        <View
-                          style={{
-                            width: `${((summary.distribution?.[value] || 0) / maxCount) * 100}%`,
-                          }}
-                          className="h-full bg-[#d99c17]"
-                        />
-                      </View>
-                    </View>
-                  ))}
-                </View>
-              </View>
-              {reviews.map((review) => (
-                <View key={review._id} className="mt-4 border-t border-white/15 pt-4">
-                  <Text className="font-semibold text-[#eff5f4]">
-                    {review.user?.fullname || 'MonoGraph user'}
-                  </Text>
-                  <View className="flex-row items-center gap-2">
-                    <Stars rating={review.rating} size={12} />
-                    <Text className="text-[11px] text-[#9ab0b0]">{timeAgo(review.createdAt)}</Text>
-                  </View>
-                  <Text className="mt-2 text-[13px] leading-5 text-[#c2d1d0]">
-                    {review.comment}
-                  </Text>
-                </View>
-              ))}
-              {!reviews.length && (
-                <Text className="mt-5 text-[12px] text-[#89a1a1]">
-                  No reviews yet. Be the first to review this shop.
-                </Text>
-              )}
-              {showForm && (
-                <View className=" rounded-2xl bg-white/10 p-4">
-                  <Text className="font-semibold text-[#eff5f4]">
-                    {getText(currentLanguage, 'yourRating')}
-                  </Text>
-                  <View className="mt-2 flex-row">
-                    {[1, 2, 3, 4, 5].map((value) => (
-                      <Pressable key={value} onPress={() => setRating(value)}>
-                        <Text
-                          style={{ color: value <= rating ? '#d99c17' : '#d6e3e2', fontSize: 27 }}
-                        >
-                          ★
-                        </Text>
-                      </Pressable>
-                    ))}
-                  </View>
-                  <TextInput
-                    value={comment}
-                    onChangeText={setComment}
-                    placeholder={getText(currentLanguage, 'shareExperience')}
-                    placeholderTextColor="#9ab0b0"
-                    multiline
-                    className="mt-2 min-h-[90px] rounded-xl bg-white px-3 py-3 text-[#314243]"
-                  />
-                  <Pressable onPress={submitReview} className="mt-3 rounded-xl bg-[#0f6b75] py-3">
-                    <Text className="text-center font-semibold text-white">
-                      {getText(currentLanguage, 'submitReview')}
-                    </Text>
-                  </Pressable>
-                </View>
-              )}
-              <Pressable
-                onPress={() =>
-                  user ? setShowForm((value) => !value) : navigation.navigate('Login')
-                }
-                className="mt-5 rounded-2xl bg-[#d6e3e2] py-4"
-              >
-                <Text className="text-center font-semibold text-[#0d4e57]">
-                  {showForm
-                    ? getText(currentLanguage, 'cancelReview')
-                    : getText(currentLanguage, 'addReview')}
-                </Text>
-              </Pressable>
-            </View>
+            <ReviewSection targetType="shop" reviews={reviews} summary={summary} user={user} onSave={saveReview} language={currentLanguage} navigation={navigation} />
           )}
         </View>
       </ScrollView>

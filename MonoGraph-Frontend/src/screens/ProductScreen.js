@@ -1,17 +1,20 @@
 import React, { useMemo, useState } from 'react';
 import { Alert, Image, Modal, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 import { useFavorite, useProduct } from '../hooks/useProduct';
-import { ActionPill, Chip, ScreenShell, SectionHeader } from '../components/ui';
+import { ActionPill, Chip, DetailHeaderActions, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
 import { getLocalizedValue, getText } from '../i18n';
 import api from '../services/api';
+import { ReviewSection } from '../components/ReviewComponents';
+import { useReviews } from '../hooks/useReviews';
 
 export default function ProductScreen({ route, navigation }) {
   const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const { id } = route.params;
   const { item, similarItems } = useProduct(id);
+  const user = useSelector((state) => state.auth.user);
+  const { reviews, summary, saveReview } = useReviews('item', id);
   const { isFavorite, toggleFavorite } = useFavorite(id);
   const sellerId = item?.shopId || item?.owner || item?.sellerId;
   const [offerModalOpen, setOfferModalOpen] = useState(false);
@@ -100,20 +103,12 @@ export default function ProductScreen({ route, navigation }) {
               resizeMode="cover"
               className="h-full w-full rounded-[28px]"
             />
-            <View className="absolute left-4 right-4 top-4 flex-row items-center justify-between">
-              <Pressable
-                onPress={() => navigation.goBack()}
-                className="h-9 w-9 items-center justify-center rounded-full bg-white/60"
-              >
-                <Ionicons name="chevron-back" size={16} color="#2a3535" />
-              </Pressable>
-              <Pressable
-                className="h-9 w-9 items-center justify-center rounded-full bg-white/60"
-                onPress={toggleFavorite}
-              >
-                <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={16} color="#2a3535" />
-              </Pressable>
-            </View>
+            <DetailHeaderActions
+              onBack={() => navigation.goBack()}
+              onFavorite={toggleFavorite}
+              favoriteActive={isFavorite}
+              isRTL={currentLanguage !== 'en'}
+            />
 
             <View className="absolute bottom-4 left-0 right-0 items-center">
               <View className="h-1.5 w-8 rounded-full bg-white/80" />
@@ -170,6 +165,7 @@ export default function ProductScreen({ route, navigation }) {
                 onPress={handleBuyNow}
               />
             </View>
+            <ReviewSection targetType="item" reviews={reviews} summary={summary} user={user} onSave={saveReview} language={currentLanguage} navigation={navigation} />
             <View className="mt-6 ">
               <SectionHeader title={getText(currentLanguage, 'similarItems')} />
 

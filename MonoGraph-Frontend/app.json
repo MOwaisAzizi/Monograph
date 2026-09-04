@@ -4,10 +4,21 @@
     "slug": "secondhand-app",
     "version": "1.0.0",
     "plugins": [
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-font"
     ],
     "android": {
-      "package": "com.anonymous.secondhandapp"
+      "package": "com.anonymous.secondhandapp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBleLXq83HGVY9O4dmSBm-LAdPKAhsSsd4"
+        }
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2525944a-c603-45a7-b880-1d896869d27a"
+      }
     }
   }
 }

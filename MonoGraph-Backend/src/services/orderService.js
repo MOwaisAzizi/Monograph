@@ -10,13 +10,13 @@ export const createOrder = async ({
     sellerId,
     subtotal,
     total,
-    location,
+    orderLocation = null,
     offerId = null,
     initialStatus,
 }) => {
     // Update item status
     const item = await Item.findOneAndUpdate(
-        { _id: itemId},
+        { _id: itemId },
         { new: true }
     );
 
@@ -44,13 +44,13 @@ export const createOrder = async ({
         // Accept the specific offer
         await Offer.updateOne(
             { _id: offerId, status: "pending" },
-            { $set: { status: "accepted" } }
+            { $set: { status: "confirmed" } }
         );
 
-        // Reject all other pending offers for this item
+        // Close all other pending offers for this item.
         await Offer.updateMany(
             { item: itemId, status: "pending", _id: { $ne: offerId } },
-            { $set: { status: "rejected" } }
+            { $set: { status: "cancelled" } }
         );
     }
 
@@ -63,22 +63,22 @@ export const createOrder = async ({
             seller: sellerId,
             subtotal,
             total,
-            location,
+            orderLocation,
             status: initialStatus,
         },
     ]);
 
+    await order.populate("orderLocation");
     return order;
 };
 
-export const rejectOrder = async ({ orderId, rejectionReason }) => {
-    // Update order status
+export const cancelOrder = async ({ orderId, cancellationReason }) => {
     const order = await Order.findOneAndUpdate(
-        { _id: orderId, status: { $ne: "completed" } },
+        { _id: orderId, status: { $in: ["pending", "confirmed"] } },
         {
             $set: {
-                status: "rejected",
-                rejectionReason,
+                status: "cancelled",
+                rejectionReason: cancellationReason,
             },
         },
         { new: true }

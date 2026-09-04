@@ -13,43 +13,37 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
-import { ScreenShell } from '../components/ui';
+import { HeaderBackButton, ScreenShell } from '../components/ui';
 import api from '../services/api';
 import { getText } from '../i18n';
 import MeetupSchedulerModal from '../components/MeetupSchedulerModal';
 
 const OFFER_STATUS_COLOR = {
   pending: 'text-[#7f4e00]',
-  accepted: 'text-[#195736]',
-  rejected: 'text-[#912e2e]',
-  accepted: 'text-[#0a5d76]',
+  confirmed: 'text-[#0a5d76]',
+  completed: 'text-[#195736]',
+  cancelled: 'text-[#912e2e]',
 };
 
 const OFFER_STATUS_LABEL = {
   pending: 'Pending',
-  accepted: 'Accepted',
-  rejected: 'Rejected',
-  accepted: 'accepted',
+  confirmed: 'Confirmed',
+  completed: 'Completed',
+  cancelled: 'Cancelled',
 };
 
 const ORDER_STATUS_COLOR = {
   pending: 'text-[#7f4e00]',
-  accepted: 'text-[#0a5d76]',
+  confirmed: 'text-[#0a5d76]',
   completed: 'text-[#195736]',
-  rejected: 'text-[#912e2e]',
-  pending_buyer_confirmation: 'text-[#7f4e00]',
-  confirmed: 'text-[#195736]',
-  change_requested: 'text-[#912e2e]',
+  cancelled: 'text-[#912e2e]',
 };
 
 const ORDER_STATUS_LABEL = {
   pending: 'Pending',
-  accepted: 'accepted',
-  completed: 'Completed',
-  rejected: 'Rejected',
-  pending_buyer_confirmation: 'Awaiting buyer confirmation',
   confirmed: 'Confirmed',
-  change_requested: 'Change requested',
+  completed: 'Completed',
+  cancelled: 'Cancelled',
 };
 
 const moneyText = (value) => {
@@ -72,6 +66,20 @@ const senderIdFromMessage = (message) => {
   }
 
   return sender?._id || sender?.id || '';
+};
+
+const getMeetingPlaceLabel = (meetingPlace) => {
+  if (!meetingPlace || typeof meetingPlace === 'string') return '';
+  const address = meetingPlace.location?.address;
+  const localizedAddress = address?.en?.title || address?.fa?.title || address?.ps?.title;
+  return [meetingPlace.name, localizedAddress].filter(Boolean).join(' · ');
+};
+
+const getMeetingPlaceQuery = (meetingPlace) => {
+  const coordinates = meetingPlace?.location?.geoPosition?.coordinates;
+  return Array.isArray(coordinates) && coordinates.length === 2
+    ? `${coordinates[1]},${coordinates[0]}`
+    : getMeetingPlaceLabel(meetingPlace);
 };
 
 export default function ChatScreen({ route, navigation }) {
@@ -109,6 +117,12 @@ export default function ChatScreen({ route, navigation }) {
   const [scheduleVisible, setScheduleVisible] = useState(false);
   const [changeReasonVisible, setChangeReasonVisible] = useState(false);
   const [changeReason, setChangeReason] = useState('');
+
+  useEffect(() => {
+    setConversationId(initialConversationId || null);
+    setOfferState(latestOffer);
+    setOrderState(latestOrder);
+  }, [initialConversationId, latestOffer, latestOrder]);
 
   useEffect(() => {
     const loadConversation = async () => {
@@ -166,42 +180,44 @@ export default function ChatScreen({ route, navigation }) {
    */
 
   const getUserId = (user) => {
-  if (!user) return '';
+    if (!user) return '';
 
-  if (typeof user === 'string') {
-    return user;
-  }
+    if (typeof user === 'string') {
+      return user;
+    }
 
-  return user?._id || user?.id || '';
-};
+    return user?._id || user?.id || '';
+  };
 
-const offerBuyerId = getUserId(offerState?.buyer);
-const offerSellerId = getUserId(offerState?.seller);
+  const offerBuyerId = getUserId(offerState?.buyer);
+  const offerSellerId = getUserId(offerState?.seller);
 
-const isOfferBuyer =
-  String(offerBuyerId) === String(currentUserId || '');
+  const isOfferBuyer =
+    String(offerBuyerId) === String(currentUserId || '');
 
-const isOfferSeller =
-  String(offerSellerId) === String(currentUserId || '');
+  const isOfferSeller =
+    String(offerSellerId) === String(currentUserId || '');
 
-const canRespondToOffer =
-  Boolean(offerState?._id) &&
-  offerState?.status === 'pending' &&
-  isOfferSeller;
+  const canRespondToOffer =
+    Boolean(offerState?._id) &&
+    offerState?.status === 'pending' &&
+    isOfferSeller;
 
-const canCancelOffer =
-  Boolean(offerState?._id) &&
-  offerState?.status === 'pending' &&
-  isOfferBuyer;
+  const canCancelOffer =
+    Boolean(offerState?._id) &&
+    offerState?.status === 'pending' &&
+    isOfferBuyer;
 
-const orderSellerId = getUserId(orderState?.seller);
-const isOrderSeller = String(orderSellerId) === String(currentUserId || '');
-const canRespondToOrder =
-  Boolean(orderState?._id) &&
-  ['pending', 'change_requested'].includes(orderState?.status) &&
-  isOrderSeller;
-const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
-  orderState?.status === 'pending_buyer_confirmation' && !isOrderSeller;
+  const orderSellerId = getUserId(orderState?.seller);
+  const isOrderSeller = String(orderSellerId) === String(currentUserId || '');
+  const canRespondToOrder =
+    Boolean(orderState?._id) &&
+    orderState?.status === 'pending' &&
+    isOrderSeller;
+  const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
+    orderState?.status === 'pending' && orderState?.meetupStatus === 'pending_buyer_confirmation' && !isOrderSeller;
+  const canCancelOrder = Boolean(orderState?._id) &&
+    ['pending', 'confirmed'].includes(orderState?.status) && !isOrderSeller;
 
   const offerAmount = useMemo(() => {
     return (
@@ -229,8 +245,8 @@ const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
     confirmed: 'meetupStatusConfirmed',
     change_requested: 'meetupStatusChangeRequested',
   };
-  const orderStatusText = meetupStatusKeys[orderState?.status]
-    ? getText(language, meetupStatusKeys[orderState.status])
+  const orderStatusText = meetupStatusKeys[orderState?.meetupStatus]
+    ? getText(language, meetupStatusKeys[orderState.meetupStatus])
     : ORDER_STATUS_LABEL[orderState?.status] || 'Pending';
 
   const orderStatusClass =
@@ -330,12 +346,12 @@ const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
   };
 
   const runOrderAction = async (action) => {
-    if (!canRespondToOrder) return;
+    if (action === 'cancel' ? !canCancelOrder : !canRespondToOrder) return;
 
     try {
       setActionLoading(true);
-      const response = action === 'accept'
-        ? await api.confirmOrder(orderState._id)
+      const response = action === 'cancel'
+        ? await api.cancelOrder(orderState._id)
         : await api.rejectOrder(orderState._id);
       const nextOrder = response?.data?.data?.order;
       if (nextOrder) setOrderState(nextOrder);
@@ -368,7 +384,7 @@ const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
   };
 
   return (
-    <ScreenShell contentClassName="px-3 pb-2 pt-3">
+    <ScreenShell scroll={false} contentClassName="px-3 pb-2 pt-3">
       <KeyboardAvoidingView
         className="flex-1"
         behavior={
@@ -381,17 +397,8 @@ const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
             CHAT HEADER
         ========================== */}
 
-        <View className="mb-2 flex-row items-center rounded-[18px] border border-[#d8e2e1] bg-white px-3 py-3">
-          <Pressable
-            onPress={() => navigation.goBack()}
-            className="mr-2 p-1"
-          >
-            <Ionicons
-              name="arrow-back"
-              size={20}
-              color="#203030"
-            />
-          </Pressable>
+        <View className={`mb-2 flex-row items-center rounded-[18px] border border-[#d8e2e1] bg-white px-3 py-3 ${language !== 'en' ? 'flex-row-reverse' : ''}`}>
+          <HeaderBackButton onPress={() => navigation.goBack()} isRTL={language !== 'en'} className="me-2 bg-transparent" />
 
           {otherParticipantAvatar ? (
             <Image
@@ -404,7 +411,7 @@ const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
             <View className="h-9 w-9 rounded-full bg-[#c7def6]" />
           )}
 
-          <View className="ml-3 flex-1">
+          <View className="ms-3 flex-1">
             <Text
               className="text-[17px] font-bold text-[#1f2e2e]"
               numberOfLines={1}
@@ -507,7 +514,7 @@ const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
               Status: {orderStatusText}
             </Text>
 
-            {orderState.location?.label ? (
+            {getMeetingPlaceLabel(orderState.orderLocation) ? (
               <View className="mt-3 flex-row items-center">
                 <Ionicons
                   name="location-outline"
@@ -519,17 +526,18 @@ const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
                   className="ml-1 flex-1 text-[13px] text-[#607575]"
                   numberOfLines={2}
                 >
-                  {orderState.location.label}
+                  {getMeetingPlaceLabel(orderState.orderLocation)}
                 </Text>
               </View>
             ) : null}
+            {canCancelOrder ? <Pressable onPress={() => runOrderAction('cancel')} disabled={actionLoading} className="mt-3 self-start rounded-xl border border-[#d6b06b] bg-white px-5 py-2"><Text className="text-[15px] font-semibold text-[#992f2f]">Cancel Order</Text></Pressable> : null}
 
-            {orderState.meetupDate && orderState.meetupTime && orderState.meetupLocation ? (
+            {orderState.meetupDate && getMeetingPlaceLabel(orderState.meetupLocation) ? (
               <View className="mt-3 rounded-xl bg-[#edf7f6] p-3">
                 <Text className="text-[13px] font-bold text-[#0f6b75]">{getText(language, 'meetupInfo')}</Text>
-                <Text className="mt-1 text-[13px] text-[#203030]">{new Date(orderState.meetupDate).toLocaleDateString()} · {orderState.meetupTime}</Text>
-                <Pressable onPress={() => Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(orderState.meetupLocation)}`)} className="mt-2 flex-row items-center">
-                  <Ionicons name="location" size={16} color="#0f6b75" /><Text className="ml-1 font-semibold text-[#0f6b75]">{orderState.meetupLocation} · {getText(language, 'directions')}</Text>
+                <Text className="mt-1 text-[13px] text-[#203030]">{new Date(orderState.meetupDate).toLocaleString()}</Text>
+                <Pressable onPress={() => Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(getMeetingPlaceQuery(orderState.meetupLocation))}`)} className="mt-2 flex-row items-center">
+                  <Ionicons name="location" size={16} color="#0f6b75" /><Text className="ml-1 font-semibold text-[#0f6b75]">{getMeetingPlaceLabel(orderState.meetupLocation)} · {getText(language, 'directions')}</Text>
                 </Pressable>
               </View>
             ) : null}
@@ -587,14 +595,14 @@ const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
               return (
                 <View
                   className={`mb-2 max-w-[78%] rounded-2xl px-3 py-2 ${isMine
-                      ? 'ml-auto bg-[#317ad9]'
-                      : 'mr-auto border border-[#dbe5e4] bg-white'
+                    ? 'ml-auto bg-[#317ad9]'
+                    : 'mr-auto border border-[#dbe5e4] bg-white'
                     }`}
                 >
                   <Text
                     className={`text-[13px] ${isMine
-                        ? 'text-white'
-                        : 'text-[#203030]'
+                      ? 'text-white'
+                      : 'text-[#203030]'
                       }`}
                   >
                     {item?.content || ''}
@@ -628,14 +636,14 @@ const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
               !conversationId
             }
             className={`rounded-full px-4 py-2 ${draft.trim() && conversationId
-                ? 'bg-[#111111]'
-                : 'bg-[#dfe8e7]'
+              ? 'bg-[#111111]'
+              : 'bg-[#dfe8e7]'
               }`}
           >
             <Text
               className={`text-[12px] font-semibold ${draft.trim() && conversationId
-                  ? 'text-white'
-                  : 'text-[#5d7676]'
+                ? 'text-white'
+                : 'text-[#5d7676]'
                 }`}
             >
               {getText(language, 'send') ||

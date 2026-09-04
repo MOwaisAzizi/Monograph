@@ -57,6 +57,7 @@ export function ItemCard({ item, onPress, onToggleFavorite, style, compact = fal
           <View className="flex-row items-center gap-1">
             <Ionicons name="star" size={10} color="#f1b33f" />
             <Text className="text-[10px] font-semibold text-[#4e6667]">{item.rating}</Text>
+            <Text className="text-[9px] text-[#7a8f8f]">({item.ratingsCount || 0})</Text>
           </View>
         </View>
 

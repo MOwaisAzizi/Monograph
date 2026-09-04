@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, FlatList, Image, Pressable, Text, View } from 'react-native';
+import { ActivityIndicator, SectionList, Image, Pressable, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { ScreenShell } from '../components/ui';
@@ -12,6 +12,7 @@ import {
   getOfferOrderPriceLine,
 } from '../helpers/chatInbox';
 import { getText } from '../i18n';
+import { groupByDay } from '../helpers/dateGroups';
 
 const TAB_OPTIONS = [
   { key: 'buying', label: 'Buying' },
@@ -20,9 +21,7 @@ const TAB_OPTIONS = [
 
 const STATUS_STYLES = {
   pending: 'bg-[#FAEEDA]',
-  accepted: 'bg-[#EAF3DE]',
   order: 'bg-[#E6F1FB]',
-  rejected: 'bg-[#FCEBEB]',
   cancelled: 'bg-[#FCEBEB]',
   chat: 'bg-[#ecf2f2]',
   neutral: 'bg-[#ecf2f2]',
@@ -30,9 +29,7 @@ const STATUS_STYLES = {
 
 const STATUS_TEXT = {
   pending: 'text-[#633806]',
-  accepted: 'text-[#27500A]',
   order: 'text-[#0C447C]',
-  rejected: 'text-[#791F1F]',
   cancelled: 'text-[#791F1F]',
   chat: 'text-[#5f7676]',
   neutral: 'text-[#5f7676]',
@@ -67,6 +64,8 @@ export default function TalkScreen({ navigation }) {
 
     loadConversations();
   }, [activeTab]);
+
+  const sections = useMemo(() => groupByDay(conversations, 'sortAt'), [conversations]);
 
   const headerLabel = useMemo(() => {
     const label = activeTab === 'buying' ? 'Buying' : 'Selling';
@@ -161,7 +160,7 @@ export default function TalkScreen({ navigation }) {
   };
 
   return (
-    <ScreenShell contentClassName="px-4 pb-5 pt-4">
+    <ScreenShell scroll={false} contentClassName="px-4 pb-5 pt-4">
       <View className="mb-4 flex-row items-center justify-between">
         <Text className="text-[20px] font-bold text-[#203030]">Messages</Text>
         <View className="flex-row items-center gap-1">
@@ -198,10 +197,13 @@ export default function TalkScreen({ navigation }) {
           <Text className="text-[13px] text-[#5d7676]">No conversations yet.</Text>
         </View>
       ) : (
-        <FlatList
-          data={conversations}
+        <SectionList
+          sections={sections}
           keyExtractor={(item) => String(item._id || item.threadKey)}
           renderItem={renderRow}
+          renderSectionHeader={({ section }) => (
+            <Text className="mb-2 mt-1 text-[12px] font-semibold text-[#5d7676]">{section.title}</Text>
+          )}
           contentContainerStyle={{ paddingBottom: 24 }}
           showsVerticalScrollIndicator={false}
         />

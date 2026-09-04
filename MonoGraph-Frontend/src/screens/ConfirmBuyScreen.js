@@ -16,10 +16,10 @@ export default function ConfirmBuyScreen({ route, navigation }) {
       setLoading(true);
       await api.createOrder({
         itemId,
-        location: { label: itemTitle || getText(language, 'purchaseLocation') },
       });
       navigation.navigate('OfferStatus', {
         itemId,
+        sellerId,
         itemTitle,
         status: 'pending',
         amount: price || 0,

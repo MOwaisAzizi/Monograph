@@ -1,5 +1,6 @@
 import Offer from "../models/offerModel.js";
 import Item from "../models/itemModel.js";
+import MeetingPlace from "../models/meetingPlaceModel.js";
 import AppError from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 import { createOrder } from "../services/orderService.js";
@@ -22,7 +23,7 @@ export const createOffer = catchAsync(async (req, res, next) => {
     askingPrice,
     offeredPrice,
     note,
-    location,
+    offerLocation = null,
   } = req.body;
 
   if (!itemId) {
@@ -48,6 +49,10 @@ export const createOffer = catchAsync(async (req, res, next) => {
     return next(new AppError("A valid asking price is required.", 400));
   }
 
+  if (offerLocation && !await MeetingPlace.exists({ _id: offerLocation, active: true })) {
+    return next(new AppError("Meeting place not found.", 400));
+  }
+
   const finalOfferedPrice =
     offeredPrice !== undefined && offeredPrice !== null
       ? Number(offeredPrice)
@@ -68,8 +73,9 @@ export const createOffer = catchAsync(async (req, res, next) => {
     offeredPrice: finalOfferedPrice,
     note: note || "",
     status: "pending",
-    location: location || {},
+    offerLocation,
   });
+  await offer.populate("offerLocation");
 
   res.status(201).json({
     status: "success",
@@ -81,7 +87,8 @@ export const getOfferById = catchAsync(async (req, res, next) => {
   const offer = await Offer.findById(req.params.id)
     .populate("item", "translation price media shop")
     .populate("buyer", "fullname")
-    .populate("seller", "fullname");
+    .populate("seller", "fullname")
+    .populate("offerLocation");
 
   if (!offer) {
     return next(new AppError("Offer not found.", 404));
@@ -117,6 +124,7 @@ export const listOffers = catchAsync(async (req, res) => {
     .populate("item", "translation price media")
     .populate("buyer", "fullname")
     .populate("seller", "fullname")
+    .populate("offerLocation")
     .sort({ createdAt: -1 });
 
   res.status(200).json({
@@ -154,10 +162,10 @@ export const respondToOffer = catchAsync(async (req, res, next) => {
     return next(new AppError("Only the seller can reject this offer.", 403));
   }
 
-  if (action === "accepted") {
+  if (action === "confirmed") {
     return next(new AppError("Use the offer accept endpoint to accept an offer.", 400));
   } else if (action === "reject") {
-    offer.status = "rejected";
+    offer.status = "cancelled";
 
     if (note) {
       offer.note = note;
@@ -181,7 +189,7 @@ export const respondToOffer = catchAsync(async (req, res, next) => {
       offer.note = note;
     }
   } else {
-    offer.status = "accepted";
+    offer.status = "confirmed";
   }
 
   await offer.save();
@@ -194,7 +202,7 @@ export const respondToOffer = catchAsync(async (req, res, next) => {
 
 export const proposeLocation = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { label, latitude, longitude } = req.body;
+  const { offerLocation } = req.body;
 
   const offer = await Offer.findById(id);
 
@@ -202,7 +210,7 @@ export const proposeLocation = catchAsync(async (req, res, next) => {
     return next(new AppError("Offer not found.", 404));
   }
 
-  if (offer.status !== "accepted") {
+  if (offer.status !== "confirmed") {
     return next(
       new AppError(
         "Only accepted offers can have a meetup location proposed.",
@@ -219,17 +227,15 @@ export const proposeLocation = catchAsync(async (req, res, next) => {
     );
   }
 
-  if (!label || !String(label).trim()) {
-    return next(new AppError("Location label is required.", 400));
+  const meetingPlace = await MeetingPlace.findOne({ _id: offerLocation, active: true });
+  if (!meetingPlace) {
+    return next(new AppError("Meeting place not found.", 400));
   }
 
-  offer.location = {
-    label: String(label).trim(),
-    latitude: latitude ?? null,
-    longitude: longitude ?? null,
-  };
+  offer.offerLocation = meetingPlace._id;
 
   await offer.save();
+  await offer.populate("offerLocation");
 
   res.status(200).json({
     status: "success",
@@ -263,7 +269,7 @@ export const confirmLocation = catchAsync(async (req, res, next) => {
     );
   }
 
-  if (!offer.location?.label) {
+  if (!offer.offerLocation) {
     return next(
       new AppError("No agreed location exists yet.", 400),
     );
@@ -291,11 +297,11 @@ export const acceptOffer = catchAsync(async (req, res, next) => {
   }
 
   const subtotal = offer.offeredPrice ?? offer.askingPrice;
-  const location = req.body?.location || offer.location;
+  const orderLocation = req.body?.orderLocation || offer.offerLocation || null;
 
-  // if (!location?.label) {
-  //   return next(new AppError("Location label is required.", 400));
-  // }
+  if (orderLocation && !await MeetingPlace.exists({ _id: orderLocation, active: true })) {
+    return next(new AppError("Meeting place not found.", 400));
+  }
 
   const order = await createOrder({
     itemId: offer.item,
@@ -303,10 +309,11 @@ export const acceptOffer = catchAsync(async (req, res, next) => {
     sellerId: offer.seller,
     subtotal,
     total: subtotal,
-    location,
+    orderLocation,
     offerId: offer._id,
-    initialStatus: "accepted",
+    initialStatus: "pending",
   });
+  await offer.populate("offerLocation");
 
   res.status(201).json({
     status: "success",

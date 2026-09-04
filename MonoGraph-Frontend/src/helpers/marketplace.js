@@ -80,6 +80,7 @@ export const normalizeItem = (item = {}) => {
     translation,
     price: formatPrice(item.price),
     rating: formatRating(item.rating),
+    ratingsCount: item.ratingsCount || 0,
     coverImage: pickImageUri(item.media, 'cover'),
     city: item.city || item.location?.address?.en || 'Herat',
     shopTranslation,

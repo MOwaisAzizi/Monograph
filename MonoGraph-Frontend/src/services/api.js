@@ -21,6 +21,7 @@ class Api {
     this.refreshToken = null;
     this.onTokensChanged = null;
     this.onUnauthorized = null;
+    // this.baseURL = axios.create({ baseURL: 'http://10.0.2.2:8000/api/v1', timeout: 10000 });
     this.baseURL = axios.create({ baseURL: 'http://localhost:8000/api/v1', timeout: 10000 });
     this.baseURL.interceptors.request.use((config) => {
       const headers = { ...(config.headers || {}) };
@@ -115,6 +116,9 @@ class Api {
   getShopReviews(shopId) {
     return this.baseURL.get(`/review/shops/${shopId}`);
   }
+  getItemReviews(itemId) {
+    return this.baseURL.get(`/review/items/${itemId}`);
+  }
   getShopDetails(shopId) {
     return this.baseURL.get(`/shop/${shopId}`).then((res) => normalizeShop(res.data.data.shop));
   }
@@ -178,7 +182,7 @@ class Api {
   }
   respondToOffer(offerId, payload) {
     if (payload?.action === 'accept') {
-      return this.baseURL.post(`/offers/${offerId}/accept`, payload);
+      return this.baseURL.post(`/offer/${offerId}/accept`, payload);
     }
     return this.baseURL.patch(`/offer/${offerId}/respond`, payload);
   }
@@ -192,13 +196,16 @@ class Api {
     return this.baseURL.get(`/meeting-places?city=${encodeURIComponent(city)}`);
   }
   acceptOrderWithMeetup(orderId, payload) {
-    return this.baseURL.patch(`/orders/${orderId}/accept`, payload);
+    return this.baseURL.patch(`/order/${orderId}/accept`, payload);
   }
   confirmMeetup(orderId) {
     return this.baseURL.patch(`/order/${orderId}/meetup/confirm`);
   }
   requestMeetupChange(orderId, reason = '') {
     return this.baseURL.patch(`/order/${orderId}/meetup/request-change`, { reason });
+  }
+  cancelOrder(orderId) {
+    return this.baseURL.patch(`/order/${orderId}/cancel`);
   }
   openConversation(payload) {
     return this.baseURL.post('/conversation/open', payload);
@@ -219,26 +226,29 @@ class Api {
   saveShopReview(shopId, payload) {
     return this.baseURL.post(`/review/shops/${shopId}`, payload);
   }
+  saveItemReview(itemId, payload) {
+    return this.baseURL.post(`/review/items/${itemId}`, payload);
+  }
 
   cancelOffer(offerId) {
-  return this.baseURL.patch(`/offer/${offerId}/cancel`);
-}
+    return this.baseURL.patch(`/offer/${offerId}/cancel`);
+  }
 
-rejectOrder(orderId, reason = '') {
-  return this.baseURL.post(`/order/${orderId}/reject`, {
-    reason,
-  });
-}
+  rejectOrder(orderId, reason = '') {
+    return this.baseURL.post(`/order/${orderId}/reject`, {
+      reason,
+    });
+  }
 
-cancelOrder(orderId) {
-  return this.baseURL.post(`/order/${orderId}/cancel`);
-}
+  cancelOrder(orderId) {
+    return this.baseURL.post(`/order/${orderId}/cancel`);
+  }
 
-getUserStats() {
-  return this.baseURL
-    .get("/user/stats")
-    .then((res) => res.data.data.stats);
-}
+  getUserStats() {
+    return this.baseURL
+      .get("/user/stats")
+      .then((res) => res.data.data.stats);
+  }
 }
 
 export default new Api();

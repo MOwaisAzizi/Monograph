@@ -10,7 +10,7 @@ import { logout, setUser } from '../store/slices/authSlice';
 import { setLanguage } from '../store/slices/languageSlice';
 import { LANGUAGE_OPTIONS, LANGUAGE_NAMES, getText } from '../i18n';
 import { clearStoredSession, saveSession } from '../services/session';
-// import LocationPickerMap from '../components/LocationPickerMap';
+import LocationPickerMap from '../components/LocationPickerMap';
 
 export default function ProfileScreen({ navigation }) {
   const [profile, setProfile] = useState(null);
@@ -29,10 +29,10 @@ export default function ProfileScreen({ navigation }) {
   const logoutuser = async () => {
     try {
       await api.baseURL.post('/user/logout');
-    } catch {}
+    } catch { }
     api.clearSession();
     dispatch(logout());
-    clearStoredSession().catch(() => {});
+    clearStoredSession().catch(() => { });
     setProfile(null);
   };
 
@@ -84,7 +84,7 @@ export default function ProfileScreen({ navigation }) {
       const normalizedUser = normalizeUser(updatedUser);
       setProfile((current) => ({ ...current, ...normalizedUser }));
       dispatch(setUser({ user: updatedUser, accessToken, refreshToken }));
-      saveSession({ user: updatedUser, accessToken, refreshToken }).catch(() => {});
+      saveSession({ user: updatedUser, accessToken, refreshToken }).catch(() => { });
       setAddressPickerOpen(false);
     } finally {
       setSaving(false);
@@ -147,7 +147,7 @@ export default function ProfileScreen({ navigation }) {
         user: updatedUser,
         accessToken,
         refreshToken,
-      }).catch(() => {});
+      }).catch(() => { });
 
       setEditing(false);
     } catch {
@@ -194,7 +194,7 @@ export default function ProfileScreen({ navigation }) {
         ...current,
         favoriteItems: current.favoriteItems.filter((i) => i.id !== itemId),
       }));
-    } catch {}
+    } catch { }
   };
 
   const t = useMemo(
@@ -223,21 +223,21 @@ export default function ProfileScreen({ navigation }) {
     rating: 0,
   });
 
- useEffect(() => {
-  let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
 
-  const loadStats = async () => {
-    try {
-      const data = await api.getUserStats();
-      if (isMounted) setStats(data);
-    } catch (error) {
-      console.error("Failed to load profile stats:", error);
-    }
-  };
+    const loadStats = async () => {
+      try {
+        const data = await api.getUserStats();
+        if (isMounted) setStats(data);
+      } catch (error) {
+        console.error("Failed to load profile stats:", error);
+      }
+    };
 
-  loadStats();
-  return () => { isMounted = false; };
-}, []);
+    loadStats();
+    return () => { isMounted = false; };
+  }, []);
 
   return (
     <ScreenShell contentClassName="px-5 pb-6 pt-4">
@@ -359,13 +359,13 @@ export default function ProfileScreen({ navigation }) {
       >
         <View className="flex-1 bg-[#eef5f5] px-5 pt-14">
           <Text className="mb-4 text-[18px] font-bold text-[#233334]">Add Address</Text>
-          {/* <LocationPickerMap
+          <LocationPickerMap
             mode="profile"
             initialLocation={addressLocation}
             fields={addressFields}
             onFieldsChange={setAddressFields}
             onLocationSelected={(lat, lng) => setAddressLocation({ lat, lng })}
-          /> */}
+          />
           <View className="mt-5 flex-row gap-3">
             <Pressable onPress={() => setAddressPickerOpen(false)} className="flex-1 rounded-xl border border-[#9aabab] py-3"><Text className="text-center font-semibold text-[#314243]">Cancel</Text></Pressable>
             <Pressable onPress={saveAddress} disabled={!addressLocation || saving} className="flex-1 rounded-xl bg-[#0f6b75] py-3"><Text className="text-center font-semibold text-white">{saving ? 'Saving...' : 'Save address'}</Text></Pressable>
@@ -397,7 +397,7 @@ export default function ProfileScreen({ navigation }) {
                         { preferredLanguage: option.value },
                         { headers: { Authorization: `Bearer ${accessToken}` } },
                       );
-                    } catch {}
+                    } catch { }
                   }
                   setShowLanguageMenu(false);
                 }}

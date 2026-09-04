@@ -16,6 +16,7 @@ import offerRoutes from "./routes/offerRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import conversationRoutes from "./routes/conversationRoutes.js";
 import meetingPlaceRoutes from "./routes/meetingPlaceRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 import cors from "cors";
 import helmet from "helmet";
 import xss from "xss-clean";
@@ -36,7 +37,7 @@ if (process.env.NODE_ENV === "development") {
 }
 app.use(
   cors({
-    origin: "http://localhost:8081",
+    origin: [process.env.FRONTEND_URL || "http://localhost:5173", "http://localhost:8081"],
     credentials: true,
   }),
 );
@@ -72,6 +73,7 @@ app.use("/api/v1/order", orderRoutes);
 app.use("/api/v1/orders", orderRoutes);
 app.use("/api/v1/conversation", conversationRoutes);
 app.use("/api/v1/meeting-places", meetingPlaceRoutes);
+app.use("/api/v1/admin", adminRoutes);
 
 app.use((req, res, next) => {
   return next(

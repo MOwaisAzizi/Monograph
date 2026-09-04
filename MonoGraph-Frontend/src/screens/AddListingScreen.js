@@ -27,7 +27,7 @@ import {
 import { useCategories } from '../hooks/useCategories';
 import { useMyItems } from '../hooks/useMyItems';
 import { useMyShops } from '../hooks/useMyShops';
-// import LocationPickerMap from '../components/LocationPickerMap';
+import LocationPickerMap from '../components/LocationPickerMap';
 
 function FormSection({ title, children }) {
   return (
@@ -374,14 +374,13 @@ export default function AddListingScreen() {
           </FormSection>
 
           <FormSection title="Location">
-            {/* <LocationPickerMap
+            <LocationPickerMap
               mode="listing"
               initialLocation={businessLocation}
               fields={businessLocationFields}
               onFieldsChange={setBusinessLocationFields}
               onLocationSelected={(lat, lng) => setBusinessLocation({ lat, lng })}
-            /> */}
-            <Text className="text-[12px] text-[#99acac]">Map picker is temporarily disabled.</Text>
+            />
           </FormSection>
 
           <FormSection title="Contact">
@@ -494,7 +493,7 @@ export default function AddListingScreen() {
             />
           </FormSection>
 
-          {/* {!businessId ? (
+          {!businessId ? (
             <FormSection title="Location">
               <LocationPickerMap
                 mode="listing"
@@ -504,7 +503,7 @@ export default function AddListingScreen() {
                 onLocationSelected={(lat, lng) => setItemLocation({ lat, lng })}
               />
             </FormSection>
-          ) : null} */}
+          ) : null}
 
           <FormSection title="Category">
             <SelectField

@@ -17,7 +17,7 @@ const reviewSchema = new mongoose.Schema(
     target: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      refPath: "reviewType",
+      index: true,
     },
 
     rating: {
@@ -49,5 +49,7 @@ reviewSchema.index(
     unique: true,
   },
 );
+
+reviewSchema.index({ reviewType: 1, target: 1, createdAt: -1 });
 
 export default mongoose.model("Review", reviewSchema);

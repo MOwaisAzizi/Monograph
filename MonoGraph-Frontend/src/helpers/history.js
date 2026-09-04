@@ -2,11 +2,9 @@ import { getLocalizedValue } from '../i18n';
 
 const ORDER_STATUS_DISPLAY = {
     pending: 'Pending',
-    accepted: 'accepted',
+    confirmed: 'Confirmed',
     completed: 'Completed',
-    rejected: 'Rejected',
     cancelled: 'Cancelled',
-    disputed: 'Disputed',
 };
 
 export const getHistoryTabKey = (label = '') => {

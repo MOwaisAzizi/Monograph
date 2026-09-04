@@ -1,8 +1,8 @@
 import React from 'react';
-import { Pressable, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context'; // add this
 
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -22,6 +22,7 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MainTabs() {
+  const insets = useSafeAreaInsets(); // add this
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -31,27 +32,26 @@ function MainTabs() {
         tabBarStyle: {
           backgroundColor: '#eef5f5',
           borderTopColor: '#d8e4e3',
-          height: 66,
+          height: 56 + insets.bottom, // was: 66
           paddingTop: 7,
-          paddingBottom: 10,
+          paddingBottom: insets.bottom + 10, // was: 10
         },
         tabBarLabelStyle: {
           fontSize: 10,
           fontWeight: '600',
         },
         tabBarIcon: ({ color, size, focused }) => {
-const icons = {
-  Home: focused ? 'home' : 'home-outline',
-  Search: focused ? 'search' : 'search-outline',
-  Talk: focused ? 'chatbubbles' : 'chatbubbles-outline',
-  History: focused ? 'receipt' : 'receipt-outline',
-  Profile: focused ? 'person' : 'person-outline',
-};
+          const icons = {
+            Home: focused ? 'home' : 'home-outline',
+            Search: focused ? 'search' : 'search-outline',
+            Talk: focused ? 'chatbubbles' : 'chatbubbles-outline',
+            History: focused ? 'receipt' : 'receipt-outline',
+            Profile: focused ? 'person' : 'person-outline',
+          };
           return <Ionicons name={icons[route.name]} size={size} color={color} />;
         },
       })}
     >
-      {/* tab screan you can not go top and down, side by side */}
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen
         name="Search"
@@ -65,7 +65,7 @@ const icons = {
           },
         })}
       />
-     <Tab.Screen name="Talk" component={TalkScreen} />  
+      <Tab.Screen name="Talk" component={TalkScreen} />
       <Tab.Screen name="History" component={FavoritesScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -74,14 +74,11 @@ const icons = {
 
 export default function RootNavigator() {
   return (
-    //statck screan you go go down and up, up and down
     <Stack.Navigator>
       <Stack.Screen
         name="MainTabs"
         component={MainTabs}
-        options={{
-          headerShown: false,
-        }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="AddListing"
@@ -92,7 +89,6 @@ export default function RootNavigator() {
           headerTitleStyle: { color: '#203030', fontWeight: '700' },
         }}
       />
-
       <Stack.Screen name="Product" component={ProductScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Chat" component={ChatScreen} options={{ headerShown: false }} />
       <Stack.Screen

@@ -3,22 +3,28 @@ import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { ScreenShell } from '../components/ui';
 import { getText } from '../i18n';
+import api from '../services/api';
 
 export default function OfferStatusScreen({ route, navigation }) {
   const language = useSelector((state) => state.language.currentLanguage);
-  const { status = 'pending', amount = 0, itemTitle = '' } = route?.params || {};
+  const { status = 'pending', amount = 0, itemTitle = '', itemId, sellerId } = route?.params || {};
 
-  const friendlyStatus =
-    status === 'accepted'
-      ? 'Accepted'
-      : status === 'rejected'
-        ? 'Rejected'
-        : status === 'countered'
-          ? 'Countered'
-          : 'Pending';
+  const friendlyStatus = { pending: 'Pending', confirmed: 'Confirmed', completed: 'Completed', cancelled: 'Cancelled' }[status] || 'Pending';
 
-  const handleChat = () => {
-    navigation.navigate('Chat', { itemTitle, itemId: route?.params?.itemId });
+  const handleChat = async () => {
+    if (!itemId) return;
+    try {
+      const response = await api.openConversation({ itemId, sellerId });
+      navigation.navigate('Chat', {
+        itemTitle,
+        itemId,
+        sellerId,
+        conversationId: response?.data?.data?.conversation?._id,
+        otherParticipantName: 'Seller',
+      });
+    } catch (error) {
+      Alert.alert('Chat unavailable', error?.response?.data?.message || 'Unable to open chat.');
+    }
   };
 
   return (

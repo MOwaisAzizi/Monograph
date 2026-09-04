@@ -36,13 +36,13 @@ const offerSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["pending", "rejected", "accepted",'cancelled'],
+      enum: ["pending", "confirmed", "cancelled", "completed"],
       default: "pending",
     },
-    location: {
-      label: { type: String, default: "" },
-      latitude: { type: Number, default: null },
-      longitude: { type: Number, default: null },
+    offerLocation: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "MeetingPlace",
+      default: null,
     },
   },
   { timestamps: true },

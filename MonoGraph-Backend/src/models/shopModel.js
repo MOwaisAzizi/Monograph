@@ -17,7 +17,7 @@ const shopSchema = new Schema(
     email: { type: String, lowercase: true, trim: true },
     status: {
       type: String,
-      enum: ["pending", "under_review", "closed", "accepted"],
+      enum: ["under_review", "closed", "confirmed"],
       default: "under_review",
     },
     rating: { type: Number, min: 0, max: 5, default: 0 },

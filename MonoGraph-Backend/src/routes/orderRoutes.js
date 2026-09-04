@@ -9,6 +9,7 @@ import {
   acceptOrderWithMeetup,
   confirmMeetup,
   requestMeetupChange,
+  cancelOrder,
 } from "../controllers/orderController.js";
 
 const router = express.Router();
@@ -19,6 +20,7 @@ router.get("/mine", getMyOrders);
 router.get("/:id", getOrderById);
 router.post("/:id/confirm", confirmOrder);
 router.post("/:id/reject", rejectOrder);
+router.patch("/:id/cancel", cancelOrder);
 router.patch("/:id/accept", acceptOrderWithMeetup);
 router.patch("/:id/meetup/confirm", confirmMeetup);
 router.patch("/:id/meetup/request-change", requestMeetupChange);

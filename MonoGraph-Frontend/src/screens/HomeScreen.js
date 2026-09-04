@@ -19,16 +19,17 @@ import { useCategories } from '../hooks/useCategories';
  */
 
 export function CategoryFilterRow({ categories, activeKey, onSelect }) {
+  const keyedCategories = categories.filter((category) => String(category?.icon || '').trim());
   return (
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerClassName="px-1 gap-5"
     >
-      {categories.map((cat) => {
+      {keyedCategories.map((cat, index) => {
         const active = cat.key === activeKey;
         return (
-          <View key={cat.key} className="items-center">
+          <View key={`${cat.key}-${cat.id || cat._id || index}`} className="items-center">
             <IconCircleButton icon={cat.icon} active={active} onPress={() => onSelect(cat.key)} />
             <Text
               className={`mt-1.5 text-[11px] ${active ? 'text-[#0f3d3e] font-semibold' : 'text-[#7c9291]'

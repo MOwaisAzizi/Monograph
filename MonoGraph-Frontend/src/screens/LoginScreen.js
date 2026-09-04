@@ -99,6 +99,9 @@ export default function LoginScreen({ navigation }) {
           {getText(language, 'noAccount')}
         </Text>
       </Pressable>
+      <Pressable onPress={() => navigation.navigate('MainTabs')} className="py-2">
+        <Text className="text-center text-[13px] text-[#0f6b75]">Continue as guest</Text>
+      </Pressable>
     </ScreenShell>
   );
 }

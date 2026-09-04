@@ -45,61 +45,61 @@ export const getText = (language, key) => {
         myListings: { en: 'My listings', fa: 'لیست های من', ps: 'زما لیستونه' },
 
         offerAccepted: {
-    en: 'Offer accepted',
-    fa: 'پیشنهاد پذیرفته شد',
-    ps: 'وړاندیز ومنل شو',
-},
+            en: 'Offer accepted',
+            fa: 'پیشنهاد پذیرفته شد',
+            ps: 'وړاندیز ومنل شو',
+        },
 
-offerDeclined: {
-    en: 'Offer declined',
-    fa: 'پیشنهاد رد شد',
-    ps: 'وړاندیز رد شو',
-},
+        offerDeclined: {
+            en: 'Offer declined',
+            fa: 'پیشنهاد رد شد',
+            ps: 'وړاندیز رد شو',
+        },
 
-chatLabel: {
-    en: 'Chat',
-    fa: 'گفت‌وگو',
-    ps: 'خبرې',
-},
+        chatLabel: {
+            en: 'Chat',
+            fa: 'گفت‌وگو',
+            ps: 'خبرې',
+        },
 
-youOrdered: {
-    en: 'You ordered:',
-    fa: 'شما سفارش دادید:',
-    ps: 'تاسو سفارش ورکړی:',
-},
+        youOrdered: {
+            en: 'You ordered:',
+            fa: 'شما سفارش دادید:',
+            ps: 'تاسو سفارش ورکړی:',
+        },
 
-youOffered: {
-    en: 'You offered:',
-    fa: 'شما پیشنهاد دادید:',
-    ps: 'تاسو وړاندیز کړی:',
-},
+        youOffered: {
+            en: 'You offered:',
+            fa: 'شما پیشنهاد دادید:',
+            ps: 'تاسو وړاندیز کړی:',
+        },
 
-noMessagesYet: {
-    en: 'No messages yet',
-    fa: 'هنوز پیامی وجود ندارد',
-    ps: 'تر اوسه کوم پیغام نشته',
-},
+        noMessagesYet: {
+            en: 'No messages yet',
+            fa: 'هنوز پیامی وجود ندارد',
+            ps: 'تر اوسه کوم پیغام نشته',
+        },
 
         orderPending: {
-    en: 'pending',
-    fa: 'حال بررسی',
-    ps: 'د بیاکتنې په حال کې دی',
-},
-orderRejected: {
-    en: 'rejected',
-    fa: 'رد شد',
-    ps: 'رد شو',
-},
-orderAccepted: {
-    en: 'accepted',
-    fa: 'پذیرفته شد',
-    ps: 'ومنل شو',
-},
-orderCompleted: {
-    en: 'completed',
-    fa: 'تکمیل شد',
-    ps: 'بشپړ شو',
-},
+            en: 'pending',
+            fa: 'حال بررسی',
+            ps: 'د بیاکتنې په حال کې دی',
+        },
+        orderRejected: {
+            en: 'rejected',
+            fa: 'رد شد',
+            ps: 'رد شو',
+        },
+        orderAccepted: {
+            en: 'accepted',
+            fa: 'پذیرفته شد',
+            ps: 'ومنل شو',
+        },
+        orderCompleted: {
+            en: 'completed',
+            fa: 'تکمیل شد',
+            ps: 'بشپړ شو',
+        },
 
 
         ordersMessages: {
@@ -185,6 +185,25 @@ orderCompleted: {
             fa: 'هنوز نظری ثبت نشده است. اولین نفر باشید.',
             ps: 'تر اوسه پورې کوم بیاجرګه نشته. لومړی ویئ چې نظری ولیکئ.',
         },
+        noReviewsForTarget: {
+            en: 'No reviews yet for this {target}.',
+            fa: 'هنوز نظری برای این {target} ثبت نشده است.',
+            ps: 'د دې {target} لپاره تر اوسه بیاکتنه نشته.',
+        },
+        reviewCommentRequired: {
+            en: 'Please add a short comment.',
+            fa: 'لطفاً یک نظر کوتاه اضافه کنید.',
+            ps: 'مهرباني وکړئ لنډه تبصره اضافه کړئ.',
+        },
+        reviewSaveFailed: {
+            en: 'Could not save review',
+            fa: 'ذخیره نظر ناموفق بود',
+            ps: 'بیاکتنه خوندي نه شوه',
+        },
+        tryAgain: { en: 'Please try again.', fa: 'لطفاً دوباره تلاش کنید.', ps: 'مهرباني وکړئ بیا هڅه وکړئ.' },
+        item: { en: 'item', fa: 'کالا', ps: 'توکی' },
+        shop: { en: 'shop', fa: 'فروشگاه', ps: 'دوکان' },
+        user: { en: 'MonoGraph user', fa: 'کاربر مونوگراف', ps: 'د مونوګراف کارن' },
         noFavorites: {
             en: 'No favorite items yet.',
             fa: 'هنوز هیچ مورد علاقه‌ای ندارید.',
@@ -208,7 +227,7 @@ orderCompleted: {
     const common = {
         scheduleMeetup: { en: 'Schedule meetup', fa: 'زمان ملاقات را تعیین کنید', ps: 'د لیدنې وخت وټاکئ' },
         meetupDate: { en: 'Date', fa: 'تاریخ', ps: 'نېټه' },
-        meetupTime: { en: 'Time', fa: 'زمان', ps: 'وخت' },
+        time: { en: 'Time', fa: 'زمان', ps: 'وخت' },
         meetupArea: { en: 'Area', fa: 'منطقه', ps: 'سیمه' },
         selectMeetingArea: { en: 'Select a meeting area', fa: 'منطقه ملاقات را انتخاب کنید', ps: 'د لیدنې سیمه وټاکئ' },
         hour: { en: 'Hour', fa: 'ساعت', ps: 'ساعت' },

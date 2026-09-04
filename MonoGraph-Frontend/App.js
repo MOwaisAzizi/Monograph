@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Provider, useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context'; // add this
 import RootNavigator from './src/navigation';
 import { store } from './src/store';
 import api from './src/services/api';
@@ -39,15 +40,17 @@ function AuthBridge({ onRestored }) {
 export default function App() {
   const [sessionRestored, setSessionRestored] = useState(false);
   return (
-    <Provider store={store}>
-      <AuthBridge onRestored={() => setSessionRestored(true)} />
-      {sessionRestored && (
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <NavigationContainer>
-            <RootNavigator />
-          </NavigationContainer>
-        </GestureHandlerRootView>
-      )}
-    </Provider>
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <AuthBridge onRestored={() => setSessionRestored(true)} />
+        {sessionRestored && (
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <NavigationContainer>
+              <RootNavigator />
+            </NavigationContainer>
+          </GestureHandlerRootView>
+        )}
+      </Provider>
+    </SafeAreaProvider>
   );
 }

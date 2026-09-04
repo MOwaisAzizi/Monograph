@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Pressable, ScrollView, Switch, Text, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function ScreenShell({ children, scroll = true, contentClassName = '' }) {
   const content = scroll ? (
@@ -29,16 +30,17 @@ export function ScreenHeader({
   rightIcon = 'search',
   align = 'left',
 }) {
+  const insets = useSafeAreaInsets();
   const alignClass = align === 'center' ? 'items-center' : 'items-start';
 
   return (
-    <View className="flex-row items-center justify-between px-5 pt-2 pb-4">
+    <View style={{ paddingTop: insets.top + 8 }} className="flex-row items-center justify-between px-5 pb-4">
       <View className={`flex-1 ${alignClass}`}>
         <View className="flex-row items-center gap-3">
           {onBack ? (
             <Pressable
               onPress={onBack}
-              className="h-8 w-8 items-center justify-center rounded-full bg-white/85"
+              className="mr-3 h-8 w-8 items-center justify-center rounded-full bg-white/85"
             >
               <Ionicons name="chevron-back" size={16} color="#203030" />
             </Pressable>
@@ -62,6 +64,29 @@ export function ScreenHeader({
   );
 }
 
+export function DetailHeaderActions({ onBack, onFavorite, favoriteActive = false, isRTL = false }) {
+  const insets = useSafeAreaInsets();
+  return (
+    <View
+      style={{ paddingTop: insets.top + 8 }}
+      className={`absolute inset-x-4 top-0 flex-row items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}
+    >
+      <HeaderBackButton onPress={onBack} isRTL={isRTL} className="bg-white/60" />
+      <Pressable onPress={onFavorite} className="h-9 w-9 items-center justify-center rounded-full bg-white/60">
+        <Ionicons name={favoriteActive ? 'heart' : 'heart-outline'} size={16} color="#2a3535" />
+      </Pressable>
+    </View>
+  );
+}
+
+export function HeaderBackButton({ onPress, isRTL = false, className = '' }) {
+  return (
+    <Pressable onPress={onPress} className={`h-9 w-9 items-center justify-center rounded-full ${className}`}>
+      <Ionicons name={isRTL ? 'chevron-forward' : 'chevron-back'} size={16} color="#2a3535" />
+    </Pressable>
+  );
+}
+
 export function SectionHeader({ title, actionLabel, onAction }) {
   return (
     <View className="mb-2 flex-row items-center justify-between">
@@ -79,9 +104,8 @@ export function Chip({ label, active = false, onPress, compact = false }) {
   return (
     <Pressable
       onPress={onPress}
-      className={`rounded-full border px-3 ${compact ? 'py-1' : 'py-1.5'} ${
-        active ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
-      }`}
+      className={`rounded-full border px-3 ${compact ? 'py-1' : 'py-1.5'} ${active ? 'border-[#0f6b75] bg-[#0f6b75]' : 'border-[#d7e1e0] bg-white'
+        }`}
     >
       <Text className={`text-[11px] font-semibold ${active ? 'text-white' : 'text-[#506364]'}`}>
         {label}
@@ -200,7 +224,7 @@ export function SelectField({
 
       <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
         <Pressable className="flex-1 justify-end bg-black/40" onPress={() => setOpen(false)}>
-          <Pressable className="max-h-[70%] rounded-t-3xl bg-white p-4" onPress={() => {}}>
+          <Pressable className="max-h-[70%] rounded-t-3xl bg-white p-4" onPress={() => { }}>
             {label ? (
               <Text className="mb-2 text-[13px] font-semibold text-[#314243]">{label}</Text>
             ) : null}

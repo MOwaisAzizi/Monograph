@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, FlatList, Image, Text, View, Pressable } from 'react-native';
+import { ActivityIndicator, SectionList, Image, Text, View, Pressable } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { ScreenShell } from '../components/ui';
@@ -12,6 +12,7 @@ import {
   getOrderStatusLabel,
   getUserRoleForOrder,
 } from '../helpers/history';
+import { groupByDay } from '../helpers/dateGroups';
 
 const TAB_OPTIONS = [
   { key: 'bought', label: 'Bought' },
@@ -21,18 +22,14 @@ const TAB_OPTIONS = [
 // Solid light bg + dark text per status — used on the small pill badge.
 const STATUS_STYLES = {
   pending: 'bg-[#FAEEDA]',
-  accepted: 'bg-[#EAF3DE]',
   completed: 'bg-[#EAF3DE]',
-  rejected: 'bg-[#FCEBEB]',
   cancelled: 'bg-[#FCEBEB]',
   disputed: 'bg-[#FCEBEB]',
 };
 
 const STATUS_TEXT = {
   pending: 'text-[#633806]',
-  accepted: 'text-[#27500A]',
   completed: 'text-[#27500A]',
-  rejected: 'text-[#791F1F]',
   cancelled: 'text-[#791F1F]',
   disputed: 'text-[#791F1F]',
 };
@@ -40,9 +37,7 @@ const STATUS_TEXT = {
 // Left-edge stripe color per status — lets you scan outcomes without reading each pill.
 const STRIPE_COLORS = {
   pending: '#854F0B',
-  accepted: '#3B6D11',
   completed: '#3B6D11',
-  rejected: '#A32D2D',
   cancelled: '#A32D2D',
   disputed: '#A32D2D',
 };
@@ -97,8 +92,8 @@ export default function HistoryScreen({ navigation }) {
         setLoading(true);
         const response = await api.getMyOrders();
         const allOrders = response?.data?.data?.orders || [];
-        const filteredOrders = allOrders.filter(
-          (order) => getUserRoleForOrder(currentUserId, order) === activeTab,
+        const filteredOrders = allOrders.filter((order) =>
+          order?.status === 'completed' && getUserRoleForOrder(currentUserId, order) === activeTab,
         );
         setOrders(filteredOrders);
       } catch (error) {
@@ -110,6 +105,8 @@ export default function HistoryScreen({ navigation }) {
 
     loadOrders();
   }, [activeTab, currentUserId]);
+
+  const sections = useMemo(() => groupByDay(orders, 'updatedAt'), [orders]);
 
   const headerLabel = useMemo(() => {
     const label = activeTab === 'bought' ? 'Bought' : 'Sold';
@@ -157,7 +154,7 @@ export default function HistoryScreen({ navigation }) {
             <View className="mt-1.5 flex-row items-center justify-between">
               <Text className="text-[13px] font-medium text-[#203030]">{price}</Text>
               <Text className="text-[10px] text-[#8ba0a0]">
-                {item?.location?.label || 'Location accepted'}
+                {item?.orderLocation?.name || 'Location accepted'}
               </Text>
             </View>
           </View>
@@ -167,7 +164,7 @@ export default function HistoryScreen({ navigation }) {
   };
 
   return (
-    <ScreenShell contentClassName="px-4 pb-5 pt-4">
+    <ScreenShell scroll={false} contentClassName="px-4 pb-5 pt-4">
       <View className="mb-5 flex-row items-center justify-between">
         <Text className="text-[20px] font-medium text-[#203030]">Order history</Text>
         <Pressable onPress={() => navigation.navigate('Search')}>
@@ -222,10 +219,13 @@ export default function HistoryScreen({ navigation }) {
           <Text className="text-[13px] text-[#5d7676]">No {activeTab} items yet.</Text>
         </View>
       ) : (
-        <FlatList
-          data={orders}
+        <SectionList
+          sections={sections}
           keyExtractor={(item) => String(item._id || item.id)}
           renderItem={renderRow}
+          renderSectionHeader={({ section }) => (
+            <Text className="mb-2 mt-1 text-[12px] font-semibold text-[#5d7676]">{section.title}</Text>
+          )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 24 }}
         />

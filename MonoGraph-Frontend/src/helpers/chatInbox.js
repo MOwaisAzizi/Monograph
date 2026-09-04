@@ -30,10 +30,10 @@ export const getConversationStatusBadge = ({ latestOffer, latestOrder, language 
     switch (latestOrder.status) {
       case 'completed':
         return { label: getText(language, 'orderCompleted'), pill: 'order', updatedAt: latestOrder.updatedAt };
-      case 'accepted':
+      case 'confirmed':
         return { label: getText(language, 'orderAccepted'), pill: 'order', updatedAt: latestOrder.updatedAt };
-      case 'rejected':
-        return { label: getText(language, 'orderRejected'), pill: 'rejected', updatedAt: latestOrder.updatedAt };
+      case 'cancelled':
+        return { label: 'Order cancelled', pill: 'cancelled', updatedAt: latestOrder.updatedAt };
       case 'pending':
       default:
         return { label: getText(language, 'orderPending'), pill: 'pending', updatedAt: latestOrder.updatedAt };
@@ -42,10 +42,10 @@ export const getConversationStatusBadge = ({ latestOffer, latestOrder, language 
 
   if (latestOffer) {
     switch (latestOffer.status) {
-      case 'accepted':
-        return { label: getText(language, 'offerAccepted'), pill: 'accepted', updatedAt: latestOffer.updatedAt };
-      case 'rejected':
-        return { label: getText(language, 'offerDeclined'), pill: 'rejected', updatedAt: latestOffer.updatedAt };
+      case 'confirmed':
+        return { label: getText(language, 'offerAccepted'), pill: 'order', updatedAt: latestOffer.updatedAt };
+      case 'cancelled':
+        return { label: 'Offer cancelled', pill: 'cancelled', updatedAt: latestOffer.updatedAt };
       case 'pending':
       default:
         return { label: getText(language, 'offerPending'), pill: 'pending', updatedAt: latestOffer.updatedAt };

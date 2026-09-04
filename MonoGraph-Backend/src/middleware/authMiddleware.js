@@ -31,3 +31,12 @@ export const protect = catchAsync(async (req, res, next) => {
   console.log("User authenticated", req.user);
   next();
 });
+
+// Keep authorization close to the JWT guard so every administrative endpoint
+// has the same, current-user based check (rather than trusting a client role).
+export const isAdmin = (req, res, next) => {
+  if (req.user?.role !== "admin") {
+    return next(new AppError("Administrator access is required.", 403));
+  }
+  next();
+};

@@ -34,29 +34,18 @@ const orderSchema = new Schema(
       required: true,
       min: 0,
     },
-    location: {
-      label: { type: String },
-      latitude: { type: Number, default: null },
-      longitude: { type: Number, default: null },
+    orderLocation: {
+      type: Schema.Types.ObjectId,
+      ref: "MeetingPlace",
+      default: null,
     },
     status: {
       type: String,
-      enum: [
-        "pending",
-        "pending_buyer_confirmation",
-        "confirmed",
-        "change_requested",
-        "accepted",
-        "completed",
-        "rejected",
-        "cancelled",
-      ],
+      enum: ["pending", "confirmed", "completed", "cancelled"],
       default: "pending",
     },
     meetupDate: { type: Date, default: null },
-    meetupTime: { type: String, default: "" },
-    meetupLocation: { type: String, default: "" },
-    meetupLocationId: {
+    meetupLocation: {
       type: Schema.Types.ObjectId,
       ref: "MeetingPlace",
       default: null,
@@ -79,6 +68,5 @@ const orderSchema = new Schema(
   },
   { timestamps: true },
 );
-
 
 export default mongoose.model("Order", orderSchema);
