@@ -1,1960 +1,1346 @@
 [
   {
+    "shopTitle": "Herat Furniture Gallery",
     "translation": {
       "en": {
-        "title": "Kabuli Pulao",
-        "description": "Slow-cooked rice with lamb, carrots and raisins"
+        "title": "3-Seater Fabric Sofa",
+        "description": "Comfortable fabric sofa with wooden legs"
       },
       "fa": {
-        "title": "کابلی پلو",
-        "description": "پلو با گوشت بره، هویج و کشمش"
+        "title": "کاناپه پارچه‌ای سه‌نفره",
+        "description": "کاناپه راحت پارچه‌ای با پایه چوبی"
       },
       "ps": {
-        "title": "Kabuli Pulao",
-        "description": "Slow-cooked rice with lamb, carrots and raisins"
+        "title": "3-Seater Fabric Sofa",
+        "description": "Comfortable fabric sofa with wooden legs"
       }
     },
     "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "spicy", "value": false }
+      {
+        "key": "material",
+        "value": "fabric"
+      },
+      {
+        "key": "seats",
+        "value": 3
+      }
     ],
-    "price": 250,
+    "price": 18500,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1589302168068-964664d93dc0" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1589302168068-964664d93dc0" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
     "rating": 4.5,
-    "ratingCount": 140,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
+    "ratingCount": 42,
     "note": null
   },
   {
+    "shopTitle": "Royal Wood Furniture",
     "translation": {
       "en": {
-        "title": "Mantu Dumplings",
-        "description": "Steamed dumplings filled with spiced minced meat"
+        "title": "Solid Wood Dining Table",
+        "description": "6-seat handcrafted dining table"
       },
       "fa": {
-        "title": "منتو",
-        "description": "دامپلینگ بخارپز با گوشت چرخ‌کرده ادویه‌دار"
+        "title": "میز غذاخوری چوب یکپارچه",
+        "description": "میز غذاخوری دست‌ساز ۶ نفره"
       },
       "ps": {
-        "title": "Mantu Dumplings",
-        "description": "Steamed dumplings filled with spiced minced meat"
+        "title": "Solid Wood Dining Table",
+        "description": "6-seat handcrafted dining table"
       }
     },
     "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "vegetarian", "value": false }
-    ],
-    "price": 180,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1617478755490-e21232a5eeaf" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1617478755490-e21232a5eeaf" }
-    ],
-    "city": "herat",
-    "rating": 4.2,
-    "ratingCount": 104,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Lamb Kebab Platter",
-        "description": "Tender marinated lamb skewers with naan and salad"
+      {
+        "key": "material",
+        "value": "solid wood"
       },
-      "fa": {
-        "title": "پلیت کباب گوسفند",
-        "description": "سیخ بره مرینیت شده با نان و سالاد"
-      },
-      "ps": {
-        "title": "Lamb Kebab Platter",
-        "description": "Tender marinated lamb skewers with naan and salad"
+      {
+        "key": "seats",
+        "value": 6
       }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "spicy", "value": false }
     ],
-    "price": 300,
+    "price": 24000,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1544025162-d76694265947" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1544025162-d76694265947" }
-    ],
-    "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 120,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Bolani",
-        "description": "Crispy flatbread stuffed with potato and herbs"
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=400&q=60"
       },
-      "fa": {
-        "title": "بولانی",
-        "description": "نان ترد پر از سیب‌زمینی و سبزیجات"
-      },
-      "ps": {
-        "title": "Bolani",
-        "description": "Crispy flatbread stuffed with potato and herbs"
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=400&q=60"
       }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "vegetarian", "value": true }
-    ],
-    "price": 120,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1625938144740-3cb69d1e6032" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1625938144740-3cb69d1e6032" }
-    ],
-    "city": "herat",
-    "rating": 4.0,
-    "ratingCount": 47,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Ashak",
-        "description": "Leek-filled dumplings topped with yogurt and meat sauce"
-      },
-      "fa": {
-        "title": "آشک",
-        "description": "دامپلینگ تره‌فرنگی با ماست و سس گوشت"
-      },
-      "ps": {
-        "title": "Ashak",
-        "description": "Leek-filled dumplings topped with yogurt and meat sauce"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "vegetarian", "value": false }
-    ],
-    "price": 160,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1617478755490-e21232a5eeaf" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1617478755490-e21232a5eeaf" }
-    ],
-    "city": "herat",
-    "rating": 4.2,
-    "ratingCount": 131,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Chicken Tikka",
-        "description": "Spiced grilled chicken pieces with chutney"
-      },
-      "fa": {
-        "title": "تکه مرغ",
-        "description": "تکه‌های مرغ کبابی ادویه‌دار با چاتنی"
-      },
-      "ps": {
-        "title": "Chicken Tikka",
-        "description": "Spiced grilled chicken pieces with chutney"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "spicy", "value": true }
-    ],
-    "price": 220,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b" }
-    ],
-    "city": "herat",
-    "rating": 3.7,
-    "ratingCount": 138,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Shorwa Soup",
-        "description": "Hearty Afghan lamb and vegetable broth"
-      },
-      "fa": {
-        "title": "شوروا",
-        "description": "آبگوشت پرمایه بره و سبزیجات افغانی"
-      },
-      "ps": {
-        "title": "Shorwa Soup",
-        "description": "Hearty Afghan lamb and vegetable broth"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "vegetarian", "value": false }
-    ],
-    "price": 90,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1547592166-23ac45744acd" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1547592166-23ac45744acd" }
-    ],
-    "city": "herat",
-    "rating": 3.3,
-    "ratingCount": 18,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Mixed Grill Combo",
-        "description": "Assortment of grilled meats with sides"
-      },
-      "fa": {
-        "title": "کمبو مکس گریل",
-        "description": "مجموعه‌ای از گوشت‌های کبابی با پیش‌غذا"
-      },
-      "ps": {
-        "title": "Mixed Grill Combo",
-        "description": "Assortment of grilled meats with sides"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "spicy", "value": false }
-    ],
-    "price": 350,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1558030006-450675393462" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1558030006-450675393462" }
-    ],
-    "city": "herat",
-    "rating": 4.2,
-    "ratingCount": 111,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Firnee Dessert",
-        "description": "Silky Afghan milk pudding with cardamom and pistachios"
-      },
-      "fa": {
-        "title": "فرنی",
-        "description": "پودینگ شیری افغانی با هل و پسته"
-      },
-      "ps": {
-        "title": "Firnee Dessert",
-        "description": "Silky Afghan milk pudding with cardamom and pistachios"
-      }
-    },
-    "attributes": [
-      { "key": "sweet", "value": true },
-      { "key": "vegetarian", "value": true }
-    ],
-    "price": 80,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" }
-    ],
-    "city": "herat",
-    "rating": 3.9,
-    "ratingCount": 46,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Jelabi",
-        "description": "Crispy fried swirls soaked in sugar syrup"
-      },
-      "fa": {
-        "title": "جلبی",
-        "description": "حلقه‌های سرخ‌شده ترد در شربت شکر"
-      },
-      "ps": {
-        "title": "Jelabi",
-        "description": "Crispy fried swirls soaked in sugar syrup"
-      }
-    },
-    "attributes": [
-      { "key": "sweet", "value": true },
-      { "key": "vegetarian", "value": true }
-    ],
-    "price": 60,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" }
-    ],
-    "city": "herat",
-    "rating": 3.5,
-    "ratingCount": 145,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Sheer Chai",
-        "description": "Traditional pink milk tea with pistachios"
-      },
-      "fa": {
-        "title": "شیر چای",
-        "description": "چای شیری صورتی سنتی با پسته"
-      },
-      "ps": {
-        "title": "Sheer Chai",
-        "description": "Traditional pink milk tea with pistachios"
-      }
-    },
-    "attributes": [
-      { "key": "hot", "value": true },
-      { "key": "caffeine", "value": true }
-    ],
-    "price": 70,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
-    ],
-    "city": "herat",
-    "rating": 3.7,
-    "ratingCount": 95,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Dogh",
-        "description": "Chilled yogurt drink with mint and cucumber"
-      },
-      "fa": {
-        "title": "دوغ",
-        "description": "نوشیدنی ماست سرد با نعنا و خیار"
-      },
-      "ps": {
-        "title": "Dogh",
-        "description": "Chilled yogurt drink with mint and cucumber"
-      }
-    },
-    "attributes": [
-      { "key": "cold", "value": true },
-      { "key": "vegetarian", "value": true }
-    ],
-    "price": 50,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
-    ],
-    "city": "herat",
-    "rating": 3.4,
-    "ratingCount": 56,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Halwa",
-        "description": "Sweet semolina halwa with saffron and cardamom"
-      },
-      "fa": {
-        "title": "حلوا",
-        "description": "حلوای سمولینا با زعفران و هل"
-      },
-      "ps": {
-        "title": "Halwa",
-        "description": "Sweet semolina halwa with saffron and cardamom"
-      }
-    },
-    "attributes": [
-      { "key": "sweet", "value": true },
-      { "key": "vegetarian", "value": true }
-    ],
-    "price": 90,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" }
-    ],
-    "city": "herat",
-    "rating": 5.0,
-    "ratingCount": 82,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Qymaq Chai",
-        "description": "Creamy layered tea with clotted cream"
-      },
-      "fa": {
-        "title": "قیماق چای",
-        "description": "چای لایه‌ای با خامه قیماق"
-      },
-      "ps": {
-        "title": "Qymaq Chai",
-        "description": "Creamy layered tea with clotted cream"
-      }
-    },
-    "attributes": [
-      { "key": "hot", "value": true },
-      { "key": "caffeine", "value": true }
-    ],
-    "price": 75,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
-    ],
-    "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 33,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Kishmish Water",
-        "description": "Raisin-infused herbal drink served chilled"
-      },
-      "fa": {
-        "title": "کشمش آب",
-        "description": "نوشیدنی گیاهی کشمش سرد"
-      },
-      "ps": {
-        "title": "Kishmish Water",
-        "description": "Raisin-infused herbal drink served chilled"
-      }
-    },
-    "attributes": [
-      { "key": "cold", "value": true },
-      { "key": "caffeine", "value": false }
-    ],
-    "price": 45,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
-    ],
-    "city": "herat",
-    "rating": 3.0,
-    "ratingCount": 96,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Afghani Chai",
-        "description": "Traditional spiced green tea with cardamom"
-      },
-      "fa": {
-        "title": "چای افغانی",
-        "description": "چای سبز ادویه‌دار سنتی با هل"
-      },
-      "ps": {
-        "title": "Afghani Chai",
-        "description": "Traditional spiced green tea with cardamom"
-      }
-    },
-    "attributes": [
-      { "key": "hot", "value": true },
-      { "key": "caffeine", "value": true }
-    ],
-    "price": 50,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
-    ],
-    "city": "herat",
-    "rating": 3.3,
-    "ratingCount": 97,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Cardamom Coffee",
-        "description": "Rich espresso infused with ground cardamom"
-      },
-      "fa": {
-        "title": "قهوه هل‌دار",
-        "description": "اسپرسو غنی با هل آسیاب‌شده"
-      },
-      "ps": {
-        "title": "Cardamom Coffee",
-        "description": "Rich espresso infused with ground cardamom"
-      }
-    },
-    "attributes": [
-      { "key": "hot", "value": true },
-      { "key": "caffeine", "value": true }
-    ],
-    "price": 80,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085" }
-    ],
-    "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 48,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Saffron Latte",
-        "description": "Creamy latte with premium Afghan saffron"
-      },
-      "fa": {
-        "title": "لته زعفران",
-        "description": "لته خامه‌ای با زعفران برتر افغانی"
-      },
-      "ps": {
-        "title": "Saffron Latte",
-        "description": "Creamy latte with premium Afghan saffron"
-      }
-    },
-    "attributes": [
-      { "key": "hot", "value": true },
-      { "key": "caffeine", "value": true }
-    ],
-    "price": 100,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1518676590629-3dcbd9c5e5c9" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1518676590629-3dcbd9c5e5c9" }
-    ],
-    "city": "herat",
-    "rating": 3.1,
-    "ratingCount": 9,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Brownie Slice",
-        "description": "Fudgy chocolate brownie baked fresh daily"
-      },
-      "fa": {
-        "title": "براونی",
-        "description": "براونی شکلاتی نرم، تازه پخته شده"
-      },
-      "ps": {
-        "title": "Brownie Slice",
-        "description": "Fudgy chocolate brownie baked fresh daily"
-      }
-    },
-    "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "sweet", "value": true }
-    ],
-    "price": 90,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c" }
     ],
     "city": "herat",
     "rating": 4.7,
-    "ratingCount": 117,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
+    "ratingCount": 55,
     "note": null
   },
   {
+    "shopTitle": "Silk Road Home Furnishings",
     "translation": {
       "en": {
-        "title": "Baklava",
-        "description": "Flaky pastry layered with nuts and honey syrup"
+        "title": "3-Door Wardrobe",
+        "description": "Spacious wardrobe with mirror panel"
       },
       "fa": {
-        "title": "بقلوا",
-        "description": "شیرینی پوسته‌ای با آجیل و شربت عسل"
+        "title": "کمد سه‌درب",
+        "description": "کمد جادار با پنل آینه"
       },
       "ps": {
-        "title": "Baklava",
-        "description": "Flaky pastry layered with nuts and honey syrup"
+        "title": "3-Door Wardrobe",
+        "description": "Spacious wardrobe with mirror panel"
       }
     },
     "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "sweet", "value": true }
+      {
+        "key": "material",
+        "value": "engineered wood"
+      },
+      {
+        "key": "doors",
+        "value": 3
+      }
     ],
-    "price": 80,
+    "price": 15500,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1587313420300-4e4a7edb4fea" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.2,
+    "ratingCount": 31,
+    "note": null
+  },
+  {
+    "shopTitle": "Comfort Living Furniture",
+    "translation": {
+      "en": {
+        "title": "Ergonomic Office Chair",
+        "description": "Adjustable office chair with lumbar support"
+      },
+      "fa": {
+        "title": "چوکی اداری ارگونومیک",
+        "description": "چوکی اداری قابل تنظیم با پشتیبان کمر"
+      },
+      "ps": {
+        "title": "Ergonomic Office Chair",
+        "description": "Adjustable office chair with lumbar support"
+      }
+    },
+    "attributes": [
+      {
+        "key": "material",
+        "value": "mesh"
+      },
+      {
+        "key": "adjustable",
+        "value": true
+      }
+    ],
+    "price": 6200,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4,
+    "ratingCount": 22,
+    "note": null
+  },
+  {
+    "shopTitle": "Mountain Trail Bikes",
+    "translation": {
+      "en": {
+        "title": "26-Inch Mountain Bike",
+        "description": "All-terrain mountain bike with front suspension"
+      },
+      "fa": {
+        "title": "دوچرخه کوهستان ۲۶ اینچ",
+        "description": "دوچرخه کوهستان با کمک‌فنر جلو"
+      },
+      "ps": {
+        "title": "26-Inch Mountain Bike",
+        "description": "All-terrain mountain bike with front suspension"
+      }
+    },
+    "attributes": [
+      {
+        "key": "wheelSize",
+        "value": "26 inch"
+      },
+      {
+        "key": "gears",
+        "value": 21
+      }
+    ],
+    "price": 9800,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
     "rating": 4.6,
-    "ratingCount": 101,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
+    "ratingCount": 37,
     "note": null
   },
   {
+    "shopTitle": "Pamir Cycles",
     "translation": {
       "en": {
-        "title": "Flat White",
-        "description": "Smooth espresso with velvety steamed milk"
+        "title": "Road Racing Bike",
+        "description": "Lightweight aluminum frame road bike"
       },
       "fa": {
-        "title": "فلت وایت",
-        "description": "اسپرسو نرم با شیر بخارپز مخملی"
+        "title": "دوچرخه جاده‌ای مسابقه‌ای",
+        "description": "دوچرخه جاده با فریم سبک آلومینیومی"
       },
       "ps": {
-        "title": "Flat White",
-        "description": "Smooth espresso with velvety steamed milk"
+        "title": "Road Racing Bike",
+        "description": "Lightweight aluminum frame road bike"
       }
     },
     "attributes": [
-      { "key": "hot", "value": true },
-      { "key": "caffeine", "value": true }
+      {
+        "key": "frame",
+        "value": "aluminum"
+      },
+      {
+        "key": "gears",
+        "value": 18
+      }
     ],
-    "price": 90,
+    "price": 12500,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.3,
+    "ratingCount": 26,
+    "note": null
+  },
+  {
+    "shopTitle": "Herat Bike Hub",
+    "translation": {
+      "en": {
+        "title": "Kids Bicycle 16-Inch",
+        "description": "Colorful bicycle with training wheels"
+      },
+      "fa": {
+        "title": "دوچرخه اطفال ۱۶ اینچ",
+        "description": "دوچرخه رنگارنگ با چرخ کمکی"
+      },
+      "ps": {
+        "title": "Kids Bicycle 16-Inch",
+        "description": "Colorful bicycle with training wheels"
+      }
+    },
+    "attributes": [
+      {
+        "key": "wheelSize",
+        "value": "16 inch"
+      },
+      {
+        "key": "trainingWheels",
+        "value": true
+      }
+    ],
+    "price": 3200,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.4,
+    "ratingCount": 19,
+    "note": null
+  },
+  {
+    "shopTitle": "City Wheels Bicycle Shop",
+    "translation": {
+      "en": {
+        "title": "Electric City Bike",
+        "description": "Pedal-assist e-bike for daily commuting"
+      },
+      "fa": {
+        "title": "دوچرخه برقی شهری",
+        "description": "دوچرخه برقی برای رفت‌وآمد روزانه"
+      },
+      "ps": {
+        "title": "Electric City Bike",
+        "description": "Pedal-assist e-bike for daily commuting"
+      }
+    },
+    "attributes": [
+      {
+        "key": "battery",
+        "value": "36V 10Ah"
+      },
+      {
+        "key": "range_km",
+        "value": 45
+      }
+    ],
+    "price": 26500,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
     "rating": 4.8,
-    "ratingCount": 52,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
+    "ratingCount": 15,
     "note": null
   },
   {
+    "shopTitle": "Kabul Mobile Center",
     "translation": {
       "en": {
-        "title": "Cinnamon Hot Chocolate",
-        "description": "Rich hot chocolate dusted with cinnamon"
+        "title": "Galaxy A54 Smartphone",
+        "description": "128GB storage, 5G, triple camera"
       },
       "fa": {
-        "title": "شکلات گرم دارچین",
-        "description": "شکلات گرم غنی با دارچین"
+        "title": "گلکسی A54",
+        "description": "حافظه ۱۲۸ گیگابایت، ۵G، سه دوربینه"
       },
       "ps": {
-        "title": "Cinnamon Hot Chocolate",
-        "description": "Rich hot chocolate dusted with cinnamon"
+        "title": "Galaxy A54 Smartphone",
+        "description": "128GB storage, 5G, triple camera"
       }
     },
     "attributes": [
-      { "key": "hot", "value": true },
-      { "key": "caffeine", "value": false }
-    ],
-    "price": 85,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1542327897-d73f4005b533" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1542327897-d73f4005b533" }
-    ],
-    "city": "herat",
-    "rating": 4.7,
-    "ratingCount": 105,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Mint Tea",
-        "description": "Fresh mint leaves steeped in hot water"
+      {
+        "key": "storage",
+        "value": "128GB"
       },
-      "fa": {
-        "title": "چای نعنا",
-        "description": "برگ نعنای تازه دم‌کرده در آب گرم"
-      },
-      "ps": {
-        "title": "Mint Tea",
-        "description": "Fresh mint leaves steeped in hot water"
+      {
+        "key": "brand",
+        "value": "Samsung"
       }
-    },
-    "attributes": [
-      { "key": "hot", "value": true },
-      { "key": "caffeine", "value": false }
     ],
-    "price": 45,
+    "price": 15800,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
-    ],
-    "city": "herat",
-    "rating": 4.2,
-    "ratingCount": 72,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Turkish Coffee",
-        "description": "Strong unfiltered coffee brewed in a cezve"
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=60"
       },
-      "fa": {
-        "title": "قهوه ترکی",
-        "description": "قهوه قوی بدون فیلتر در جزوه"
-      },
-      "ps": {
-        "title": "Turkish Coffee",
-        "description": "Strong unfiltered coffee brewed in a cezve"
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=60"
       }
-    },
-    "attributes": [
-      { "key": "hot", "value": true },
-      { "key": "caffeine", "value": true }
-    ],
-    "price": 70,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085" }
-    ],
-    "city": "herat",
-    "rating": 3.1,
-    "ratingCount": 109,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Cheese Croissant",
-        "description": "Flaky croissant filled with melted cheese"
-      },
-      "fa": {
-        "title": "کروسان پنیر",
-        "description": "کروسان ترد پر از پنیر ذوب‌شده"
-      },
-      "ps": {
-        "title": "Cheese Croissant",
-        "description": "Flaky croissant filled with melted cheese"
-      }
-    },
-    "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "hot", "value": true }
-    ],
-    "price": 95,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1555507036-ab1f4038808a" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1555507036-ab1f4038808a" }
-    ],
-    "city": "herat",
-    "rating": 5.0,
-    "ratingCount": 81,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Fresh Juice",
-        "description": "Seasonal fruits blended to order"
-      },
-      "fa": {
-        "title": "آب میوه تازه",
-        "description": "میوه‌های فصلی بلند شده به سفارش"
-      },
-      "ps": {
-        "title": "Fresh Juice",
-        "description": "Seasonal fruits blended to order"
-      }
-    },
-    "attributes": [
-      { "key": "cold", "value": true },
-      { "key": "caffeine", "value": false }
-    ],
-    "price": 70,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b" }
-    ],
-    "city": "herat",
-    "rating": 5.0,
-    "ratingCount": 60,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Chicken Biryani",
-        "description": "Fragrant basmati rice cooked with spiced chicken and saffron"
-      },
-      "fa": {
-        "title": "بریانی مرغ",
-        "description": "برنج باسمتی معطر با مرغ ادویه‌دار و زعفران"
-      },
-      "ps": {
-        "title": "Chicken Biryani",
-        "description": "Fragrant basmati rice cooked with spiced chicken and saffron"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "spicy", "value": true }
-    ],
-    "price": 240,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1585937421612-70a008356fbe" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1585937421612-70a008356fbe" }
-    ],
-    "city": "herat",
-    "rating": 4.4,
-    "ratingCount": 126,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Beef Kebab",
-        "description": "Juicy grilled beef skewers served with fresh naan"
-      },
-      "fa": {
-        "title": "کباب گوشت گاو",
-        "description": "سیخ‌های گوشت گاو کبابی آبدار با نان تازه"
-      },
-      "ps": {
-        "title": "Beef Kebab",
-        "description": "Juicy grilled beef skewers served with fresh naan"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "spicy", "value": false }
-    ],
-    "price": 280,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1" }
-    ],
-    "city": "herat",
-    "rating": 4.6,
-    "ratingCount": 152,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Chicken Shawarma",
-        "description": "Marinated chicken wrapped with vegetables and garlic sauce"
-      },
-      "fa": {
-        "title": "شاورمای مرغ",
-        "description": "مرغ مرینیت‌شده با سبزیجات و سس سیر"
-      },
-      "ps": {
-        "title": "Chicken Shawarma",
-        "description": "Marinated chicken wrapped with vegetables and garlic sauce"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Middle Eastern" },
-      { "key": "spicy", "value": false }
-    ],
-    "price": 150,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783" }
-    ],
-    "city": "herat",
-    "rating": 4.1,
-    "ratingCount": 98,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Beef Burger",
-        "description": "Grilled beef patty with cheese, lettuce and special sauce"
-      },
-      "fa": {
-        "title": "برگر گوشت",
-        "description": "برگر گوشت کبابی با پنیر، کاهو و سس مخصوص"
-      },
-      "ps": {
-        "title": "Beef Burger",
-        "description": "Grilled beef patty with cheese, lettuce and special sauce"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "American" },
-      { "key": "spicy", "value": false }
-    ],
-    "price": 220,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd" }
     ],
     "city": "herat",
     "rating": 4.5,
-    "ratingCount": 174,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Chicken Burger",
-        "description": "Crispy chicken fillet with lettuce, tomato and mayonnaise"
-      },
-      "fa": {
-        "title": "برگر مرغ",
-        "description": "فیله مرغ ترد با کاهو، گوجه و سس مایونز"
-      },
-      "ps": {
-        "title": "Chicken Burger",
-        "description": "Crispy chicken fillet with lettuce, tomato and mayonnaise"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "American" },
-      { "key": "spicy", "value": false }
-    ],
-    "price": 200,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1606755962773-d324e0a13086" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1606755962773-d324e0a13086" }
-    ],
-    "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 119,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Margherita Pizza",
-        "description": "Classic pizza with tomato sauce, mozzarella and fresh basil"
-      },
-      "fa": {
-        "title": "پیتزا مارگاریتا",
-        "description": "پیتزای کلاسیک با سس گوجه، پنیر موزارلا و ریحان تازه"
-      },
-      "ps": {
-        "title": "Margherita Pizza",
-        "description": "Classic pizza with tomato sauce, mozzarella and fresh basil"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Italian" },
-      { "key": "vegetarian", "value": true }
-    ],
-    "price": 280,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002" }
-    ],
-    "city": "herat",
-    "rating": 4.7,
-    "ratingCount": 188,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Chicken Pizza",
-        "description": "Cheesy pizza topped with seasoned chicken and vegetables"
-      },
-      "fa": {
-        "title": "پیتزا مرغ",
-        "description": "پیتزای پنیری با مرغ ادویه‌دار و سبزیجات"
-      },
-      "ps": {
-        "title": "Chicken Pizza",
-        "description": "Cheesy pizza topped with seasoned chicken and vegetables"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Italian" },
-      { "key": "spicy", "value": false }
-    ],
-    "price": 320,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" }
-    ],
-    "city": "herat",
-    "rating": 4.4,
-    "ratingCount": 143,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "French Fries",
-        "description": "Crispy golden potatoes served with ketchup"
-      },
-      "fa": {
-        "title": "سیب‌زمینی سرخ‌کرده",
-        "description": "سیب‌زمینی طلایی و ترد با سس کچاپ"
-      },
-      "ps": {
-        "title": "French Fries",
-        "description": "Crispy golden potatoes served with ketchup"
-      }
-    },
-    "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "spicy", "value": false }
-    ],
-    "price": 80,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877" }
-    ],
-    "city": "herat",
-    "rating": 4.2,
-    "ratingCount": 136,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Samosa",
-        "description": "Crispy pastry filled with seasoned potatoes and peas"
-      },
-      "fa": {
-        "title": "سمبوسه",
-        "description": "خمیر ترد پرشده با سیب‌زمینی و نخود ادویه‌دار"
-      },
-      "ps": {
-        "title": "Samosa",
-        "description": "Crispy pastry filled with seasoned potatoes and peas"
-      }
-    },
-    "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "spicy", "value": true }
-    ],
-    "price": 70,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1601050690597-df0568f70950" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1601050690597-df0568f70950" }
-    ],
-    "city": "herat",
-    "rating": 4.0,
-    "ratingCount": 87,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Chickpea Salad",
-        "description": "Fresh chickpeas mixed with cucumber, tomato and herbs"
-      },
-      "fa": {
-        "title": "سالاد نخود",
-        "description": "نخود تازه با خیار، گوجه و سبزیجات"
-      },
-      "ps": {
-        "title": "Chickpea Salad",
-        "description": "Fresh chickpeas mixed with cucumber, tomato and herbs"
-      }
-    },
-    "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "cold", "value": true }
-    ],
-    "price": 110,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd" }
-    ],
-    "city": "herat",
-    "rating": 4.1,
     "ratingCount": 64,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
     "note": null
   },
   {
+    "shopTitle": "Herat Digital Phones",
     "translation": {
       "en": {
-        "title": "Greek Salad",
-        "description": "Fresh cucumber, tomato, olives and cheese with herbs"
+        "title": "iPhone 13",
+        "description": "128GB, Face ID, dual camera system"
       },
       "fa": {
-        "title": "سالاد یونانی",
-        "description": "خیار، گوجه، زیتون و پنیر تازه با سبزیجات"
+        "title": "آیفون ۱۳",
+        "description": "۱۲۸ گیگابایت، فیس آی‌دی، دو دوربینه"
       },
       "ps": {
-        "title": "Greek Salad",
-        "description": "Fresh cucumber, tomato, olives and cheese with herbs"
+        "title": "iPhone 13",
+        "description": "128GB, Face ID, dual camera system"
       }
     },
     "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "cold", "value": true }
-    ],
-    "price": 140,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1540420773420-3366772f4999" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1540420773420-3366772f4999" }
-    ],
-    "city": "herat",
-    "rating": 4.4,
-    "ratingCount": 91,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Chicken Pasta",
-        "description": "Creamy pasta with grilled chicken and herbs"
+      {
+        "key": "storage",
+        "value": "128GB"
       },
-      "fa": {
-        "title": "پاستا مرغ",
-        "description": "پاستای خامه‌ای با مرغ کبابی و سبزیجات"
-      },
-      "ps": {
-        "title": "Chicken Pasta",
-        "description": "Creamy pasta with grilled chicken and herbs"
+      {
+        "key": "brand",
+        "value": "Apple"
       }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Italian" },
-      { "key": "spicy", "value": false }
     ],
-    "price": 230,
+    "price": 42000,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb" }
-    ],
-    "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 113,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Creamy Mushroom Pasta",
-        "description": "Pasta tossed with mushrooms in a creamy garlic sauce"
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=400&q=60"
       },
-      "fa": {
-        "title": "پاستا قارچ خامه‌ای",
-        "description": "پاستا با قارچ در سس خامه‌ای و سیر"
-      },
-      "ps": {
-        "title": "Creamy Mushroom Pasta",
-        "description": "Pasta tossed with mushrooms in a creamy garlic sauce"
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=400&q=60"
       }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Italian" },
-      { "key": "vegetarian", "value": true }
-    ],
-    "price": 210,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601" }
-    ],
-    "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 76,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Grilled Chicken Plate",
-        "description": "Juicy grilled chicken served with rice and fresh salad"
-      },
-      "fa": {
-        "title": "پلیت مرغ کبابی",
-        "description": "مرغ کبابی آبدار با برنج و سالاد تازه"
-      },
-      "ps": {
-        "title": "Grilled Chicken Plate",
-        "description": "Juicy grilled chicken served with rice and fresh salad"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "spicy", "value": false }
-    ],
-    "price": 260,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1532550907401-a500c9a57435" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1532550907401-a500c9a57435" }
-    ],
-    "city": "herat",
-    "rating": 4.6,
-    "ratingCount": 145,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Lamb Curry",
-        "description": "Tender lamb cooked slowly in a rich spiced curry"
-      },
-      "fa": {
-        "title": "کاری گوشت بره",
-        "description": "گوشت بره نرم پخته‌شده در سس کاری پرادویه"
-      },
-      "ps": {
-        "title": "Lamb Curry",
-        "description": "Tender lamb cooked slowly in a rich spiced curry"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "spicy", "value": true }
-    ],
-    "price": 290,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1601050690597-df0568f70950" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1601050690597-df0568f70950" }
-    ],
-    "city": "herat",
-    "rating": 4.2,
-    "ratingCount": 84,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Vegetable Rice",
-        "description": "Steamed rice cooked with mixed vegetables and herbs"
-      },
-      "fa": {
-        "title": "برنج سبزیجات",
-        "description": "برنج بخارپز با سبزیجات مخلوط و سبزی‌های معطر"
-      },
-      "ps": {
-        "title": "Vegetable Rice",
-        "description": "Steamed rice cooked with mixed vegetables and herbs"
-      }
-    },
-    "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "spicy", "value": false }
-    ],
-    "price": 150,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1512058564366-18510be2db19" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1512058564366-18510be2db19" }
-    ],
-    "city": "herat",
-    "rating": 3.9,
-    "ratingCount": 58,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Naan Bread",
-        "description": "Freshly baked Afghan flatbread with a soft chewy texture"
-      },
-      "fa": {
-        "title": "نان افغانی",
-        "description": "نان افغانی تازه و نرم با بافت لطیف"
-      },
-      "ps": {
-        "title": "Naan Bread",
-        "description": "Freshly baked Afghan flatbread with a soft chewy texture"
-      }
-    },
-    "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "spicy", "value": false }
-    ],
-    "price": 30,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7" }
-    ],
-    "city": "herat",
-    "rating": 4.6,
-    "ratingCount": 203,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Chapli Kebab",
-        "description": "Juicy minced meat kebab seasoned with herbs and spices"
-      },
-      "fa": {
-        "title": "کباب چپلی",
-        "description": "کباب گوشت چرخ‌کرده آبدار با سبزیجات و ادویه"
-      },
-      "ps": {
-        "title": "Chapli Kebab",
-        "description": "Juicy minced meat kebab seasoned with herbs and spices"
-      }
-    },
-    "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "spicy", "value": true }
-    ],
-    "price": 190,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1544025162-d76694265947" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1544025162-d76694265947" }
     ],
     "city": "herat",
     "rating": 4.7,
-    "ratingCount": 167,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
+    "ratingCount": 89,
     "note": null
   },
   {
+    "shopTitle": "Smart Phone Bazaar Herat",
     "translation": {
       "en": {
-        "title": "Qabili Rice with Chicken",
-        "description": "Afghan rice topped with carrots, raisins and tender chicken"
+        "title": "Redmi Note 12",
+        "description": "Budget-friendly phone with 108MP camera"
       },
       "fa": {
-        "title": "قابلی پلو با مرغ",
-        "description": "پلو افغانی با هویج، کشمش و مرغ نرم"
+        "title": "ردمی نوت ۱۲",
+        "description": "گوشی اقتصادی با دوربین ۱۰۸ مگاپیکسل"
       },
       "ps": {
-        "title": "Qabili Rice with Chicken",
-        "description": "Afghan rice topped with carrots, raisins and tender chicken"
+        "title": "Redmi Note 12",
+        "description": "Budget-friendly phone with 108MP camera"
       }
     },
     "attributes": [
-      { "key": "cuisine", "value": "Afghan" },
-      { "key": "spicy", "value": false }
+      {
+        "key": "storage",
+        "value": "256GB"
+      },
+      {
+        "key": "brand",
+        "value": "Xiaomi"
+      }
     ],
-    "price": 230,
+    "price": 9900,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1512058564366-18510be2db19" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1512058564366-18510be2db19" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 139,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
+    "rating": 4.1,
+    "ratingCount": 73,
     "note": null
   },
   {
+    "shopTitle": "Silk Road Mobiles",
     "translation": {
       "en": {
-        "title": "Daal Soup",
-        "description": "Warm lentil soup with herbs and mild spices"
+        "title": "Wireless Earbuds",
+        "description": "Bluetooth 5.3 earbuds with charging case"
       },
       "fa": {
-        "title": "سوپ دال",
-        "description": "سوپ گرم عدس با سبزیجات و ادویه ملایم"
+        "title": "هدفون بی‌سیم",
+        "description": "هدفون بلوتوث ۵.۳ با جعبه شارژ"
       },
       "ps": {
-        "title": "Daal Soup",
-        "description": "Warm lentil soup with herbs and mild spices"
+        "title": "Wireless Earbuds",
+        "description": "Bluetooth 5.3 earbuds with charging case"
       }
     },
     "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "spicy", "value": false }
+      {
+        "key": "battery_hours",
+        "value": 24
+      },
+      {
+        "key": "connectivity",
+        "value": "Bluetooth 5.3"
+      }
     ],
-    "price": 85,
+    "price": 1450,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1547592166-23ac45744acd" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1547592166-23ac45744acd" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
-    "rating": 4.0,
-    "ratingCount": 71,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
+    "rating": 4,
+    "ratingCount": 40,
     "note": null
   },
   {
+    "shopTitle": "Herat Auto Gallery",
     "translation": {
       "en": {
-        "title": "Mushroom Soup",
-        "description": "Creamy soup made with fresh mushrooms and herbs"
+        "title": "Toyota Corolla 2019",
+        "description": "Sedan, automatic transmission, low mileage"
       },
       "fa": {
-        "title": "سوپ قارچ",
-        "description": "سوپ خامه‌ای تهیه‌شده از قارچ تازه و سبزیجات"
+        "title": "تویوتا کرولا مدل ۲۰۱۹",
+        "description": "سدان، گیربکس اتومات، کیلومتر کم"
       },
       "ps": {
-        "title": "Mushroom Soup",
-        "description": "Creamy soup made with fresh mushrooms and herbs"
+        "title": "Toyota Corolla 2019",
+        "description": "Sedan, automatic transmission, low mileage"
       }
     },
     "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "hot", "value": true }
-    ],
-    "price": 100,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1547592180-85f173990554" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1547592180-85f173990554" }
-    ],
-    "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 88,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Mango Smoothie",
-        "description": "Creamy chilled mango smoothie made with fresh fruit"
+      {
+        "key": "year",
+        "value": 2019
       },
-      "fa": {
-        "title": "اسموتی انبه",
-        "description": "اسموتی سرد و خامه‌ای تهیه‌شده از انبه تازه"
-      },
-      "ps": {
-        "title": "Mango Smoothie",
-        "description": "Creamy chilled mango smoothie made with fresh fruit"
+      {
+        "key": "transmission",
+        "value": "automatic"
       }
-    },
-    "attributes": [
-      { "key": "cold", "value": true },
-      { "key": "caffeine", "value": false }
     ],
-    "price": 100,
+    "price": 620000,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1505252585461-04db1eb84625" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1505252585461-04db1eb84625" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
     "rating": 4.6,
-    "ratingCount": 94,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
+    "ratingCount": 51,
     "note": null
   },
   {
+    "shopTitle": "Pamir Motors",
     "translation": {
       "en": {
-        "title": "Strawberry Smoothie",
-        "description": "Refreshing strawberry smoothie blended with fresh milk"
+        "title": "Honda CR-V 2018",
+        "description": "SUV, 4WD, well maintained"
       },
       "fa": {
-        "title": "اسموتی توت‌فرنگی",
-        "description": "اسموتی تازه توت‌فرنگی با شیر تازه"
+        "title": "هوندا CR-V مدل ۲۰۱۸",
+        "description": "شاسی‌بلند، چهار چرخ متحرک، سالم"
       },
       "ps": {
-        "title": "Strawberry Smoothie",
-        "description": "Refreshing strawberry smoothie blended with fresh milk"
+        "title": "Honda CR-V 2018",
+        "description": "SUV, 4WD, well maintained"
       }
     },
     "attributes": [
-      { "key": "cold", "value": true },
-      { "key": "vegetarian", "value": true }
-    ],
-    "price": 110,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1553530666-ba11a7da3888" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1553530666-ba11a7da3888" }
-    ],
-    "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 102,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Iced Coffee",
-        "description": "Chilled espresso served over ice with creamy milk"
+      {
+        "key": "year",
+        "value": 2018
       },
-      "fa": {
-        "title": "قهوه سرد",
-        "description": "اسپرسوی سرد با یخ و شیر خامه‌ای"
-      },
-      "ps": {
-        "title": "Iced Coffee",
-        "description": "Chilled espresso served over ice with creamy milk"
+      {
+        "key": "drivetrain",
+        "value": "4WD"
       }
-    },
-    "attributes": [
-      { "key": "cold", "value": true },
-      { "key": "caffeine", "value": true }
     ],
-    "price": 95,
+    "price": 890000,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1517701604599-bb29b565090c" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1517701604599-bb29b565090c" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
     "rating": 4.4,
-    "ratingCount": 117,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
+    "ratingCount": 38,
     "note": null
   },
   {
+    "shopTitle": "Herat Used Cars",
     "translation": {
       "en": {
-        "title": "Cappuccino",
-        "description": "Espresso topped with steamed milk and thick foam"
+        "title": "Toyota Vitz 2016",
+        "description": "Compact hatchback, fuel efficient"
       },
       "fa": {
-        "title": "کاپوچینو",
-        "description": "اسپرسو با شیر بخارپز و کف شیر غلیظ"
+        "title": "تویوتا ویتز مدل ۲۰۱۶",
+        "description": "هاچ‌بک کوچک، کم‌مصرف"
       },
       "ps": {
-        "title": "Cappuccino",
-        "description": "Espresso topped with steamed milk and thick foam"
+        "title": "Toyota Vitz 2016",
+        "description": "Compact hatchback, fuel efficient"
       }
     },
     "attributes": [
-      { "key": "hot", "value": true },
-      { "key": "caffeine", "value": true }
+      {
+        "key": "year",
+        "value": 2016
+      },
+      {
+        "key": "transmission",
+        "value": "automatic"
+      }
     ],
-    "price": 90,
+    "price": 340000,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1572442388796-11668a67e53d" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1572442388796-11668a67e53d" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
-    "rating": 4.8,
-    "ratingCount": 156,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
+    "rating": 4,
+    "ratingCount": 29,
     "note": null
   },
   {
+    "shopTitle": "Royal Car Dealership",
     "translation": {
       "en": {
-        "title": "Vanilla Latte",
-        "description": "Smooth espresso with steamed milk and vanilla flavor"
+        "title": "Ford Ranger Pickup 2020",
+        "description": "4-door pickup truck, diesel engine"
       },
       "fa": {
-        "title": "لته وانیلی",
-        "description": "اسپرسوی نرم با شیر بخارپز و طعم وانیل"
+        "title": "فورد رنجر مدل ۲۰۲۰",
+        "description": "پیکاپ چهار در، موتور دیزل"
       },
       "ps": {
-        "title": "Vanilla Latte",
-        "description": "Smooth espresso with steamed milk and vanilla flavor"
+        "title": "Ford Ranger Pickup 2020",
+        "description": "4-door pickup truck, diesel engine"
       }
     },
     "attributes": [
-      { "key": "hot", "value": true },
-      { "key": "caffeine", "value": true }
+      {
+        "key": "year",
+        "value": 2020
+      },
+      {
+        "key": "fuel",
+        "value": "diesel"
+      }
     ],
-    "price": 100,
+    "price": 1150000,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1561882468-9110e03e0f78" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1561882468-9110e03e0f78" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.5,
+    "ratingCount": 22,
+    "note": null
+  },
+  {
+    "shopTitle": "Herat Electronics Center",
+    "translation": {
+      "en": {
+        "title": "15.6-Inch Laptop",
+        "description": "Core i5, 8GB RAM, 512GB SSD"
+      },
+      "fa": {
+        "title": "لپ‌تاپ ۱۵.۶ اینچ",
+        "description": "پردازنده i5، رم ۸ گیگابایت، هارد SSD ۵۱۲ گیگابایت"
+      },
+      "ps": {
+        "title": "15.6-Inch Laptop",
+        "description": "Core i5, 8GB RAM, 512GB SSD"
+      }
+    },
+    "attributes": [
+      {
+        "key": "cpu",
+        "value": "Core i5"
+      },
+      {
+        "key": "ram",
+        "value": "8GB"
+      }
+    ],
+    "price": 32500,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.4,
+    "ratingCount": 47,
+    "note": null
+  },
+  {
+    "shopTitle": "TechZone Herat",
+    "translation": {
+      "en": {
+        "title": "Over-Ear Headphones",
+        "description": "Noise-cancelling wireless headphones"
+      },
+      "fa": {
+        "title": "هدفون روگوشی",
+        "description": "هدفون بی‌سیم با حذف نویز"
+      },
+      "ps": {
+        "title": "Over-Ear Headphones",
+        "description": "Noise-cancelling wireless headphones"
+      }
+    },
+    "attributes": [
+      {
+        "key": "connectivity",
+        "value": "Bluetooth"
+      },
+      {
+        "key": "noiseCancelling",
+        "value": true
+      }
+    ],
+    "price": 3800,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.2,
+    "ratingCount": 33,
+    "note": null
+  },
+  {
+    "shopTitle": "Digital World Electronics",
+    "translation": {
+      "en": {
+        "title": "Automatic Washing Machine",
+        "description": "8kg front-load washing machine"
+      },
+      "fa": {
+        "title": "ماشین لباسشویی اتوماتیک",
+        "description": "لباسشویی درب‌جلو ۸ کیلوگرمی"
+      },
+      "ps": {
+        "title": "Automatic Washing Machine",
+        "description": "8kg front-load washing machine"
+      }
+    },
+    "attributes": [
+      {
+        "key": "capacity",
+        "value": "8kg"
+      },
+      {
+        "key": "type",
+        "value": "front-load"
+      }
+    ],
+    "price": 21500,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.3,
+    "ratingCount": 27,
+    "note": null
+  },
+  {
+    "shopTitle": "Silk Road Electronics",
+    "translation": {
+      "en": {
+        "title": "Digital Air Fryer",
+        "description": "5L capacity oil-free air fryer"
+      },
+      "fa": {
+        "title": "سرخ‌کن دیجیتال هوا",
+        "description": "سرخ‌کن بدون روغن ۵ لیتری"
+      },
+      "ps": {
+        "title": "Digital Air Fryer",
+        "description": "5L capacity oil-free air fryer"
+      }
+    },
+    "attributes": [
+      {
+        "key": "capacity",
+        "value": "5L"
+      },
+      {
+        "key": "power_watt",
+        "value": 1500
+      }
+    ],
+    "price": 4200,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
     "rating": 4.6,
-    "ratingCount": 83,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
+    "ratingCount": 61,
     "note": null
   },
   {
+    "shopTitle": "Herat TV Gallery",
     "translation": {
       "en": {
-        "title": "Chocolate Cake",
-        "description": "Moist chocolate cake covered with rich chocolate cream"
+        "title": "55-Inch 4K Smart TV",
+        "description": "UHD smart television with built-in apps"
       },
       "fa": {
-        "title": "کیک شکلاتی",
-        "description": "کیک شکلاتی نرم با روکش خامه و شکلات"
+        "title": "تلویزیون هوشمند ۵۵ اینچ",
+        "description": "تلویزیون ۴K با اپلیکیشن‌های داخلی"
       },
       "ps": {
-        "title": "Chocolate Cake",
-        "description": "Moist chocolate cake covered with rich chocolate cream"
+        "title": "55-Inch 4K Smart TV",
+        "description": "UHD smart television with built-in apps"
       }
     },
     "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "sweet", "value": true }
+      {
+        "key": "screenSize",
+        "value": "55 inch"
+      },
+      {
+        "key": "resolution",
+        "value": "4K"
+      }
     ],
-    "price": 120,
+    "price": 38500,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1578985545062-69928b1d9587" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1578985545062-69928b1d9587" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.7,
+    "ratingCount": 58,
+    "note": null
+  },
+  {
+    "shopTitle": "Prime Display TVs",
+    "translation": {
+      "en": {
+        "title": "65-Inch OLED TV",
+        "description": "Premium OLED panel with deep blacks"
+      },
+      "fa": {
+        "title": "تلویزیون OLED ۶۵ اینچ",
+        "description": "پنل OLED پریمیوم با سیاه عمیق"
+      },
+      "ps": {
+        "title": "65-Inch OLED TV",
+        "description": "Premium OLED panel with deep blacks"
+      }
+    },
+    "attributes": [
+      {
+        "key": "screenSize",
+        "value": "65 inch"
+      },
+      {
+        "key": "panelType",
+        "value": "OLED"
+      }
+    ],
+    "price": 79500,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1552975084-6e027cd345c2?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1552975084-6e027cd345c2?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
     "rating": 4.9,
-    "ratingCount": 174,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
+    "ratingCount": 34,
     "note": null
   },
   {
+    "shopTitle": "Smart Screen Herat",
     "translation": {
       "en": {
-        "title": "Cheesecake",
-        "description": "Creamy baked cheesecake with a buttery biscuit base"
+        "title": "32-Inch LED TV",
+        "description": "Compact LED TV for bedrooms and offices"
       },
       "fa": {
-        "title": "چیزکیک",
-        "description": "چیزکیک خامه‌ای با پایه بیسکویت کره‌ای"
+        "title": "تلویزیون LED ۳۲ اینچ",
+        "description": "تلویزیون LED کوچک برای اتاق خواب و دفتر"
       },
       "ps": {
-        "title": "Cheesecake",
-        "description": "Creamy baked cheesecake with a buttery biscuit base"
+        "title": "32-Inch LED TV",
+        "description": "Compact LED TV for bedrooms and offices"
       }
     },
     "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "sweet", "value": true }
-    ],
-    "price": 130,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1565958011703-44f9829ba187" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1565958011703-44f9829ba187" }
-    ],
-    "city": "herat",
-    "rating": 4.7,
-    "ratingCount": 112,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b1",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Ice Cream",
-        "description": "Creamy vanilla ice cream served with chocolate topping"
+      {
+        "key": "screenSize",
+        "value": "32 inch"
       },
-      "fa": {
-        "title": "بستنی",
-        "description": "بستنی خامه‌ای وانیلی با روکش شکلات"
-      },
-      "ps": {
-        "title": "Ice Cream",
-        "description": "Creamy vanilla ice cream served with chocolate topping"
+      {
+        "key": "panelType",
+        "value": "LED"
       }
-    },
-    "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "cold", "value": true }
     ],
-    "price": 90,
+    "price": 12800,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1563805042-7684c019e1cb" }
-    ],
-    "city": "herat",
-    "rating": 4.4,
-    "ratingCount": 99,
-    "shop": "6a3240ce6b3faaf498a48abd",
-    "category": "6a3241fd943292166f70e2b0",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Fruit Platter",
-        "description": "Fresh seasonal fruits beautifully arranged and served chilled"
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?auto=format&fit=crop&w=400&q=60"
       },
-      "fa": {
-        "title": "پلیت میوه",
-        "description": "میوه‌های تازه فصلی به شکل زیبا و سرد سرو می‌شوند"
-      },
-      "ps": {
-        "title": "Fruit Platter",
-        "description": "Fresh seasonal fruits beautifully arranged and served chilled"
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?auto=format&fit=crop&w=400&q=60"
       }
-    },
-    "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "cold", "value": true }
-    ],
-    "price": 150,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea" }
-    ],
-    "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 67,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Lemon Mint Drink",
-        "description": "Refreshing lemon and fresh mint drink served over ice"
-      },
-      "fa": {
-        "title": "لیموناد نعنا",
-        "description": "نوشیدنی تازه لیمو و نعنا با یخ"
-      },
-      "ps": {
-        "title": "Lemon Mint Drink",
-        "description": "Refreshing lemon and fresh mint drink served over ice"
-      }
-    },
-    "attributes": [
-      { "key": "cold", "value": true },
-      { "key": "caffeine", "value": false }
-    ],
-    "price": 65,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd" }
-    ],
-    "city": "herat",
-    "rating": 4.3,
-    "ratingCount": 93,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
-    "note": null
-  },
-  {
-    "translation": {
-      "en": {
-        "title": "Peach Iced Tea",
-        "description": "Chilled black tea infused with sweet peach flavor"
-      },
-      "fa": {
-        "title": "چای سرد هلو",
-        "description": "چای سیاه سرد با طعم شیرین هلو"
-      },
-      "ps": {
-        "title": "Peach Iced Tea",
-        "description": "Chilled black tea infused with sweet peach flavor"
-      }
-    },
-    "attributes": [
-      { "key": "cold", "value": true },
-      { "key": "caffeine", "value": true }
-    ],
-    "price": 75,
-    "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1556679343-c7306c1976bc" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1556679343-c7306c1976bc" }
     ],
     "city": "herat",
     "rating": 4.1,
-    "ratingCount": 78,
-    "shop": "6a3240ce6b3faaf498a48abe",
-    "category": "6a3241fd943292166f70e2b2",
+    "ratingCount": 25,
     "note": null
   },
   {
+    "shopTitle": "Vision Electronics TV Shop",
     "translation": {
       "en": {
-        "title": "Grilled Vegetable Sandwich",
-        "description": "Toasted bread filled with grilled vegetables and cheese"
+        "title": "Home Theater Soundbar",
+        "description": "2.1 channel soundbar with wireless subwoofer"
       },
       "fa": {
-        "title": "ساندویچ سبزیجات کبابی",
-        "description": "نان تست با سبزیجات کبابی و پنیر"
+        "title": "ساندبار سینمای خانگی",
+        "description": "ساندبار ۲.۱ کانال با ساب‌وفر بی‌سیم"
       },
       "ps": {
-        "title": "Grilled Vegetable Sandwich",
-        "description": "Toasted bread filled with grilled vegetables and cheese"
+        "title": "Home Theater Soundbar",
+        "description": "2.1 channel soundbar with wireless subwoofer"
       }
     },
     "attributes": [
-      { "key": "vegetarian", "value": true },
-      { "key": "hot", "value": true }
+      {
+        "key": "channels",
+        "value": "2.1"
+      },
+      {
+        "key": "wirelessSubwoofer",
+        "value": true
+      }
     ],
-    "price": 160,
+    "price": 7600,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.3,
+    "ratingCount": 20,
+    "note": null
+  },
+  {
+    "shopTitle": "Herat Carpet Palace",
+    "translation": {
+      "en": {
+        "title": "Handwoven Persian Rug 6x9",
+        "description": "Hand-knotted wool rug with classic medallion design"
+      },
+      "fa": {
+        "title": "قالین دست‌باف ایرانی ۶×۹",
+        "description": "قالین پشمی دست‌بافت با طرح مدالیون کلاسیک"
+      },
+      "ps": {
+        "title": "Handwoven Persian Rug 6x9",
+        "description": "Hand-knotted wool rug with classic medallion design"
+      }
+    },
+    "attributes": [
+      {
+        "key": "material",
+        "value": "wool"
+      },
+      {
+        "key": "size",
+        "value": "6x9 ft"
+      }
+    ],
+    "price": 32000,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.7,
+    "ratingCount": 41,
+    "note": null
+  },
+  {
+    "shopTitle": "Traditional Afghan Carpets",
+    "translation": {
+      "en": {
+        "title": "Afghan Wool Carpet 5x8",
+        "description": "Densely woven wool carpet in deep red tones"
+      },
+      "fa": {
+        "title": "قالین پشمی افغانی ۵×۸",
+        "description": "قالین پشمی متراکم با رنگ‌های قرمز تیره"
+      },
+      "ps": {
+        "title": "Afghan Wool Carpet 5x8",
+        "description": "Densely woven wool carpet in deep red tones"
+      }
+    },
+    "attributes": [
+      {
+        "key": "material",
+        "value": "wool"
+      },
+      {
+        "key": "size",
+        "value": "5x8 ft"
+      }
+    ],
+    "price": 27500,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.8,
+    "ratingCount": 58,
+    "note": null
+  },
+  {
+    "shopTitle": "Silk Road Rugs",
+    "translation": {
+      "en": {
+        "title": "Modern Geometric Area Rug",
+        "description": "Low-pile area rug with contemporary pattern"
+      },
+      "fa": {
+        "title": "قالین مدرن هندسی",
+        "description": "قالین کم‌ارتفاع با طرح مدرن"
+      },
+      "ps": {
+        "title": "Modern Geometric Area Rug",
+        "description": "Low-pile area rug with contemporary pattern"
+      }
+    },
+    "attributes": [
+      {
+        "key": "material",
+        "value": "synthetic"
+      },
+      {
+        "key": "size",
+        "value": "4x6 ft"
+      }
+    ],
+    "price": 8900,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
     "rating": 4.2,
-    "ratingCount": 69,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
+    "ratingCount": 27,
     "note": null
   },
   {
+    "shopTitle": "Heritage Rug Gallery",
     "translation": {
       "en": {
-        "title": "Chicken Sandwich",
-        "description": "Grilled chicken breast with lettuce, tomato and creamy sauce"
+        "title": "Vintage Kilim Runner",
+        "description": "Flat-woven kilim runner with faded vintage colors"
       },
       "fa": {
-        "title": "ساندویچ مرغ",
-        "description": "سینه مرغ کبابی با کاهو، گوجه و سس خامه‌ای"
+        "title": "کیلیم راهرو وینتیج",
+        "description": "کیلیم بافت‌تخت با رنگ‌های محو وینتیج"
       },
       "ps": {
-        "title": "Chicken Sandwich",
-        "description": "Grilled chicken breast with lettuce, tomato and creamy sauce"
+        "title": "Vintage Kilim Runner",
+        "description": "Flat-woven kilim runner with faded vintage colors"
       }
     },
     "attributes": [
-      { "key": "spicy", "value": false },
-      { "key": "hot", "value": true }
+      {
+        "key": "material",
+        "value": "cotton-wool blend"
+      },
+      {
+        "key": "size",
+        "value": "2.5x8 ft"
+      }
     ],
-    "price": 180,
+    "price": 11200,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
-    "rating": 4.4,
-    "ratingCount": 108,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
+    "rating": 4,
+    "ratingCount": 16,
     "note": null
   },
   {
+    "shopTitle": "Herat Computer World",
     "translation": {
       "en": {
-        "title": "Spicy Chicken Wings",
-        "description": "Crispy chicken wings coated in a spicy homemade sauce"
+        "title": "Desktop PC - Core i7",
+        "description": "16GB RAM, 512GB SSD, dedicated graphics"
       },
       "fa": {
-        "title": "بال مرغ تند",
-        "description": "بال مرغ ترد با سس تند خانگی"
+        "title": "کامپیوتر رومیزی - Core i7",
+        "description": "رم ۱۶ گیگابایت، هارد SSD ۵۱۲ گیگابایت، کارت گرافیک اختصاصی"
       },
       "ps": {
-        "title": "Spicy Chicken Wings",
-        "description": "Crispy chicken wings coated in a spicy homemade sauce"
+        "title": "Desktop PC - Core i7",
+        "description": "16GB RAM, 512GB SSD, dedicated graphics"
       }
     },
     "attributes": [
-      { "key": "spicy", "value": true },
-      { "key": "hot", "value": true }
+      {
+        "key": "cpu",
+        "value": "Core i7"
+      },
+      {
+        "key": "ram",
+        "value": "16GB"
+      }
     ],
-    "price": 190,
+    "price": 48500,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1527477396000-e27163b481c2" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1527477396000-e27163b481c2" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
     "rating": 4.6,
-    "ratingCount": 121,
-    "shop": "6a3240ce6b3faaf498a48abb",
-    "category": "6a3241fd943292166f70e2af",
+    "ratingCount": 39,
     "note": null
   },
   {
+    "shopTitle": "PC Zone Herat",
     "translation": {
       "en": {
-        "title": "Rice Pudding",
-        "description": "Creamy rice pudding flavored with cardamom and cinnamon"
+        "title": "Gaming Laptop RTX 4060",
+        "description": "15.6-inch 144Hz display, RTX 4060 graphics"
       },
       "fa": {
-        "title": "شیربرنج",
-        "description": "شیربرنج خامه‌ای با هل و دارچین"
+        "title": "لپ‌تاپ گیمینگ RTX 4060",
+        "description": "نمایشگر ۱۵.۶ اینچ ۱۴۴ هرتز، گرافیک RTX 4060"
       },
       "ps": {
-        "title": "Rice Pudding",
-        "description": "Creamy rice pudding flavored with cardamom and cinnamon"
+        "title": "Gaming Laptop RTX 4060",
+        "description": "15.6-inch 144Hz display, RTX 4060 graphics"
       }
     },
     "attributes": [
-      { "key": "sweet", "value": true },
-      { "key": "vegetarian", "value": true }
+      {
+        "key": "gpu",
+        "value": "RTX 4060"
+      },
+      {
+        "key": "refreshRate",
+        "value": "144Hz"
+      }
     ],
-    "price": 75,
+    "price": 72000,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1551024506-0bccd828d307" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1551024506-0bccd828d307" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
-    "rating": 4.2,
-    "ratingCount": 61,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
+    "rating": 4.7,
+    "ratingCount": 24,
     "note": null
   },
   {
+    "shopTitle": "Digital Computers & Laptops",
     "translation": {
       "en": {
-        "title": "Date Milkshake",
-        "description": "Creamy milkshake blended with sweet dates and milk"
+        "title": "All-in-One PC 24-Inch",
+        "description": "Space-saving all-in-one desktop computer"
       },
       "fa": {
-        "title": "شیک خرما",
-        "description": "شیک خامه‌ای با خرمای شیرین و شیر"
+        "title": "کامپیوتر آل‌این‌وان ۲۴ اینچ",
+        "description": "کامپیوتر رومیزی آل‌این‌وان صرفه‌جو در فضا"
       },
       "ps": {
-        "title": "Date Milkshake",
-        "description": "Creamy milkshake blended with sweet dates and milk"
+        "title": "All-in-One PC 24-Inch",
+        "description": "Space-saving all-in-one desktop computer"
       }
     },
     "attributes": [
-      { "key": "cold", "value": true },
-      { "key": "vegetarian", "value": true }
+      {
+        "key": "screenSize",
+        "value": "24 inch"
+      },
+      {
+        "key": "ram",
+        "value": "8GB"
+      }
     ],
-    "price": 120,
+    "price": 35500,
     "media": [
-      { "type": "cover", "url": "https://images.unsplash.com/photo-1577805947697-89e18249d767" },
-      { "type": "profile", "url": "https://images.unsplash.com/photo-1577805947697-89e18249d767" }
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1547082299-de196ea013d6?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1547082299-de196ea013d6?auto=format&fit=crop&w=400&q=60"
+      }
     ],
     "city": "herat",
-    "rating": 4.5,
-    "ratingCount": 73,
-    "shop": "6a3240ce6b3faaf498a48abc",
-    "category": "6a3241fd943292166f70e2b0",
+    "rating": 4.3,
+    "ratingCount": 18,
+    "note": null
+  },
+  {
+    "shopTitle": "Silk Road Computers",
+    "translation": {
+      "en": {
+        "title": "24-Inch Computer Monitor",
+        "description": "Full HD IPS monitor for work and gaming"
+      },
+      "fa": {
+        "title": "مانیتور کامپیوتر ۲۴ اینچ",
+        "description": "مانیتور IPS با کیفیت Full HD برای کار و بازی"
+      },
+      "ps": {
+        "title": "24-Inch Computer Monitor",
+        "description": "Full HD IPS monitor for work and gaming"
+      }
+    },
+    "attributes": [
+      {
+        "key": "resolution",
+        "value": "1920x1080"
+      },
+      {
+        "key": "panelType",
+        "value": "IPS"
+      }
+    ],
+    "price": 9200,
+    "media": [
+      {
+        "type": "cover",
+        "url": "https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&w=400&q=60"
+      },
+      {
+        "type": "profile",
+        "url": "https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&w=400&q=60"
+      }
+    ],
+    "city": "herat",
+    "rating": 4.4,
+    "ratingCount": 22,
     "note": null
   }
-
-
-
-
-
 ]

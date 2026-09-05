@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../services/api';
+import { normalizeCategory } from '../helpers/marketplace';
 
 export function useCategories(currentLanguage) {
   const [categories, setCategories] = useState([]);
@@ -14,7 +15,13 @@ export function useCategories(currentLanguage) {
       .getCategories()
       .then((response) => {
         const list = response?.data?.data?.categories || [];
-        if (!cancelled) setCategories(Array.isArray(list) ? list : []);
+        if (!cancelled) {
+          setCategories(
+            Array.isArray(list)
+              ? list.map((category) => normalizeCategory(category, currentLanguage))
+              : [],
+          );
+        }
       })
       .catch((err) => {
         if (!cancelled) setError(err);

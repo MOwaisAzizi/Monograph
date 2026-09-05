@@ -38,7 +38,7 @@ export const getAllItems = catchAsync(async (req, res, next) => {
   if (req.query.type) filter.type = req.query.type;
 
   const Items = await Item.find(filter)
-    .populate("shop", "translation")
+    .populate("shop", "translation media")
     .populate("category", "translation");
 
   res.status(200).json({
@@ -50,7 +50,7 @@ export const getAllItems = catchAsync(async (req, res, next) => {
 
 export const getItem = catchAsync(async (req, res, next) => {
   const itemDoc = await Item.findById(req.params.id)
-    .populate("shop", "translation")
+    .populate("shop", "translation media")
     .populate("category", "translation");
 
   if (!itemDoc) {
@@ -117,7 +117,7 @@ export const similarItems = catchAsync(async (req, res, next) => {
   })
     .sort({ rating: -1, createdAt: -1 })
     .limit(10)
-    .populate("shop", "translation")
+    .populate("shop", "translation media")
     .populate("category", "translation")
     .lean();
   console.log("similar");

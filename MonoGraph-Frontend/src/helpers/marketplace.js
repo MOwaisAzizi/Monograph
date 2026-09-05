@@ -52,6 +52,19 @@ export const pickTranslation = (translation, language = DEFAULT_LANGUAGE) => {
   return candidate;
 };
 
+export const normalizeCategory = (category = {}, language = DEFAULT_LANGUAGE) => {
+  const translation = normalizeTranslation(category.translation);
+  const localized = pickTranslation(translation, language);
+
+  return {
+    ...category,
+    id: category._id || category.id,
+    key: category._id || category.id,
+    label: localized.title || '',
+    translation,
+  };
+};
+
 export const formatPrice = (price) => {
   if (price === null || price === undefined || price === '') {
     return 'Price on request';
@@ -85,6 +98,8 @@ export const normalizeItem = (item = {}) => {
     city: item.city || item.location?.address?.en || 'Herat',
     shopTranslation,
     shopId: item.shop?._id || item.shop?.id || item.shop,
+    shopProfile: pickImageUri(item.shop?.media, 'profile'),
+    shopCoverImage: pickImageUri(item.shop?.media, 'cover'),
     distance: item.distance || 5,
     categoryTranslation,
     locationText: item.location?.address?.en || item.location?.address?.fa || item.city || 'Herat',

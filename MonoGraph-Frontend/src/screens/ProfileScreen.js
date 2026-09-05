@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Image, Modal, Pressable, ScrollView, Text, TextInput, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { useFocusEffect } from '@react-navigation/native';
 import api from '../services/api';
 import { normalizeUser, normalizeItem, normalizeShop } from '../helpers/marketplace';
 import { ActionPill, ScreenShell, SectionHeader, StatTile } from '../components/ui';
@@ -155,8 +156,11 @@ export default function ProfileScreen({ navigation }) {
       setSaving(false);
     }
   };
-  useEffect(() => {
-    if (!accessToken) return;
+  const loadProfile = useCallback(() => {
+    if (!accessToken) {
+      setProfile(null);
+      return undefined;
+    }
 
     let mounted = true;
 
@@ -186,6 +190,8 @@ export default function ProfileScreen({ navigation }) {
       mounted = false;
     };
   }, [accessToken, dispatch]);
+
+  useFocusEffect(loadProfile);
 
   const handleToggleFavoriteItem = async (itemId) => {
     try {

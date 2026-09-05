@@ -6,11 +6,11 @@ import { getText } from '../i18n';
 
 const pad = (number) => String(number).padStart(2, '0');
 const dateKey = (date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-const meetingPlaceLabel = (place, language) =>
-  place?.location?.address?.[language] ||
-  place?.location?.address?.en ||
-  place?.city ||
-  '';
+const meetingPlaceLabel = (place, language) => {
+  const address = place?.location?.address;
+  const localized = address?.[language]?.title || address?.[language] || address?.en?.title || address?.en;
+  return localized || place?.city || '';
+};
 export default function MeetupSchedulerModal({ visible, onClose, onConfirm, loading, language }) {
   const dates = useMemo(() => Array.from({ length: 10 }, (_, index) => {
     const date = new Date();

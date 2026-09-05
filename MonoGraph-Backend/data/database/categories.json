@@ -1,74 +1,74 @@
 [
   {
     "translation": {
-      "en": { "title": "Restaurants" },
-      "fa": { "title": "رستوران‌ها" },
-      "ps": { "title": "رستورانتونه" }
+      "en": { "title": "Furniture" },
+      "fa": { "title": "مبلمان" },
+      "ps": { "title": "فرنیچر" }
     },
-    "icon": "restaurant",
+    "icon": "bed",
     "order": 1
   },
   {
     "translation": {
-      "en": { "title": "Cafes" },
-      "fa": { "title": "کافه‌ها" },
-      "ps": { "title": "کافې" }
+      "en": { "title": "Bikes" },
+      "fa": { "title": "دوچرخه‌ها" },
+      "ps": { "title": "بایسکلونه" }
     },
-    "icon": "cafe",
+    "icon": "bicycle",
     "order": 2
   },
   {
     "translation": {
-      "en": { "title": "Pharmacies" },
-      "fa": { "title": "داروخانه‌ها" },
-      "ps": { "title": "داروخانې" }
+      "en": { "title": "Phones" },
+      "fa": { "title": "تلفن‌ها" },
+      "ps": { "title": "ټیلیفونونه" }
     },
-    "icon": "medkit",
+    "icon": "phone-portrait",
     "order": 3
   },
   {
     "translation": {
-      "en": { "title": "Hotels" },
-      "fa": { "title": "هتل‌ها" },
-      "ps": { "title": "هوټلونه" }
+      "en": { "title": "Cars" },
+      "fa": { "title": "موترها" },
+      "ps": { "title": "موټرونه" }
     },
-    "icon": "bed",
+    "icon": "car",
     "order": 4
   },
   {
     "translation": {
-      "en": { "title": "Gyms" },
-      "fa": { "title": "باشگاه‌های ورزشی" },
-      "ps": { "title": "جمخانه‌ونه" }
+      "en": { "title": "Electronics" },
+      "fa": { "title": "الکترونیک" },
+      "ps": { "title": "بریښنایي توکي" }
     },
-    "icon": "fitness",
+    "icon": "hardware-chip",
     "order": 5
   },
   {
     "translation": {
-      "en": { "title": "Shopping" },
-      "fa": { "title": "مراکز خرید" },
-      "ps": { "title": "پلورنځي" }
+      "en": { "title": "TVs" },
+      "fa": { "title": "تلویزیون‌ها" },
+      "ps": { "title": "ټیلوېزیونونه" }
     },
-    "icon": "cart",
+    "icon": "tv",
     "order": 6
   },
   {
     "translation": {
-      "en": { "title": "Salons" },
-      "fa": { "title": "آرایشگاه‌ها" },
-      "ps": { "title": "سالونونه" }
+      "en": { "title": "Carpets" },
+      "fa": { "title": "قالین‌ها" },
+      "ps": { "title": "غالۍ" }
     },
-    "icon": "cut",
+    "icon": "grid",
     "order": 7
   },
   {
     "translation": {
-      "en": { "title": "Education" },
-      "fa": { "title": "مراکز آموزشی" },
-      "ps": { "title": "تعلیمي مرکزونه" }
+      "en": { "title": "Computers" },
+      "fa": { "title": "کامپیوترها" },
+      "ps": { "title": "کمپیوټرونه" }
     },
-    "icon": "school",
+    "icon": "desktop",
     "order": 8
   }
 ]

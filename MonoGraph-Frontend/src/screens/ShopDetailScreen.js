@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Pressable, ScrollView, Text, Image, View } from 'react-native';
 import { useSelector } from 'react-redux';
+import api from '../services/api';
 import { useShopDetail } from '../hooks/useShopDetail';
 import { ActionPill, Chip, DetailHeaderActions, ScreenShell, SectionHeader } from '../components/ui';
 import { ItemCard, ShopCard } from '../components/cards';
@@ -16,11 +17,18 @@ export default function ShopDetailScreen({ route, navigation }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const toggleFavorite = async () => {
+    if (!user) {
+      navigation.navigate('Login');
+      return;
+    }
+
     try {
       await api.toggleFavorite(null, id);
       setIsFavorite((value) => !value);
-    } catch {
-      navigation.navigate('Login');
+    } catch (error) {
+      if (error?.response?.status === 401) {
+        navigation.navigate('Login');
+      }
     }
   };
   const toggleFollow = async () => {
@@ -58,7 +66,11 @@ export default function ShopDetailScreen({ route, navigation }) {
                 {getLocalizedValue(shop?.translation, currentLanguage) ||
                   getText(currentLanguage, 'shopFallback')}
               </Text>
-              <Text className="mt-1 text-[12px] text-[#3f4545]">{shop?.address || 'Herat'}</Text>
+              <Text className="mt-1 text-[12px] text-[#3f4545]">
+                {getLocalizedValue(shop?.location?.address, currentLanguage) ||
+                  getLocalizedValue(shop?.address, currentLanguage) ||
+                  'Herat'}
+              </Text>
             </View>
             <ActionPill
               label={

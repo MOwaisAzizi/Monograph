@@ -58,7 +58,11 @@ const HERAT_PLACES = heratMeetingPlaces.map((address) => ({
   city: "herat",
 
   location: {
-    address,
+    address: {
+      en: { title: address.en },
+      fa: { title: address.fa },
+      ps: { title: address.ps },
+    },
     geoPosition: {
       type: "Point",
       coordinates: [0, 0],

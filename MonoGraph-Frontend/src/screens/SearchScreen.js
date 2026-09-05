@@ -30,7 +30,11 @@ export default function SearchScreen({ navigation, route }) {
   const hasQuery = Boolean(search.trim() || category);
   const showEmptyState = !loading && hasQuery && results.length === 0;
 
-  const handleCategoryChange = (nextCategoryKey) => {
+  const handleCategoryChange = (selectedCategory) => {
+    const nextCategoryKey =
+      typeof selectedCategory === 'object'
+        ? selectedCategory?.key || selectedCategory?._id || selectedCategory?.id
+        : selectedCategory;
     const nextCategory = category === nextCategoryKey ? '' : nextCategoryKey;
     setCategory(nextCategory);
     navigation.setParams({
@@ -118,36 +122,36 @@ export default function SearchScreen({ navigation, route }) {
         </View> */}
 
         <View className="mt-5 w-full">
-  {results.map((entry) => (
-    <View key={entry.id} className="mb-3 w-full">
-      {selectedTab === "items" ? (
-        <SearchItemCard
-          item={entry}
-          onPress={() =>
-            navigation.navigate("Product", { id: entry.id })
-          }
-          style={{ width: "100%" }}
-        />
-      ) : (
-        <ShopCard
-          shop={entry}
-          onPress={() =>
-            navigation.navigate("ShopDetail", { id: entry.id })
-          }
-          style={{ width: "100%" }}
-        />
-      )}
-    </View>
-  ))}
+          {results.map((entry) => (
+            <View key={entry.id} className="mb-3 w-full">
+              {selectedTab === "items" ? (
+                <SearchItemCard
+                  item={entry}
+                  onPress={() =>
+                    navigation.navigate("Product", { id: entry.id })
+                  }
+                  style={{ width: "100%" }}
+                />
+              ) : (
+                <ShopCard
+                  shop={entry}
+                  onPress={() =>
+                    navigation.navigate("ShopDetail", { id: entry.id })
+                  }
+                  style={{ width: "100%" }}
+                />
+              )}
+            </View>
+          ))}
 
-  {showEmptyState && (
-    <View className="w-full rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
-      <Text className="text-[12px] text-[#89a1a9]">
-        {getText(currentLanguage, "noResults")}
-      </Text>
-    </View>
-  )}
-</View>
+          {showEmptyState && (
+            <View className="w-full rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
+              <Text className="text-[12px] text-[#89a1a9]">
+                {getText(currentLanguage, "noResults")}
+              </Text>
+            </View>
+          )}
+        </View>
       </View>
     </ScreenShell>
   );

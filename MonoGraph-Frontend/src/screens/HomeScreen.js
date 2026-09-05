@@ -30,26 +30,26 @@ export function CategoryFilterRow({ categories, activeKey, onSelect }) {
       contentContainerClassName="px-2 pt-4 gap-6"
     >
       {keyedCategories.map((cat, index) => {
-        const active = cat.key === activeKey;
+        const categoryKey = cat.key || cat._id || cat.id || `category-${index}`;
+        const active = categoryKey === activeKey;
 
         return (
           <View
-            key={`${cat.key}-${cat.id || cat._id || index}`}
+            key={categoryKey}
             className="items-center"
           >
-            <IconCircleButton
-              icon={cat.icon}
-              active={active}
-              onPress={() => onSelect(cat.key)}
-              size={24}
-            />
+           <IconCircleButton
+  icon={cat.icon}
+  active={active}
+  onPress={() => onSelect(cat)}
+  size={24}
+/>
 
             <Text
-              className={`mt-2 text-[12px] ${
-                active
+              className={`mt-2 text-[12px] ${active
                   ? "font-semibold text-[#0f3d3e]"
                   : "text-[#7c9291]"
-              }`}
+                }`}
             >
               {cat.label}
             </Text>
@@ -150,46 +150,45 @@ export default function HomeScreen({ navigation }) {
         <CategoryFilterRow
           categories={categories}
           activeKey={activeCategory}
-          onSelect={(categoryKey) => {
-            const category = categories.find((cat) => cat.key === categoryKey);
-            if (!category) return;
-            setActiveCategory((current) => (current === category.key ? '' : category.key));
-          }}
+          onSelect={(category) => {
+  const categoryKey = category.key || category._id || category.id;
+  setActiveCategory((current) => (current === categoryKey ? '' : categoryKey));
+}}
         />
       </View>
       {/* Vertically scrolling list of sections, each scrolling horizontally */}
       <View className="mt-1">
-  {sections.map((section, index) => (
-    <View key={section.key} className={index === 0 ? 'mt-2' : 'mt-10'}>
-      <SectionHeader
-        title={section.title}
-        actionLabel={section.actionLabel}
-        onAction={() =>
-          navigation.navigate('Search', { search: '', category: activeCategory })
-        }
-      />
-      {section.data.length ? (
-        <View className="mt-2">
-          {section.type === 'item' ? (
-            <HorizontalItemRow
-              data={section.data}
-              onPressItem={(id) => navigation.navigate('Product', { id })}
+        {sections.map((section, index) => (
+          <View key={section.key} className={index === 0 ? 'mt-2' : 'mt-10'}>
+            <SectionHeader
+              title={section.title}
+              actionLabel={section.actionLabel}
+              onAction={() =>
+                navigation.navigate('Search', { search: '', category: activeCategory })
+              }
             />
-          ) : (
-            <HorizontalShopRow
-              data={section.data}
-              onPressShop={(id) => navigation.navigate('ShopDetail', { id })}
-            />
-          )}
-        </View>
-      ) : (
-        <View className="mt-2 rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
-          <Text className="text-[12px] text-[#89a1a1]">Waiting for backend data.</Text>
-        </View>
-      )}
-    </View>
-  ))}
-</View>
+            {section.data.length ? (
+              <View className="mt-2">
+                {section.type === 'item' ? (
+                  <HorizontalItemRow
+                    data={section.data}
+                    onPressItem={(id) => navigation.navigate('Product', { id })}
+                  />
+                ) : (
+                  <HorizontalShopRow
+                    data={section.data}
+                    onPressShop={(id) => navigation.navigate('ShopDetail', { id })}
+                  />
+                )}
+              </View>
+            ) : (
+              <View className="mt-2 rounded-[24px] border border-dashed border-white/20 bg-white/5 px-4 py-5">
+                <Text className="text-[12px] text-[#89a1a1]">Waiting for backend data.</Text>
+              </View>
+            )}
+          </View>
+        ))}
+      </View>
     </ScreenShell>
   );
 }

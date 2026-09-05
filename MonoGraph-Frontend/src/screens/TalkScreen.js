@@ -59,6 +59,8 @@ export default function TalkScreen({ navigation }) {
         setConversations(nextConversations);
         setConversationCache((current) => ({ ...current, [activeTab]: nextConversations }));
       } catch (error) {
+        console.log('🥡🥠🥠🥠🥟')
+        console.log(error)
         setConversations([]);
       } finally {
         setLoading(false);

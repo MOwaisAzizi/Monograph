@@ -19,6 +19,6 @@ const locationSchema = new Schema(
   { _id: false, timestamps: true },
 );
 
-locationSchema.index({ coordinates: "2dsphere" });
+locationSchema.index({ "geoPosition.coordinates": "2dsphere" });
 
 export default locationSchema;

@@ -89,7 +89,8 @@ export default function ProductScreen({ route, navigation }) {
       price: Number(`${item.price || 0}`.replace(/[^\d.]/g, '')) || 0,
     });
   };
-
+  console.log('🥞🥞🥞🧇');
+  console.log(item);
   return (
     <ScreenShell scroll={false} contentClassName="flex-1 pb-6">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -136,6 +137,8 @@ export default function ProductScreen({ route, navigation }) {
                 shop={{
                   id: item?.shopId,
                   translation: item?.shopTranslation,
+                  profile: item?.shopProfile,
+                  coverImage: item?.shopCoverImage,
                   rating: item?.rating || '3',
                   category: item?.category,
                 }}

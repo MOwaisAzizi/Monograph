@@ -213,7 +213,12 @@ export default function ChatScreen({ route, navigation }) {
   const canRespondToOrder =
     Boolean(orderState?._id) &&
     orderState?.status === 'pending' &&
+    isOrderSeller &&
+    ['pending_seller', 'change_requested'].includes(orderState?.meetupStatus);
+  const showSellerOrderActions = Boolean(orderState?._id) &&
+    orderState?.status === 'pending' &&
     isOrderSeller;
+  const orderActionsLocked = showSellerOrderActions && !canRespondToOrder;
   const isBuyerAwaitingMeetup = Boolean(orderState?._id) &&
     orderState?.status === 'pending' && orderState?.meetupStatus === 'pending_buyer_confirmation' && !isOrderSeller;
   const canCancelOrder = Boolean(orderState?._id) &&
@@ -541,12 +546,12 @@ export default function ChatScreen({ route, navigation }) {
                 </Pressable>
               </View>
             ) : null}
-            {canRespondToOrder ? (
+            {showSellerOrderActions ? (
               <View className="mt-3 flex-row items-center gap-2">
                 <Pressable
                   onPress={() => setScheduleVisible(true)}
-                  disabled={actionLoading}
-                  className="rounded-xl bg-[#111111] px-5 py-2"
+                  disabled={actionLoading || orderActionsLocked}
+                  className={`rounded-xl px-5 py-2 ${orderActionsLocked || actionLoading ? 'bg-[#aebdbc]' : 'bg-[#111111]'}`}
                 >
                   <Text className="text-[15px] font-semibold text-white">
                     {getText(language, 'acceptOrder')}
@@ -554,10 +559,10 @@ export default function ChatScreen({ route, navigation }) {
                 </Pressable>
                 {orderState.status === 'pending' ? <Pressable
                   onPress={() => runOrderAction('reject')}
-                  disabled={actionLoading}
-                  className="rounded-xl border border-[#d6b06b] bg-white px-5 py-2"
+                  disabled={actionLoading || orderActionsLocked}
+                  className={`rounded-xl border px-5 py-2 ${orderActionsLocked || actionLoading ? 'border-[#c4cecd] bg-[#eef2f1]' : 'border-[#d6b06b] bg-white'}`}
                 >
-                  <Text className="text-[15px] font-semibold text-[#992f2f]">Reject Order</Text>
+                  <Text className={`text-[15px] font-semibold ${orderActionsLocked || actionLoading ? 'text-[#9aa8a7]' : 'text-[#992f2f]'}`}>Reject Order</Text>
                 </Pressable> : null}
               </View>
             ) : null}
@@ -617,7 +622,7 @@ export default function ChatScreen({ route, navigation }) {
             MESSAGE INPUT
         ========================== */}
 
-        <View className="mt-2 flex-row items-center gap-2 rounded-[20px] border border-[#dbe5e4] bg-white px-3 py-2">
+        <View className="my-5 flex-row items-center gap-2 rounded-[20px] border border-[#dbe5e4] bg-white px-3 py-2">
           <TextInput
             value={draft}
             onChangeText={setDraft}

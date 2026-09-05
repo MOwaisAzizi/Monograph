@@ -11,7 +11,7 @@ export const singleField = new Schema(
       title: { type: String, required: [true, "Field title is required"] },
     },
   },
-  { _id: false, timestamps: true },
+  { _id: false },
 );
 
 export const multipleFields = new Schema(
